@@ -3,16 +3,32 @@
     "rules": "apps/firebase/post-gpt/firestore.rules",
     "indexes": "apps/firebase/post-gpt/firestore.indexes.json"
   },
-  "hosting": {
-    "public": "apps/firebase/post-gpt/public",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ]
-  },
+  "hosting": [
+    {
+      "target": "post-gpt",
+      "public": "dist/apps/site",
+      "cleanUrls": true,
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    },
+    {
+      "target": "postgpt",
+      "public": "dist/apps/app",
+      "cleanUrls": true,
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ],
   "storage": {
     "rules": "apps/firebase/post-gpt/storage.rules"
   },

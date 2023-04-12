@@ -1,6 +1,7 @@
 {
   "projects": {
-    "production": "post-gpt"
+    "production": "post-gpt",
+    "default": "post-gpt"
   },
   "targets": {},
   "etags": {}
