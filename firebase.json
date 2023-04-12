@@ -1,0 +1,49 @@
+{
+  "firestore": {
+    "rules": "apps/firebase/post-gpt/firestore.rules",
+    "indexes": "apps/firebase/post-gpt/firestore.indexes.json"
+  },
+  "hosting": {
+    "public": "apps/firebase/post-gpt/public",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
+  "storage": {
+    "rules": "apps/firebase/post-gpt/storage.rules"
+  },
+  "functions": {
+    "codebase": "firebase-post-gpt",
+    "predeploy": ["npx nx build firebase-post-gpt"],
+    "runtime": "nodejs16",
+    "source": "dist/apps/firebase/post-gpt"
+  },
+  "emulators": {
+    "auth": {
+      "port": 9099
+    },
+    "functions": {
+      "port": 5001
+    },
+    "firestore": {
+      "port": 8080
+    },
+    "hosting": {
+      "port": 5000
+    },
+    "storage": {
+      "port": 9199
+    },
+    "eventarc": {
+      "port": 9299
+    },
+    "ui": {
+      "enabled": true
+    },
+    "singleProjectMode": true
+  }
+}
