@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "license": "UNLICENSED",
   "scripts": {
-    "start": "npm run start-firebase & (node -e 'setTimeout(()=>{},5000)' && npm run start-site)",
+    "start": "npm run start-firebase & (node -e 'setTimeout(()=>{},5000)' && npm run start-app)",
     "start-app": "nx serve app",
     "start-site": "nx serve site",
     "start-firebase": "nx serve firebase-post-gpt",
@@ -23,6 +23,7 @@
     "firebase-functions": "^4.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-router-dom": "6.8.1",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
@@ -45,6 +46,7 @@
     "@types/node": "18.14.2",
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
+    "@types/react-router-dom": "5.3.3",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
     "@typescript-eslint/parser": "^5.36.1",
     "@vitejs/plugin-react": "^3.0.0",
