@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@postgpt/common-ui": ["libs/common-ui/src/index.ts"],
+      "@postgpt/commonui": ["libs/common-ui/src/index.ts"],
       "@postgpt/firebase": ["libs/firebase/src/index.ts"]
     }
   },

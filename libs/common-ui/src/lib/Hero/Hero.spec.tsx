@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import CommonUi from './common-ui';
+import Hero from './Hero';
 
-describe('CommonUi', () => {
+describe('Hero', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<CommonUi />);
+    const { baseElement } = render(<Hero />);
     expect(baseElement).toBeTruthy();
   });
 });
