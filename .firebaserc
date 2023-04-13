@@ -3,6 +3,17 @@
     "production": "post-gpt",
     "default": "post-gpt"
   },
-  "targets": {},
+  "targets": {
+    "post-gpt": {
+      "hosting": {
+        "app": [
+          "postgpt"
+        ],
+        "site": [
+          "post-gpt"
+        ]
+      }
+    }
+  },
   "etags": {}
 }

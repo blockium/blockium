@@ -5,7 +5,7 @@
   },
   "hosting": [
     {
-      "target": "post-gpt",
+      "target": "site",
       "public": "dist/apps/site",
       "cleanUrls": true,
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
@@ -17,7 +17,7 @@
       ]
     },
     {
-      "target": "postgpt",
+      "target": "app",
       "public": "dist/apps/app",
       "cleanUrls": true,
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
