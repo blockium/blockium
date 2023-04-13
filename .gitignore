@@ -33,6 +33,7 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
+*.pem
 
 # System Files
 .DS_Store
@@ -49,3 +50,11 @@ firestore-debug.log
 pubsub-debug.log
 ui-debug.log
 
+# local env files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# typescript
+*.tsbuildinfo
