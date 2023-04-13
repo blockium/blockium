@@ -8,7 +8,7 @@
     "start-site": "nx serve site",
     "start-firebase": "nx serve firebase-post-gpt",
     "build": "npm run build-app && npm run build-site && npm run build-firebase",
-    "build-app": "nx build site --configuration production",
+    "build-app": "nx build app --configuration production",
     "build-site": "nx build site --configuration production",
     "build-firebase": "nx build firebase-post-gpt --configuration production",
     "deploy": "nx deploy firebase-post-gpt"
