@@ -1,0 +1,23 @@
+# Ignore node_modules folder
+node_modules
+**/node_modules/*
+
+# Ignore development files
+*.log
+# *.lock
+*.swp
+*.bak
+*.map
+*.tmp
+
+# Ignore project specific files
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Ignore common build files
+coverage/
+
+.git
