@@ -58,3 +58,6 @@ ui-debug.log
 
 # typescript
 *.tsbuildinfo
+
+# whatsapp-web.js
+.wwebjs*

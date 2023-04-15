@@ -15,7 +15,7 @@
         "bundle": false,
         "main": "apps/zapgateway/src/main.ts",
         "tsConfig": "apps/zapgateway/tsconfig.app.json",
-        "assets": ["apps/zapgateway/src/assets"],
+        "assets": ["apps/zapgateway/public/*", "apps/zapgateway/.env"],
         "generatePackageJson": true,
         "esbuildOptions": {
           "sourcemap": true,
