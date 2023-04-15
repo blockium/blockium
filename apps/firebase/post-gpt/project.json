@@ -12,7 +12,7 @@
         "main": "apps/firebase/post-gpt/src/index.ts",
         "tsConfig": "apps/firebase/post-gpt/tsconfig.app.json",
         "packageJson": "apps/firebase/post-gpt/package.json",
-        "assets": []
+        "assets": ["apps/firebase/post-gpt/.env"]
       }
     },
     "serve": {
