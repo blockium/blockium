@@ -28,7 +28,7 @@ io.on('connection', function (socket) {
 
   client.on('qr', (qr) => {
     status = 'qr';
-    console.log('QR RECEIVED', qr);
+    console.log('QRCode recebido');
     qrcode.toDataURL(qr, (err, url) => {
       socket.emit('qr', url);
       socket.emit('message', 'QRCode recebido, aponte a câmera  seu celular!');
