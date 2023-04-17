@@ -1,7 +1,6 @@
 import http from 'http';
 import express from 'express';
 import path from 'path';
-// import axios from 'axios';
 import qrcode from 'qrcode';
 import { Server } from 'socket.io';
 
