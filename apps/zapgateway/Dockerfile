@@ -1,4 +1,4 @@
-FROM docker.io/node:lts-alpine
+FROM docker.io/node:gallium-alpine
 
 RUN apk add chromium
 
@@ -13,7 +13,7 @@ WORKDIR /app
 RUN addgroup --system zapgateway && \
           adduser --system -G zapgateway zapgateway
 
-COPY dist/apps/zapgateway zapgateway
+COPY . zapgateway
 RUN chown -R zapgateway:zapgateway .
 
 RUN npm ci --prefix zapgateway --omit=dev --only=production

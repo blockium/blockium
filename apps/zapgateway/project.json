@@ -15,7 +15,12 @@
         "bundle": false,
         "main": "apps/zapgateway/src/main.ts",
         "tsConfig": "apps/zapgateway/tsconfig.app.json",
-        "assets": ["apps/zapgateway/public/*", "apps/zapgateway/.env"],
+        "assets": [
+          "apps/zapgateway/public/*",
+          "apps/zapgateway/.env",
+          "apps/zapgateway/fly.toml",
+          "apps/zapgateway/Dockerfile"
+        ],
         "generatePackageJson": true,
         "esbuildOptions": {
           "sourcemap": true,
@@ -75,7 +80,7 @@
     },
     "docker-build": {
       "dependsOn": ["build"],
-      "command": "docker build -f apps/zapgateway/Dockerfile . -t zapgateway"
+      "command": "docker build -f apps/zapgateway/Dockerfile dist/apps/zapgateway -t zapgateway"
     }
   },
   "tags": []

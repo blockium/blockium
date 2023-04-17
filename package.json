@@ -15,9 +15,10 @@
     "build-firebase": "nx build firebase-post-gpt --configuration production",
     "build-zap": "nx build zapgateway --configuration production",
     "build-zap-docker": "npx nx docker-build zapgateway",
-    "deploy": "nx deploy firebase-post-gpt",
-    "deploy-functions": "nx deploy firebase-post-gpt -- --only functions",
-    "deploy-hosting": "nx deploy firebase-post-gpt -- --only hosting"
+    "deploy": "npm run build-firebase && nx deploy firebase-post-gpt",
+    "deploy-functions": "npm run build-firebase && nx deploy firebase-post-gpt -- --only functions",
+    "deploy-hosting": "npm run build-firebase && nx deploy firebase-post-gpt -- --only hosting",
+    "deploy-zap": "npm run build-zap && flyctl deploy dist/apps/zapgateway"
   },
   "private": true,
   "dependencies": {
