@@ -31,7 +31,8 @@ const validateParams = (request, response) => {
     return false;
   }
 
-  if (!phone.match(/^\+55\d{2}\d{5}\d{4}$/)) {
+  // Check a Brazilian phone number
+  if (!phone.match(/^\d{2}\d{2}\d{5}\d{4}$/)) {
     response.status(400).send('O telefone deve vir no formato +55XXYYYYYZZZZ');
     return false;
   }
