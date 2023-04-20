@@ -39,18 +39,33 @@ const onMessage = async (msg, client: Client) => {
 
     // Get phone + person name
     const contact = await msg.getContact();
-    // console.log('contact', contact);
 
     // Sent a POST request to the Firabase chatgpt callable function
-    const answer = await axios.post(process.env.POST_GPT_URL, {
-      prompt: msg.body,
-      phone: contact.number,
-      name: contact.name,
-    });
+    try {
+      const answer = await axios({
+        method: 'post',
+        url: process.env.POST_GPT_URL,
+        data: {
+          prompt: msg.body,
+          phone: contact.number,
+          name: contact.pushname,
+        },
+        validateStatus: (status: number) => {
+          return status < 600;
+        },
+      });
 
-    // Send the answer to the user
-    sent = true;
-    client.sendMessage(msg.from, answer.data);
+      // Send the answer to the user
+      sent = true;
+      client.sendMessage(msg.from, answer.data);
+      //
+    } catch (error) {
+      console.error(error);
+      client.sendMessage(
+        msg.from,
+        'Desculpe, houve um erro ao processar sua mensagem'
+      );
+    }
   }
 };
 

@@ -31,14 +31,16 @@ const validateParams = (request, response) => {
     return false;
   }
 
-  // Check a Brazilian phone number
-  if (!phone.match(/^\d{2}\d{2}\d{5}\d{4}$/)) {
-    response.status(400).send('O telefone deve vir no formato +55XXYYYYYZZZZ');
+  // Check a Brazilian phone number with 10 or 11 digits
+  if (!phone.match(/^\d{2}\d{2}\d{4,5}\d{4}$/)) {
+    response
+      .status(400)
+      .send('O telefone deve vir com 10 ou 11 dígitos, incluindo pais e DDD');
     return false;
   }
 
-  // Validate person name, accept only letters, letters with accents and spaces
-  if (!name || !name.match(/^[A-Za-zÀ-ú ]+$/)) {
+  // Validate person name
+  if (!name || name.trim() === '') {
     response.status(400).send('Por favor, informe seu nome');
     return false;
   }
@@ -47,7 +49,9 @@ const validateParams = (request, response) => {
 };
 
 const getUser = async (request, response) => {
-  const { phone, name } = request.body;
+  const { phone } = request.body;
+  const name = request.body.name || phone;
+
   let user: User = null;
 
   // Get a user data filtered by phone
@@ -73,7 +77,7 @@ const getUser = async (request, response) => {
     // it may indicate that phone number is being used by another person
     if (user.name !== name) {
       response
-        .status(500)
+        .status(412)
         .send(
           'O número de telefone informado está cadastrado para outra pessoa. Favor entrar em contato com o suporte.'
         );
@@ -83,7 +87,7 @@ const getUser = async (request, response) => {
     // more than one user:
   } else if (users.length > 1) {
     response
-      .status(500)
+      .status(412)
       .send(
         'Foi encontrado mais de um usuário com esse número. Favor entrar em contato com o suporte.'
       );
@@ -145,7 +149,7 @@ export const chatgpt = runWith({ secrets: [openAiApiKey] }).https.onRequest(
 
     if (typeof answer === 'boolean' && answer === false) {
       response
-        .status(500)
+        .status(424)
         .send(
           'Houve um erro ao processar a solicitação. Por favor, tente novamente.'
         );
