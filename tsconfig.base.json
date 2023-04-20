@@ -17,6 +17,7 @@
     "paths": {
       "@postgpt/commonui": ["libs/common-ui/src/index.ts"],
       "@postgpt/firebase": ["libs/firebase/src/index.ts"],
+      "@postgpt/theme": ["libs/theme/src/index.ts"],
       "@postgpt/types": ["libs/types/src/index.ts"]
     }
   },
