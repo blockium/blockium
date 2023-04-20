@@ -24,6 +24,8 @@
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
+    "@fontsource/lora": "^4.5.13",
+    "@fontsource/work-sans": "^4.5.14",
     "@mui/material": "^5.12.1",
     "@types/express": "~4.17.13",
     "axios": "^1.0.0",
