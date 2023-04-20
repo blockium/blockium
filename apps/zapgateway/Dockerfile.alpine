@@ -9,6 +9,7 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
 
 ENV HOST=0.0.0.0
 ENV PORT=8000
+ENV POST_GPT_URL='https://us-central1-post-gpt.cloudfunctions.net/chatgpt'
 
 WORKDIR /app
 
