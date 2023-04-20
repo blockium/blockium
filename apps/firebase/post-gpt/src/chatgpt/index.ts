@@ -96,7 +96,7 @@ const getUserPrompts = async (userId: string, limit: number) => {
   // Retrieve the user's prompt history
   const userPromptsQuery = await db
     .userPrompts(userId)
-    .orderBy('createdAt', 'asc')
+    .orderBy('createdAt', 'desc')
     .limit(limit)
     .get();
 
@@ -106,7 +106,7 @@ const getUserPrompts = async (userId: string, limit: number) => {
     }
   );
 
-  return userPrompts;
+  return userPrompts.reverse();
 };
 
 const saveUserPrompt = async (
