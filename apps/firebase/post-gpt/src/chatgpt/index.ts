@@ -7,16 +7,6 @@ import { chat } from './chat';
 
 const openAiApiKey = defineSecret('OPENAI_API_KEY');
 
-export const test = runWith({ secrets: [openAiApiKey] }).https.onRequest(
-  async (request, response) => {
-    const { prompt } = request.body;
-    const result = {
-      prompt,
-    };
-    response.status(200).send(result);
-  }
-);
-
 const validateParams = (request, response) => {
   const { prompt, phone, name } = request.body;
 
@@ -31,11 +21,9 @@ const validateParams = (request, response) => {
     return false;
   }
 
-  // Check a Brazilian phone number with 10 or 11 digits
-  if (!phone.match(/^\d{2}\d{2}\d{4,5}\d{4}$/)) {
-    response
-      .status(400)
-      .send('O telefone deve vir com 10 ou 11 dígitos, incluindo pais e DDD');
+  // Check any phone number
+  if (!phone.match(/^\d+$/)) {
+    response.status(400).send('O telefone deve conter apenas números');
     return false;
   }
 
