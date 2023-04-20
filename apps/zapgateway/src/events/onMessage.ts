@@ -26,7 +26,7 @@ const onMessage = async (msg, client: Client) => {
   }
 
   if (msg.body !== null && msg.type === 'chat') {
-    // Send message only if the response takes more than 5s
+    // Send message only if the response takes more than 15s
     let sent = false;
     setTimeout(() => {
       if (!sent) {
@@ -35,7 +35,7 @@ const onMessage = async (msg, client: Client) => {
           WAIT_MESSAGES[Math.floor(Math.random() * WAIT_MESSAGES.length)]
         );
       }
-    }, 5000);
+    }, 15000);
 
     // Get phone + person name
     const contact = await msg.getContact();
