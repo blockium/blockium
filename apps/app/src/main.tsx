@@ -1,6 +1,8 @@
 import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
+import { IntlProvider } from '@postgpt/i18n';
+import { ThemeProvider } from '@postgpt/theme';
 
 import App from './app/app';
 
@@ -9,8 +11,12 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <IntlProvider>
+      <ThemeProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ThemeProvider>
+    </IntlProvider>
   </StrictMode>
 );

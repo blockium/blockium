@@ -1,9 +1,14 @@
+import { Route, Routes } from 'react-router-dom';
+import Link from '@mui/material/Link';
+
+import { useIntlMessage } from '@postgpt/i18n';
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import styles from './app.module.scss';
 
-import { Route, Routes, Link } from 'react-router-dom';
-
 export function App() {
+  const msg = useIntlMessage();
+
   return (
     <>
       {/* START: routes */}
@@ -12,10 +17,10 @@ export function App() {
       <div role="navigation">
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <Link href="/">{msg('app.home')}</Link>
           </li>
           <li>
-            <Link to="/page-2">Page 2</Link>
+            <Link href="/page-2">Page 2</Link>
           </li>
         </ul>
       </div>
@@ -25,7 +30,7 @@ export function App() {
           element={
             <div>
               This is the generated root route.{' '}
-              <Link to="/page-2">Click here for page 2.</Link>
+              <Link href="/page-2">Click here for page 2.</Link>
             </div>
           }
         />
@@ -33,7 +38,7 @@ export function App() {
           path="/page-2"
           element={
             <div>
-              <Link to="/">Click here to go back to root page.</Link>
+              <Link href="/">Click here to go back to root page.</Link>
             </div>
           }
         />

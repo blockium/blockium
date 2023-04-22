@@ -1,5 +1,6 @@
 import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
+import { IntlProvider } from '@postgpt/i18n';
 import { ThemeProvider } from '@postgpt/theme';
 
 import App from './app/app';
@@ -9,8 +10,10 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <StrictMode>
-    <ThemeProvider>
-      <App />
-    </ThemeProvider>
+    <IntlProvider>
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
+    </IntlProvider>
   </StrictMode>
 );
