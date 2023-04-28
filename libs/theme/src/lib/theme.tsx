@@ -40,7 +40,8 @@ const palettes: PaletteConfig = {
   },
   site: {
     primary: {
-      main: '#53CCA5',
+      main: '#059669',
+      // main: '#53CCA5',
     },
     secondary: {
       main: '#0F172A',
