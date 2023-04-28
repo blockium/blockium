@@ -20,7 +20,7 @@ export const getWeeklyPostsPrompt = async (userId: string) => {
 
     Cada postagem deve ter:
     1: título da postagem 
-    2: descrição, com cerca de 200 caracteres
+    2: descrição, entre 200-400 caracteres
     3: hastags
     4: formato da postagem (feed, story ou reels)
     5: tipo:
