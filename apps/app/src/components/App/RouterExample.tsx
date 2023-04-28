@@ -4,9 +4,9 @@ import Link from '@mui/material/Link';
 import { useIntlMessage } from '@postgpt/i18n';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import styles from './app.module.scss';
+import styles from './App.module.scss';
 
-export function App() {
+export function App2() {
   const msg = useIntlMessage();
 
   return (
@@ -48,4 +48,4 @@ export function App() {
   );
 }
 
-export default App;
+export default App2;

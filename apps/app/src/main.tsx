@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { IntlProvider } from '@postgpt/i18n';
 import { ThemeProvider } from '@postgpt/theme';
 
-import { App } from './App';
+import { App } from './components';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
