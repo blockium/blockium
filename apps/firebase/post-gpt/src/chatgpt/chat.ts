@@ -64,7 +64,7 @@ export const chat = async (
         prompt,
     });
 
-    logger.info('messages:', messages);
+    // logger.info(messages);
 
     const chatRequest: CreateChatCompletionRequest = {
       model: 'gpt-3.5-turbo',
