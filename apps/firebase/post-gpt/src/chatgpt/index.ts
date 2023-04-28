@@ -1,5 +1,7 @@
 import { runWith } from 'firebase-functions';
 import { defineSecret } from 'firebase-functions/params';
+import cors from 'cors';
+
 import { User, UserPrompt } from '@postgpt/types';
 
 import { db } from '../utils/db';
@@ -118,33 +120,34 @@ const saveUserPrompt = async (
 
 export const chatgpt = runWith({ secrets: [openAiApiKey] }).https.onRequest(
   async (request, response) => {
-    if (!validateParams(request, response)) return;
+    const corsObj = cors({ origin: true });
+    corsObj(request, response, async () => {
+      if (!validateParams(request, response)) return;
 
-    // Retrieve user id from Firestore. Saves new users if they don't exist
-    const user = await getUser(request, response);
-    if (!user) return;
+      // Retrieve user id from Firestore. Saves new users if they don't exist
+      const user = await getUser(request, response);
+      if (!user) return;
 
-    // Retrieve the user's prompt history
-    const prevPrompts = await getUserPrompts(
-      user.id,
-      Number(process.env.PROMPT_HISTORY_LIMIT)
-    );
+      // Retrieve the user's prompt history
+      const limit = Number(process.env.PROMPT_HISTORY_LIMIT);
+      const prevPrompts = limit > 0 ? await getUserPrompts(user.id, limit) : [];
 
-    // Send the prompt to the OpenAI API
-    const { prompt } = request.body;
-    const apiKey = openAiApiKey.value();
-    const answer = await chat(prompt, prevPrompts, apiKey);
+      // Send the prompt to the OpenAI API
+      const { prompt } = request.body;
+      const apiKey = openAiApiKey.value() || process.env.OPENAI_API_KEY;
+      const answer = await chat(prompt, prevPrompts, apiKey);
 
-    if (typeof answer === 'boolean' && answer === false) {
-      response
-        .status(424)
-        .send(
-          'Houve um erro ao processar a solicitação. Por favor, tente novamente.'
-        );
-    } else {
-      // Save the user's prompt and answer to the history
-      await saveUserPrompt(user.id, prompt, answer);
-      response.status(200).send(answer);
-    }
+      if (typeof answer === 'boolean' && answer === false) {
+        response
+          .status(424)
+          .send(
+            'Houve um erro ao processar a solicitação. Por favor, tente novamente.'
+          );
+      } else {
+        // Save the user's prompt and answer to the history
+        await saveUserPrompt(user.id, prompt, answer);
+        response.status(200).send(answer);
+      }
+    });
   }
 );
