@@ -39,6 +39,7 @@
     "react-dom": "18.2.0",
     "react-intl": "^6.4.1",
     "react-router-dom": "6.8.1",
+    "react-use": "^17.4.0",
     "socket.io": "^4.6.1",
     "tslib": "^2.3.0",
     "whatsapp-web.js": "^1.19.5"
