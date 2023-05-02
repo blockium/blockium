@@ -68,7 +68,7 @@ export const chatgpt = runWith({ secrets: [openAiApiKey] }).https.onRequest(
 
       // Send the prompt to the OpenAI API
       const { prompt } = request.body;
-      const apiKey = openAiApiKey.value() || process.env.OPENAI_API_KEY;
+      const apiKey = openAiApiKey.value();
       const answer = await chat(prompt, prevPrompts, apiKey);
 
       if (typeof answer === 'boolean' && answer === false) {
