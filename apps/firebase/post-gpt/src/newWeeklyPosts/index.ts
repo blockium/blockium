@@ -71,6 +71,7 @@ export const newWeeklyPosts = https.onRequest(async (request, response) => {
           prompt,
           phone,
           name,
+          historyLimit: 0,
         },
         validateStatus: (status: number) => {
           return status < 600;

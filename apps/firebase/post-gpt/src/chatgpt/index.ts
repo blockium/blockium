@@ -63,7 +63,9 @@ export const chatgpt = runWith({ secrets: [openAiApiKey] }).https.onRequest(
       if (!user) return;
 
       // Retrieve the user's prompt history
-      const limit = Number(process.env.PROMPT_HISTORY_LIMIT);
+      const limit = Number(
+        request.body.historyLimit ?? process.env.PROMPT_HISTORY_LIMIT
+      );
       const prevPrompts = limit > 0 ? await getUserPrompts(user.id, limit) : [];
 
       // Send the prompt to the OpenAI API
