@@ -14,9 +14,3 @@ export type Post = {
   status: PostStatus;
   setStatus: (status: PostStatus) => void;
 };
-
-export type WeeklyPosts = {
-  posts: Post[][];
-  startDate?: string;
-  endDate?: string;
-};

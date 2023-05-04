@@ -1,10 +1,10 @@
 import { Container, Typography, IconButton, Box, Stack } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
-import { WeeklyPosts } from '@postgpt/types';
+import { Post } from '@postgpt/types';
 import { PostCard } from '../PostCard/PostCard';
 
-export const WeeklyPostView: React.FC<WeeklyPosts> = ({ posts }) => {
+export const WeeklyPostView: React.FC<Post[]> = (posts) => {
   const days = [
     'Segunda',
     'Terça',
@@ -38,9 +38,7 @@ export const WeeklyPostView: React.FC<WeeklyPosts> = ({ posts }) => {
             >
               {day}
             </Typography>
-            {posts[index].map((post, i) => (
-              <PostCard {...post} key={i} />
-            ))}
+            <PostCard {...posts[index]} />
             <IconButton color="primary" sx={{ alignSelf: 'center' }}>
               <AddIcon fontSize="large" />
             </IconButton>
