@@ -12,3 +12,4 @@ admin.firestore().settings({
 
 export * from './chatgpt';
 export * from './newWeeklyPosts';
+export * from './newPosts';

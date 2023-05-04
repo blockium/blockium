@@ -6,7 +6,7 @@ import { Post, PostFormat, PostStatus, PostType } from '@postgpt/types';
 
 import { validateName, validatePhone } from '../utils/validate';
 import { getUser } from '../utils/user';
-import { getWeeklyPostsPrompt } from '../utils/prompt';
+import { getWeeklyPostsPrompt } from '../utils/prompts';
 
 const validateParams = (request, response) => {
   return validatePhone(request, response) && validateName(request, response);
