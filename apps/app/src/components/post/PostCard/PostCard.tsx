@@ -8,21 +8,27 @@ import {
 } from '@mui/material';
 
 import { Post, PostStatus } from '@postgpt/types';
+import { useIntlMessage } from '@postgpt/i18n';
 
 import { PostEditDialog } from '../PostEditDialog/PostEditDialog';
 
 export const PostCard: React.FC<Post> = ({
   title,
   description,
+  hashtags,
+  format,
+  type,
   typeDescription,
-  status,
+  status = 'initial',
   setStatus,
 }) => {
   const [open, setOpen] = useState(false);
   const [postTitle, setPostTitle] = useState(title);
   const [postDescription, setPostDescription] = useState(description);
+  const [, setPostHashtags] = useState(hashtags);
   const [postTypeDescription, setPostTypeDescription] =
     useState(typeDescription);
+  const msg = useIntlMessage();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -36,10 +42,10 @@ export const PostCard: React.FC<Post> = ({
 
   const statusList: PostStatus[] = ['initial', 'liked', 'finished', 'approved'];
   const statusLabel: { [status in PostStatus]: string } = {
-    initial: 'Curtir',
-    liked: 'Design Pronto',
-    finished: 'Aprovar',
-    approved: 'Aprovado',
+    initial: msg('app.post.like'),
+    liked: msg('app.post.design_ready'),
+    finished: msg('app.post.approve'),
+    approved: msg('app.post.approved'),
   };
   const nextStatus = (e: React.MouseEvent) => {
     let i = statusList.indexOf(newStatus) + 1;
@@ -67,9 +73,13 @@ export const PostCard: React.FC<Post> = ({
         handleClose={handleClose}
         title={postTitle}
         description={postDescription}
+        hashtags={hashtags}
+        format={format}
+        type={type}
         typeDescription={postTypeDescription}
         setTitle={setPostTitle}
         setDescription={setPostDescription}
+        setHashtags={setPostHashtags}
         setTypeDescription={setPostTypeDescription}
       />
     </>

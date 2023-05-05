@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Post } from '@postgpt/types';
+import { Post, PostStatus } from '@postgpt/types';
 import { msg } from '@postgpt/i18n';
 
 export const newPosts = async (postQuantity: number) => {
@@ -22,7 +22,16 @@ export const newPosts = async (postQuantity: number) => {
       },
     });
 
-    return answer.data as Post[];
+    return (answer.data as Post[]).map((post) => {
+      const newPost: Post = {
+        ...post,
+        status: 'initial',
+        setStatus: (status: PostStatus) => {
+          newPost.status = status;
+        },
+      };
+      return newPost;
+    });
     //
   } catch (error) {
     console.error(error);

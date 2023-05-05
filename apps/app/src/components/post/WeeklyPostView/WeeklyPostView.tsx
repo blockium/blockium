@@ -2,23 +2,27 @@ import { Container, Typography, IconButton, Box, Stack } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
 import { Post } from '@postgpt/types';
+import { useIntlMessage } from '@postgpt/i18n';
+
 import { PostCard } from '../PostCard/PostCard';
 
 export const WeeklyPostView: React.FC<Post[]> = (posts) => {
+  const msg = useIntlMessage();
+
   const days = [
-    'Segunda',
-    'Terça',
-    'Quarta',
-    'Quinta',
-    'Sexta',
-    'Sábado',
-    'Domingo',
+    msg('app.monday'),
+    msg('app.tuesday'),
+    msg('app.wednesday'),
+    msg('app.thursday'),
+    msg('app.friday'),
+    msg('app.saturday'),
+    msg('app.sunday'),
   ];
 
   return (
     <Container maxWidth="lg" sx={{ marginTop: '4rem' }}>
       <Typography variant="h4" marginBottom="3rem">
-        Calendário de Postagem
+        {msg('app.weeklyview.title')}
       </Typography>
       <Box
         sx={{
