@@ -3,5 +3,6 @@
   "site.hero.for-lawers": "Para advogados...",
   "site.button.try-it": "Testar Grátis 2",
   "app.home": "Início",
-  "app.loading": "Carregando..."
+  "app.loading": "Carregando...",
+  "app.error.newPosts": "Desculpe, houve um erro ao gerar as postagem da semana"
 }

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { Post } from '@postgpt/types';
+import { msg } from '@postgpt/i18n';
 
 export const newPosts = async (postQuantity: number) => {
   // TODO: obtain phone and name from session
@@ -25,6 +26,6 @@ export const newPosts = async (postQuantity: number) => {
     //
   } catch (error) {
     console.error(error);
-    return 'Desculpe, houve um erro ao gerar as postagem da semana';
+    return msg('app.error.newPosts');
   }
 };
