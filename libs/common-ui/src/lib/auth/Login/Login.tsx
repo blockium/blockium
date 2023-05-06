@@ -9,7 +9,12 @@ import { CTAButton } from '../../buttons';
 import { Alert } from '../../alert';
 import { LoginHero } from '../../heros';
 
-export function Login() {
+type LoginProps = {
+  leftImageSrc: string;
+  topImageSrc?: string;
+};
+
+export const Login: React.FC<LoginProps> = ({ leftImageSrc, topImageSrc }) => {
   const [loadingWhatsApp, setLoadingWhatsApp] = useState(false);
   const [loadingGoogle, setLoadingGoogle] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -36,10 +41,7 @@ export function Login() {
   return (
     <>
       <Alert severity="error" message={error} setMessage={setError} />
-      <LoginHero
-        leftImageSrc="/images/login_768_1064.png"
-        topImageSrc="/images/login_1064_768.png"
-      >
+      <LoginHero leftImageSrc={leftImageSrc} topImageSrc={topImageSrc}>
         <Stack gap="2rem" alignItems="center">
           <PostGptLogo
             // full={false}
@@ -68,6 +70,6 @@ export function Login() {
       </LoginHero>
     </>
   );
-}
+};
 
 export default Login;

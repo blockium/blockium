@@ -14,7 +14,7 @@ type ColorScheme =
   | 'white-gray-white-gray'
   | 'green-gray-green-gray';
 
-interface PostGptLogoHorizProps extends BaseSvgIconProps {
+interface PostGptLogoProps extends BaseSvgIconProps {
   colorScheme?: ColorScheme;
   full?: boolean;
 }
@@ -105,7 +105,7 @@ const colors: Colors = {
   },
 };
 
-export const PostGptLogo: React.FC<PostGptLogoHorizProps> = ({
+export const PostGptLogo: React.FC<PostGptLogoProps> = ({
   colorScheme = 'green-gray-gray-white',
   full = true,
   ...props

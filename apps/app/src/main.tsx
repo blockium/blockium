@@ -15,7 +15,10 @@ root.render(
   <IntlProvider>
     <ThemeProvider>
       <BrowserRouter>
-        <Login />
+        <Login
+          leftImageSrc="/images/login_768_1064.png"
+          topImageSrc="/images/login_1064_768.png"
+        />
         {/* <App /> */}
       </BrowserRouter>
     </ThemeProvider>
