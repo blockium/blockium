@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512px" height="512px" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 56.3 (81716) - https://sketch.com -->
+    <title>postgpt-profile-gray-white</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="postgpt-profile-gray-white">
+            <rect id="Rectangle" fill="#030B09" x="0" y="0" width="512" height="512"></rect>
+            <g id="postgpt-logo" transform="translate(65.828571, 36.571429)" fill-rule="nonzero">
+                <g id="SvgjsG4265" fill="#030B09">
+                    <rect id="Rectangle" x="0" y="0" width="379.129756" height="427.382634" rx="27.5730732"></rect>
+                </g>
+                <g id="SvgjsG4266" transform="translate(68.932676, 51.386947)" fill="#FFFFFF">
+                    <path d="M105.415338,64.4251399 L102.768928,109.855181 C101.445723,129.703257 130.997303,131.467531 132.320508,112.060523 L134.966918,66.6304817 C136.290123,47.2234739 107.179611,45.4592005 105.415338,64.4251399 Z M5.29282031,3.11663802 L5.29282031,3.11663802 C5.29282031,2.67556966 231.11982,-0.411908854 232.001957,0.470227864 C239.059051,6.64518489 241.264392,79.4214642 241.264392,153.520949 C220.093111,172.04582 179.514822,173.369025 150.845379,172.04582 C138.936533,171.163683 102.327859,159.695906 101.886791,182.63146 C99.2403808,238.647142 119.088457,286.282525 157.020336,322.009062 C91.7422187,323.773335 7.49816211,322.009062 3.96961523,315.393036 C-4.85175195,299.514575 3.52854687,3.55770638 5.29282031,3.11663802 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
