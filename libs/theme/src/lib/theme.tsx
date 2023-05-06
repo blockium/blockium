@@ -32,19 +32,21 @@ type PaletteConfig = {
 const palettes: PaletteConfig = {
   app: {
     primary: {
-      main: '#53CCA5',
+      main: '#329273',
     },
     secondary: {
-      main: '#0F172A',
+      main: '#030B09',
     },
   },
   site: {
     primary: {
-      main: '#059669',
+      main: '#329273',
+      // main: '#059669',
       // main: '#53CCA5',
     },
     secondary: {
-      main: '#0F172A',
+      main: '#030B09',
+      // main: '#0F172A',
     },
   },
 };

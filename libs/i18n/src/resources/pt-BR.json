@@ -16,6 +16,8 @@
   "app.post.design_ready": "Design Pronto",
   "app.post.approve": "Aprovar",
   "app.post.approved": "Aprovado",
+  "app.button.loginWithWhatsApp": "Entrar com WhatsApp",
+  "app.button.loginWithGoogle": "Entrar com Google",
   "app.button.delete": "Excluir",
   "app.button.approve": "Aprovar",
   "app.dialog.postedit.title": "Postagem",
