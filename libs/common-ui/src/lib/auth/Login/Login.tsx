@@ -33,7 +33,7 @@ export const Login: React.FC<LoginProps> = ({ leftImageSrc, topImageSrc }) => {
       const sessionId = '12345';
       const message = `LOGIN:${sessionId}`;
 
-      const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+      const url = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(
         message
       )}`;
 
