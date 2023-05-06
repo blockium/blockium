@@ -22,7 +22,25 @@ export const Login: React.FC<LoginProps> = ({ leftImageSrc, topImageSrc }) => {
 
   const loginWithWhatsApp = async () => {
     setLoadingWhatsApp(true);
-    // TODO
+
+    // Obtain new session id
+    // Save the session id in the session storage
+    // Open WhatsApp with the session id
+
+    // Simulates the process of obtaining a new session id
+    setTimeout(() => {
+      const phoneNumber = '5521970682489';
+      const sessionId = '12345';
+      const message = `LOGIN:${sessionId}`;
+
+      const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+        message
+      )}`;
+
+      window.open(url);
+
+      setLoadingWhatsApp(false);
+    }, 2000);
   };
 
   const loginWithGoogle = async () => {
@@ -56,7 +74,7 @@ export const Login: React.FC<LoginProps> = ({ leftImageSrc, topImageSrc }) => {
           >
             {msg('app.button.loginWithWhatsApp')}
           </CTAButton>
-          <CTAButton
+          {/* <CTAButton
             onClick={loginWithGoogle}
             startIcon={<GoogleIcon sx={{ marginRight: '1rem' }} />}
             fullWidth
@@ -65,7 +83,7 @@ export const Login: React.FC<LoginProps> = ({ leftImageSrc, topImageSrc }) => {
             loading={loadingGoogle}
           >
             {msg('app.button.loginWithGoogle')}
-          </CTAButton>
+          </CTAButton> */}
         </Stack>
       </LoginHero>
     </>
