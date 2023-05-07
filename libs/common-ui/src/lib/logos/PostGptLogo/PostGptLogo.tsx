@@ -118,9 +118,9 @@ export const PostGptLogo: React.FC<PostGptLogoProps> = ({
       viewBox={`0 0 ${full ? '512' : '230'} 200`}
       {...props}
     >
-      <g fill="none" fill-rule="evenodd">
+      <g fill="none" fillRule="evenodd">
         <path d="m0 0h512v200h-512z" fill={color4} />
-        <g fill-rule="nonzero">
+        <g fillRule="nonzero">
           <rect
             fill={color1}
             height="116.862439"
