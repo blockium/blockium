@@ -71,19 +71,23 @@ export const Login: React.FC<LoginProps> = ({ leftImageSrc, topImageSrc }) => {
             startIcon={<WhatsAppIcon sx={{ marginRight: '1rem' }} />}
             fullWidth
             loading={loadingWhatsApp}
+            disabled={loadingGoogle}
           >
             {msg('app.button.loginWithWhatsApp')}
           </CTAButton>
-          {/* <CTAButton
-            onClick={loginWithGoogle}
-            startIcon={<GoogleIcon sx={{ marginRight: '1rem' }} />}
-            fullWidth
-            variant="outlined"
-            color="secondary"
-            loading={loadingGoogle}
-          >
-            {msg('app.button.loginWithGoogle')}
-          </CTAButton> */}
+          {false && (
+            <CTAButton
+              onClick={loginWithGoogle}
+              startIcon={<GoogleIcon sx={{ marginRight: '1rem' }} />}
+              fullWidth
+              variant="outlined"
+              color="secondary"
+              loading={loadingGoogle}
+              disabled={loadingWhatsApp}
+            >
+              {msg('app.button.loginWithGoogle')}
+            </CTAButton>
+          )}
         </Stack>
       </LoginHero>
     </>
