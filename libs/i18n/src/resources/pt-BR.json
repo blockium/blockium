@@ -16,8 +16,6 @@
   "app.post.design_ready": "Design Pronto",
   "app.post.approve": "Aprovar",
   "app.post.approved": "Aprovado",
-  "app.button.loginWithWhatsApp": "Entrar com WhatsApp",
-  "app.button.loginWithGoogle": "Entrar com Google",
   "app.button.delete": "Excluir",
   "app.button.approve": "Aprovar",
   "app.dialog.postedit.title": "Postagem",
@@ -31,5 +29,12 @@
   "app.dialog.postedit.input.typeCarousel": "Carrossel",
   "app.dialog.postedit.input.typeVideo": "Vídeo",
   "app.dialog.postedit.input.with": "com",
-  "app.error.newPosts": "Desculpe, houve um erro ao gerar as postagem da semana"
+  "app.error.newPosts": "Desculpe, houve um erro ao gerar as postagem da semana",
+  "commonui.button.enter": "Entrar",
+  "commonui.button.loginWithWhatsApp": "Entrar com WhatsApp",
+  "commonui.button.loginWithGoogle": "Entrar com Google",
+  "commonui.error.newSession": "Desculpe, houve um erro ao obter uma nova sessão",
+  "commonui.error.getUser": "Desculpe, houve um erro. Veja se recebeu a confirmação via WhatsApp e tente novamente.",
+  "commonui.login.whatsapp.msg1": "Envie a mensagem abaixo pelo WhatsApp (clique para copiar):",
+  "commonui.login.whatsapp.msg2": "Após confirmação via WhatsApp, clique abaixo:"
 }

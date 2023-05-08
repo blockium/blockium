@@ -5,7 +5,7 @@ import { IntlProvider } from '@postgpt/i18n';
 import { ThemeProvider } from '@postgpt/theme';
 
 // import { App } from './components';
-import { Login } from '@postgpt/commonui';
+import AppRouter from './components/AppRouter/AppRouter';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -15,11 +15,7 @@ root.render(
   <IntlProvider>
     <ThemeProvider>
       <BrowserRouter>
-        <Login
-          leftImageSrc="/images/login_768_1064.png"
-          topImageSrc="/images/login_1064_768.png"
-        />
-        {/* <App /> */}
+        <AppRouter />
       </BrowserRouter>
     </ThemeProvider>
   </IntlProvider>

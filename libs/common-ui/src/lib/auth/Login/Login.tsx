@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Stack from '@mui/material/Stack';
 
 import { useIntlMessage } from '@postgpt/i18n';
@@ -18,29 +20,51 @@ export const Login: React.FC<LoginProps> = ({ leftImageSrc, topImageSrc }) => {
   const [loadingWhatsApp, setLoadingWhatsApp] = useState(false);
   const [loadingGoogle, setLoadingGoogle] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
   const msg = useIntlMessage();
+
+  const newSession = async () => {
+    const answer = await axios({
+      method: 'get',
+      url: import.meta.env.VITE_NEW_SESSION_URL,
+      data: {},
+      validateStatus: (status: number) => {
+        return status < 600;
+      },
+    });
+
+    return answer.data;
+  };
 
   const loginWithWhatsApp = async () => {
     setLoadingWhatsApp(true);
 
-    // Obtain new session id
-    // Save the session id in the session storage
-    // Open WhatsApp with the session id
-
-    // Simulates the process of obtaining a new session id
-    setTimeout(() => {
-      const phoneNumber = '5521970682489';
-      const sessionId = '12345';
-      const message = `LOGIN:${sessionId}`;
-
-      const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
-        message
-      )}`;
-
-      window.open(url);
-
+    // Obtain new session id from VITE_NEW_SESSION_URL using axios
+    let session;
+    try {
+      session = await newSession();
+    } catch (error) {
+      console.error(error);
+      setError('commonui.error.newSession');
+    }
+    if (!session || typeof session === 'string') {
       setLoadingWhatsApp(false);
-    }, 2000);
+      setError(msg('commonui.error.newSession'));
+      return;
+    }
+
+    // Save the session id in the session storage
+    sessionStorage.setItem('sessionId', session.sessionId);
+
+    // Open WhatsApp with the session id
+    const phone = import.meta.env.VITE_POSTGPT_PHONE;
+    const message = `LOGIN:${session.sessionId}`;
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    window.open(url);
+
+    setLoadingWhatsApp(false);
+
+    navigate('/login-whatsapp');
   };
 
   const loginWithGoogle = async () => {
@@ -73,7 +97,7 @@ export const Login: React.FC<LoginProps> = ({ leftImageSrc, topImageSrc }) => {
             loading={loadingWhatsApp}
             disabled={loadingGoogle}
           >
-            {msg('app.button.loginWithWhatsApp')}
+            {msg('commonui.button.loginWithWhatsApp')}
           </CTAButton>
           {false && (
             <CTAButton
@@ -85,7 +109,7 @@ export const Login: React.FC<LoginProps> = ({ leftImageSrc, topImageSrc }) => {
               loading={loadingGoogle}
               disabled={loadingWhatsApp}
             >
-              {msg('app.button.loginWithGoogle')}
+              {msg('commonui.button.loginWithGoogle')}
             </CTAButton>
           )}
         </Stack>

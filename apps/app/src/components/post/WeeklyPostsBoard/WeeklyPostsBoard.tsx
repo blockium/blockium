@@ -6,7 +6,7 @@ import { useIntlMessage } from '@postgpt/i18n';
 
 import { PostCard } from '../PostCard/PostCard';
 
-export const WeeklyPostView: React.FC<Post[]> = (posts) => {
+export const WeeklyPostsBoard: React.FC<Post[]> = (posts) => {
   const msg = useIntlMessage();
 
   const days = [
