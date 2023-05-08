@@ -45,7 +45,9 @@ export const chat = async (
     ];
 
     // Add previous prompts to the chat history
+    let contextLength = 0;
     for (const prevPrompt of prevPrompts) {
+      contextLength += prevPrompt.prompt.length + prevPrompt.answer.length;
       messages.push({
         role: 'user',
         content: prevPrompt.prompt,
@@ -54,6 +56,14 @@ export const chat = async (
         role: 'assistant',
         content: prevPrompt.answer,
       });
+    }
+
+    contextLength += prompt.length;
+    // If the context is too long, remove answer and prompt from history
+    while (contextLength > 5000 && messages.length >= 2) {
+      const lastAnswer = messages.shift();
+      const lastPrompt = messages.shift();
+      contextLength -= lastAnswer.content.length + lastPrompt.content.length;
     }
 
     // Add the current prompt to the chat history
