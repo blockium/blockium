@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { Client } from 'whatsapp-web.js';
+import { processCommand } from './commands';
 
 const WAIT_MESSAGES = [
   'Ei, não desista de mim ainda! Eu estou quase terminando meu café para poder pensar melhor em uma resposta para você. ☕️',
@@ -36,6 +37,12 @@ const onMessage = async (msg, client: Client) => {
         );
       }
     }, 15000);
+
+    // Check if the message is a command
+    if (processCommand(msg, client)) {
+      sent = true;
+      return;
+    }
 
     // Get phone + person name
     const contact = await msg.getContact();
