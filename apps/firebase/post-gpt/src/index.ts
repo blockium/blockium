@@ -10,7 +10,7 @@ admin.firestore().settings({
   ignoreUndefinedProperties: true,
 });
 
-export * from './chatgpt';
-export * from './newWeeklyPosts';
-export * from './newPosts';
+export * from './chatgpt/chatgpt';
+export * from './newWeeklyPosts/newWeeklyPosts';
+export * from './newPosts/newPosts';
 export * from './newSession/newSession';
