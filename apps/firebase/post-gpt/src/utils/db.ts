@@ -1,5 +1,5 @@
 import admin from 'firebase-admin';
-import { User, UserPrompt } from '@postgpt/types';
+import { Session, User, UserPrompt } from '@postgpt/types';
 
 const converter = <T>() => ({
   toFirestore: (data: T) => data,
@@ -14,5 +14,6 @@ const db = {
   users: dataPoint<User>('users'),
   userPrompts: (userId: string) =>
     dataPoint<UserPrompt>(`users/${userId}/prompts`),
+  sessions: dataPoint<Session>('sessions'),
 };
 export { db };
