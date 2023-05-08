@@ -13,7 +13,7 @@ export const newSession = https.onRequest(async (request, response) => {
     try {
       const session: Session = {
         status: 'new',
-        createdAt: admin.firestore.FieldValue.serverTimestamp(),
+        newAt: admin.firestore.FieldValue.serverTimestamp(),
       };
       const sessionDoc = await db.sessions.add(session);
       const sessionId = sessionDoc.id;
@@ -22,11 +22,7 @@ export const newSession = https.onRequest(async (request, response) => {
       //
     } catch (error) {
       console.log(error);
-      response
-        .status(424)
-        .send(
-          'Houve um erro ao criar uma nova sessão. Por favor, tente novamente.'
-        );
+      response.status(424).send('Houve um erro ao criar uma nova sessão.');
     }
   });
 });

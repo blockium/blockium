@@ -23,26 +23,31 @@ export const getSession = async (request, response) => {
 };
 
 export const updateSession = async (request, response, session: Session) => {
-  // Get a session data by sessionId
-  const sessionRef = await db.sessions.doc(session.id);
-  const sessionDoc = await sessionRef.get();
-  if (!sessionDoc.exists) {
-    response.status(412).send('Sessão não encontrada');
-    return null;
-  }
-
-  const user = await getUser(request, response);
-  if (!user) return;
-
+  let updateStatus;
   if (session.status === 'new') {
+    const user = await getUser(request, response);
+    if (!user) return;
+
+    updateStatus = 'waiting';
+    const sessionRef = await db.sessions.doc(session.id);
     await sessionRef.update({
-      status: 'waiting',
-      startedAt: admin.firestore.FieldValue.serverTimestamp(),
+      status: updateStatus,
+      waitingAt: admin.firestore.FieldValue.serverTimestamp(),
       userId: user.id,
       phone: user.phone,
       name: user.name,
     });
+  } else if (session.status === 'waiting') {
+    updateStatus = 'started';
+    const sessionRef = await db.sessions.doc(session.id);
+    await sessionRef.update({
+      status: updateStatus,
+      startedAt: admin.firestore.FieldValue.serverTimestamp(),
+    });
+  } else {
+    // Does not do anything when session is 'started' or 'expired'
+    updateStatus = session.status;
   }
 
-  return true;
+  return updateStatus;
 };

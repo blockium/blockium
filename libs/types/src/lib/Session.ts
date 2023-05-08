@@ -1,8 +1,10 @@
 export type Session = {
   id?: string;
-  status: 'new' | 'waiting' | 'confirmed' | 'expired';
-  createdAt: object;
+  status: 'new' | 'waiting' | 'started' | 'expired';
+  newAt: object;
+  waitingAt?: string;
   startedAt?: string;
+  expiredAt?: string;
   userId?: string;
   phone?: string;
   name?: string;

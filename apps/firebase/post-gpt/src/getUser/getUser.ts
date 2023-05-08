@@ -1,22 +1,14 @@
 import { https } from 'firebase-functions';
 import cors from 'cors';
 
-import {
-  validateName,
-  validatePhone,
-  validateSession,
-} from '../utils/validate';
+import { validateSession } from '../utils/validate';
 import { getSession, updateSession } from '../utils/session';
 
 const validateParams = (request, response) => {
-  return (
-    validatePhone(request, response) &&
-    validateName(request, response) &&
-    validateSession(request, response)
-  );
+  return validateSession(request, response);
 };
 
-export const login = https.onRequest(async (request, response) => {
+export const getUser = https.onRequest(async (request, response) => {
   // TODO: Review CORS policy
   const corsObj = cors({ origin: true });
   corsObj(request, response, async () => {
@@ -27,21 +19,20 @@ export const login = https.onRequest(async (request, response) => {
     if (!session) return;
 
     const { status } = session;
-    if (status !== 'new') {
+    if (status === 'new' || status === 'expired') {
       response.status(412).send('Sessão inválida');
       return;
     }
 
     try {
-      const updateStatus = await updateSession(request, response, session);
+      await updateSession(request, response, session);
 
-      response
-        .status(200)
-        .send(JSON.stringify({ sessionId: session.id, status: updateStatus }));
+      const { userId, phone, name } = session;
+      response.status(200).send(JSON.stringify({ userId, phone, name }));
       //
     } catch (error) {
       console.log(error);
-      response.status(424).send('Houve um erro ao realizar o login.');
+      response.status(424).send('Houve um erro ao obter o usuário.');
     }
   });
 });
