@@ -14,3 +14,4 @@ export * from './chatgpt/chatgpt';
 export * from './newWeeklyPosts/newWeeklyPosts';
 export * from './newPosts/newPosts';
 export * from './newSession/newSession';
+export * from './login/login';

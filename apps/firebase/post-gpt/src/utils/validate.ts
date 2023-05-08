@@ -39,3 +39,12 @@ export const validateName = (request, response) => {
 
   return true;
 };
+
+export const validateSession = (request, response) => {
+  const { sessionId } = request.body;
+  if (sessionId === undefined) {
+    response.status(400).send('O id da sessão é obrigatório');
+    return false;
+  }
+  return true;
+};
