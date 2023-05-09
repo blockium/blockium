@@ -2,12 +2,17 @@ import { runWith } from 'firebase-functions';
 import { defineSecret } from 'firebase-functions/params';
 import cors from 'cors';
 
-import { UserPrompt } from '@postgpt/types';
+import { User, UserPrompt } from '@postgpt/types';
 
 import { db } from '../utils/db';
 import { chat } from './chat';
 import { getUser } from '../utils/user';
-import { validateName, validatePhone, validatePrompt } from '../utils/validate';
+import {
+  validateName,
+  validatePhone,
+  validatePrompt,
+  validateUser,
+} from '../utils/validate';
 
 const openAiApiKey = defineSecret('OPENAI_API_KEY');
 
@@ -59,8 +64,11 @@ export const chatgpt = runWith({ secrets: [openAiApiKey] }).https.onRequest(
       if (!validateParams(request, response)) return;
 
       // Retrieve user id from Firestore. Saves new users if they don't exist
-      const user = await getUser(request, response);
-      if (!user) return;
+      const { phone, name } = request.body;
+      const result = await getUser(phone, name || phone);
+      if (!validateUser(result, response)) return;
+
+      const user = result as User;
 
       // Retrieve the user's prompt history
       const limit = Number(

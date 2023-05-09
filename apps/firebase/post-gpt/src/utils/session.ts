@@ -1,19 +1,19 @@
 import admin from 'firebase-admin';
 
-import { Session } from '@postgpt/types';
+import { Session, User } from '@postgpt/types';
 
 import { db } from './db';
 import { getUser } from './user';
+import { validateUser } from './validate';
 
-export const getSession = async (request, response) => {
-  const { sessionId } = request.body;
+export const SESSION_ERROR_NOT_FOUND = 'SESSION_ERROR_NOT_FOUND';
 
+export const getSession = async (sessionId: string) => {
   // Get a session data by sessionId
   const sessionRef = await db.sessions.doc(sessionId);
   const sessionDoc = await sessionRef.get();
   if (!sessionDoc.exists) {
-    response.status(412).send('Sessão não encontrada');
-    return null;
+    return SESSION_ERROR_NOT_FOUND;
   }
 
   const session = sessionDoc.data();
@@ -25,8 +25,11 @@ export const getSession = async (request, response) => {
 export const updateSession = async (request, response, session: Session) => {
   let updateStatus;
   if (session.status === 'new') {
-    const user = await getUser(request, response);
-    if (!user) return;
+    const { phone, name } = request.body;
+    const result = await getUser(phone, name || phone);
+    if (!validateUser(result, response)) return;
+
+    const user = result as User;
 
     updateStatus = 'waiting';
     const sessionRef = await db.sessions.doc(session.id);

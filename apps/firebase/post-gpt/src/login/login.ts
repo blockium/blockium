@@ -1,10 +1,13 @@
 import { https } from 'firebase-functions';
 import cors from 'cors';
 
+import { Session } from '@postgpt/types';
+
 import {
   validateName,
   validatePhone,
   validateSession,
+  validateSessionId,
 } from '../utils/validate';
 import { getSession, updateSession } from '../utils/session';
 
@@ -12,7 +15,7 @@ const validateParams = (request, response) => {
   return (
     validatePhone(request, response) &&
     validateName(request, response) &&
-    validateSession(request, response)
+    validateSessionId(request, response)
   );
 };
 
@@ -23,11 +26,12 @@ export const login = https.onRequest(async (request, response) => {
     if (!validateParams(request, response)) return;
 
     // Retrieve session from Firestore.
-    const session = await getSession(request, response);
-    if (!session) return;
+    const result = await getSession(request.body);
+    if (!validateSession(result, response)) return;
 
-    const { status } = session;
-    if (status !== 'new') {
+    const session = result as Session;
+
+    if (session.status !== 'new') {
       response.status(412).send('Sessão inválida');
       return;
     }

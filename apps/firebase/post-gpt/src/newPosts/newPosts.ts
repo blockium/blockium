@@ -2,7 +2,9 @@ import { https } from 'firebase-functions';
 import cors from 'cors';
 import axios from 'axios';
 
-import { validateName, validatePhone } from '../utils/validate';
+import { User } from '@postgpt/types';
+
+import { validateName, validatePhone, validateUser } from '../utils/validate';
 import { getUser } from '../utils/user';
 import { getPostsPrompt } from '../utils/prompts';
 
@@ -34,14 +36,15 @@ export const newPosts = https.onRequest(async (request, response) => {
     if (!validateParams(request, response)) return;
 
     // Retrieve user id from Firestore. Saves new users if they don't exist
-    const user = await getUser(request, response);
-    if (!user) return;
+    const { phone, name } = request.body;
+    const result = await getUser(phone, name || phone);
+    if (!validateUser(result, response)) return;
 
-    const { id, phone, name } = user;
+    const user = result as User;
 
     const postQuantity = request.body.postQuantity ?? 1;
 
-    const prompt = await getPostsPrompt(id, postQuantity);
+    const prompt = await getPostsPrompt(user.id, postQuantity);
     console.log(prompt);
 
     // Sent a POST request to chatgpt endpoint

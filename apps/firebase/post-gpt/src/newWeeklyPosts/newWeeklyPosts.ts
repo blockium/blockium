@@ -2,9 +2,9 @@ import { https } from 'firebase-functions';
 import cors from 'cors';
 import axios from 'axios';
 
-import { Post, PostFormat, PostStatus, PostType } from '@postgpt/types';
+import { Post, PostFormat, PostStatus, PostType, User } from '@postgpt/types';
 
-import { validateName, validatePhone } from '../utils/validate';
+import { validateName, validatePhone, validateUser } from '../utils/validate';
 import { getUser } from '../utils/user';
 import { getWeeklyPostsPrompt } from '../utils/prompts';
 
@@ -55,12 +55,13 @@ export const newWeeklyPosts = https.onRequest(async (request, response) => {
     if (!validateParams(request, response)) return;
 
     // Retrieve user id from Firestore. Saves new users if they don't exist
-    const user = await getUser(request, response);
-    if (!user) return;
+    const { phone, name } = request.body;
+    const result = await getUser(phone, name || phone);
+    if (!validateUser(result, response)) return;
 
-    const { id, phone, name } = user;
+    const user = result as User;
 
-    const prompt = await getWeeklyPostsPrompt(id);
+    const prompt = await getWeeklyPostsPrompt(user.id);
 
     // Sent a POST request to chatgpt endpoint
     try {
