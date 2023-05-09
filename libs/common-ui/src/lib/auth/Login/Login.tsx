@@ -23,6 +23,7 @@ export const Login: React.FC<LoginProps> = ({ leftImageSrc, topImageSrc }) => {
   const navigate = useNavigate();
   const msg = useIntlMessage();
 
+  // Obtain new session id from VITE_NEW_SESSION_URL using axios
   const newSession = async () => {
     const answer = await axios({
       method: 'get',
@@ -39,26 +40,26 @@ export const Login: React.FC<LoginProps> = ({ leftImageSrc, topImageSrc }) => {
   const loginWithWhatsApp = async () => {
     setLoadingWhatsApp(true);
 
-    // Obtain new session id from VITE_NEW_SESSION_URL using axios
-    let session;
+    let response;
     try {
-      session = await newSession();
+      response = await newSession();
     } catch (error) {
       console.error(error);
       setError('commonui.error.newSession');
     }
-    if (!session || typeof session === 'string') {
+    if (!response || typeof response === 'string') {
       setLoadingWhatsApp(false);
       setError(msg('commonui.error.newSession'));
       return;
     }
 
     // Save the session id in the session storage
-    sessionStorage.setItem('sessionId', session.sessionId);
+    const { sessionId } = response;
+    sessionStorage.setItem('sessionId', sessionId);
 
     // Open WhatsApp with the session id
     const phone = import.meta.env.VITE_POSTGPT_PHONE;
-    const message = `LOGIN:${session.sessionId}`;
+    const message = `LOGIN:${sessionId}`;
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
     window.open(url);
 

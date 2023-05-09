@@ -26,6 +26,7 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
 
   const sessionId = sessionStorage.getItem('sessionId') || '';
 
+  // Obtain user from VITE_GET_USER_URL using axios
   const getUser = async () => {
     const answer = await axios({
       method: 'post',
@@ -44,7 +45,6 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
   const loginWithWhatsApp = async () => {
     setLoadingWhatsApp(true);
 
-    // Obtain new session id from VITE_NEW_SESSION_URL using axios
     let response;
     try {
       response = await getUser();
@@ -58,7 +58,7 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
       return;
     }
 
-    // Save the session id in the session storage
+    // Save the user data in the session storage
     const { userId, phone, name } = response;
     sessionStorage.setItem('userId', userId);
     sessionStorage.setItem('phone', phone);
