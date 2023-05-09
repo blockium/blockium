@@ -15,12 +15,12 @@ ENV LOGIN_URL='https://us-central1-post-gpt.cloudfunctions.net/login'
 WORKDIR /app
 
 RUN addgroup --system zapgateway && \
-          adduser --system -G zapgateway zapgateway
+    adduser --system -G zapgateway zapgateway
 
 COPY . zapgateway
 RUN chown -R zapgateway:zapgateway .
 
-RUN npm ci --prefix zapgateway --omit=dev --only=production
+RUN npm i --prefix zapgateway --omit=dev --only=production
 
 EXPOSE 8000
 CMD [ "node", "zapgateway" ]

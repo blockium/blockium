@@ -18,7 +18,7 @@ RUN adduser --system --group zapgateway
 COPY . zapgateway
 RUN chown -R zapgateway:zapgateway .
 
-RUN npm ci --prefix zapgateway --omit=dev --only=production
+RUN npm i --prefix zapgateway --omit=dev --only=production
 
 EXPOSE 8000
 CMD [ "node", "zapgateway" ]
