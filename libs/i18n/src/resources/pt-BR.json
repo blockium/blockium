@@ -33,8 +33,15 @@
   "commonui.button.enter": "Entrar",
   "commonui.button.loginWithWhatsApp": "Entrar com WhatsApp",
   "commonui.button.loginWithGoogle": "Entrar com Google",
+  "commonui.button.send-code": "Enviar código",
+  "commonui.button.verify-code": "Verificar código",
+  "commonui.label.phone-number": "Número de telefone",
+  "commonui.label.verification-code": "Código de verificação",
   "commonui.error.newSession": "Desculpe, houve um erro ao obter uma nova sessão",
   "commonui.error.getUser": "Desculpe, houve um erro. Veja se recebeu a confirmação via WhatsApp e tente novamente.",
+  "commonui.error.auth.phone-sign-in": "Erro ao enviar código. Tente novamente.",
+  "commonui.error.auth.code-expired": "Código expirado. Tente novamente.",
+  "commonui.error.auth.invalid-code": "Código inválido. Tente novamente.",
   "commonui.login.whatsapp.msg1": "Envie a mensagem abaixo pelo WhatsApp (clique para copiar):",
   "commonui.login.whatsapp.msg2": "Após confirmação via WhatsApp, clique abaixo:"
 }
