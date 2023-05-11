@@ -10,6 +10,7 @@ import { PostGptLogo } from '../../logos';
 import { CTAButton } from '../../buttons';
 import { Alert } from '../../alert';
 import { LoginHero } from '../../heros';
+import { PhoneForm } from '../PhoneForm';
 
 type LoginProps = {
   leftImageSrc: string;
@@ -91,15 +92,18 @@ export const Login: React.FC<LoginProps> = ({ leftImageSrc, topImageSrc }) => {
             width="50rem"
             sx={{ maxWidth: { xs: '30rem', lg: '40rem', xl: '50rem' } }}
           />
-          <CTAButton
-            onClick={loginWithWhatsApp}
-            startIcon={<WhatsAppIcon sx={{ marginRight: '1rem' }} />}
-            fullWidth
-            loading={loadingWhatsApp}
-            disabled={loadingGoogle}
-          >
-            {msg('commonui.button.loginWithWhatsApp')}
-          </CTAButton>
+          <PhoneForm />
+          {false && (
+            <CTAButton
+              onClick={loginWithWhatsApp}
+              startIcon={<WhatsAppIcon sx={{ marginRight: '1rem' }} />}
+              fullWidth
+              loading={loadingWhatsApp}
+              disabled={loadingGoogle}
+            >
+              {msg('commonui.button.loginWithWhatsApp')}
+            </CTAButton>
+          )}
           {false && (
             <CTAButton
               onClick={loginWithGoogle}
