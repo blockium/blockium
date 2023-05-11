@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 
-import { Login, LoginWhatsApp } from '@postgpt/commonui';
+import { Login, LoginWhatsApp, PrivateRoute } from '@postgpt/commonui';
 
 import App from '../App/App';
 import { WeeklyPosts, WeeklyPostsList } from '../post';
@@ -8,7 +8,14 @@ import { WeeklyPosts, WeeklyPostsList } from '../post';
 export const AppRouter = () => {
   return (
     <Routes>
-      <Route path="/" element={<App />}>
+      <Route
+        path="/"
+        element={
+          <PrivateRoute loginPath="/login">
+            <App />
+          </PrivateRoute>
+        }
+      >
         <Route path="posts/weekly" element={<WeeklyPosts />} />
         <Route path="posts/weekly/list" element={<WeeklyPostsList />} />
       </Route>
