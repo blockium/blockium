@@ -1,9 +1,9 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
-import { getAuth } from 'firebase/auth';
+import { connectAuthEmulator, getAuth } from 'firebase/auth';
 import { getFunctions } from 'firebase/functions';
-import { getFirestore } from 'firebase/firestore';
+import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore';
 
 // Gets environment variables from process (Node) or import.meta (Browser)
 const env: {
@@ -14,6 +14,7 @@ const env: {
   FIREBASE_MESSAGING_SENDER_ID?: string;
   FIREBASE_APP_ID?: string;
   FIREBASE_MEASUREMENT_ID?: string;
+  DEV?: boolean;
 } = {};
 
 if (typeof process !== 'undefined') {
@@ -24,6 +25,7 @@ if (typeof process !== 'undefined') {
   env.FIREBASE_MESSAGING_SENDER_ID = process.env.FIREBASE_MESSAGING_SENDER_ID;
   env.FIREBASE_APP_ID = process.env.FIREBASE_APP_ID;
   env.FIREBASE_MEASUREMENT_ID = process.env.FIREBASE_MEASUREMENT_ID;
+  env.DEV = process.env.NODE_ENV === 'development';
 } else {
   env.FIREBASE_API_KEY = import.meta.env.VITE_FIREBASE_API_KEY;
   env.FIREBASE_AUTH_DOMAIN = import.meta.env.VITE_FIREBASE_AUTH_DOMAIN;
@@ -33,9 +35,8 @@ if (typeof process !== 'undefined') {
     import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID;
   env.FIREBASE_APP_ID = import.meta.env.VITE_FIREBASE_APP_ID;
   env.FIREBASE_MEASUREMENT_ID = import.meta.env.VITE_FIREBASE_MEASUREMENT_ID;
+  env.DEV = import.meta.env.DEV;
 }
-
-console.log('env.FIREBASE_MEASUREMENT_ID', env.FIREBASE_MEASUREMENT_ID);
 
 const firebaseConfig = {
   apiKey: env.FIREBASE_API_KEY,
@@ -54,5 +55,10 @@ const auth = getAuth(app);
 auth.useDeviceLanguage();
 const functions = getFunctions(app);
 const db = getFirestore(app);
+
+if (env.DEV) {
+  connectAuthEmulator(auth, 'http://localhost:9099');
+  connectFirestoreEmulator(db, 'localhost', 8080);
+}
 
 export { app, analytics, auth, functions, db };
