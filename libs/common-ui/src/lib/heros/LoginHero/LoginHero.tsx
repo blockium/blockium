@@ -14,7 +14,11 @@ export const LoginHero: React.FC<LoginHeroProps> = ({
   children,
 }) => {
   return (
-    <Container maxWidth={false} disableGutters sx={{ height: '100svh' }}>
+    <Container
+      maxWidth={false}
+      disableGutters
+      sx={{ height: ['100dvh', '100vh'] }}
+    >
       <Grid container direction="row" sx={{ height: '100%' }}>
         <Grid item xs={12} sm={7} xl={5} height={{ xs: '35%', sm: '100%' }}>
           <Box
