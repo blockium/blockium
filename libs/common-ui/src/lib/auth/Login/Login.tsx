@@ -1,23 +1,29 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Stack from '@mui/material/Stack';
+import { Stack } from '@mui/material';
+import PhoneIcon from '@mui/icons-material/Phone';
 
 import { useIntlMessage } from '@postgpt/i18n';
 
 import { GoogleIcon, WhatsAppIcon } from '../../icons';
-import { PostGptLogo } from '../../logos';
 import { CTAButton } from '../../buttons';
 import { Alert } from '../../alert';
 import { LoginHero } from '../../heros';
-import { PhoneForm } from '../../form';
 
 type LoginProps = {
   leftImageSrc: string;
   topImageSrc?: string;
+  loginWhatsApp: string;
+  loginPhone: string;
 };
 
-export const Login: React.FC<LoginProps> = ({ leftImageSrc, topImageSrc }) => {
+export const Login: React.FC<LoginProps> = ({
+  leftImageSrc,
+  topImageSrc,
+  loginWhatsApp,
+  loginPhone,
+}) => {
   const [loadingWhatsApp, setLoadingWhatsApp] = useState(false);
   const [loadingGoogle, setLoadingGoogle] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -66,7 +72,11 @@ export const Login: React.FC<LoginProps> = ({ leftImageSrc, topImageSrc }) => {
 
     setLoadingWhatsApp(false);
 
-    navigate('/login-whatsapp');
+    navigate(loginWhatsApp);
+  };
+
+  const loginWithPhone = async () => {
+    navigate(loginPhone);
   };
 
   const loginWithGoogle = async () => {
@@ -86,24 +96,31 @@ export const Login: React.FC<LoginProps> = ({ leftImageSrc, topImageSrc }) => {
     <>
       <Alert severity="error" message={error} setMessage={setError} />
       <LoginHero leftImageSrc={leftImageSrc} topImageSrc={topImageSrc}>
-        <Stack gap="2rem" alignItems="center">
-          <PostGptLogo
+        <Stack gap="2rem" alignItems="center" width="300px">
+          {/* <PostGptLogo
             // full={false}
             width="50rem"
             sx={{ maxWidth: { xs: '30rem', lg: '40rem', xl: '50rem' } }}
-          />
-          <PhoneForm />
-          {false && (
-            <CTAButton
-              onClick={loginWithWhatsApp}
-              startIcon={<WhatsAppIcon sx={{ marginRight: '1rem' }} />}
-              fullWidth
-              loading={loadingWhatsApp}
-              disabled={loadingGoogle}
-            >
-              {msg('commonui.button.loginWithWhatsApp')}
-            </CTAButton>
-          )}
+          /> */}
+          <CTAButton
+            onClick={loginWithWhatsApp}
+            startIcon={<WhatsAppIcon sx={{ marginRight: '1rem' }} />}
+            fullWidth
+            loading={loadingWhatsApp}
+            disabled={loadingGoogle}
+          >
+            {msg('commonui.button.loginWithWhatsApp')}
+          </CTAButton>
+          <CTAButton
+            onClick={loginWithPhone}
+            startIcon={<PhoneIcon sx={{ marginRight: '1rem' }} />}
+            fullWidth
+            variant="outlined"
+            color="secondary"
+            disabled={loadingWhatsApp || loadingGoogle}
+          >
+            {msg('commonui.button.loginWithPhone')}
+          </CTAButton>
           {false && (
             <CTAButton
               onClick={loginWithGoogle}
@@ -116,7 +133,7 @@ export const Login: React.FC<LoginProps> = ({ leftImageSrc, topImageSrc }) => {
             >
               {msg('commonui.button.loginWithGoogle')}
             </CTAButton>
-          )}
+          )}{' '}
         </Stack>
       </LoginHero>
     </>

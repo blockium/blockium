@@ -1,6 +1,11 @@
 import { Route, Routes } from 'react-router-dom';
 
-import { Login, LoginWhatsApp, PrivateRoute } from '@postgpt/commonui';
+import {
+  Login,
+  LoginPhone,
+  LoginWhatsApp,
+  PrivateRoute,
+} from '@postgpt/commonui';
 
 import { App } from '../App';
 import { WeeklyPosts, WeeklyPostsList } from '../post';
@@ -23,6 +28,17 @@ export const AppRouter = () => {
         path="/login"
         element={
           <Login
+            leftImageSrc="/images/login_768_1064.png"
+            topImageSrc="/images/login_1064_768.png"
+            loginWhatsApp="/login-whatsapp"
+            loginPhone="/login-phone"
+          />
+        }
+      />
+      <Route
+        path="/login-phone"
+        element={
+          <LoginPhone
             leftImageSrc="/images/login_768_1064.png"
             topImageSrc="/images/login_1064_768.png"
           />

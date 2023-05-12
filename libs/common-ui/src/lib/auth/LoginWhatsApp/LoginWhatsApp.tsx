@@ -5,7 +5,6 @@ import { Link, Stack, Typography } from '@mui/material';
 
 import { useIntlMessage } from '@postgpt/i18n';
 
-import { PostGptLogo } from '../../logos';
 import { CTAButton } from '../../buttons';
 import { LoginHero } from '../../heros';
 import { Alert } from '../../alert';
@@ -68,25 +67,31 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
     navigate('/');
   };
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(`LOGIN:${sessionId}`);
+  // const copyToClipboard = () => {
+  //   navigator.clipboard.writeText(`LOGIN:${sessionId}`);
+  // };
+
+  const getWhatsAppLink = () => {
+    const phone = import.meta.env.VITE_POSTGPT_PHONE;
+    const message = `LOGIN:${sessionId}`;
+    return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
   };
 
   return (
     <>
       <Alert severity="error" message={error} setMessage={setError} />
       <LoginHero leftImageSrc={leftImageSrc} topImageSrc={topImageSrc}>
-        <Stack gap="2rem" alignItems="center">
-          <PostGptLogo
-            // full={false}
-            width="50rem"
-            sx={{ maxWidth: { xs: '30rem', lg: '40rem', xl: '50rem' } }}
-          />
+        <Stack gap="2rem" alignItems="center" width="300px">
           <Typography variant="body2" textAlign="center">
             <br />
-            {msg('commonui.login.whatsapp.msg1')} <br />
+            {msg('commonui.login.whatsapp.msg1')}
             <br />
-            <Link onClick={copyToClipboard}>LOGIN:{sessionId}</Link> <br />
+            <br />
+            {/* <Link onClick={copyToClipboard}>LOGIN:{sessionId}</Link> <br /> */}
+            <Link href={getWhatsAppLink()} target="_blank">
+              LOGIN:{sessionId}
+            </Link>{' '}
+            <br />
             <br />
             <br />
             <br />
