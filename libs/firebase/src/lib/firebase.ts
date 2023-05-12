@@ -35,7 +35,7 @@ if (typeof process !== 'undefined') {
     import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID;
   env.FIREBASE_APP_ID = import.meta.env.VITE_FIREBASE_APP_ID;
   env.FIREBASE_MEASUREMENT_ID = import.meta.env.VITE_FIREBASE_MEASUREMENT_ID;
-  env.DEV = import.meta.env.DEV;
+  env.DEV = import.meta.env.MODE === 'development';
 }
 
 const firebaseConfig = {
