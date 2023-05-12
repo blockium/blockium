@@ -4,7 +4,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { Post } from '@postgpt/types';
 import { useIntlMessage } from '@postgpt/i18n';
 
-import { PostCard } from '../PostCard/PostCard';
+import { PostCard } from '../PostCard';
 
 export const WeeklyPostsBoard: React.FC<Post[]> = (posts) => {
   const msg = useIntlMessage();

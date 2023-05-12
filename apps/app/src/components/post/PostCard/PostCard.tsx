@@ -10,7 +10,7 @@ import {
 import { Post, PostStatus } from '@postgpt/types';
 import { useIntlMessage } from '@postgpt/i18n';
 
-import { PostEditDialog } from '../PostEditDialog/PostEditDialog';
+import { PostEditDialog } from '../PostEditDialog';
 
 export const PostCard: React.FC<Post> = ({
   title,

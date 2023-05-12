@@ -1,4 +1,4 @@
-import BaseSvgIcon, { BaseSvgIconProps } from '../BaseSvgIcon/BaseSvgIcon';
+import { BaseSvgIcon, BaseSvgIconProps } from '../BaseSvgIcon';
 
 export const WhatsAppIcon: React.FC<BaseSvgIconProps> = (props) => {
   return (

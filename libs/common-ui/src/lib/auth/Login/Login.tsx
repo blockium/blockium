@@ -10,7 +10,7 @@ import { PostGptLogo } from '../../logos';
 import { CTAButton } from '../../buttons';
 import { Alert } from '../../alert';
 import { LoginHero } from '../../heros';
-import { PhoneForm } from '../PhoneForm';
+import { PhoneForm } from '../../form';
 
 type LoginProps = {
   leftImageSrc: string;

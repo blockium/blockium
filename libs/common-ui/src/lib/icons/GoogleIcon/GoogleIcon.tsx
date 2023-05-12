@@ -1,4 +1,4 @@
-import BaseSvgIcon, { BaseSvgIconProps } from '../BaseSvgIcon/BaseSvgIcon';
+import { BaseSvgIcon, BaseSvgIconProps } from '../BaseSvgIcon';
 
 export const GoogleIcon: React.FC<BaseSvgIconProps> = (props) => {
   return (

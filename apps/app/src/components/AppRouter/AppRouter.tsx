@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import { Login, LoginWhatsApp, PrivateRoute } from '@postgpt/commonui';
 
-import App from '../App/App';
+import { App } from '../App';
 import { WeeklyPosts, WeeklyPostsList } from '../post';
 
 export const AppRouter = () => {

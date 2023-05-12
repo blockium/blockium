@@ -4,8 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { IntlProvider } from '@postgpt/i18n';
 import { ThemeProvider } from '@postgpt/theme';
 
-// import { App } from './components';
-import AppRouter from './components/AppRouter/AppRouter';
+import { AppRouter } from './components/AppRouter';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

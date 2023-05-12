@@ -14,7 +14,7 @@ import { auth } from '@postgpt/firebase';
 
 import { useIntlMessage } from '@postgpt/i18n';
 
-import { PhoneInput } from '../PhoneInput/PhoneInput';
+import { PhoneInput } from '../PhoneInput';
 import { CTAButton } from '../../buttons';
 
 export const PhoneForm: React.FC = () => {

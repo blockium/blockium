@@ -3,8 +3,8 @@ import { useEffectOnce } from 'react-use';
 import { useIntlMessage } from '@postgpt/i18n';
 import { Post } from '@postgpt/types';
 
-import { WeeklyPostsBoard } from '../WeeklyPostsBoard/WeeklyPostsBoard';
-import { newPosts } from '../../../apiRequests/newPosts';
+import { WeeklyPostsBoard } from '../WeeklyPostsBoard';
+import { newPosts } from '../../../apiRequests';
 
 export function WeeklyPosts() {
   const [weeklyPosts, setWeeklyPosts] = useState<Post[]>();

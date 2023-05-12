@@ -1,3 +1,3 @@
-export * from './Login/Login';
-export * from './Login/LoginWhatsApp';
-export * from './Logout/Logout';
+export * from './Login/';
+export * from './LoginWhatsApp/';
+export * from './Logout/';

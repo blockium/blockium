@@ -1,3 +1,3 @@
-export * from './BaseSvgIcon/BaseSvgIcon';
-export * from './GoogleIcon/GoogleIcon';
-export * from './WhatsAppIcon/WhatsAppIcon';
+export * from './BaseSvgIcon';
+export * from './GoogleIcon';
+export * from './WhatsAppIcon';
