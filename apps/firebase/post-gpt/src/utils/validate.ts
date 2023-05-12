@@ -95,3 +95,12 @@ export const validateSession = (session: string | Session, response) => {
   }
   return true;
 };
+
+export const validateAuthId = (request, response) => {
+  const { authId } = request.body;
+  if (authId === undefined) {
+    response.status(400).send('O id de autenticação é obrigatório');
+    return false;
+  }
+  return true;
+};

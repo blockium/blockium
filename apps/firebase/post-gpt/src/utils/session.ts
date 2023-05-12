@@ -22,7 +22,12 @@ export const getSession = async (sessionId: string) => {
   return session;
 };
 
-export const updateSession = async (request, response, session: Session) => {
+export const updateSession = async (
+  request,
+  response,
+  session: Session,
+  authId?: string
+) => {
   let updateStatus;
   if (session.status === 'new') {
     const { phone, name } = request.body;
@@ -46,6 +51,7 @@ export const updateSession = async (request, response, session: Session) => {
     await sessionRef.update({
       status: updateStatus,
       startedAt: admin.firestore.FieldValue.serverTimestamp(),
+      authId,
     });
   } else {
     // Does not do anything when session is 'started' or 'expired'

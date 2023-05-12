@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Link, Stack, Typography } from '@mui/material';
 
+import { signInAnonymously } from 'firebase/auth';
+import { auth } from '@postgpt/firebase';
+
 import { useIntlMessage } from '@postgpt/i18n';
 
 import { CTAButton } from '../../buttons';
@@ -27,11 +30,15 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
 
   // Obtain user from VITE_GET_USER_URL using axios
   const getUser = async () => {
+    // Create an anonymous user on Firebase
+    const credential = await signInAnonymously(auth);
+
     const answer = await axios({
       method: 'post',
       url: import.meta.env.VITE_GET_USER_URL,
       data: {
         sessionId,
+        authId: credential.user.uid,
       },
       validateStatus: (status: number) => {
         return status < 600;

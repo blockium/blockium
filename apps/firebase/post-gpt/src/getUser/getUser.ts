@@ -3,11 +3,17 @@ import cors from 'cors';
 
 import { Session } from '@postgpt/types';
 
-import { validateSession, validateSessionId } from '../utils/validate';
+import {
+  validateAuthId,
+  validateSession,
+  validateSessionId,
+} from '../utils/validate';
 import { getSession, updateSession } from '../utils/session';
 
 const validateParams = (request, response) => {
-  return validateSessionId(request, response);
+  return (
+    validateSessionId(request, response) && validateAuthId(request, response)
+  );
 };
 
 export const getUser = https.onRequest(async (request, response) => {
@@ -16,8 +22,10 @@ export const getUser = https.onRequest(async (request, response) => {
   corsObj(request, response, async () => {
     if (!validateParams(request, response)) return;
 
+    const { sessionId, authId } = request.body;
+
     // Retrieve session from Firestore.
-    const result = await getSession(request.body);
+    const result = await getSession(sessionId);
     if (!validateSession(result, response)) return;
 
     const session = result as Session;
@@ -29,7 +37,7 @@ export const getUser = https.onRequest(async (request, response) => {
     }
 
     try {
-      await updateSession(request, response, session);
+      await updateSession(request, response, session, authId);
 
       const { userId, phone, name } = session;
       response.status(200).send(JSON.stringify({ userId, phone, name }));

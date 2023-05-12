@@ -25,8 +25,10 @@ export const login = https.onRequest(async (request, response) => {
   corsObj(request, response, async () => {
     if (!validateParams(request, response)) return;
 
+    const { sessionId } = request.body;
+
     // Retrieve session from Firestore.
-    const result = await getSession(request.body);
+    const result = await getSession(sessionId);
     if (!validateSession(result, response)) return;
 
     const session = result as Session;
