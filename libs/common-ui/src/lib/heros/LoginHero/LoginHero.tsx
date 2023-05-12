@@ -14,9 +14,9 @@ export const LoginHero: React.FC<LoginHeroProps> = ({
   children,
 }) => {
   return (
-    <Container maxWidth={false} disableGutters sx={{ height: '100vh' }}>
+    <Container maxWidth={false} disableGutters sx={{ height: '100svh' }}>
       <Grid container direction="row" sx={{ height: '100%' }}>
-        <Grid item xs={12} md={7} xl={5} height={{ xs: '35%', md: '100%' }}>
+        <Grid item xs={12} sm={7} xl={5} height={{ xs: '35%', sm: '100%' }}>
           <Box
             component="img"
             sx={{
@@ -24,9 +24,10 @@ export const LoginHero: React.FC<LoginHeroProps> = ({
               width: '100%',
               height: '100%',
               objectFit: 'cover',
+              objectPosition: 'top',
               content: {
                 xs: `url(${topImageSrc ?? leftImageSrc})`,
-                md: `url(${leftImageSrc})`,
+                sm: `url(${leftImageSrc})`,
               },
             }}
             src={leftImageSrc}
@@ -39,10 +40,10 @@ export const LoginHero: React.FC<LoginHeroProps> = ({
           justifyContent="center"
           alignItems="center"
           xs={12}
-          md={5}
+          sm={5}
           xl={7}
           padding="0 4rem"
-          height={{ xs: '65%', md: '100%' }}
+          height={{ xs: '65%', sm: '100%' }}
         >
           {children}
         </Grid>
