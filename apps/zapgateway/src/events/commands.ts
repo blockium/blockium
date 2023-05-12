@@ -33,13 +33,13 @@ const login = async (msg, client: Client) => {
     // If the answer is a string there was an error
     if (typeof answer.data === 'string') {
       client.sendMessage(msg.from, answer.data);
+    } else {
+      // Send a success message to the user
+      client.sendMessage(
+        msg.from,
+        'Login efetuado com sucesso! Retorne para o app e continue'
+      );
     }
-
-    // Send a success message to the user
-    client.sendMessage(
-      msg.from,
-      'Login efetuado com sucesso! Retorne para o app e continue'
-    );
     //
   } catch (error) {
     console.error(error);
