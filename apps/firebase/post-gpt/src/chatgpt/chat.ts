@@ -70,7 +70,7 @@ export const chat = async (
     messages.push({
       role: 'user',
       content:
-        'Seja criativo e humorado. Omita introduções, conclusões e explicações.\n' +
+        'Seja criativo. Omita introduções, conclusões e explicações.\n' +
         prompt,
     });
 
