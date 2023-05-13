@@ -55,24 +55,24 @@ const { host } = window.location;
 const config = host.split('.')[0];
 const palette = palettes[config] || palettes.site;
 
-const fontFamilyLora = {
-  fontFamily: 'Lora',
+const fontFamilyHeader = {
+  fontFamily: 'Poppins',
 };
 const typography: TypographyOptions = {
   fontFamily: [
     'Work Sans',
     'Roboto',
     '"Helvetica Neue"',
-    'Lora',
+    'Poppins',
     '-apple-system',
     'sans-serif',
   ].join(','),
-  h1: fontFamilyLora,
-  h2: fontFamilyLora,
-  h3: fontFamilyLora,
-  h4: fontFamilyLora,
-  h5: fontFamilyLora,
-  h6: fontFamilyLora,
+  h1: fontFamilyHeader,
+  h2: fontFamilyHeader,
+  h3: fontFamilyHeader,
+  h4: fontFamilyHeader,
+  h5: fontFamilyHeader,
+  h6: fontFamilyHeader,
   htmlFontSize: 10,
 };
 
