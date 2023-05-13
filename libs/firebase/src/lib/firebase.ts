@@ -38,6 +38,8 @@ if (typeof process !== 'undefined') {
   env.DEV = import.meta.env.MODE === 'development';
 }
 
+console.log('env.FIREBASE_API_KEY', env.FIREBASE_API_KEY);
+
 const firebaseConfig = {
   apiKey: env.FIREBASE_API_KEY,
   authDomain: env.FIREBASE_AUTH_DOMAIN,
