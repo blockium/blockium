@@ -103,7 +103,7 @@ export const PhoneForm: React.FC = () => {
           onClick={signIn}
           startIcon={<PhoneIcon sx={{ marginRight: '1rem' }} />}
           loading={loading}
-          disabled={phoneNumber.length < 19}
+          disabled={phoneNumber.length < 17}
         >
           {msg('commonui.button.send-code')}
         </CTAButton>
