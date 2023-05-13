@@ -17,6 +17,8 @@ const env: {
   DEV?: boolean;
 } = {};
 
+console.log('process', process);
+
 if (typeof process !== 'undefined') {
   env.FIREBASE_API_KEY = process.env.FIREBASE_API_KEY;
   env.FIREBASE_AUTH_DOMAIN = process.env.FIREBASE_AUTH_DOMAIN;
