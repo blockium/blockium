@@ -8,7 +8,7 @@ import {
   validateSession,
   validateSessionId,
 } from '../utils/validate';
-import { getSession, updateSession } from '../utils/session';
+import { expireOldSessions, getSession, updateSession } from '../utils/session';
 
 const validateParams = (request, response) => {
   return (
@@ -37,6 +37,8 @@ export const getUser = https.onRequest(async (request, response) => {
     }
 
     try {
+      await expireOldSessions(session.userId);
+
       await updateSession(request, response, session, authId);
 
       const { userId, phone, name } = session;

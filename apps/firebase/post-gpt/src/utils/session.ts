@@ -22,6 +22,39 @@ export const getSession = async (sessionId: string) => {
   return session;
 };
 
+export const expireOldSessions = async (userId: string) => {
+  // Expire old sessions
+  const sessionsRef = await db.sessions
+    .where('userId', '==', userId)
+    .where('status', '==', 'started')
+    .get();
+  const batch = admin.firestore().batch();
+  for (const sessionDoc of sessionsRef.docs) {
+    // Delete old anonymours users
+    const { authId } = await sessionDoc.data();
+    console.log('authId', authId);
+    if (authId) {
+      const authUser = await admin.auth().getUser(authId);
+      const isAnonymous =
+        authUser &&
+        (authUser.providerData.length === 0 ||
+          (authUser.providerData.length === 1 &&
+            authUser.providerData[0].providerId === 'anonymous'));
+
+      if (isAnonymous) {
+        await admin.auth().deleteUser(authId);
+      }
+    }
+
+    batch.update(sessionDoc.ref, {
+      status: 'expired',
+      expiredAt: admin.firestore.FieldValue.serverTimestamp(),
+      authId: null,
+    });
+  }
+  await batch.commit();
+};
+
 export const updateSession = async (
   request,
   response,
