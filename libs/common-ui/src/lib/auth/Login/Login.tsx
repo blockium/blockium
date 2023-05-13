@@ -96,7 +96,7 @@ export const Login: React.FC<LoginProps> = ({
     <>
       <Alert severity="error" message={error} setMessage={setError} />
       <LoginHero leftImageSrc={leftImageSrc} topImageSrc={topImageSrc}>
-        <Stack gap="2rem" alignItems="center" width="300px">
+        <Stack alignItems="center" width="300px">
           {/* <PostGptLogo
             // full={false}
             width="50rem"
@@ -111,6 +111,7 @@ export const Login: React.FC<LoginProps> = ({
           >
             {msg('commonui.button.loginWithWhatsApp')}
           </CTAButton>
+          <br />
           <CTAButton
             onClick={loginWithPhone}
             startIcon={<PhoneIcon sx={{ marginRight: '1rem' }} />}
@@ -122,17 +123,20 @@ export const Login: React.FC<LoginProps> = ({
             {msg('commonui.button.loginWithPhone')}
           </CTAButton>
           {false && (
-            <CTAButton
-              onClick={loginWithGoogle}
-              startIcon={<GoogleIcon sx={{ marginRight: '1rem' }} />}
-              fullWidth
-              variant="outlined"
-              color="secondary"
-              loading={loadingGoogle}
-              disabled={loadingWhatsApp}
-            >
-              {msg('commonui.button.loginWithGoogle')}
-            </CTAButton>
+            <>
+              <br />
+              <CTAButton
+                onClick={loginWithGoogle}
+                startIcon={<GoogleIcon sx={{ marginRight: '1rem' }} />}
+                fullWidth
+                variant="outlined"
+                color="secondary"
+                loading={loadingGoogle}
+                disabled={loadingWhatsApp}
+              >
+                {msg('commonui.button.loginWithGoogle')}
+              </CTAButton>
+            </>
           )}{' '}
         </Stack>
       </LoginHero>
