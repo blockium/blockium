@@ -32,7 +32,6 @@ export const expireOldSessions = async (userId: string) => {
   for (const sessionDoc of sessionsRef.docs) {
     // Delete old anonymours users
     const { authId } = await sessionDoc.data();
-    console.log('authId', authId);
     if (authId) {
       const authUser = await admin.auth().getUser(authId);
       const isAnonymous =
