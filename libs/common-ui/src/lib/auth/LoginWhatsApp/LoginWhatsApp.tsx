@@ -88,7 +88,7 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
     <>
       <Alert severity="error" message={error} setMessage={setError} />
       <LoginHero leftImageSrc={leftImageSrc} topImageSrc={topImageSrc}>
-        <Stack alignItems="center" width="300px" margin="2rem 1rem">
+        <Stack alignItems="center" width="300px" margin="2rem 0.5rem">
           <Typography variant="h6">
             1. {msg('commonui.login.whatsapp.msg1')}
           </Typography>

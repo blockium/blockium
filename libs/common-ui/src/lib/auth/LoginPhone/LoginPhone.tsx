@@ -14,7 +14,7 @@ export const LoginPhone: React.FC<LoginProps> = ({
 }) => {
   return (
     <LoginHero leftImageSrc={leftImageSrc} topImageSrc={topImageSrc}>
-      <Stack gap="2rem" alignItems="center" width="300px" margin="2rem 1rem">
+      <Stack gap="2rem" alignItems="center" width="300px" margin="2rem 0.5rem">
         <PhoneForm />
       </Stack>
     </LoginHero>
