@@ -17,30 +17,34 @@ const env: {
   DEV?: boolean;
 } = {};
 
-console.log('process', process);
+const envSource =
+  typeof process !== 'undefined' ? process.env : import.meta.env;
 
 if (typeof process !== 'undefined') {
-  env.FIREBASE_API_KEY = process.env.FIREBASE_API_KEY;
-  env.FIREBASE_AUTH_DOMAIN = process.env.FIREBASE_AUTH_DOMAIN;
-  env.FIREBASE_PROJECT_ID = process.env.FIREBASE_PROJECT_ID;
-  env.FIREBASE_STORAGE_BUCKET = process.env.FIREBASE_STORAGE_BUCKET;
-  env.FIREBASE_MESSAGING_SENDER_ID = process.env.FIREBASE_MESSAGING_SENDER_ID;
-  env.FIREBASE_APP_ID = process.env.FIREBASE_APP_ID;
-  env.FIREBASE_MEASUREMENT_ID = process.env.FIREBASE_MEASUREMENT_ID;
-  env.DEV = process.env.NODE_ENV === 'development';
+  env.DEV = envSource.NODE_ENV === 'development';
+  env.FIREBASE_API_KEY = envSource.FIREBASE_API_KEY;
+  env.FIREBASE_AUTH_DOMAIN = envSource.FIREBASE_AUTH_DOMAIN;
+  env.FIREBASE_PROJECT_ID = envSource.FIREBASE_PROJECT_ID;
+  env.FIREBASE_STORAGE_BUCKET = envSource.FIREBASE_STORAGE_BUCKET;
+  env.FIREBASE_MESSAGING_SENDER_ID = envSource.FIREBASE_MESSAGING_SENDER_ID;
+  env.FIREBASE_APP_ID = envSource.FIREBASE_APP_ID;
+  env.FIREBASE_MEASUREMENT_ID = envSource.FIREBASE_MEASUREMENT_ID;
 } else {
-  env.FIREBASE_API_KEY = import.meta.env.VITE_FIREBASE_API_KEY;
-  env.FIREBASE_AUTH_DOMAIN = import.meta.env.VITE_FIREBASE_AUTH_DOMAIN;
-  env.FIREBASE_PROJECT_ID = import.meta.env.VITE_FIREBASE_PROJECT_ID;
-  env.FIREBASE_STORAGE_BUCKET = import.meta.env.VITE_FIREBASE_STORAGE_BUCKET;
+  env.DEV = envSource.MODE === 'development';
+  env.FIREBASE_API_KEY =
+    env.DEV ||
+    (typeof document !== 'undefined' &&
+      document.location.hostname === 'localhost')
+      ? envSource.VITE_FIREBASE_API_KEY_DEV
+      : envSource.VITE_FIREBASE_API_KEY;
+  env.FIREBASE_AUTH_DOMAIN = envSource.VITE_FIREBASE_AUTH_DOMAIN;
+  env.FIREBASE_PROJECT_ID = envSource.VITE_FIREBASE_PROJECT_ID;
+  env.FIREBASE_STORAGE_BUCKET = envSource.VITE_FIREBASE_STORAGE_BUCKET;
   env.FIREBASE_MESSAGING_SENDER_ID =
-    import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID;
-  env.FIREBASE_APP_ID = import.meta.env.VITE_FIREBASE_APP_ID;
-  env.FIREBASE_MEASUREMENT_ID = import.meta.env.VITE_FIREBASE_MEASUREMENT_ID;
-  env.DEV = import.meta.env.MODE === 'development';
+    envSource.VITE_FIREBASE_MESSAGING_SENDER_ID;
+  env.FIREBASE_APP_ID = envSource.VITE_FIREBASE_APP_ID;
+  env.FIREBASE_MEASUREMENT_ID = envSource.VITE_FIREBASE_MEASUREMENT_ID;
 }
-
-console.log('env.FIREBASE_API_KEY', env.FIREBASE_API_KEY);
 
 const firebaseConfig = {
   apiKey: env.FIREBASE_API_KEY,
