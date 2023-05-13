@@ -5,4 +5,5 @@ export * from './lib/form';
 export * from './lib/heros';
 export * from './lib/icons';
 export * from './lib/logos';
+export * from './lib/progress';
 export * from './lib/router';
