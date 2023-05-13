@@ -88,26 +88,26 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
     <>
       <Alert severity="error" message={error} setMessage={setError} />
       <LoginHero leftImageSrc={leftImageSrc} topImageSrc={topImageSrc}>
-        <Stack gap="2rem" alignItems="center" width="300px">
-          <Typography variant="body2" textAlign="center">
-            <br />
-            {msg('commonui.login.whatsapp.msg1')}
-            <br />
-            <br />
-            {/* <Link onClick={copyToClipboard}>LOGIN:{sessionId}</Link> <br /> */}
-            <Link href={getWhatsAppLink()} target="_blank">
-              LOGIN:{sessionId}
-            </Link>{' '}
-            <br />
-            <br />
-            <br />
-            <br />
-            {msg('commonui.login.whatsapp.msg2')}
+        <Stack alignItems="center" width="300px" margin="2rem 1rem">
+          <Typography variant="h6">
+            1. {msg('commonui.login.whatsapp.msg1')}
+          </Typography>
+          {/* <Link onClick={copyToClipboard}>LOGIN:{sessionId}</Link> <br /> */}
+          <Link
+            href={getWhatsAppLink()}
+            target="_blank"
+            sx={{ marginTop: '2rem' }}
+          >
+            LOGIN:{sessionId}
+          </Link>{' '}
+          <Typography variant="h6" sx={{ marginTop: '6rem' }}>
+            2. {msg('commonui.login.whatsapp.msg2')}
           </Typography>
           <CTAButton
             onClick={loginWithWhatsApp}
-            variant="outlined"
+            // variant="outlined"
             loading={loadingWhatsApp}
+            sx={{ marginTop: '2rem' }}
           >
             {msg('commonui.button.enter')}
           </CTAButton>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Stack } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import PhoneIcon from '@mui/icons-material/Phone';
 
 import { useIntlMessage } from '@postgpt/i18n';
@@ -96,7 +96,7 @@ export const Login: React.FC<LoginProps> = ({
     <>
       <Alert severity="error" message={error} setMessage={setError} />
       <LoginHero leftImageSrc={leftImageSrc} topImageSrc={topImageSrc}>
-        <Stack alignItems="center" width="300px">
+        <Stack alignItems="center" width="300px" margin="2rem 0.5rem">
           {/* <PostGptLogo
             // full={false}
             width="50rem"
@@ -104,17 +104,18 @@ export const Login: React.FC<LoginProps> = ({
           /> */}
           <CTAButton
             onClick={loginWithWhatsApp}
-            startIcon={<WhatsAppIcon sx={{ marginRight: '1rem' }} />}
+            startIcon={<WhatsAppIcon sx={{ marginRight: '0.5rem' }} />}
             fullWidth
             loading={loadingWhatsApp}
             disabled={loadingGoogle}
           >
             {msg('commonui.button.loginWithWhatsApp')}
           </CTAButton>
-          <br />
+          {/* Box used instead of Stack gap due to support for old browsers */}
+          <Box sx={{ height: '2rem' }}></Box>
           <CTAButton
             onClick={loginWithPhone}
-            startIcon={<PhoneIcon sx={{ marginRight: '1rem' }} />}
+            startIcon={<PhoneIcon sx={{ marginRight: '0.5rem' }} />}
             fullWidth
             variant="outlined"
             color="secondary"
@@ -124,15 +125,16 @@ export const Login: React.FC<LoginProps> = ({
           </CTAButton>
           {false && (
             <>
-              <br />
+              <Box sx={{ height: '2rem' }}></Box>
               <CTAButton
                 onClick={loginWithGoogle}
-                startIcon={<GoogleIcon sx={{ marginRight: '1rem' }} />}
+                startIcon={<GoogleIcon sx={{ marginRight: '0.5rem' }} />}
                 fullWidth
                 variant="outlined"
                 color="secondary"
                 loading={loadingGoogle}
                 disabled={loadingWhatsApp}
+                sx={{ marginTop: '2rem' }}
               >
                 {msg('commonui.button.loginWithGoogle')}
               </CTAButton>

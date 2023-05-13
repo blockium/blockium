@@ -18,6 +18,7 @@ export const LoginHero: React.FC<LoginHeroProps> = ({
       maxWidth={false}
       disableGutters
       style={{ height: '100dvh' }}
+      // Fallback for browsers that do not support dvh:
       sx={{ height: '100vh' }}
     >
       <Grid container direction="row" sx={{ height: '100%' }}>
