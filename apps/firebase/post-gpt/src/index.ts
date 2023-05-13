@@ -16,3 +16,4 @@ export * from './newPosts/newPosts';
 export * from './newSession/newSession';
 export * from './login/login';
 export * from './getUser/getUser';
+export * from './updateUserOnAuth/updateUserOnAuth';

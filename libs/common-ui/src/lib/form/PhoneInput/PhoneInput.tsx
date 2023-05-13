@@ -13,10 +13,10 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
         {...other}
         // mask="+00 (00) 00000-0000"
         mask={[
-          { mask: '+0 (000) 000-0000' },
-          { mask: '+00 (00) 0000-0000' },
+          // { mask: '+0 (000) 000-0000' },
+          // { mask: '+00 (00) 0000-0000' },
           { mask: '+00 (00) 00000-0000' },
-          { mask: '+00 (000) 00000-0000' },
+          // { mask: '+00 (000) 00000-0000' },
         ]}
         unmask={false}
         inputRef={ref}

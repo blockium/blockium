@@ -3,7 +3,7 @@ import admin from 'firebase-admin';
 import { Session, User } from '@postgpt/types';
 
 import { db } from './db';
-import { getUser } from './user';
+import { getAuthUser, getUser, isAnonymousUser } from './user';
 import { validateUser } from './validate';
 
 export const SESSION_ERROR_NOT_FOUND = 'SESSION_ERROR_NOT_FOUND';
@@ -33,14 +33,8 @@ export const expireOldSessions = async (userId: string) => {
     // Delete old anonymours users
     const { authId } = await sessionDoc.data();
     if (authId) {
-      const authUser = await admin.auth().getUser(authId);
-      const isAnonymous =
-        authUser &&
-        (authUser.providerData.length === 0 ||
-          (authUser.providerData.length === 1 &&
-            authUser.providerData[0].providerId === 'anonymous'));
-
-      if (isAnonymous) {
+      const authUser = await getAuthUser(authId);
+      if (authUser && isAnonymousUser(authUser)) {
         await admin.auth().deleteUser(authId);
       }
     }

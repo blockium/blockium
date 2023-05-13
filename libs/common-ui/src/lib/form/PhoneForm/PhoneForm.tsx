@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import { TextField, Stack, Typography } from '@mui/material';
 import PhoneIcon from '@mui/icons-material/Phone';
 
@@ -54,12 +55,35 @@ export const PhoneForm: React.FC = () => {
   const verifyCode = async () => {
     try {
       setLoading(true);
-      await confirmationResult?.confirm(verificationCode);
+      const credential = await confirmationResult?.confirm(verificationCode);
+      if (!credential) {
+        setErrorMessage(msg('commonui.error.auth.failed'));
+        //
+      } else {
+        // const { uid: authId, phoneNumber } = auth.currentUser;
+        // Save authId on /users collection where phone === phoneNumber
+        const answer = await axios({
+          method: 'post',
+          url: import.meta.env.VITE_UPDATE_USER_ON_AUTH_URL,
+          data: {
+            authId: credential.user.uid,
+          },
+          validateStatus: (status: number) => {
+            return status < 600;
+          },
+        });
 
-      // const { uid: authId, phoneNumber } = auth.currentUser;
-      // TODO: Call /saveAuthId function to save authId on /users collection where phone === phoneNumber
-
-      navigate('/');
+        if (answer.status === 200) {
+          const { userId, phone, name } = answer.data;
+          sessionStorage.setItem('userId', userId);
+          sessionStorage.setItem('phone', phone);
+          sessionStorage.setItem('name', name);
+          navigate('/');
+          //
+        } else {
+          setErrorMessage(answer.data);
+        }
+      }
     } catch (error: any) {
       console.log(error.message);
       if (error.code === 'auth/code-expired') {
