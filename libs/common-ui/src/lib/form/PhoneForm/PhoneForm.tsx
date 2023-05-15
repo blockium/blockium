@@ -9,7 +9,6 @@ import {
   ConfirmationResult,
   RecaptchaVerifier,
   signInWithPhoneNumber,
-  // signOut,
 } from 'firebase/auth';
 import { auth } from '@postgpt/firebase';
 
@@ -96,18 +95,6 @@ export const PhoneForm: React.FC = () => {
     }
   };
 
-  // useEffect(() => {
-  //   const cleanup = () => {
-  //     if (auth.currentUser) {
-  //       signOut(auth);
-  //     }
-  //   };
-
-  //   return () => {
-  //     cleanup();
-  //   };
-  // }, []);
-
   return (
     <Stack gap="1rem" width="100%">
       {/* Phone Number Input and Sign In Button */}
@@ -127,7 +114,7 @@ export const PhoneForm: React.FC = () => {
           onClick={signIn}
           startIcon={<PhoneIcon sx={{ marginRight: '1rem' }} />}
           loading={loading}
-          disabled={phoneNumber.length < 17}
+          disabled={phoneNumber.length < 11}
         >
           {msg('commonui.button.send-code')}
         </CTAButton>
