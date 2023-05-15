@@ -22,13 +22,18 @@ service cloud.firestore {
     //   return resource.data.partnerEmail == request.auth.token.email;
     // }
 
-		match /{document=**} {
-      allow read, write: if request.auth != null;
-    }
+		// match /{document=**} {
+		// allow read, write: if request.auth != null;
+		// }
     
-    match /users/{userId}/posts/{postId} {
+    match /users/{userId}/{document=**} {
       // Allow if user is owner and a subscriber
       allow read, write: if isOwner(userId) && isSubscriber(userId);
     }  
+    
+    // match /users/{userId}/posts/{postId} {
+    //   // Allow if user is owner and a subscriber
+    //   allow read, write: if isOwner(userId) && isSubscriber(userId);
+    // }  
   }
 }

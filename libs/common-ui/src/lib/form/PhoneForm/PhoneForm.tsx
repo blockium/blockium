@@ -29,6 +29,7 @@ export const PhoneForm: React.FC = () => {
 
   const signIn = async () => {
     try {
+      setErrorMessage('');
       setLoading(true);
       const appVerifier = new RecaptchaVerifier(
         'recaptcha-container',
@@ -53,6 +54,7 @@ export const PhoneForm: React.FC = () => {
 
   const verifyCode = async () => {
     try {
+      setErrorMessage('');
       setLoading(true);
       const credential = await confirmationResult?.confirm(verificationCode);
       if (!credential) {

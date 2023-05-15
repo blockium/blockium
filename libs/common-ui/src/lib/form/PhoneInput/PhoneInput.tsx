@@ -19,7 +19,7 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
           { mask: '+00 (00) 00000-0000' },
           { mask: '+00 (000) 00000-0000' },
         ]}
-        unmask
+        // unmask
         overwrite
         inputRef={ref}
         onAccept={(value: string) =>
