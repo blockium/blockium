@@ -15,7 +15,7 @@ import { useIntlMessage } from '@postgpt/i18n';
 
 import { PhoneInput } from '../PhoneInput';
 import { CTAButton } from '../../buttons';
-import loginWithPhone from '../../auth/apiRequests/loginWithPhone/loginWithPhone';
+import { loginWithPhone } from '../../auth';
 
 export const PhoneForm: React.FC = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
