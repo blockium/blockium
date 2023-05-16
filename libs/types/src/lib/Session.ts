@@ -1,6 +1,8 @@
+export type SessionStatus = 'new' | 'waiting' | 'started' | 'expired';
+
 export type Session = {
   id?: string;
-  status: 'new' | 'waiting' | 'started' | 'expired';
+  status: SessionStatus;
   newAt: object;
   waitingAt?: string;
   startedAt?: string;

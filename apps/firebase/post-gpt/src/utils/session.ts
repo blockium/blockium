@@ -3,13 +3,23 @@ import admin from 'firebase-admin';
 import { Session, User } from '@postgpt/types';
 
 import { db } from './db';
-import { getAuthUser, getUser, isAnonymousUser } from './user';
-import { validateUser } from './validate';
+import { getAuthUser, isAnonymousUser } from './user';
 
 export const SESSION_ERROR_NOT_FOUND = 'SESSION_ERROR_NOT_FOUND';
 
+// Create a new session
+export const createSession = async () => {
+  const session: Session = {
+    status: 'new',
+    newAt: admin.firestore.FieldValue.serverTimestamp(),
+  };
+  const sessionDoc = await db.sessions.add(session);
+  session.id = sessionDoc.id;
+  return session;
+};
+
+// Get a session data by sessionId
 export const getSession = async (sessionId: string) => {
-  // Get a session data by sessionId
   const sessionRef = await db.sessions.doc(sessionId);
   const sessionDoc = await sessionRef.get();
   if (!sessionDoc.exists) {
@@ -22,15 +32,20 @@ export const getSession = async (sessionId: string) => {
   return session;
 };
 
+// Expire old sessions for a given userId
 export const expireOldSessions = async (userId: string) => {
-  // Expire old sessions
+  // Get all sessions that are 'started' and have the same userId
   const sessionsRef = await db.sessions
     .where('userId', '==', userId)
     .where('status', '==', 'started')
     .get();
+
+  // Create a batch to update all sessions at once
   const batch = admin.firestore().batch();
+
+  // For all sessions that are 'started' and have the same userId
   for (const sessionDoc of sessionsRef.docs) {
-    // Delete old anonymours users
+    // Delete old anonymous Firebase users' accounts related to old sessions
     const { authId } = await sessionDoc.data();
     if (authId) {
       const authUser = await getAuthUser(authId);
@@ -39,50 +54,47 @@ export const expireOldSessions = async (userId: string) => {
       }
     }
 
+    // Update all old sessions to 'expired'
     batch.update(sessionDoc.ref, {
       status: 'expired',
       expiredAt: admin.firestore.FieldValue.serverTimestamp(),
       authId: null,
     });
   }
+
   await batch.commit();
 };
 
+// Update session data and return its new status
+// If session is 'new', it will be updated to 'waiting'
+// If session is 'waiting', it will be updated to 'started'
+// If session is 'started' or 'expired', it will not be updated
 export const updateSession = async (
-  request,
-  response,
+  user: User,
   session: Session,
   authId?: string
 ) => {
-  let updateStatus;
-  if (session.status === 'new') {
-    const { phone, name } = request.body;
-    const result = await getUser(phone, name || phone);
-    if (!validateUser(result, response)) return;
-
-    const user = result as User;
-
-    updateStatus = 'waiting';
-    const sessionRef = await db.sessions.doc(session.id);
-    await sessionRef.update({
-      status: updateStatus,
-      waitingAt: admin.firestore.FieldValue.serverTimestamp(),
-      userId: user.id,
-      phone: user.phone,
-      name: user.name,
-    });
-  } else if (session.status === 'waiting') {
-    updateStatus = 'started';
-    const sessionRef = await db.sessions.doc(session.id);
-    await sessionRef.update({
-      status: updateStatus,
-      startedAt: admin.firestore.FieldValue.serverTimestamp(),
-      authId,
-    });
-  } else {
-    // Does not do anything when session is 'started' or 'expired'
-    updateStatus = session.status;
+  switch (session.status) {
+    case 'new':
+      await db.sessions.doc(session.id).update({
+        status: 'waiting',
+        waitingAt: admin.firestore.FieldValue.serverTimestamp(),
+        userId: user.id,
+        phone: user.phone,
+        name: user.name,
+      });
+      return 'waiting';
+    //
+    case 'waiting':
+      await db.sessions.doc(session.id).update({
+        status: 'started',
+        startedAt: admin.firestore.FieldValue.serverTimestamp(),
+        authId,
+      });
+      return 'started';
+    //
+    default:
+      // Does not do anything when session is 'started' or 'expired'
+      return session.status;
   }
-
-  return updateStatus;
 };

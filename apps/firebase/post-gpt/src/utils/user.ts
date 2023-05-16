@@ -8,54 +8,58 @@ import { db } from './db';
 export const USER_ERROR_DIFFERENT_USER_NAME = 'USER_ERROR_DIFFERENT_USER_NAME';
 export const USER_ERROR_NON_UNIQUE_USER = 'USER_ERROR_NON_UNIQUE_USER';
 
+// Save user's data (phone, name) in Firestore at users collection
+export const createUser = async (phone: string, name: string) => {
+  const user: User = {
+    name,
+    phone,
+  };
+  const userDoc = await db.users.add(user);
+  user.id = userDoc.id;
+  return user;
+};
+
+// Get all users with same phone
 export const getAllUsers = async (phone: string) => {
-  // Get a user data filtered by phone
   const userQuery = await db.users.where('phone', '==', phone).get();
   return userQuery.docs.map((userDoc) => {
     return { ...userDoc.data(), id: userDoc.id };
   });
 };
 
-export const getUser = async (phone: string, name: string) => {
-  // const { phone } = request.body;
-  // const name = request.body.name || phone;
-
-  let user: User = null;
-
-  // Get a user data filtered by phone
+// Get a user data filtered by phone, creating if it doesn't exist
+export const getOrCreateUser = async (
+  phone: string,
+  name: string,
+  allowDifferentNames?: boolean
+) => {
   const users = await getAllUsers(phone);
 
-  // new user:
-  if (users.length === 0) {
-    // Save user's data (phone, name) in Firestore at users collection
-    user = {
-      name,
-      phone,
-    };
-    const userDoc = await db.users.add(user);
-    user.id = userDoc.id;
-    //
-    // existing user:
-  } else if (users.length === 1) {
-    // If user's name is different from the one in the database,
-    // it may indicate that phone number is being used by another person
-    if (users[0].name !== name) {
-      return USER_ERROR_DIFFERENT_USER_NAME;
-    }
-    user = users[0]; // VALID USER
-    //
-    // more than one user:
-  } else if (users.length > 1) {
-    return USER_ERROR_NON_UNIQUE_USER;
+  switch (users.length) {
+    case 0:
+      return await createUser(phone, name);
+    case 1:
+      // If user's name is different from the one in the database,
+      // it may indicate that phone number is being used by another person
+      return users[0].name === name || allowDifferentNames
+        ? users[0]
+        : USER_ERROR_DIFFERENT_USER_NAME;
+    default:
+      return USER_ERROR_NON_UNIQUE_USER;
   }
-
-  return user;
 };
 
+export const updateUser = async (userId: string, dataToUpdate) => {
+  const userRef = db.users.doc(userId);
+  await userRef.update(dataToUpdate);
+};
+
+// Get Firebase authenticated user data filtered by authId
 export const getAuthUser = async (authId: string) => {
   return await admin.auth().getUser(authId);
 };
 
+// Check if Firebase user is anonymous
 export const isAnonymousUser = (authUser: UserRecord) => {
   return (
     authUser.providerData.length === 0 ||

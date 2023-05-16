@@ -1,15 +1,17 @@
 import { https } from 'firebase-functions';
 import cors from 'cors';
 
-import { Session } from '@postgpt/types';
+import { Session, User } from '@postgpt/types';
 
 import {
   validateName,
   validatePhone,
   validateSession,
   validateSessionId,
+  validateUser,
 } from '../utils/validate';
 import { getSession, updateSession } from '../utils/session';
+import { getOrCreateUser } from '../utils/user';
 
 const validateParams = (request, response) => {
   return (
@@ -25,21 +27,19 @@ export const login = https.onRequest(async (request, response) => {
   corsObj(request, response, async () => {
     if (!validateParams(request, response)) return;
 
-    const { sessionId } = request.body;
-
-    // Retrieve session from Firestore.
-    const result = await getSession(sessionId);
-    if (!validateSession(result, response)) return;
-
-    const session = result as Session;
-
-    if (session.status !== 'new') {
-      response.status(412).send('Sessão inválida');
-      return;
-    }
-
     try {
-      const updateStatus = await updateSession(request, response, session);
+      // Retrieve session from Firestore.
+      const session = (await getSession(request.body.sessionId)) as Session;
+      // Validate session on login - must have status = 'new'
+      if (!validateSession(session, response, ['new'])) return;
+
+      // Get a user data filtered by phone, creating if it doesn't exist
+      const { phone, name } = request.body;
+      const user = (await getOrCreateUser(phone, name || phone)) as User;
+      if (!validateUser(user, response)) return;
+
+      // Update session status - from 'new to 'waiting'
+      const updateStatus = await updateSession(user, session);
 
       response
         .status(200)

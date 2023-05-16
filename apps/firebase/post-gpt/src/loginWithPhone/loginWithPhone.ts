@@ -1,50 +1,45 @@
 import { https } from 'firebase-functions';
 import cors from 'cors';
 
-import { Session, User } from '@postgpt/types';
+import { User } from '@postgpt/types';
 
 import {
+  createSession,
+  expireOldSessions,
+  updateSession,
+} from '../utils/session';
+import { getAuthUser, getOrCreateUser, updateUser } from '../utils/user';
+import {
   validateAuthId,
-  // validateAuthPhone,
+  validateAuthPhone,
   validateAuthUser,
-  validateSession,
-  validateSessionId,
   validateUser,
 } from '../utils/validate';
-import { getAuthUser, getOrCreateUser, updateUser } from '../utils/user';
-import { expireOldSessions, getSession, updateSession } from '../utils/session';
 
 const validateParams = (request, response) => {
-  return (
-    validateSessionId(request, response) && validateAuthId(request, response)
-  );
+  return validateAuthId(request, response);
 };
 
-export const getUser = https.onRequest(async (request, response) => {
+export const loginWithPhone = https.onRequest(async (request, response) => {
   // TODO: Review CORS policy
   const corsObj = cors({ origin: true });
   corsObj(request, response, async () => {
     if (!validateParams(request, response)) return;
 
     try {
-      // Retrieve session from Firestore.
-      const session = (await getSession(request.body.sessionId)) as Session;
-      // Validate session - must have status = 'waiting' or 'started
-      if (!validateSession(session, response, ['waiting', 'started'])) return;
-
       // Get Firebase authenticated user data filtered by authId
       const authUser = await getAuthUser(request.body.authId);
       if (!validateAuthUser(authUser, response)) return;
 
-      // Commented to allow anonymous auth users
-      // if (!validateAuthPhone(authUser.phoneNumber, response)) return;
+      // Creates new user only if it has a phone number
+      if (!validateAuthPhone(authUser.phoneNumber, response)) return;
 
       const authPhone = authUser.phoneNumber.replace(/\D/g, '');
-      const phone = session.phone || authPhone;
-      const name = session.name || authUser.displayName || authPhone;
+      const phone = authPhone;
+      const name = authUser.displayName || phone;
 
       // Get a user data filtered by phone, creating if it doesn't exist
-      const user = (await getOrCreateUser(phone, name)) as User;
+      const user = (await getOrCreateUser(phone, name, true)) as User;
       if (!validateUser(user, response)) return;
 
       // Update app user's auth id in Firestore
@@ -52,18 +47,22 @@ export const getUser = https.onRequest(async (request, response) => {
         authId: authUser.uid,
       });
 
+      const session = await createSession();
+
+      // Update session status - from 'new to 'waiting'
+      await updateSession(user, session);
+
       // Expire old sessions for a given userId
       await expireOldSessions(session.userId);
 
-      // Update session
+      // Update session - from 'waiting' to 'started'
       await updateSession(user, session, authUser.uid);
 
       const { id: userId } = user;
       response.status(200).send(JSON.stringify({ userId, phone, name }));
-      //
     } catch (error) {
       console.log(error);
-      response.status(424).send('Houve um erro ao obter o usuário.');
+      response.status(424).send('Houve um erro ao realizar o login.');
     }
   });
 });

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { Link, Stack, Typography } from '@mui/material';
 
 import { signInAnonymously } from 'firebase/auth';
@@ -11,6 +10,7 @@ import { useIntlMessage } from '@postgpt/i18n';
 import { CTAButton } from '../../buttons';
 import { LoginHero } from '../../heros';
 import { Alert } from '../../alert';
+import { getUser } from '../apiRequests';
 
 type LoginProps = {
   leftImageSrc: string;
@@ -28,50 +28,36 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
 
   const sessionId = sessionStorage.getItem('sessionId') || '';
 
-  // Obtain user from VITE_GET_USER_URL using axios
-  const getUser = async () => {
-    // Create an anonymous user on Firebase
-    const credential = await signInAnonymously(auth);
-
-    const answer = await axios({
-      method: 'post',
-      url: import.meta.env.VITE_GET_USER_URL,
-      data: {
-        sessionId,
-        authId: credential.user.uid,
-      },
-      validateStatus: (status: number) => {
-        return status < 600;
-      },
-    });
-
-    return answer.data;
-  };
-
   const loginWithWhatsApp = async () => {
     setLoadingWhatsApp(true);
 
-    let response;
     try {
-      response = await getUser();
+      // Create an anonymous user on Firebase
+      const credential = await signInAnonymously(auth);
+
+      const answer = await getUser(sessionId, credential.user.uid);
+
+      if (answer.status === 200) {
+        // Save the user data in the session storage
+        const { userId, phone, name } = answer.data;
+        sessionStorage.setItem('userId', userId);
+        sessionStorage.setItem('phone', phone);
+        sessionStorage.setItem('name', name);
+        setLoadingWhatsApp(false);
+
+        navigate('/');
+        //
+      } else {
+        setError(answer.data);
+      }
+      //
     } catch (error) {
       console.error(error);
       setError(msg('commonui.error.getUser'));
-    }
-    if (!response || typeof response === 'string') {
+      //
+    } finally {
       setLoadingWhatsApp(false);
-      setError(msg('commonui.error.getUser'));
-      return;
     }
-
-    // Save the user data in the session storage
-    const { userId, phone, name } = response;
-    sessionStorage.setItem('userId', userId);
-    sessionStorage.setItem('phone', phone);
-    sessionStorage.setItem('name', name);
-    setLoadingWhatsApp(false);
-
-    navigate('/');
   };
 
   // const copyToClipboard = () => {

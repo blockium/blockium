@@ -1,17 +1,18 @@
-import { Session, User } from '@postgpt/types';
+import { Session, SessionStatus, User } from '@postgpt/types';
 
 import {
   USER_ERROR_DIFFERENT_USER_NAME,
   USER_ERROR_NON_UNIQUE_USER,
 } from './user';
 import { SESSION_ERROR_NOT_FOUND } from './session';
+import { UserRecord } from 'firebase-admin/auth';
 
 export const validatePrompt = (request, response) => {
   const { prompt } = request.body;
 
   // Validate prompt
   if (prompt === undefined) {
-    response.status(400).send('Por favor, diga o que você deseja');
+    response.status(400).send('Por favor, diga o que você deseja.');
     return false;
   }
 
@@ -23,16 +24,24 @@ export const validatePhone = (request, response) => {
 
   // Validate phone number format (Brazilian international format)
   if (!phone) {
-    response.status(400).send('Por favor, informe seu telefone');
+    response.status(400).send('Por favor, informe seu telefone.');
     return false;
   }
 
   // Check any phone number
   if (!phone.match(/^\d+$/)) {
-    response.status(400).send('O telefone deve conter apenas números');
+    response.status(400).send('O telefone deve conter apenas números.');
     return false;
   }
 
+  return true;
+};
+
+export const validateAuthPhone = (authPhone, response) => {
+  if (!authPhone) {
+    response.status(412).send('Usuário autenticado sem número de telefone.');
+    return false;
+  }
   return true;
 };
 
@@ -41,7 +50,7 @@ export const validateName = (request, response) => {
 
   // Validate person name
   if (!name || name.trim() === '') {
-    response.status(400).send('Por favor, informe seu nome');
+    response.status(400).send('Por favor, informe seu nome.');
     return false;
   }
 
@@ -76,16 +85,20 @@ export const validateUser = (user: string | User, response) => {
 export const validateSessionId = (request, response) => {
   const { sessionId } = request.body;
   if (sessionId === undefined) {
-    response.status(400).send('O id da sessão é obrigatório');
+    response.status(400).send('O id da sessão é obrigatório.');
     return false;
   }
   return true;
 };
 
-export const validateSession = (session: string | Session, response) => {
+export const validateSession = (
+  session: string | Session,
+  response,
+  validStatus?: SessionStatus[]
+) => {
   if (typeof session === 'string') {
     if (session === SESSION_ERROR_NOT_FOUND) {
-      response.status(412).send('Sessão não encontrada');
+      response.status(412).send('Sessão não encontrada.');
     } else {
       response
         .status(412)
@@ -93,13 +106,28 @@ export const validateSession = (session: string | Session, response) => {
     }
     return false;
   }
+
+  // Validate session status
+  if (validStatus && !validStatus.includes(session.status)) {
+    response.status(412).send('Sessão inválida.');
+    return false;
+  }
+
   return true;
 };
 
 export const validateAuthId = (request, response) => {
   const { authId } = request.body;
   if (authId === undefined) {
-    response.status(400).send('O id de autenticação é obrigatório');
+    response.status(400).send('O id de autenticação é obrigatório.');
+    return false;
+  }
+  return true;
+};
+
+export const validateAuthUser = async (authUser: UserRecord, response) => {
+  if (!authUser) {
+    response.status(412).send('Conta de autenticação inexistente.');
     return false;
   }
   return true;
