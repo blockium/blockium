@@ -43,7 +43,6 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
         sessionStorage.setItem('userId', userId);
         sessionStorage.setItem('phone', phone);
         sessionStorage.setItem('name', name);
-        setLoadingWhatsApp(false);
 
         navigate('/');
         //

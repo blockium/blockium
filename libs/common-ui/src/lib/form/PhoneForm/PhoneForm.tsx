@@ -44,9 +44,11 @@ export const PhoneForm: React.FC = () => {
         appVerifier
       );
       setConfirmationResult(result);
+      //
     } catch (error: any) {
       console.log(error.message);
       setErrorMessage(msg('commonui.error.auth.phone-sign-in'));
+      //
     } finally {
       setLoading(false);
     }
@@ -66,10 +68,12 @@ export const PhoneForm: React.FC = () => {
         const answer = await loginWithPhone(credential.user.uid);
 
         if (answer.status === 200) {
+          // Save the user data in the session storage
           const { userId, phone, name } = answer.data;
           sessionStorage.setItem('userId', userId);
           sessionStorage.setItem('phone', phone);
           sessionStorage.setItem('name', name);
+
           navigate('/');
           //
         } else {
@@ -83,6 +87,7 @@ export const PhoneForm: React.FC = () => {
       } else {
         setErrorMessage(msg('commonui.error.auth.invalid-code'));
       }
+      //
     } finally {
       setLoading(false);
     }
