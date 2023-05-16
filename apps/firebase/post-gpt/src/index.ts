@@ -11,9 +11,10 @@ admin.firestore().settings({
 });
 
 export * from './chatgpt';
-export * from './newWeeklyPosts';
+export * from './getUser';
+export * from './login';
+export * from './loginWithPhone';
 export * from './newPosts';
 export * from './newSession';
-export * from './login';
-export * from './getUser';
+export * from './newWeeklyPosts';
 export * from './updateUserOnAuth';

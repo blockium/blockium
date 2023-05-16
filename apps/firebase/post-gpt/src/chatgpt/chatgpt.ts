@@ -6,7 +6,7 @@ import { User, UserPrompt } from '@postgpt/types';
 
 import { db } from '../utils/db';
 import { chat } from './chat';
-import { getUser } from '../utils/user';
+import { getOrCreateUser } from '../utils/user';
 import {
   validateName,
   validatePhone,
@@ -65,7 +65,7 @@ export const chatgpt = runWith({ secrets: [openAiApiKey] }).https.onRequest(
 
       // Retrieve user id from Firestore. Saves new users if they don't exist
       const { phone, name } = request.body;
-      const result = await getUser(phone, name || phone);
+      const result = await getOrCreateUser(phone, name || phone);
       if (!validateUser(result, response)) return;
 
       const user = result as User;

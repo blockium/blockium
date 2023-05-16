@@ -5,7 +5,7 @@ import axios from 'axios';
 import { User } from '@postgpt/types';
 
 import { validateName, validatePhone, validateUser } from '../utils/validate';
-import { getUser } from '../utils/user';
+import { getOrCreateUser } from '../utils/user';
 import { getPostsPrompt } from '../utils/prompts';
 
 const validatePostQuantity = (request, response) => {
@@ -37,7 +37,7 @@ export const newPosts = https.onRequest(async (request, response) => {
 
     // Retrieve user id from Firestore. Saves new users if they don't exist
     const { phone, name } = request.body;
-    const result = await getUser(phone, name || phone);
+    const result = await getOrCreateUser(phone, name || phone);
     if (!validateUser(result, response)) return;
 
     const user = result as User;
