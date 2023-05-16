@@ -57,7 +57,7 @@ export const Login: React.FC<LoginProps> = ({
       //
     } catch (error) {
       console.error(error);
-      setError('commonui.error.newSession');
+      setError(msg('commonui.error.newSession'));
       //
     } finally {
       setLoadingWhatsApp(false);
