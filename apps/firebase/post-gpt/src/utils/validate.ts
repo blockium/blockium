@@ -109,7 +109,7 @@ export const validateSession = (
 
   // Validate session status
   if (validStatus && !validStatus.includes(session.status)) {
-    response.status(412).send('Sessão inválida.');
+    response.status(412).send('Status inválido da sessão para essa operação.');
     return false;
   }
 

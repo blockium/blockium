@@ -17,4 +17,3 @@ export * from './loginWithPhone';
 export * from './newPosts';
 export * from './newSession';
 export * from './newWeeklyPosts';
-export * from './updateUserOnAuth';

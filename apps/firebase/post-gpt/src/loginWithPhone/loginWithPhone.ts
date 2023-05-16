@@ -51,15 +51,17 @@ export const loginWithPhone = https.onRequest(async (request, response) => {
 
       // Update session status - from 'new to 'waiting'
       await updateSession(user, session);
+      session.status = 'waiting';
 
       // Expire old sessions for a given userId
-      await expireOldSessions(session.userId);
+      await expireOldSessions(user.id);
 
       // Update session - from 'waiting' to 'started'
       await updateSession(user, session, authUser.uid);
 
-      const { id: userId } = user;
-      response.status(200).send(JSON.stringify({ userId, phone, name }));
+      response
+        .status(200)
+        .send(JSON.stringify({ userId: user.id, phone, name: user.name }));
     } catch (error) {
       console.log(error);
       response.status(424).send('Houve um erro ao realizar o login.');

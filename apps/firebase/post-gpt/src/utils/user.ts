@@ -39,6 +39,12 @@ export const getOrCreateUser = async (
     case 0:
       return await createUser(phone, name);
     case 1:
+      if (users[0].name === phone && phone !== name) {
+        // Update user's name
+        await updateUser(users[0].id, { name });
+        users[0].name = name;
+      }
+
       // If user's name is different from the one in the database,
       // it may indicate that phone number is being used by another person
       return users[0].name === name || allowDifferentNames
@@ -56,7 +62,12 @@ export const updateUser = async (userId: string, dataToUpdate) => {
 
 // Get Firebase authenticated user data filtered by authId
 export const getAuthUser = async (authId: string) => {
-  return await admin.auth().getUser(authId);
+  try {
+    return await admin.auth().getUser(authId);
+  } catch (error) {
+    // console.log(error);
+    return null;
+  }
 };
 
 // Check if Firebase user is anonymous

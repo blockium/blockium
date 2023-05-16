@@ -7,6 +7,7 @@ import {
   validateAuthId,
   // validateAuthPhone,
   validateAuthUser,
+  validatePhone,
   validateSession,
   validateSessionId,
   validateUser,
@@ -29,8 +30,8 @@ export const getUser = https.onRequest(async (request, response) => {
     try {
       // Retrieve session from Firestore.
       const session = (await getSession(request.body.sessionId)) as Session;
-      // Validate session - must have status = 'waiting' or 'started
-      if (!validateSession(session, response, ['waiting', 'started'])) return;
+      // Validate session - must have status = 'waiting'
+      if (!validateSession(session, response, ['waiting'])) return;
 
       // Get Firebase authenticated user data filtered by authId
       const authUser = await getAuthUser(request.body.authId);
@@ -39,9 +40,11 @@ export const getUser = https.onRequest(async (request, response) => {
       // Commented to allow anonymous auth users
       // if (!validateAuthPhone(authUser.phoneNumber, response)) return;
 
-      const authPhone = authUser.phoneNumber.replace(/\D/g, '');
+      const authPhone = authUser.phoneNumber?.replace(/\D/g, '');
       const phone = session.phone || authPhone;
-      const name = session.name || authUser.displayName || authPhone;
+      if (!validatePhone({ body: { phone } }, response)) return;
+
+      const name = session.name || authUser.displayName || phone;
 
       // Get a user data filtered by phone, creating if it doesn't exist
       const user = (await getOrCreateUser(phone, name)) as User;

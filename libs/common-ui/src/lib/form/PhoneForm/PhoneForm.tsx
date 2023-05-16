@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { TextField, Stack, Typography } from '@mui/material';
 import PhoneIcon from '@mui/icons-material/Phone';
 
@@ -16,6 +15,7 @@ import { useIntlMessage } from '@postgpt/i18n';
 
 import { PhoneInput } from '../PhoneInput';
 import { CTAButton } from '../../buttons';
+import loginWithPhone from '../../auth/apiRequests/loginWithPhone/loginWithPhone';
 
 export const PhoneForm: React.FC = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -63,16 +63,7 @@ export const PhoneForm: React.FC = () => {
       } else {
         // const { uid: authId, phoneNumber } = auth.currentUser;
         // Save authId on /users collection where phone === phoneNumber
-        const answer = await axios({
-          method: 'post',
-          url: import.meta.env.VITE_UPDATE_USER_ON_AUTH_URL,
-          data: {
-            authId: credential.user.uid,
-          },
-          validateStatus: (status: number) => {
-            return status < 600;
-          },
-        });
+        const answer = await loginWithPhone(credential.user.uid);
 
         if (answer.status === 200) {
           const { userId, phone, name } = answer.data;
