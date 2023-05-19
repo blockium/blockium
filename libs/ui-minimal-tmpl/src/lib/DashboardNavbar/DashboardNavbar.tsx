@@ -39,7 +39,9 @@ type DashboardNavbarProps = {
   onOpenSidebar: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
-const DashboardNavbar: React.FC<DashboardNavbarProps> = ({ onOpenSidebar }) => {
+export const DashboardNavbar: React.FC<DashboardNavbarProps> = ({
+  onOpenSidebar,
+}) => {
   return (
     <RootStyle>
       <ToolbarStyle>

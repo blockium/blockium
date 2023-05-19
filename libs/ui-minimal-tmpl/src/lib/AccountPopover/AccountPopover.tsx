@@ -13,9 +13,9 @@ import {
 } from '@mui/material';
 
 import { useAuth } from '@postgpt/firebase';
+import { DarkModeSwitch } from '@postgpt/theme';
 
 // components
-import { DarkModeSwitch } from '../../../../theme/src/lib/switch';
 import { MenuPopover } from '../MenuPopover';
 
 // ----------------------------------------------------------------------

@@ -1,27 +1,23 @@
 import { useEffect } from 'react';
-import { useRouter } from 'next/router';
 
 // material
 import { alpha, styled } from '@mui/material/styles';
 import {
   Box,
-  Link as MuiLink,
-  Button,
   Drawer,
   Typography,
   Avatar,
-  Stack,
+  Link,
+  useTheme,
+  useMediaQuery,
 } from '@mui/material';
-// hooks
-import useResponsive from '../../hooks/useResponsive';
-// components
-import Logo from '../../components/logo';
-import Scrollbar from '../../components/Scrollbar';
-import NavSection from '../../components/NavSection';
-//
-import navConfig from '../NavConfig/NavConfig';
-import Link from '../../components/link/Link';
-import useAuth from '../../hooks/useAuth';
+
+import { useAuth } from '@postgpt/firebase';
+import { PostGptLogo } from '@postgpt/ui-common';
+
+import { Scrollbar } from '../Scrollbar';
+import { NavSection } from '../NavSection';
+import { navConfig } from '../NavConfig';
 
 // ----------------------------------------------------------------------
 
@@ -50,14 +46,15 @@ type DashboardSidebarProps = {
   onCloseSidebar: () => void;
 };
 
-export default function DashboardSidebar({
+export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
   isOpenSidebar,
   onCloseSidebar,
-}: DashboardSidebarProps) {
-  const { user } = useAuth();
-  const { pathname } = useRouter();
+}) => {
+  const [user] = useAuth();
+  const pathname = window.location.pathname;
 
-  const isDesktop = useResponsive('up', 'lg');
+  const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
 
   useEffect(() => {
     if (isOpenSidebar) {
@@ -78,14 +75,14 @@ export default function DashboardSidebar({
       }}
     >
       <Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}>
-        <Logo />
+        <PostGptLogo full={false} />
       </Box>
 
       {user && (
         <Box sx={{ mb: 5, mx: 2.5 }}>
-          <MuiLink underline="none" component={Link} href="#">
+          <Link underline="none" href="#">
             <AccountStyle>
-              <Avatar src={user.photoURL} alt="User Photo" />
+              <Avatar src={user.photoURL ?? undefined} alt="User Photo" />
               <Box sx={{ ml: 2 }}>
                 <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
                   {user.displayName}
@@ -95,7 +92,7 @@ export default function DashboardSidebar({
                 </Typography>
               </Box>
             </AccountStyle>
-          </MuiLink>
+          </Link>
         </Box>
       )}
 
@@ -167,4 +164,6 @@ export default function DashboardSidebar({
       )}
     </RootStyle>
   );
-}
+};
+
+export default DashboardSidebar;

@@ -23,7 +23,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 // utils
-import { fToNow } from '../../utils/timeUtils';
+import { fToNow } from '@postgpt/utils';
 // components
 import { MenuPopover } from '../MenuPopover';
 import { Scrollbar } from '../Scrollbar';
@@ -41,8 +41,8 @@ const NOTIFICATIONS = [
     isUnRead: true,
   },
   {
-    id: faker.datatype.uuid(),
-    title: faker.name.findName(),
+    id: faker.string.uuid(),
+    title: faker.person.fullName(),
     description: 'answered to your comment on the Minimal',
     avatar: '/static/mock-images/avatars/avatar_2.jpg',
     type: 'friend_interactive',

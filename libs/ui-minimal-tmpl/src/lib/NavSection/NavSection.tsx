@@ -1,30 +1,33 @@
-import { ReactElement, ReactNode, useState } from "react";
-import { useRouter } from "next/router";
+import { PropsWithChildren, ReactElement, useState } from 'react';
 // material
-import { alpha, useTheme, styled } from "@mui/material/styles";
+import { alpha, styled } from '@mui/material/styles';
 import {
   Box,
   List,
   Collapse,
+  Link,
   ListItemText,
   ListItemIcon,
   ListItemButton,
-} from "@mui/material";
+  useTheme,
+} from '@mui/material';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 //
-import Iconify from "./Iconify";
-import Link from "./link/Link";
 
 // ----------------------------------------------------------------------
 
-const ListItemStyle = styled(
-  (props: { children: ReactNode; [other: string]: any }) => (
-    <ListItemButton disableGutters {...props} />
-  )
-)(({ theme }) => ({
+interface ListItemStyleProps extends PropsWithChildren {
+  [name: string]: unknown;
+}
+
+const ListItemStyle = styled((props: ListItemStyleProps) => (
+  <ListItemButton disableGutters {...props} />
+))(({ theme }) => ({
   ...theme.typography.body2,
   height: 48,
-  position: "relative",
-  textTransform: "capitalize",
+  position: 'relative',
+  textTransform: 'capitalize',
   color: theme.palette.text.secondary,
   borderRadius: theme.shape.borderRadius,
 }));
@@ -32,10 +35,10 @@ const ListItemStyle = styled(
 const ListItemIconStyle = styled(ListItemIcon)({
   width: 22,
   height: 22,
-  color: "inherit",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
+  color: 'inherit',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
 });
 
 // ----------------------------------------------------------------------
@@ -64,8 +67,8 @@ function NavMenu({ item, active }: NavMenuProps) {
   };
 
   const activeRootStyle = {
-    color: "primary.main",
-    fontWeight: "fontWeightMedium",
+    color: 'primary.main',
+    fontWeight: 'fontWeightMedium',
     bgcolor: alpha(
       theme.palette.primary.main,
       theme.palette.action.selectedOpacity
@@ -73,8 +76,8 @@ function NavMenu({ item, active }: NavMenuProps) {
   };
 
   const activeSubStyle = {
-    color: "text.primary",
-    fontWeight: "fontWeightMedium",
+    color: 'text.primary',
+    fontWeight: 'fontWeightMedium',
   };
 
   if (children) {
@@ -89,14 +92,13 @@ function NavMenu({ item, active }: NavMenuProps) {
           <ListItemIconStyle>{icon && icon}</ListItemIconStyle>
           <ListItemText disableTypography primary={title} />
           {info && info}
-          <Iconify
-            icon={
-              open
-                ? "eva:arrow-ios-downward-fill"
-                : "eva:arrow-ios-forward-fill"
-            }
-            sx={{ width: 16, height: 16, ml: 1, mr: 2 }}
-          />
+          {open ? (
+            <KeyboardArrowDownIcon
+              sx={{ width: 16, height: 16, ml: 1, mr: 2 }}
+            />
+          ) : (
+            <ChevronRightIcon sx={{ width: 16, height: 16, ml: 1, mr: 2 }} />
+          )}
         </ListItemStyle>
 
         <Collapse in={open} timeout="auto" unmountOnExit>
@@ -120,16 +122,16 @@ function NavMenu({ item, active }: NavMenuProps) {
                       sx={{
                         width: 3,
                         height: 3,
-                        display: "flex",
-                        borderRadius: "50%",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        bgcolor: "text.disabled",
+                        display: 'flex',
+                        borderRadius: '50%',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        bgcolor: 'text.disabled',
                         transition: (theme) =>
-                          theme.transitions.create("transform"),
+                          theme.transitions.create('transform'),
                         ...(isActiveSub && {
-                          transform: "scale(2)",
-                          bgcolor: "primary.main",
+                          transform: 'scale(2)',
+                          bgcolor: 'primary.main',
                         }),
                       }}
                     />
@@ -162,15 +164,18 @@ function NavMenu({ item, active }: NavMenuProps) {
 export type NavItem = {
   title: string;
   path: string;
-  icon: ReactElement<typeof Iconify>;
+  icon: ReactElement;
 };
 
 type NavSectionProps = {
   navConfig: NavItem[];
 };
 
-export default function NavSection({ navConfig, ...other }: NavSectionProps) {
-  const { pathname } = useRouter();
+export const NavSection: React.FC<NavSectionProps> = ({
+  navConfig,
+  ...other
+}) => {
+  const pathname = window.location.pathname;
 
   const match = (path: string) => path === pathname;
 
@@ -183,4 +188,6 @@ export default function NavSection({ navConfig, ...other }: NavSectionProps) {
       </List>
     </Box>
   );
-}
+};
+
+export default NavSection;

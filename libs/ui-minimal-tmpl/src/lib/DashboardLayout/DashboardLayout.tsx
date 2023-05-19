@@ -3,7 +3,7 @@ import { useState, ReactNode } from 'react';
 import { styled } from '@mui/material/styles';
 //
 import { DashboardNavbar } from '../DashboardNavbar';
-import DashboardSidebar from '../DashboardSidebar/DashboardSidebar';
+import { DashboardSidebar } from '../DashboardSidebar';
 
 // ----------------------------------------------------------------------
 
