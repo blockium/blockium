@@ -3,6 +3,8 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Switch from '@mui/material/Switch';
 
+import { msg } from '@postgpt/i18n';
+
 import { useColorMode } from '../../theme';
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
@@ -52,17 +54,19 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
-export const DarkModeSwitch: React.FC<{ sx?: SxProps; showName?: boolean }> = ({
-  sx,
-  showName,
-}) => {
+export const DarkModeSwitch: React.FC<{
+  sx?: SxProps;
+  showLabel?: boolean;
+}> = ({ sx, showLabel }) => {
   const colorMode = useColorMode();
 
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      {showName && (
+      {showLabel && (
         <Typography variant="body2" sx={{ ml: 2 }}>
-          {colorMode.mode === 'dark' ? 'Escuro' : 'Claro'}
+          {colorMode.mode === 'dark'
+            ? msg('theme.dark-mode-switch.label.dark')
+            : msg('theme.dark-mode-switch.label.light')}
         </Typography>
       )}
       <MaterialUISwitch

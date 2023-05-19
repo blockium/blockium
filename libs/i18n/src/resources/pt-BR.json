@@ -45,5 +45,9 @@
   "commonui.error.auth.invalid-code": "Código inválido. Tente novamente.",
   "commonui.error.auth.failed": "Falha na autenticação. Tente novamente.",
   "commonui.login.whatsapp.msg1": "Envie a mensagem abaixo para o WhatsApp +55 (21) 97068-2489 - clique no link abaixo para abrir:",
-  "commonui.login.whatsapp.msg2": "Após receber confirmação via WhatsApp, clique no botão \"Entrar\":"
+  "commonui.login.whatsapp.msg2": "Após receber confirmação via WhatsApp, clique no botão \"Entrar\":",
+  "theme.dark-mode-switch.label.light": "Claro",
+  "theme.dark-mode-switch.label.dark": "Escuro",
+  "ui-minimal-tmpl.alt.user-photo": "Foto do Usuário",
+  "ui-minimal-tmpl.menu-item.sign-out": "Sair"
 }

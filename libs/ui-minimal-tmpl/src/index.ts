@@ -1,1 +1,1 @@
-export * from './lib/ui-minimal-tmpl';
+export * from './lib/DashboardLayout';

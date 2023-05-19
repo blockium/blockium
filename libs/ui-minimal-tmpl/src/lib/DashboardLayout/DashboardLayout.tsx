@@ -1,9 +1,10 @@
-import { useState, ReactNode } from 'react';
+import { useState, PropsWithChildren } from 'react';
 // material
 import { styled } from '@mui/material/styles';
 //
 import { DashboardNavbar } from '../DashboardNavbar';
 import { DashboardSidebar } from '../DashboardSidebar';
+import { MenuOption } from '../AccountPopover';
 
 // ----------------------------------------------------------------------
 
@@ -32,16 +33,22 @@ const MainStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-type DashboardLayoutProps = {
-  children: ReactNode;
-};
+interface DashboardLayoutProps extends PropsWithChildren {
+  accountMenuOptions: MenuOption[];
+}
 
-const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
+export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
+  accountMenuOptions,
+  children,
+}) => {
   const [open, setOpen] = useState(false);
 
   return (
     <RootStyle>
-      <DashboardNavbar onOpenSidebar={() => setOpen(true)} />
+      <DashboardNavbar
+        onOpenSidebar={() => setOpen(true)}
+        accountMenuOptions={accountMenuOptions}
+      />
       <DashboardSidebar
         isOpenSidebar={open}
         onCloseSidebar={() => setOpen(false)}
