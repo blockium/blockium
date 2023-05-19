@@ -1,4 +1,14 @@
-import React, { PropsWithChildren } from 'react';
+import {
+  PropsWithChildren,
+  createContext,
+  forwardRef,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import {
   Link as RouterLink,
   LinkProps as RouterLinkProps,
@@ -8,13 +18,36 @@ import {
   createTheme,
   ThemeProvider as BaseThemeProvider,
   CssBaseline,
-  PaletteOptions,
-  responsiveFontSizes,
+  ThemeOptions,
+  useMediaQuery,
 } from '@mui/material';
-import { TypographyOptions } from '@mui/material/styles/createTypography';
 import type { LinkProps } from '@mui/material/Link';
+import { ptBR } from '@mui/material/locale';
 
-const LinkBehavior = React.forwardRef<
+import componentsOverride from './overrides';
+import createPalette, { PalleteConfig } from './palette';
+import createTypography, { FontConfig } from './typography';
+import createShadows, { CustomShadows, createCustomShadows } from './shadows';
+
+declare module '@mui/material/styles' {
+  interface Theme {
+    status: {
+      danger: string;
+    };
+    shape: { borderRadius: number };
+    customShadows: CustomShadows;
+  }
+  // allow configuration using `createTheme`
+  interface ThemeOptions {
+    status?: {
+      danger?: string;
+    };
+    shape: { borderRadius: number };
+    customShadows: CustomShadows;
+  }
+}
+
+const LinkBehavior = forwardRef<
   HTMLAnchorElement,
   Omit<RouterLinkProps, 'to'> & { href: RouterLinkProps['to'] }
 >((props, ref) => {
@@ -23,110 +56,108 @@ const LinkBehavior = React.forwardRef<
   return <RouterLink ref={ref} to={href} {...other} />;
 });
 
-type PaletteConfig = {
-  app: PaletteOptions;
-  site: PaletteOptions;
-  [key: string]: PaletteOptions;
+// Dark vs Light mode
+type Mode = 'light' | 'dark';
+
+type ColorModeContextProps = {
+  mode: Mode;
+  toggleColorMode: () => void;
 };
+const ColorModeContext = createContext<ColorModeContextProps>({
+  mode: 'light',
+  toggleColorMode: () => {
+    void 0;
+  },
+});
 
-const palettes: PaletteConfig = {
-  app: {
-    primary: {
-      main: '#329273',
-    },
-    secondary: {
-      main: '#030B09',
-    },
-  },
-  site: {
-    primary: {
-      main: '#329273',
-      // main: '#059669',
-      // main: '#53CCA5',
-    },
-    secondary: {
-      main: '#030B09',
-      // main: '#0F172A',
-    },
-  },
-};
+export const useColorMode = () => useContext(ColorModeContext);
 
-const { host } = window.location;
-const config = host.split('.')[0];
-const palette = palettes[config] || palettes.site;
-
-const fontFamilyHeader = {
-  fontFamily: 'Poppins',
-};
-const typography: TypographyOptions = {
-  fontFamily: [
-    'Work Sans',
-    'Roboto',
-    '"Helvetica Neue"',
-    'Poppins',
-    '-apple-system',
-    'sans-serif',
-  ].join(','),
-  h1: fontFamilyHeader,
-  h2: fontFamilyHeader,
-  h3: fontFamilyHeader,
-  h4: fontFamilyHeader,
-  h5: fontFamilyHeader,
-  h6: fontFamilyHeader,
-  htmlFontSize: 10,
-};
-
-const theme = responsiveFontSizes(
-  createTheme({
-    palette,
-    typography,
-    components: {
-      MuiLink: {
-        defaultProps: {
-          component: LinkBehavior,
-        } as LinkProps,
-      },
-      MuiButtonBase: {
-        defaultProps: {
-          LinkComponent: LinkBehavior,
-        },
-      },
-      MuiTableCell: {
-        styleOverrides: {
-          sizeSmall: { padding: 6 },
-        },
-      },
-    },
-  })
-);
-
-theme.typography.h1 = {
-  ...theme.typography.h1,
-  // fontSize: '8.4rem',
-  [theme.breakpoints.up('xl')]: {
-    fontSize: '8.4rem',
-  },
-  [theme.breakpoints.down('xl')]: {
-    fontSize: '7.2rem',
-  },
-  [theme.breakpoints.down('lg')]: {
-    fontSize: '6.4rem',
-  },
-  [theme.breakpoints.down('md')]: {
-    fontSize: '5.6rem',
-  },
-  [theme.breakpoints.down('sm')]: {
-    fontSize: '4.8rem',
-  },
-};
-
-export function ThemeProvider({ children }: PropsWithChildren) {
-  return (
-    <BaseThemeProvider theme={theme}>
-      <CssBaseline />
-      {children}
-    </BaseThemeProvider>
-  );
+export interface ThemeConfig {
+  fontConfig?: FontConfig;
+  palleteConfig?: PalleteConfig;
 }
+interface ThemeProviderProps extends PropsWithChildren {
+  config?: ThemeConfig;
+}
+
+export const ThemeProvider: React.FC<ThemeProviderProps> = ({
+  config,
+  children,
+}) => {
+  const systemMode = useMediaQuery('(prefers-color-scheme: dark)')
+    ? 'dark'
+    : 'light';
+  // const systemMode = 'light';
+
+  const started = useRef<boolean>(false);
+  const [mode, setMode] = useState<Mode>(systemMode);
+  const toggleColorMode = useCallback(() => {
+    setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+  }, []);
+
+  useEffect(() => {
+    const storedMode = localStorage.getItem('color-mode') as Mode;
+
+    !storedMode || started.current
+      ? // Mode not stored or it just changed, save it
+        localStorage.setItem('color-mode', mode)
+      : // Otherwise, restore it
+        setMode(storedMode);
+
+    started.current = true;
+  }, [mode]);
+
+  const themeOptions: ThemeOptions = useMemo(() => {
+    const palette = createPalette(mode, config?.palleteConfig);
+    const typography = createTypography(config?.fontConfig);
+    const shadows = createShadows(palette);
+    const customShadows: CustomShadows = createCustomShadows(palette);
+
+    return {
+      palette,
+      shape: { borderRadius: 8 },
+      typography,
+      shadows,
+      customShadows,
+      components: {
+        MuiLink: {
+          defaultProps: {
+            component: LinkBehavior,
+          } as LinkProps,
+        },
+        MuiButtonBase: {
+          defaultProps: {
+            LinkComponent: LinkBehavior,
+          },
+        },
+        MuiTableCell: {
+          styleOverrides: {
+            sizeSmall: { padding: 6 },
+          },
+        },
+        MuiUseMediaQuery: {
+          defaultProps: {
+            noSsr: true,
+          },
+        },
+      },
+    };
+  }, [config, mode]);
+
+  const theme = createTheme(
+    themeOptions,
+    ptBR // TODO: dynamically define locale
+  );
+  theme.components = componentsOverride(theme);
+
+  return (
+    <ColorModeContext.Provider value={{ mode, toggleColorMode }}>
+      <BaseThemeProvider theme={theme}>
+        <CssBaseline />
+        {children}
+      </BaseThemeProvider>
+    </ColorModeContext.Provider>
+  );
+};
 
 export default ThemeProvider;

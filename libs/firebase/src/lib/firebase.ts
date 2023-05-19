@@ -1,9 +1,10 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
-import { connectAuthEmulator, getAuth } from 'firebase/auth';
+import { User, connectAuthEmulator, getAuth, signOut } from 'firebase/auth';
 import { getFunctions } from 'firebase/functions';
 import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore';
+import { createGlobalState } from 'react-use';
 
 // Gets environment variables from process (Node) or import.meta (Browser)
 const env: {
@@ -69,4 +70,23 @@ if (env.DEV) {
   connectFirestoreEmulator(db, 'localhost', 8080);
 }
 
-export { app, analytics, auth, functions, db };
+const useAuth = createGlobalState(auth.currentUser);
+
+const useSignIn = () => {
+  const [, setUser] = useAuth();
+  return (user: User | null) => {
+    setUser(user);
+  };
+};
+
+const useSignOut = () => {
+  const [, setUser] = useAuth();
+  return async () => {
+    if (auth.currentUser) {
+      await signOut(auth);
+    }
+    setUser(null);
+  };
+};
+
+export { app, analytics, auth, useAuth, useSignIn, useSignOut, functions, db };

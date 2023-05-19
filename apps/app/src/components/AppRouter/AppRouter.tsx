@@ -1,11 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 
-import {
-  Login,
-  LoginPhone,
-  LoginWhatsApp,
-  PrivateRoute,
-} from '@postgpt/commonui';
+import { Login, LoginPhone, LoginWhatsApp } from '@postgpt/ui-auth';
+import { PrivateRoute } from '@postgpt/ui-common';
 
 import { App } from '../App';
 import { WeeklyPosts, WeeklyPostsList } from '../post';

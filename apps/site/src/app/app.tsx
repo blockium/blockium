@@ -2,7 +2,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 
-// import { Hero } from '@postgpt/commonui';
+// import { Hero } from '@postgpt/ui-common';
 // import { app } from '@postgpt/firebase';
 import { useIntlMessage } from '@postgpt/i18n';
 
