@@ -3,10 +3,10 @@ import { alpha, styled } from '@mui/material/styles';
 import { Box, Stack, AppBar, Toolbar, IconButton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 //
-import { Searchbar } from '../Searchbar';
+// import { Searchbar } from '../Searchbar';
 import { AccountPopover, MenuOption } from '../AccountPopover';
-import { LanguagePopover } from '../LanguagePopover';
-import { NotificationsPopover } from '../NotificationsPopover';
+// import { LanguagePopover } from '../LanguagePopover';
+// import { NotificationsPopover } from '../NotificationsPopover';
 
 // ----------------------------------------------------------------------
 
@@ -54,12 +54,12 @@ export const DashboardNavbar: React.FC<DashboardNavbarProps> = ({
           <MenuIcon />
         </IconButton>
 
-        <Searchbar />
+        {/* <Searchbar /> */}
         <Box sx={{ flexGrow: 1 }} />
 
         <Stack direction="row" alignItems="center" spacing={{ xs: 1, sm: 1.5 }}>
-          <LanguagePopover />
-          <NotificationsPopover />
+          {/* <LanguagePopover />
+          <NotificationsPopover /> */}
           <AccountPopover menuOptions={accountMenuOptions} />
         </Stack>
       </ToolbarStyle>

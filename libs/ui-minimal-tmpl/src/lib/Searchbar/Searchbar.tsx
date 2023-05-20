@@ -11,6 +11,8 @@ import {
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
+import { msg } from '@postgpt/i18n';
+
 // ----------------------------------------------------------------------
 
 const APPBAR_MOBILE = 64;
@@ -64,7 +66,9 @@ export const Searchbar: React.FC = () => {
               autoFocus
               fullWidth
               disableUnderline
-              placeholder="Search…"
+              placeholder={
+                msg('ui-minimal-tmpl.searchbar.button.search') + '...'
+              }
               startAdornment={
                 <InputAdornment position="start">
                   <SearchIcon
@@ -77,7 +81,7 @@ export const Searchbar: React.FC = () => {
               sx={{ mr: 1, fontWeight: 'fontWeightBold' }}
             />
             <Button variant="contained" onClick={handleClose}>
-              Search
+              {msg('ui-minimal-tmpl.searchbar.button.search')}
             </Button>
           </SearchbarStyle>
         </Slide>

@@ -56,5 +56,6 @@
   "ui-minimal-tmpl.notifications.tooltip.alt": "Marque tudo como lido",
   "ui-minimal-tmpl.notifications.section.new": "Novas",
   "ui-minimal-tmpl.notifications.section.old": "Anteriores",
-  "ui-minimal-tmpl.notifications.button.view-all": "Ver Todas"
+  "ui-minimal-tmpl.notifications.button.view-all": "Ver Todas",
+  "ui-minimal-tmpl.searchbar.button.search": "Procurar"
 }
