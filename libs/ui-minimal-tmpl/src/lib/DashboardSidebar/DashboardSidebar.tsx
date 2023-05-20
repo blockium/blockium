@@ -1,4 +1,5 @@
 import { ReactElement, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 // material
 import { alpha, styled } from '@mui/material/styles';
@@ -63,7 +64,8 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
 }) => {
   const { tenantName, tenantContext, tenantPhotoUrl, logo } =
     sideBarConfig || {};
-  const pathname = window.location.pathname;
+
+  const { pathname } = useLocation();
 
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));

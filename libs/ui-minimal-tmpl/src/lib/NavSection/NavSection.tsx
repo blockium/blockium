@@ -1,4 +1,5 @@
 import { PropsWithChildren, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 // material
 import { alpha, styled } from '@mui/material/styles';
 import {
@@ -172,7 +173,7 @@ export const NavSection: React.FC<NavSectionProps> = ({
   sideMenu,
   ...other
 }) => {
-  const pathname = window.location.pathname;
+  const { pathname } = useLocation();
 
   const match = (path: string) => path === pathname;
 
