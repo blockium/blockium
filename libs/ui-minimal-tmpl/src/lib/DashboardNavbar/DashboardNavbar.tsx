@@ -4,8 +4,7 @@ import { Box, Stack, AppBar, Toolbar, IconButton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 //
 // import { Searchbar } from '../Searchbar';
-import { AccountPopover } from '../AccountPopover';
-import { NavBarConfig } from '../DashboardLayout';
+import { AccountPopover, AccountPopoverConfig } from '../AccountPopover';
 // import { LanguagePopover } from '../LanguagePopover';
 // import { NotificationsPopover } from '../NotificationsPopover';
 
@@ -35,6 +34,10 @@ const ToolbarStyle = styled(Toolbar)(({ theme }) => ({
 }));
 
 // ----------------------------------------------------------------------
+
+export interface NavBarConfig {
+  accountPopover?: AccountPopoverConfig;
+}
 
 interface DashboardNavbarProps {
   navBarConfig?: NavBarConfig;

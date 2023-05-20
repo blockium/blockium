@@ -53,6 +53,7 @@ const LinkBehavior = forwardRef<
 >((props, ref) => {
   const { href, ...other } = props;
   // Map href (MUI) -> to (react-router)
+  console.log('LinkBehavior', href);
   return <RouterLink ref={ref} to={href} {...other} />;
 });
 

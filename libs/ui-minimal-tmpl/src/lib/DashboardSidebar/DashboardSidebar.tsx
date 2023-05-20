@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { ReactElement, useEffect } from 'react';
 
 // material
 import { alpha, styled } from '@mui/material/styles';
@@ -10,17 +10,15 @@ import {
   Link,
   useTheme,
   useMediaQuery,
-  Stack,
-  Button,
+  // Stack,
+  // Button,
 } from '@mui/material';
 
-import { useAuth } from '@postgpt/firebase';
-import { PostGptLogo } from '@postgpt/ui-common';
+import { msg } from '@postgpt/i18n';
 
 import { Scrollbar } from '../Scrollbar';
 import { NavSection } from '../NavSection';
-import { navConfig } from '../NavConfig';
-import { SideBarConfig } from '../DashboardLayout';
+import { MenuOption } from '../DashboardLayout';
 
 // ----------------------------------------------------------------------
 
@@ -44,6 +42,14 @@ const AccountStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
+export interface SideBarConfig {
+  tenantName?: string;
+  tenantContext?: string;
+  tenantPhotoUrl?: string;
+  logo?: ReactElement;
+  sideMenu?: MenuOption[];
+}
+
 type DashboardSidebarProps = {
   sideBarConfig?: SideBarConfig;
   isOpenSidebar: boolean;
@@ -55,9 +61,8 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
   isOpenSidebar,
   onCloseSidebar,
 }) => {
-  const [user] = useAuth();
-  const userName = sessionStorage.getItem('name');
-
+  const { tenantName, tenantContext, tenantPhotoUrl, logo } =
+    sideBarConfig || {};
   const pathname = window.location.pathname;
 
   const theme = useTheme();
@@ -81,26 +86,22 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
         },
       }}
     >
-      <Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}>
-        <PostGptLogo
-          full={false}
-          colorScheme="green-gray-gray-transparent"
-          // width="10rem"
-          height="10rem"
-        />
-      </Box>
+      <Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}>{logo}</Box>
 
-      {user && (
+      {tenantName && (
         <Box sx={{ mb: 5, mx: 2.5 }}>
           <Link underline="none" href="#">
             <AccountStyle>
-              <Avatar src={user.photoURL ?? undefined} alt="User Photo" />
+              <Avatar
+                src={tenantPhotoUrl}
+                alt={msg('ui-minimal-tmpl.alt.user-photo')}
+              />
               <Box sx={{ ml: 2 }}>
                 <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-                  {userName || user?.displayName || user?.phoneNumber}
+                  {tenantName}
                 </Typography>
                 <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                  {user?.phoneNumber || user?.email}
+                  {tenantContext}
                 </Typography>
               </Box>
             </AccountStyle>
@@ -108,7 +109,7 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
         </Box>
       )}
 
-      <NavSection navConfig={navConfig} />
+      <NavSection sideMenu={sideBarConfig?.sideMenu} />
 
       <Box sx={{ flexGrow: 1 }} />
 

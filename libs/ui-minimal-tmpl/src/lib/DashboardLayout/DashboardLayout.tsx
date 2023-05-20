@@ -2,9 +2,8 @@ import { useState, PropsWithChildren, ReactElement } from 'react';
 // material
 import { styled } from '@mui/material/styles';
 //
-import { DashboardNavbar } from '../DashboardNavbar';
-import { DashboardSidebar } from '../DashboardSidebar';
-import { AccountPopoverConfig } from '../AccountPopover';
+import { DashboardNavbar, NavBarConfig } from '../DashboardNavbar';
+import { DashboardSidebar, SideBarConfig } from '../DashboardSidebar';
 
 // ----------------------------------------------------------------------
 
@@ -37,14 +36,8 @@ export interface MenuOption {
   label: string;
   href: string;
   icon?: ReactElement;
-}
-
-export interface NavBarConfig {
-  accountPopover?: AccountPopoverConfig;
-}
-
-export interface SideBarConfig {
-  sideMenu?: MenuOption[];
+  info?: string;
+  children?: MenuOption[];
 }
 
 export interface LayoutConfig {

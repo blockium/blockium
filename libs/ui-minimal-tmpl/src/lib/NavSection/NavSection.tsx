@@ -1,4 +1,4 @@
-import { PropsWithChildren, ReactElement, useState } from 'react';
+import { PropsWithChildren, useState } from 'react';
 // material
 import { alpha, styled } from '@mui/material/styles';
 import {
@@ -13,6 +13,8 @@ import {
 } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+
+import { MenuOption } from '../DashboardLayout';
 //
 
 // ----------------------------------------------------------------------
@@ -43,9 +45,9 @@ const ListItemIconStyle = styled(ListItemIcon)({
 
 // ----------------------------------------------------------------------
 
-export type NavMenuItem = NavItem & {
+export type NavMenuItem = MenuOption & {
   info?: string;
-  children?: NavItem[];
+  children?: MenuOption[];
 };
 
 type NavMenuProps = {
@@ -56,9 +58,9 @@ type NavMenuProps = {
 function NavMenu({ item, active }: NavMenuProps) {
   const theme = useTheme();
 
-  const isActiveRoot = active(item.path);
+  const isActiveRoot = active(item.href);
 
-  const { title, path, icon, info, children } = item;
+  const { label, href, icon, info, children } = item;
 
   const [open, setOpen] = useState(isActiveRoot);
 
@@ -90,7 +92,7 @@ function NavMenu({ item, active }: NavMenuProps) {
           }}
         >
           <ListItemIconStyle>{icon && icon}</ListItemIconStyle>
-          <ListItemText disableTypography primary={title} />
+          <ListItemText disableTypography primary={label} />
           {info && info}
           {open ? (
             <KeyboardArrowDownIcon
@@ -103,21 +105,21 @@ function NavMenu({ item, active }: NavMenuProps) {
 
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            {children.map((item: NavItem) => {
-              const { title, path } = item;
-              const isActiveSub = active(path);
+            {children.map((item: MenuOption) => {
+              const { label, href, icon } = item;
+              const isActiveSub = active(href);
 
               return (
                 <ListItemStyle
-                  key={title}
+                  key={label}
                   component={Link}
-                  href={path}
+                  href={href}
                   sx={{
                     ...(isActiveSub && activeSubStyle),
                   }}
                 >
-                  <ListItemIconStyle>
-                    <Box
+                  <ListItemIconStyle sx={{ ml: 2.5 }}>
+                    {/* <Box
                       component="span"
                       sx={{
                         width: 3,
@@ -134,9 +136,10 @@ function NavMenu({ item, active }: NavMenuProps) {
                           bgcolor: 'primary.main',
                         }),
                       }}
-                    />
+                    /> */}
+                    {icon && icon}
                   </ListItemIconStyle>
-                  <ListItemText disableTypography primary={title} />
+                  <ListItemText disableTypography primary={label} />
                 </ListItemStyle>
               );
             })}
@@ -149,30 +152,24 @@ function NavMenu({ item, active }: NavMenuProps) {
   return (
     <ListItemStyle
       component={Link}
-      to={path}
+      to={href}
       sx={{
         ...(isActiveRoot && activeRootStyle),
       }}
     >
       <ListItemIconStyle>{icon && icon}</ListItemIconStyle>
-      <ListItemText disableTypography primary={title} />
+      <ListItemText disableTypography primary={label} />
       {info && info}
     </ListItemStyle>
   );
 }
 
-export type NavItem = {
-  title: string;
-  path: string;
-  icon: ReactElement;
-};
-
 type NavSectionProps = {
-  navConfig: NavItem[];
+  sideMenu?: MenuOption[];
 };
 
 export const NavSection: React.FC<NavSectionProps> = ({
-  navConfig,
+  sideMenu,
   ...other
 }) => {
   const pathname = window.location.pathname;
@@ -182,8 +179,8 @@ export const NavSection: React.FC<NavSectionProps> = ({
   return (
     <Box {...other}>
       <List disablePadding sx={{ p: 1 }}>
-        {navConfig.map((item) => (
-          <NavMenu key={item.title} item={item} active={match} />
+        {sideMenu?.map((item) => (
+          <NavMenu key={item.label} item={item} active={match} />
         ))}
       </List>
     </Box>
