@@ -49,5 +49,12 @@
   "theme.dark-mode-switch.label.light": "Claro",
   "theme.dark-mode-switch.label.dark": "Escuro",
   "ui-minimal-tmpl.alt.user-photo": "Foto do Usuário",
-  "ui-minimal-tmpl.menu-item.sign-out": "Sair"
+  "ui-minimal-tmpl.menu-item.sign-out": "Sair",
+  "ui-minimal-tmpl.notifications.title": "Mensagens",
+  "ui-minimal-tmpl.notifications.unread-info-part1": "Você tem ",
+  "ui-minimal-tmpl.notifications.unread-info-part2": " mensagens não lidas",
+  "ui-minimal-tmpl.notifications.tooltip.alt": "Marque tudo como lido",
+  "ui-minimal-tmpl.notifications.section.new": "Novas",
+  "ui-minimal-tmpl.notifications.section.old": "Anteriores",
+  "ui-minimal-tmpl.notifications.button.view-all": "Ver Todas"
 }

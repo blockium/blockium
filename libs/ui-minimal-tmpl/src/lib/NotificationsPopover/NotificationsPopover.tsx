@@ -27,12 +27,13 @@ import { fToNow } from '@postgpt/utils';
 // components
 import { MenuPopover } from '../MenuPopover';
 import { Scrollbar } from '../Scrollbar';
+import { msg } from '@postgpt/i18n';
 
 // ----------------------------------------------------------------------
 
 const NOTIFICATIONS = [
   {
-    id: faker.datatype.uuid(),
+    id: faker.string.uuid(),
     title: 'Your order is placed',
     description: 'waiting for shipping',
     avatar: null,
@@ -50,7 +51,7 @@ const NOTIFICATIONS = [
     isUnRead: true,
   },
   {
-    id: faker.datatype.uuid(),
+    id: faker.string.uuid(),
     title: 'You have new message',
     description: '5 unread messages',
     avatar: null,
@@ -59,7 +60,7 @@ const NOTIFICATIONS = [
     isUnRead: false,
   },
   {
-    id: faker.datatype.uuid(),
+    id: faker.string.uuid(),
     title: 'You have new mail',
     description: 'sent from Guido Padberg',
     avatar: null,
@@ -68,7 +69,7 @@ const NOTIFICATIONS = [
     isUnRead: false,
   },
   {
-    id: faker.datatype.uuid(),
+    id: faker.string.uuid(),
     title: 'Delivery processing',
     description: 'Your order is being shipped',
     avatar: null,
@@ -114,7 +115,7 @@ export const NotificationsPopover: React.FC = () => {
         onClick={handleOpen}
         sx={{ width: 40, height: 40 }}
       >
-        <Badge badgeContent={totalUnRead} color="error">
+        <Badge badgeContent={totalUnRead} color="warning">
           <NotificationsIcon width={20} height={20} />
         </Badge>
       </IconButton>
@@ -127,14 +128,18 @@ export const NotificationsPopover: React.FC = () => {
       >
         <Box sx={{ display: 'flex', alignItems: 'center', py: 2, px: 2.5 }}>
           <Box sx={{ flexGrow: 1 }}>
-            <Typography variant="subtitle1">Notifications</Typography>
+            <Typography variant="subtitle1">
+              {msg('ui-minimal-tmpl.notifications.title')}
+            </Typography>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              You have {totalUnRead} unread messages
+              {msg('ui-minimal-tmpl.notifications.unread-info-part1')}{' '}
+              {totalUnRead}
+              {msg('ui-minimal-tmpl.notifications.unread-info-part2')}
             </Typography>
           </Box>
 
           {totalUnRead > 0 && (
-            <Tooltip title=" Mark all as read">
+            <Tooltip title={msg('ui-minimal-tmpl.notifications.tooltip.alt')}>
               <IconButton color="primary" onClick={handleMarkAllAsRead}>
                 <DoneAllIcon width={20} height={20} />
               </IconButton>
@@ -152,7 +157,7 @@ export const NotificationsPopover: React.FC = () => {
                 disableSticky
                 sx={{ py: 1, px: 2.5, typography: 'overline' }}
               >
-                New
+                {msg('ui-minimal-tmpl.notifications.section.new')}
               </ListSubheader>
             }
           >
@@ -171,7 +176,7 @@ export const NotificationsPopover: React.FC = () => {
                 disableSticky
                 sx={{ py: 1, px: 2.5, typography: 'overline' }}
               >
-                Before that
+                {msg('ui-minimal-tmpl.notifications.section.old')}
               </ListSubheader>
             }
           >
@@ -188,7 +193,7 @@ export const NotificationsPopover: React.FC = () => {
 
         <Box sx={{ p: 1 }}>
           <Button fullWidth disableRipple>
-            View All
+            {msg('ui-minimal-tmpl.notifications.button.view-all')}
           </Button>
         </Box>
       </MenuPopover>
