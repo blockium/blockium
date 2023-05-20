@@ -108,8 +108,8 @@ export function App() {
           <Link href="/" variant="h2">
             Go to home
           </Link>
-          <Link href="/login" variant="h2">
-            Go to login
+          <Link href="posts/weekly/list" variant="h2">
+            Go to posts
           </Link>
 
           <Outlet />

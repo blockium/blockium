@@ -53,7 +53,6 @@ const LinkBehavior = forwardRef<
 >((props, ref) => {
   const { href, ...other } = props;
   // Map href (MUI) -> to (react-router)
-  console.log('LinkBehavior', href);
   return <RouterLink ref={ref} to={href} {...other} />;
 });
 
@@ -149,7 +148,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
     themeOptions,
     ptBR // TODO: dynamically define locale
   );
-  theme.components = componentsOverride(theme);
+  theme.components = { ...componentsOverride(theme), ...theme.components };
 
   return (
     <ColorModeContext.Provider value={{ mode, toggleColorMode }}>
