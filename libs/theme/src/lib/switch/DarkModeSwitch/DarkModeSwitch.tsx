@@ -1,7 +1,7 @@
-import { styled, SxProps } from '@mui/material/styles';
-import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import Switch from '@mui/material/Switch';
+import { Stack } from '@mui/material';
 
 import { msg } from '@postgpt/i18n';
 
@@ -55,26 +55,26 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 }));
 
 export const DarkModeSwitch: React.FC<{
-  sx?: SxProps;
   showLabel?: boolean;
-}> = ({ sx, showLabel }) => {
+  direction?: 'row' | 'column' | 'row-reverse' | 'column-reverse';
+  [key: string]: unknown;
+}> = ({ showLabel, direction, ...other }) => {
   const colorMode = useColorMode();
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+    <Stack direction={direction || 'row'} alignItems="center" {...other}>
       {showLabel && (
-        <Typography variant="body2" sx={{ ml: 2 }}>
+        <Typography variant="body2">
           {colorMode.mode === 'dark'
             ? msg('theme.dark-mode-switch.label.dark')
             : msg('theme.dark-mode-switch.label.light')}
         </Typography>
       )}
       <MaterialUISwitch
-        sx={sx || { mx: 1, my: '1em' }}
         checked={colorMode.mode === 'dark'}
         onChange={colorMode.toggleColorMode}
       />
-    </Box>
+    </Stack>
   );
 };
 

@@ -10,6 +10,8 @@ import {
   Link,
   useTheme,
   useMediaQuery,
+  Stack,
+  Button,
 } from '@mui/material';
 
 import { useAuth } from '@postgpt/firebase';
@@ -18,6 +20,7 @@ import { PostGptLogo } from '@postgpt/ui-common';
 import { Scrollbar } from '../Scrollbar';
 import { NavSection } from '../NavSection';
 import { navConfig } from '../NavConfig';
+import { SideBarConfig } from '../DashboardLayout';
 
 // ----------------------------------------------------------------------
 
@@ -42,15 +45,19 @@ const AccountStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 type DashboardSidebarProps = {
+  sideBarConfig?: SideBarConfig;
   isOpenSidebar: boolean;
   onCloseSidebar: () => void;
 };
 
 export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
+  sideBarConfig,
   isOpenSidebar,
   onCloseSidebar,
 }) => {
   const [user] = useAuth();
+  const userName = sessionStorage.getItem('name');
+
   const pathname = window.location.pathname;
 
   const theme = useTheme();
@@ -75,7 +82,12 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
       }}
     >
       <Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}>
-        <PostGptLogo full={false} />
+        <PostGptLogo
+          full={false}
+          colorScheme="green-gray-gray-transparent"
+          // width="10rem"
+          height="10rem"
+        />
       </Box>
 
       {user && (
@@ -85,10 +97,10 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
               <Avatar src={user.photoURL ?? undefined} alt="User Photo" />
               <Box sx={{ ml: 2 }}>
                 <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-                  {user.displayName}
+                  {userName || user?.displayName || user?.phoneNumber}
                 </Typography>
                 <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                  {/* {user.role} */}
+                  {user?.phoneNumber || user?.email}
                 </Typography>
               </Box>
             </AccountStyle>
@@ -104,20 +116,20 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
         <Stack
           alignItems="center"
           spacing={3}
-          sx={{ pt: 5, borderRadius: 2, position: "relative" }}
+          sx={{ pt: 5, borderRadius: 2, position: 'relative' }}
         >
           <Box
             component="img"
             src="/static/illustrations/illustration_avatar.png"
-            sx={{ width: 100, position: "absolute", top: -50 }}
+            sx={{ width: 100, position: 'absolute', top: -50 }}
           />
 
-          <Box sx={{ textAlign: "center" }}>
+          <Box sx={{ textAlign: 'center' }}>
             <Typography gutterBottom variant="h6">
               Quer mais?
             </Typography>
-            <Typography variant="body2" sx={{ color: "text.secondary" }}>
-              Por apenas R$19/mês
+            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+              Por apenas R$49,90/mês
             </Typography>
           </Box>
 

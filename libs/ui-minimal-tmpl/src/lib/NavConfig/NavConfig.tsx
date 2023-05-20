@@ -10,7 +10,7 @@ import { NavMenuItem } from '../NavSection';
 export const navConfig: NavMenuItem[] = [
   {
     title: 'Painel',
-    path: '/panel',
+    path: '/',
     icon: <PieChartIcon />,
   },
   {

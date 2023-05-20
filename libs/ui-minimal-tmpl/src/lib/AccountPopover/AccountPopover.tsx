@@ -1,4 +1,4 @@
-import { ReactElement, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 // @mui
 import { alpha } from '@mui/material/styles';
 import {
@@ -10,31 +10,33 @@ import {
   Avatar,
   IconButton,
   Link,
+  ListItemIcon,
 } from '@mui/material';
+import LogoutIcon from '@mui/icons-material/Logout';
 
-import { useAuth, useSignOut } from '@postgpt/firebase';
 import { DarkModeSwitch } from '@postgpt/theme';
 import { msg } from '@postgpt/i18n';
 
 // components
 import { MenuPopover } from '../MenuPopover';
+import { MenuOption } from '../DashboardLayout';
 
-export type MenuOption = {
-  label: string;
-  href: string;
-  icon?: ReactElement;
-};
-
+export interface AccountPopoverConfig {
+  userName: string;
+  userContact?: string;
+  userPhotoUrl?: string;
+  accountMenu?: MenuOption[];
+  handleSignOut?: () => void;
+}
 interface AccountPopoverProps {
-  menuOptions?: MenuOption[];
+  accountPopoverConfig?: AccountPopoverConfig;
 }
 
 export const AccountPopover: React.FC<AccountPopoverProps> = ({
-  menuOptions,
+  accountPopoverConfig,
 }) => {
-  const [user] = useAuth();
-  const signOut = useSignOut();
-  const name = sessionStorage.getItem('name');
+  const { userName, userContact, userPhotoUrl, accountMenu, handleSignOut } =
+    accountPopoverConfig || {};
 
   const anchorRef = useRef(null);
   const [open, setOpen] = useState<HTMLElement | null>(null);
@@ -45,12 +47,6 @@ export const AccountPopover: React.FC<AccountPopoverProps> = ({
 
   const handleClose = () => {
     setOpen(null);
-  };
-
-  const handleSignOut = async () => {
-    sessionStorage.clear();
-    await signOut();
-    window.location.reload();
   };
 
   return (
@@ -74,7 +70,7 @@ export const AccountPopover: React.FC<AccountPopoverProps> = ({
         }}
       >
         <Avatar
-          src={user?.photoURL || undefined}
+          src={userPhotoUrl}
           alt={msg('ui-minimal-tmpl.alt.user-photo')}
         />
       </IconButton>
@@ -95,34 +91,51 @@ export const AccountPopover: React.FC<AccountPopoverProps> = ({
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            {name || user?.displayName || user?.phoneNumber}
+            {userName}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {user?.phoneNumber || user?.email}
+            {userContact}
           </Typography>
         </Box>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
         <Stack sx={{ p: 1 }}>
-          {menuOptions?.map((option) => (
+          {accountMenu?.map((option) => (
             <MenuItem
               key={option.label}
               href={option.href}
               component={Link}
               onClick={handleClose}
             >
-              {option.label}
+              <Stack direction="row">
+                {option.icon && <ListItemIcon>{option.icon}</ListItemIcon>}
+                {option.label}
+              </Stack>
             </MenuItem>
           ))}
-          <DarkModeSwitch showLabel />
         </Stack>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        <MenuItem component={Link} onClick={handleSignOut} sx={{ m: 1 }}>
-          {msg('ui-minimal-tmpl.menu-item.sign-out')}
-        </MenuItem>
+        <DarkModeSwitch
+          showLabel
+          sx={{ my: 2, px: 2 }}
+          gap={0.5}
+          direction="row-reverse"
+          justifyContent="start"
+        />
+
+        {handleSignOut && (
+          <MenuItem component={Link} onClick={handleSignOut} sx={{ m: 1 }}>
+            <Stack direction="row">
+              <ListItemIcon>
+                <LogoutIcon />
+              </ListItemIcon>
+              {msg('ui-minimal-tmpl.menu-item.sign-out')}
+            </Stack>
+          </MenuItem>
+        )}
       </MenuPopover>
     </>
   );

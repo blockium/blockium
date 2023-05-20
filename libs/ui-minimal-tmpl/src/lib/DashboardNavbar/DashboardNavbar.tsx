@@ -4,7 +4,8 @@ import { Box, Stack, AppBar, Toolbar, IconButton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 //
 // import { Searchbar } from '../Searchbar';
-import { AccountPopover, MenuOption } from '../AccountPopover';
+import { AccountPopover } from '../AccountPopover';
+import { NavBarConfig } from '../DashboardLayout';
 // import { LanguagePopover } from '../LanguagePopover';
 // import { NotificationsPopover } from '../NotificationsPopover';
 
@@ -36,12 +37,12 @@ const ToolbarStyle = styled(Toolbar)(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 interface DashboardNavbarProps {
-  accountMenuOptions: MenuOption[];
+  navBarConfig?: NavBarConfig;
   onOpenSidebar: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export const DashboardNavbar: React.FC<DashboardNavbarProps> = ({
-  accountMenuOptions,
+  navBarConfig,
   onOpenSidebar,
 }) => {
   return (
@@ -60,7 +61,7 @@ export const DashboardNavbar: React.FC<DashboardNavbarProps> = ({
         <Stack direction="row" alignItems="center" spacing={{ xs: 1, sm: 1.5 }}>
           {/* <LanguagePopover />
           <NotificationsPopover /> */}
-          <AccountPopover menuOptions={accountMenuOptions} />
+          <AccountPopover accountPopoverConfig={navBarConfig?.accountPopover} />
         </Stack>
       </ToolbarStyle>
     </RootStyle>

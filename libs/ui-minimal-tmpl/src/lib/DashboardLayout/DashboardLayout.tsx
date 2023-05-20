@@ -1,10 +1,10 @@
-import { useState, PropsWithChildren } from 'react';
+import { useState, PropsWithChildren, ReactElement } from 'react';
 // material
 import { styled } from '@mui/material/styles';
 //
 import { DashboardNavbar } from '../DashboardNavbar';
 import { DashboardSidebar } from '../DashboardSidebar';
-import { MenuOption } from '../AccountPopover';
+import { AccountPopoverConfig } from '../AccountPopover';
 
 // ----------------------------------------------------------------------
 
@@ -22,8 +22,8 @@ const MainStyle = styled('div')(({ theme }) => ({
   overflow: 'auto',
   minHeight: '100%',
   paddingTop: APP_BAR_MOBILE + 24,
-  // paddingBottom: theme.spacing(10), // ORIGINAL FROM MINIMAL UI
-  paddingBottom: theme.spacing(0),
+  paddingBottom: theme.spacing(10), // ORIGINAL FROM MINIMAL UI
+  // paddingBottom: theme.spacing(0),
   [theme.breakpoints.up('lg')]: {
     paddingTop: APP_BAR_DESKTOP + 24,
     paddingLeft: theme.spacing(2),
@@ -33,12 +33,31 @@ const MainStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
+export interface MenuOption {
+  label: string;
+  href: string;
+  icon?: ReactElement;
+}
+
+export interface NavBarConfig {
+  accountPopover?: AccountPopoverConfig;
+}
+
+export interface SideBarConfig {
+  sideMenu?: MenuOption[];
+}
+
+export interface LayoutConfig {
+  navBar?: NavBarConfig;
+  sideBar?: SideBarConfig;
+}
+
 interface DashboardLayoutProps extends PropsWithChildren {
-  accountMenuOptions: MenuOption[];
+  layoutConfig?: LayoutConfig;
 }
 
 export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
-  accountMenuOptions,
+  layoutConfig,
   children,
 }) => {
   const [open, setOpen] = useState(false);
@@ -47,11 +66,12 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
     <RootStyle>
       <DashboardNavbar
         onOpenSidebar={() => setOpen(true)}
-        accountMenuOptions={accountMenuOptions}
+        navBarConfig={layoutConfig?.navBar}
       />
       <DashboardSidebar
         isOpenSidebar={open}
         onCloseSidebar={() => setOpen(false)}
+        sideBarConfig={layoutConfig?.sideBar}
       />
       <MainStyle>{children}</MainStyle>
     </RootStyle>
