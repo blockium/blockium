@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import { Container, Typography, Stack, Link } from '@mui/material';
+import { Container, Typography, Stack, Link, useTheme } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import EmailIcon from '@mui/icons-material/Email';
 // import PieChartIcon from '@mui/icons-material/PieChart';
@@ -35,14 +35,6 @@ const layoutConfig: LayoutConfig = {
   },
   sideBar: {
     // tenantName: sessionStorage.getItem('name') || '',
-    logo: (
-      <PostGptLogo
-        // full={false}
-        colorScheme="green-gray-gray-transparent"
-        // width="10rem"
-        height="10rem"
-      />
-    ),
     sideMenu: [
       // {
       //   label: 'Painel',
@@ -85,6 +77,26 @@ export function App() {
     await signOut();
     window.location.reload();
   };
+
+  const theme = useTheme();
+  if (layoutConfig?.sideBar) {
+    layoutConfig.sideBar.logo =
+      theme.palette.mode === 'light' ? (
+        <PostGptLogo
+          // full={false}
+          colorScheme="green-gray-gray-transparent"
+          // width="10rem"
+          height="10rem"
+        />
+      ) : (
+        <PostGptLogo
+          // full={false}
+          colorScheme="green-gray-green-transparent"
+          // width="10rem"
+          height="10rem"
+        />
+      );
+  }
 
   if (layoutConfig?.navBar?.accountPopover) {
     layoutConfig.navBar.accountPopover.userContact =

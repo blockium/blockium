@@ -25,10 +25,18 @@ export interface PaletteColor {
   contrastText?: string;
 }
 
+export interface BackgroundColor {
+  paper?: string;
+  default?: string;
+  neutral?: string;
+}
+
 export interface PalleteConfig {
   primaryColors: PaletteColor;
   secondaryColors: PaletteColor;
   secondaryDarkColors?: PaletteColor;
+  backgroundColors?: BackgroundColor;
+  backgroundDarkColors?: BackgroundColor;
 }
 
 declare module '@mui/material/styles' {
@@ -200,6 +208,12 @@ export const paletteLight: (config?: PalleteConfig) => PaletteOptions = (
       ? createGradient(config.primaryColors.light, config.primaryColors.main)
       : GRADIENTS.primary;
 
+  const {
+    paper: paperColor,
+    default: defaultColor,
+    neutral: neutralColor,
+  } = config?.backgroundColors || {};
+
   return {
     mode: 'light',
     common: { black: '#000', white: '#fff' },
@@ -214,7 +228,11 @@ export const paletteLight: (config?: PalleteConfig) => PaletteOptions = (
     chart: CHART_COLORS,
     divider: GREY[500_24],
     text: { primary: GREY[800], secondary: GREY[600], disabled: GREY[500] },
-    background: { paper: '#fff', default: GREY[100], neutral: GREY[200] },
+    background: {
+      paper: paperColor ?? '#fff',
+      default: defaultColor ?? GREY[100],
+      neutral: neutralColor ?? GREY[200],
+    },
     action: {
       active: GREY[600],
       hover: GREY[500_8],
@@ -236,6 +254,12 @@ export const paletteDark: (config?: PalleteConfig) => PaletteOptions = (
       ? createGradient(config.primaryColors.light, config.primaryColors.main)
       : GRADIENTS.primary;
 
+  const {
+    paper: paperColor,
+    default: defaultColor,
+    neutral: neutralColor,
+  } = config?.backgroundDarkColors || {};
+
   return {
     mode: 'dark',
     common: { black: '#000', white: '#fff' },
@@ -250,8 +274,11 @@ export const paletteDark: (config?: PalleteConfig) => PaletteOptions = (
     chart: CHART_COLORS,
     divider: alpha('#FFF', 0.24),
     text: { primary: GREY[0], secondary: GREY[100], disabled: GREY[300] },
-    // background: { paper: '#424242', default: '#303030', neutral: GREY[800] },
-    background: { paper: '#424242', default: '#263238', neutral: GREY[800] },
+    background: {
+      paper: paperColor ?? '#424242',
+      default: defaultColor ?? '#303030',
+      neutral: neutralColor ?? GREY[800],
+    },
     action: {
       active: GREY[600],
       hover: GREY[500_8],

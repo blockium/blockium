@@ -14,7 +14,9 @@ type ColorScheme =
   | 'white-gray-white-gray'
   | 'green-gray-green-gray'
   | 'transparent-gray-gray-transparent'
-  | 'green-gray-gray-transparent';
+  | 'green-gray-gray-transparent'
+  | 'green-gray-green-transparent'
+  | 'green-gray-white-transparent';
 
 interface PostGptLogoProps extends BaseSvgIconProps {
   colorScheme?: ColorScheme;
@@ -115,6 +117,18 @@ const colors: Colors = {
     color1: '#329273',
     color2: '#030b09',
     color3: '#030b09',
+    color4: '#transparent',
+  },
+  'green-gray-green-transparent': {
+    color1: '#329273',
+    color2: '#030b09',
+    color3: '#329273',
+    color4: '#transparent',
+  },
+  'green-gray-white-transparent': {
+    color1: '#329273',
+    color2: '#030b09',
+    color3: '#fff',
     color4: '#transparent',
   },
 };

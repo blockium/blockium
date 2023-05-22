@@ -10,6 +10,7 @@ import { AppRouter } from './components/AppRouter';
 // These are exact the defaults.
 // They are here just to show how to override them.
 const themeConfig: ThemeConfig = {
+  initialMode: 'light',
   fontConfig: {
     primaryFonts: [
       '"Work Sans"',
@@ -41,6 +42,10 @@ const themeConfig: ThemeConfig = {
       main: '#ECF8F5', // 500
       dark: '#A6DED0', // 600
       darker: '#5FC4AB', // 700
+    },
+    backgroundDarkColors: {
+      paper: '#131E28',
+      default: '#263238',
     },
   },
 };

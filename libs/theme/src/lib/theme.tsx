@@ -75,6 +75,7 @@ export const useColorMode = () => useContext(ColorModeContext);
 export interface ThemeConfig {
   fontConfig?: FontConfig;
   palleteConfig?: PalleteConfig;
+  initialMode?: 'system' | 'light' | 'dark';
 }
 interface ThemeProviderProps extends PropsWithChildren {
   config?: ThemeConfig;
@@ -84,13 +85,16 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
   config,
   children,
 }) => {
+  const { fontConfig, palleteConfig, initialMode } = config || {};
+
   const systemMode = useMediaQuery('(prefers-color-scheme: dark)')
     ? 'dark'
     : 'light';
-  // const systemMode = 'light';
+  const startMode =
+    !initialMode || initialMode === 'system' ? systemMode : initialMode;
 
   const started = useRef<boolean>(false);
-  const [mode, setMode] = useState<Mode>(systemMode);
+  const [mode, setMode] = useState<Mode>(startMode);
   const toggleColorMode = useCallback(() => {
     setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
   }, []);
@@ -108,8 +112,8 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
   }, [mode]);
 
   const themeOptions: ThemeOptions = useMemo(() => {
-    const palette = createPalette(mode, config?.palleteConfig);
-    const typography = createTypography(config?.fontConfig);
+    const palette = createPalette(mode, palleteConfig);
+    const typography = createTypography(fontConfig);
     const shadows = createShadows(palette);
     const customShadows: CustomShadows = createCustomShadows(palette);
 
@@ -142,7 +146,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
         },
       },
     };
-  }, [config, mode]);
+  }, [fontConfig, mode, palleteConfig]);
 
   const theme = createTheme(
     themeOptions,
