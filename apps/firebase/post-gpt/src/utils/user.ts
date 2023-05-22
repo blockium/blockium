@@ -9,9 +9,14 @@ export const USER_ERROR_DIFFERENT_USER_NAME = 'USER_ERROR_DIFFERENT_USER_NAME';
 export const USER_ERROR_NON_UNIQUE_USER = 'USER_ERROR_NON_UNIQUE_USER';
 
 // Save user's data (phone, name) in Firestore at users collection
-export const createUser = async (phone: string, name: string) => {
+export const createUser = async (
+  phone: string,
+  name: string,
+  displayName?: string
+) => {
   const user: User = {
     name,
+    displayName,
     phone,
   };
   const userDoc = await db.users.add(user);
@@ -31,18 +36,26 @@ export const getAllUsers = async (phone: string) => {
 export const getOrCreateUser = async (
   phone: string,
   name: string,
+  displayName?: string,
   allowDifferentNames?: boolean
 ) => {
   const users = await getAllUsers(phone);
 
   switch (users.length) {
     case 0:
-      return await createUser(phone, name);
+      return await createUser(phone, name, displayName || name);
     case 1:
       if (users[0].name === phone && phone !== name) {
         // Update user's name
         await updateUser(users[0].id, { name });
         users[0].name = name;
+      }
+
+      // If user's display names are different, updates the display name
+      if (displayName && users[0].displayName !== displayName) {
+        // Update user's name
+        await updateUser(users[0].id, { displayName });
+        users[0].displayName = displayName;
       }
 
       // If user's name is different from the one in the database,

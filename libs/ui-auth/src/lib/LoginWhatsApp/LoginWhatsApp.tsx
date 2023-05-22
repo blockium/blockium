@@ -37,10 +37,11 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
 
       if (answer.status === 200) {
         // Save the user data in the session storage
-        const { userId, phone, name } = answer.data;
+        const { userId, phone, name, displayName } = answer.data;
         sessionStorage.setItem('userId', userId);
         sessionStorage.setItem('phone', phone);
         sessionStorage.setItem('name', name);
+        sessionStorage.setItem('displayName', displayName);
 
         navigate('/');
         //
@@ -50,7 +51,7 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
       //
     } catch (error) {
       console.error(error);
-      setError(msg('commonui.error.getUser'));
+      setError(msg('ui-auth.error.getUser'));
       //
     } finally {
       setLoadingWhatsApp(false);
@@ -73,7 +74,7 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
       <LoginHero leftImageSrc={leftImageSrc} topImageSrc={topImageSrc}>
         <Stack alignItems="center" width="300px" margin="2rem 0.5rem">
           <Typography variant="h6">
-            1. {msg('commonui.login.whatsapp.msg1')}
+            1. {msg('ui-auth.login.whatsapp.msg1')}
           </Typography>
           {/* <Link onClick={copyToClipboard}>LOGIN:{sessionId}</Link> <br /> */}
           <Link
@@ -84,7 +85,7 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
             LOGIN:{sessionId}
           </Link>
           <Typography variant="h6" sx={{ marginTop: '6rem' }}>
-            2. {msg('commonui.login.whatsapp.msg2')}
+            2. {msg('ui-auth.login.whatsapp.msg2')}
           </Typography>
           <CTAButton
             onClick={loginWithWhatsApp}
@@ -92,7 +93,7 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
             loading={loadingWhatsApp}
             sx={{ marginTop: '2rem' }}
           >
-            {msg('commonui.button.enter')}
+            {msg('ui-auth.button.enter')}
           </CTAButton>
         </Stack>
       </LoginHero>

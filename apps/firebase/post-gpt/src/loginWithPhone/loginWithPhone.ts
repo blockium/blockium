@@ -31,15 +31,19 @@ export const loginWithPhone = https.onRequest(async (request, response) => {
       const authUser = await getAuthUser(request.body.authId);
       if (!validateAuthUser(authUser, response)) return;
 
-      // Creates new user only if it has a phone number
+      // Validates the user if it has a phone number
       if (!validateAuthPhone(authUser.phoneNumber, response)) return;
 
       const authPhone = authUser.phoneNumber.replace(/\D/g, '');
       const phone = authPhone;
-      const name = authUser.displayName || phone;
 
       // Get a user data filtered by phone, creating if it doesn't exist
-      const user = (await getOrCreateUser(phone, name, true)) as User;
+      const user = (await getOrCreateUser(
+        phone,
+        phone,
+        authUser.displayName,
+        true
+      )) as User;
       if (!validateUser(user, response)) return;
 
       // Update app user's auth id in Firestore
@@ -59,9 +63,10 @@ export const loginWithPhone = https.onRequest(async (request, response) => {
       // Update session - from 'waiting' to 'started'
       await updateSession(user, session, authUser.uid);
 
+      const { id: userId, name, displayName } = user;
       response
         .status(200)
-        .send(JSON.stringify({ userId: user.id, phone, name: user.name }));
+        .send(JSON.stringify({ userId, phone, name, displayName }));
     } catch (error) {
       console.log(error);
       response.status(424).send('Houve um erro ao realizar o login.');

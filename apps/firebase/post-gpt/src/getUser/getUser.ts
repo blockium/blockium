@@ -61,8 +61,10 @@ export const getUser = https.onRequest(async (request, response) => {
       // Update session
       await updateSession(user, session, authUser.uid);
 
-      const { id: userId } = user;
-      response.status(200).send(JSON.stringify({ userId, phone, name }));
+      const { id: userId, displayName } = user;
+      response
+        .status(200)
+        .send(JSON.stringify({ userId, phone, name, displayName }));
       //
     } catch (error) {
       console.log(error);

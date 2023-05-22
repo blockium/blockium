@@ -8,6 +8,7 @@ import {
   ConfirmationResult,
   RecaptchaVerifier,
   signInWithPhoneNumber,
+  updateProfile,
 } from 'firebase/auth';
 import { auth } from '@postgpt/firebase';
 
@@ -25,6 +26,8 @@ export const PhoneForm: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
   const msg = useIntlMessage();
+  const [requestDisplayName, setRequestDisplayName] = useState(false);
+  const [displayName, setDisplayName] = useState('');
 
   const signIn = async () => {
     try {
@@ -46,10 +49,33 @@ export const PhoneForm: React.FC = () => {
       //
     } catch (error: any) {
       console.log(error.message);
-      setErrorMessage(msg('commonui.error.auth.phone-sign-in'));
+      setErrorMessage(msg('ui-auth.error.auth.phone-sign-in'));
       //
     } finally {
       setLoading(false);
+    }
+  };
+
+  const login = async () => {
+    if (!auth.currentUser) {
+      setErrorMessage(msg('ui-auth.error.not-authenticated'));
+      return;
+    }
+
+    const answer = await loginWithPhone(auth.currentUser.uid);
+
+    if (answer.status === 200) {
+      // Save the user data in the session storage
+      const { userId, phone, name, displayName } = answer.data;
+      sessionStorage.setItem('userId', userId);
+      sessionStorage.setItem('phone', phone);
+      sessionStorage.setItem('name', name);
+      sessionStorage.setItem('displayName', displayName);
+
+      navigate('/');
+      //
+    } else {
+      setErrorMessage(answer.data);
     }
   };
 
@@ -59,36 +85,47 @@ export const PhoneForm: React.FC = () => {
       setLoading(true);
       const credential = await confirmationResult?.confirm(verificationCode);
       if (!credential) {
-        setErrorMessage(msg('commonui.error.auth.failed'));
+        setErrorMessage(msg('ui-auth.error.auth.failed'));
         //
       } else {
-        // const { uid: authId, phoneNumber } = auth.currentUser;
-        // Save authId on /users collection where phone === phoneNumber
-        const answer = await loginWithPhone(credential.user.uid);
-
-        if (answer.status === 200) {
-          // Save the user data in the session storage
-          const { userId, phone, name } = answer.data;
-          sessionStorage.setItem('userId', userId);
-          sessionStorage.setItem('phone', phone);
-          sessionStorage.setItem('name', name);
-
-          navigate('/');
+        if (credential.user.displayName) {
+          await login();
           //
         } else {
-          setErrorMessage(answer.data);
+          // Request user display name
+          setRequestDisplayName(true);
         }
       }
     } catch (error: any) {
       console.log(error.message);
       if (error.code === 'auth/code-expired') {
-        setErrorMessage(msg('commonui.error.auth.code-expired'));
+        setErrorMessage(msg('ui-auth.error.auth.code-expired'));
       } else {
-        setErrorMessage(msg('commonui.error.auth.invalid-code'));
+        setErrorMessage(msg('ui-auth.error.auth.invalid-code'));
       }
       //
     } finally {
       setLoading(false);
+    }
+  };
+
+  const onEnter = async () => {
+    if (!auth.currentUser) {
+      setErrorMessage(msg('ui-auth.error.not-authenticated'));
+      return;
+    }
+
+    try {
+      setErrorMessage('');
+      setLoading(true);
+      await updateProfile(auth.currentUser, {
+        displayName,
+      });
+      await login();
+      //
+    } catch (error: any) {
+      console.log(error.message);
+      setErrorMessage(msg('ui-auth.error.auth.phone-sign-in'));
     }
   };
 
@@ -97,7 +134,7 @@ export const PhoneForm: React.FC = () => {
       {/* Phone Number Input and Sign In Button */}
       <TextField
         type="tel"
-        label={msg('commonui.label.phone-number')}
+        label={msg('ui-auth.label.phone-number')}
         helperText={!confirmationResult ? '+55 (21) 99999-9999' : ''}
         value={phoneNumber}
         onChange={(e) => setPhoneNumber(e.target.value)}
@@ -113,7 +150,7 @@ export const PhoneForm: React.FC = () => {
           loading={loading}
           disabled={phoneNumber.length < 11}
         >
-          {msg('commonui.button.send-code')}
+          {msg('ui-auth.button.send-code')}
         </CTAButton>
       )}
 
@@ -122,12 +159,34 @@ export const PhoneForm: React.FC = () => {
         <>
           <TextField
             type="number"
-            label={msg('commonui.label.verification-code')}
+            label={msg('ui-auth.label.verification-code')}
             value={verificationCode}
             onChange={(e) => setVerificationCode(e.target.value)}
+            disabled={requestDisplayName}
           />
-          <CTAButton onClick={verifyCode} loading={loading}>
-            {msg('commonui.button.verify-code')}
+          {!requestDisplayName && (
+            <CTAButton onClick={verifyCode} loading={loading}>
+              {msg('ui-auth.button.verify-code')}
+            </CTAButton>
+          )}
+        </>
+      )}
+
+      {/* User Name Input and Enter Button */}
+      {confirmationResult && requestDisplayName && (
+        <>
+          <TextField
+            type="text"
+            label={msg('ui-auth.label.user-name')}
+            value={displayName}
+            onChange={(e) => setDisplayName(e.target.value)}
+          />
+          <CTAButton
+            onClick={onEnter}
+            loading={loading}
+            disabled={displayName.length < 3}
+          >
+            {msg('ui-auth.button.enter')}
           </CTAButton>
         </>
       )}

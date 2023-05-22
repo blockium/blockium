@@ -61,7 +61,7 @@ export const Login: React.FC<LoginProps> = ({
       //
     } catch (error) {
       console.error(error);
-      setError(msg('commonui.error.newSession'));
+      setError(msg('ui-auth.error.newSession'));
       //
     } finally {
       setLoadingWhatsApp(false);
@@ -102,7 +102,7 @@ export const Login: React.FC<LoginProps> = ({
             loading={loadingWhatsApp}
             disabled={loadingGoogle}
           >
-            {msg('commonui.button.loginWithWhatsApp')}
+            {msg('ui-auth.button.loginWithWhatsApp')}
           </CTAButton>
           {/* Box used instead of Stack gap due to support for old browsers */}
           <Box sx={{ height: '2rem' }}></Box>
@@ -114,7 +114,7 @@ export const Login: React.FC<LoginProps> = ({
             color="secondary"
             disabled={loadingWhatsApp || loadingGoogle}
           >
-            {msg('commonui.button.loginWithPhone')}
+            {msg('ui-auth.button.loginWithPhone')}
           </CTAButton>
           {false && (
             <>
@@ -129,7 +129,7 @@ export const Login: React.FC<LoginProps> = ({
                 disabled={loadingWhatsApp}
                 sx={{ marginTop: '2rem' }}
               >
-                {msg('commonui.button.loginWithGoogle')}
+                {msg('ui-auth.button.loginWithGoogle')}
               </CTAButton>
             </>
           )}{' '}

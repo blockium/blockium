@@ -75,7 +75,6 @@ export function App() {
   const handleSignOut = async () => {
     sessionStorage.clear();
     await signOut();
-    window.location.reload();
   };
 
   const theme = useTheme();
@@ -100,7 +99,9 @@ export function App() {
 
   if (layoutConfig?.navBar?.accountPopover) {
     layoutConfig.navBar.accountPopover.userName =
-      sessionStorage.getItem('name') ?? '';
+      sessionStorage.getItem('displayName') ??
+      sessionStorage.getItem('name') ??
+      '';
     layoutConfig.navBar.accountPopover.userContact =
       user?.phoneNumber ||
       user?.email ||
