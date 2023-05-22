@@ -14,11 +14,11 @@ import styles from './App.module.scss';
 import { DashboardLayout, LayoutConfig } from '@postgpt/ui-mininal-tmpl';
 import { useAuth, useSignOut } from '@postgpt/firebase';
 import { PostGptLogo } from '@postgpt/ui-common';
+import { formatPhoneNumber } from '@postgpt/utils';
 
 const layoutConfig: LayoutConfig = {
   navBar: {
     accountPopover: {
-      userName: sessionStorage.getItem('name') || '',
       accountMenu: [
         {
           label: 'Meus Dados',
@@ -99,8 +99,12 @@ export function App() {
   }
 
   if (layoutConfig?.navBar?.accountPopover) {
+    layoutConfig.navBar.accountPopover.userName =
+      sessionStorage.getItem('name') ?? '';
     layoutConfig.navBar.accountPopover.userContact =
-      user?.phoneNumber || user?.email || undefined;
+      user?.phoneNumber ||
+      user?.email ||
+      formatPhoneNumber(sessionStorage.getItem('phone') ?? '');
     layoutConfig.navBar.accountPopover.userPhotoUrl =
       user?.photoURL || undefined;
     layoutConfig.navBar.accountPopover.handleSignOut = handleSignOut;

@@ -22,7 +22,7 @@ import { MenuPopover } from '../MenuPopover';
 import { MenuOption } from '../DashboardLayout';
 
 export interface AccountPopoverConfig {
-  userName: string;
+  userName?: string;
   userContact?: string;
   userPhotoUrl?: string;
   accountMenu?: MenuOption[];
