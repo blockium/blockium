@@ -27,6 +27,17 @@ export default function Card(theme) {
       styleOverrides: {
         root: {
           padding: theme.spacing(3),
+          display: 'flex',
+          flexDirection: 'column',
+          gap: theme.spacing(2),
+        },
+      },
+    },
+    MuiCardActions: {
+      styleOverrides: {
+        root: {
+          justifyContent: 'flex-end',
+          padding: theme.spacing(3),
         },
       },
     },
