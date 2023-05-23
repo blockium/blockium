@@ -30,6 +30,8 @@
   "app.dialog.postedit.input.typeVideo": "Vídeo",
   "app.dialog.postedit.input.with": "com",
   "app.error.newPosts": "Desculpe, houve um erro ao gerar as postagem da semana",
+  "ui-common.stepper.next": "Próximo",
+  "ui-common.stepper.previous": "Anterior",
   "ui-auth.button.enter": "Entrar",
   "ui-auth.button.loginWithWhatsApp": "Entrar com WhatsApp",
   "ui-auth.button.loginWithPhone": "Entrar com SMS",
