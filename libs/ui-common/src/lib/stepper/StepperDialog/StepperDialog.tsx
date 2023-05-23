@@ -51,7 +51,7 @@ export const StepperDialog: React.FC<StepperDialogProps> = (
       onClose={onClose}
       fullScreen={isSmallDown}
       maxWidth="lg"
-      TransitionComponent={Transition}
+      // TransitionComponent={Transition}
       PaperProps={{
         sx: { maxHeight: `calc(100% - ${marginHeight}px)` },
       }}

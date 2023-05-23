@@ -21,7 +21,7 @@ export default function ComponentsOverrides(theme) {
     Paper(theme),
     Button(theme),
     Tooltip(theme),
-    Backdrop(theme),
+    // Backdrop(theme),
     Typography(theme),
     CssBaseline(theme),
     Autocomplete(theme),
