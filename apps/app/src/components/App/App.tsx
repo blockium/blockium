@@ -1,10 +1,10 @@
-import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import { Container, Typography, Stack, useTheme } from '@mui/material';
+import { Container, Stack, useTheme } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import EmailIcon from '@mui/icons-material/Email';
 // import PieChartIcon from '@mui/icons-material/PieChart';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import StoreIcon from '@mui/icons-material/Store';
 // import SettingsIcon from '@mui/icons-material/Settings';
 // import WalletIcon from '@mui/icons-material/Wallet';
 // import AdsClickIcon from '@mui/icons-material/AdsClick';
@@ -14,7 +14,7 @@ import styles from './App.module.scss';
 
 import { DashboardLayout, LayoutConfig } from '@postgpt/ui-mininal-tmpl';
 import { useAuth, useSignOut } from '@postgpt/firebase';
-import { CTAButton, PostGptLogo, StepperDialog } from '@postgpt/ui-common';
+import { PostGptLogo } from '@postgpt/ui-common';
 import { formatPhoneNumber } from '@postgpt/utils';
 
 const layoutConfig: LayoutConfig = {
@@ -47,9 +47,14 @@ const layoutConfig: LayoutConfig = {
         href: '/',
         icon: <CalendarMonthIcon />,
       },
+      {
+        label: 'Meu Negócio',
+        href: '/business',
+        icon: <StoreIcon />,
+      },
       // {
       //   label: 'Configurações',
-      //   href: '#',
+      //   href: '/settings',
       //   icon: <SettingsIcon />,
       // info: 'Configurações do sistema',
       // children: [
@@ -118,34 +123,22 @@ export function App() {
   //   layoutConfig.sideBar.tenantPhotoUrl = user?.photoURL || undefined;
   // }
 
-  const [openStepperDialog, setOpenStepperDialog] = useState(false);
-
   return (
-    <>
-      <DashboardLayout layoutConfig={layoutConfig}>
-        <Container maxWidth="lg" sx={{ margin: '4rem auto' }}>
-          <Stack alignItems="center" gap="4rem">
-            <Typography variant="h1">Welcome to app!</Typography>
-            {/* <Link href="/" variant="h2">
+    <DashboardLayout layoutConfig={layoutConfig}>
+      <Container maxWidth="lg" sx={{ margin: '4rem auto' }}>
+        <Stack alignItems="center" gap="4rem">
+          {/* <Typography variant="h1">Welcome to app!</Typography> */}
+          {/* <Link href="/" variant="h2">
             Go to home
           </Link>
           <Link href="posts/weekly/list" variant="h2">
             Go to posts
           </Link> */}
 
-            <CTAButton onClick={() => setOpenStepperDialog(true)}>
-              Abrir Stepper
-            </CTAButton>
-
-            <Outlet />
-          </Stack>
-        </Container>
-      </DashboardLayout>
-      <StepperDialog
-        open={openStepperDialog}
-        onClose={() => setOpenStepperDialog(false)}
-      />
-    </>
+          <Outlet />
+        </Stack>
+      </Container>
+    </DashboardLayout>
   );
 }
 

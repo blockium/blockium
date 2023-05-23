@@ -4,6 +4,8 @@ import { Login, LoginPhone, LoginWhatsApp } from '@postgpt/ui-auth';
 import { PrivateRoute } from '@postgpt/ui-common';
 
 import { App } from '../App';
+import { Business, Calendar, Settings } from '../../pages';
+
 import { WeeklyPosts, WeeklyPostsList } from '../post';
 
 export const AppRouter = () => {
@@ -17,6 +19,9 @@ export const AppRouter = () => {
           </PrivateRoute>
         }
       >
+        <Route path="/" element={<Calendar />} />
+        <Route path="/business" element={<Business />} />
+        <Route path="/settings" element={<Settings />} />
         <Route path="posts/weekly" element={<WeeklyPosts />} />
         <Route path="posts/weekly/list" element={<WeeklyPostsList />} />
       </Route>
