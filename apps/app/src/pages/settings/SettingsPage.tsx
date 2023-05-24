@@ -1,4 +1,4 @@
-export const Settings = () => {
+export const SettingsPage = () => {
   return (
     <div>
       <h1>Settings</h1>
@@ -6,4 +6,4 @@ export const Settings = () => {
   );
 };
 
-export default Settings;
+export default SettingsPage;

@@ -8,6 +8,8 @@ import StoreIcon from '@mui/icons-material/Store';
 // import SettingsIcon from '@mui/icons-material/Settings';
 // import WalletIcon from '@mui/icons-material/Wallet';
 // import AdsClickIcon from '@mui/icons-material/AdsClick';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import styles from './App.module.scss';
@@ -124,21 +126,23 @@ export function App() {
   // }
 
   return (
-    <DashboardLayout layoutConfig={layoutConfig}>
-      <Container maxWidth="lg" sx={{ margin: '4rem auto' }}>
-        <Stack alignItems="center" gap="4rem">
-          {/* <Typography variant="h1">Welcome to app!</Typography> */}
-          {/* <Link href="/" variant="h2">
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <DashboardLayout layoutConfig={layoutConfig}>
+        <Container maxWidth="lg" sx={{ margin: '4rem auto' }}>
+          <Stack alignItems="center" gap="4rem">
+            {/* <Typography variant="h1">Welcome to app!</Typography> */}
+            {/* <Link href="/" variant="h2">
             Go to home
           </Link>
           <Link href="posts/weekly/list" variant="h2">
             Go to posts
           </Link> */}
 
-          <Outlet />
-        </Stack>
-      </Container>
-    </DashboardLayout>
+            <Outlet />
+          </Stack>
+        </Container>
+      </DashboardLayout>
+    </LocalizationProvider>
   );
 }
 
