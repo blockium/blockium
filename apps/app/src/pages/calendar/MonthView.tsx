@@ -1,12 +1,16 @@
-import React from 'react';
 import { Box, Typography } from '@mui/material';
 
+import { capitalizeFirstLetter } from '@postgpt/utils';
+
 interface MonthViewProps {
-  month: number;
-  year: number;
+  date: Date;
+  onWeekClick?: (date: Date) => void;
 }
 
-export const MonthView: React.FC<MonthViewProps> = ({ month, year }) => {
+export const MonthView: React.FC<MonthViewProps> = ({ date, onWeekClick }) => {
+  const month = date.getMonth();
+  const year = date.getFullYear();
+
   // Get the first day of the month
   let firstDay = new Date(year, month, 1).getDay();
   firstDay = firstDay === 0 ? 6 : firstDay - 1; // If it's Sunday, make it 6 (the end of the array). Otherwise, shift it by one.
@@ -32,11 +36,22 @@ export const MonthView: React.FC<MonthViewProps> = ({ month, year }) => {
   }
 
   return (
-    <>
+    <Box>
+      <Typography variant="h6" margin="2.5rem 0 0.5rem 0">
+        {capitalizeFirstLetter(
+          date.toLocaleString('default', { month: 'long' })
+        )}{' '}
+        {year}
+      </Typography>
       {weeks.map((week, index) => {
         return (
           <Box
             key={index}
+            onClick={(e) => {
+              const startDate = new Date(year, month, week[0] as number);
+              onWeekClick?.(startDate);
+              console.log('Clicked!', startDate);
+            }}
             sx={{
               flexGrow: 1,
               display: 'grid',
@@ -61,7 +76,7 @@ export const MonthView: React.FC<MonthViewProps> = ({ month, year }) => {
           </Box>
         );
       })}
-    </>
+    </Box>
   );
 };
 

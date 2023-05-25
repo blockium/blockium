@@ -1,7 +1,5 @@
 import { Box, Button, Typography } from '@mui/material';
 
-import { capitalizeFirstLetter } from '@postgpt/utils';
-
 import { MonthYearPicker, useCurrentDate } from '@postgpt/ui-common';
 import { msg } from '@postgpt/i18n';
 
@@ -17,21 +15,7 @@ export const CalendarPage: React.FC = () => {
     for (let i = -3; i <= 3; i++) {
       const date = new Date(currentDate);
       date.setMonth(currentDate.getMonth() + i);
-
-      months.push(
-        <Box key={i}>
-          <Typography variant="h6" margin="2.5rem 0 0.5rem 0">
-            {capitalizeFirstLetter(
-              date.toLocaleString('default', {
-                month: 'long',
-              })
-            )}{' '}
-            {date.getFullYear()}
-          </Typography>
-          <MonthView month={date.getMonth()} year={date.getFullYear()} />{' '}
-          {/* Replace placeholder with MonthView */}
-        </Box>
-      );
+      months.push(<MonthView key={i} date={date} />);
     }
 
     return months;
