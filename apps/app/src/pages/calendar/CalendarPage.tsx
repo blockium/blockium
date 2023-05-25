@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import { Box, Button, Typography } from '@mui/material';
-import { DatePicker } from '@mui/x-date-pickers';
+import { DatePicker, DateTimePicker } from '@mui/x-date-pickers';
 
 import { capitalizeFirstLetter } from '@postgpt/utils';
 
 import MonthView from './MonthView'; // Import the MonthView component
+import { MonthYearPicker } from '@postgpt/ui-common';
+import { msg } from '@postgpt/i18n';
 
 export const CalendarPage: React.FC = () => {
   const today = new Date();
   const [selectedDate, setSelectedDate] = useState<Date | null>(today);
 
   const handleDateChange = (date: Date | null) => {
+    console.log('CalendarPage', date);
     setSelectedDate(date);
   };
 
@@ -42,19 +45,14 @@ export const CalendarPage: React.FC = () => {
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <DatePicker
-        label="Selecionar data"
-        value={selectedDate}
-        onChange={handleDateChange}
-        // renderInput={(params) => <Box {...params} />}
-      />
+    <Box sx={{ maxWidth: '100%', margin: (theme) => theme.spacing(2) }}>
+      <MonthYearPicker label={msg('app.page.calendar.filter.date')} />
       <Button
         variant="contained"
         color="primary"
         onClick={() => setSelectedDate(today)}
       >
-        Hoje
+        {msg('app.button.today')}
       </Button>
       <br></br>
       <br></br>
@@ -68,8 +66,16 @@ export const CalendarPage: React.FC = () => {
           marginBottom: '4.4rem',
         }}
       >
-        {['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'].map((day, index) => (
-          <Typography key={index} component="div" variant="body1">
+        {[
+          msg('app.monday-short'),
+          msg('app.tuesday-short'),
+          msg('app.wednesday-short'),
+          msg('app.thursday-short'),
+          msg('app.friday-short'),
+          msg('app.saturday-short'),
+          msg('app.sunday-short'),
+        ].map((day, index) => (
+          <Typography key={index} component="div" variant="subtitle1">
             {day}
           </Typography>
         ))}

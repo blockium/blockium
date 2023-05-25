@@ -17,6 +17,7 @@
     "paths": {
       "@postgpt/firebase": ["libs/firebase/src/index.ts"],
       "@postgpt/i18n": ["libs/i18n/src/index.ts"],
+      "@postgpt/i18n-mui": ["libs/i18n-mui/src/index.ts"],
       "@postgpt/theme": ["libs/theme/src/index.ts"],
       "@postgpt/types": ["libs/types/src/index.ts"],
       "@postgpt/ui-auth": ["libs/ui-auth/src/index.ts"],

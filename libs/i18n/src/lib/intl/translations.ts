@@ -27,7 +27,7 @@ if (userLang4.length > 2) {
 export const translationsForUsersLocale =
   translations[userLang4] || translations[userLang2] || translations['en'];
 
-export const usersLocale = translations[userLang4]
+export const userLocale = translations[userLang4]
   ? userLang4
   : translations[userLang2]
   ? userLang2

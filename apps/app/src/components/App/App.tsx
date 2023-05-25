@@ -8,8 +8,6 @@ import StoreIcon from '@mui/icons-material/Store';
 // import SettingsIcon from '@mui/icons-material/Settings';
 // import WalletIcon from '@mui/icons-material/Wallet';
 // import AdsClickIcon from '@mui/icons-material/AdsClick';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import styles from './App.module.scss';
@@ -18,6 +16,7 @@ import { DashboardLayout, LayoutConfig } from '@postgpt/ui-mininal-tmpl';
 import { useAuth, useSignOut } from '@postgpt/firebase';
 import { PostGptLogo } from '@postgpt/ui-common';
 import { formatPhoneNumber } from '@postgpt/utils';
+import { LocalizationProvider } from '@postgpt/i18n-mui';
 
 const layoutConfig: LayoutConfig = {
   navBar: {
@@ -126,7 +125,7 @@ export function App() {
   // }
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns}>
+    <LocalizationProvider>
       <DashboardLayout layoutConfig={layoutConfig}>
         <Container maxWidth="lg" sx={{ margin: '0 auto' }}>
           <Stack alignItems="center" gap="4rem">
