@@ -2,7 +2,7 @@ import { createGlobalState } from 'react-use';
 // mui
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 
-export const useCurrentDate = createGlobalState<Date | null>(new Date());
+export const useCurrentDate = createGlobalState<Date>(new Date());
 
 interface MonthYearPickerProps {
   [key: string]: unknown;
@@ -18,7 +18,7 @@ export const MonthYearPicker: React.FC<MonthYearPickerProps> = ({
       views={['year', 'month']}
       openTo="month"
       value={currentDate}
-      onChange={(date) => setCurrentDate(date)}
+      onChange={(date) => setCurrentDate(date ?? new Date())}
       slotProps={{
         layout: {
           sx: {

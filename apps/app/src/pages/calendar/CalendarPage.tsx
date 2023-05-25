@@ -1,29 +1,22 @@
-import React, { useState } from 'react';
 import { Box, Button, Typography } from '@mui/material';
-import { DatePicker, DateTimePicker } from '@mui/x-date-pickers';
 
 import { capitalizeFirstLetter } from '@postgpt/utils';
 
-import MonthView from './MonthView'; // Import the MonthView component
-import { MonthYearPicker } from '@postgpt/ui-common';
+import { MonthYearPicker, useCurrentDate } from '@postgpt/ui-common';
 import { msg } from '@postgpt/i18n';
 
-export const CalendarPage: React.FC = () => {
-  const today = new Date();
-  const [selectedDate, setSelectedDate] = useState<Date | null>(today);
+import MonthView from './MonthView'; // Import the MonthView component
 
-  const handleDateChange = (date: Date | null) => {
-    console.log('CalendarPage', date);
-    setSelectedDate(date);
-  };
+export const CalendarPage: React.FC = () => {
+  const [currentDate, setCurrentDate] = useCurrentDate();
 
   const renderMonths = () => {
     const months = [];
 
     // Show 3 months before, current month, and 3 months after
     for (let i = -3; i <= 3; i++) {
-      const date = new Date();
-      date.setMonth(today.getMonth() + i);
+      const date = new Date(currentDate);
+      date.setMonth(currentDate.getMonth() + i);
 
       months.push(
         <Box key={i}>
@@ -50,7 +43,7 @@ export const CalendarPage: React.FC = () => {
       <Button
         variant="contained"
         color="primary"
-        onClick={() => setSelectedDate(today)}
+        onClick={() => setCurrentDate(new Date())}
       >
         {msg('app.button.today')}
       </Button>
