@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
-import { capitalCase } from 'change-case';
+
+import { capitalizeFirstLetter } from '@postgpt/utils';
 
 import MonthView from './MonthView'; // Import the MonthView component
 
@@ -23,8 +24,12 @@ export const CalendarPage: React.FC = () => {
 
       months.push(
         <Box key={i}>
-          <Typography variant="h6">
-            {capitalCase(date.toLocaleString('default', { month: 'long' }))}{' '}
+          <Typography variant="h6" margin="2.5rem 0 0.5rem 0">
+            {capitalizeFirstLetter(
+              date.toLocaleString('default', {
+                month: 'long',
+              })
+            )}{' '}
             {date.getFullYear()}
           </Typography>
           <MonthView month={date.getMonth()} year={date.getFullYear()} />{' '}
@@ -53,6 +58,22 @@ export const CalendarPage: React.FC = () => {
       </Button>
       <br></br>
       <br></br>
+      <Box
+        sx={{
+          flexGrow: 1,
+          display: 'grid',
+          justifyItems: 'center',
+          gridTemplateColumns: 'repeat(7, 1fr)',
+          gap: 2,
+          marginBottom: '4.4rem',
+        }}
+      >
+        {['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'].map((day, index) => (
+          <Typography key={index} component="div" variant="body1">
+            {day}
+          </Typography>
+        ))}
+      </Box>
       {renderMonths()}
     </Box>
   );

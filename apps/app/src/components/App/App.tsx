@@ -128,7 +128,7 @@ export function App() {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DashboardLayout layoutConfig={layoutConfig}>
-        <Container maxWidth="lg" sx={{ margin: '4rem auto' }}>
+        <Container maxWidth="lg" sx={{ margin: '0 auto' }}>
           <Stack alignItems="center" gap="4rem">
             {/* <Typography variant="h1">Welcome to app!</Typography> */}
             {/* <Link href="/" variant="h2">
@@ -137,9 +137,8 @@ export function App() {
           <Link href="posts/weekly/list" variant="h2">
             Go to posts
           </Link> */}
-
-            <Outlet />
           </Stack>
+          <Outlet />
         </Container>
       </DashboardLayout>
     </LocalizationProvider>
