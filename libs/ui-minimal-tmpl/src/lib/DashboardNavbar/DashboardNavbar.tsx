@@ -12,9 +12,9 @@ import { AccountPopover, AccountPopoverConfig } from '../AccountPopover';
 
 // ----------------------------------------------------------------------
 
-const DRAWER_WIDTH = 280;
-const APPBAR_MOBILE = 64;
-const APPBAR_DESKTOP = 92;
+export const DRAWER_WIDTH = 280;
+export const APPBAR_MOBILE = 64;
+export const APPBAR_DESKTOP = 92;
 
 const RootStyle = styled(AppBar)(({ theme }) => ({
   boxShadow: 'none',
@@ -46,43 +46,57 @@ interface DashboardNavbarProps {
   onOpenSidebar: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-export const useNavbarTool = createGlobalState<ReactElement>(<div></div>);
+export const useToolbarExtra = createGlobalState<ReactElement>(<div></div>);
+export const useNavbarExtraLine = createGlobalState<ReactElement>(<div></div>);
 
 export const DashboardNavbar: React.FC<DashboardNavbarProps> = ({
   navBarConfig,
   onOpenSidebar,
 }) => {
-  const [NavbarTool] = useNavbarTool();
+  const [toolbarExtra] = useToolbarExtra();
+  const [navbarExtraLine] = useNavbarExtraLine();
 
   return (
     <RootStyle>
       <ToolbarStyle>
-        <IconButton
-          onClick={onOpenSidebar}
-          sx={{ mr: 1, color: 'text.primary', display: { lg: 'none' } }}
-        >
-          <MenuIcon />
-        </IconButton>
+        <Stack width="100%" sx={{ padding: (theme) => theme.spacing(1.5, 0) }}>
+          <Stack direction="row">
+            <IconButton
+              onClick={onOpenSidebar}
+              sx={{ mr: 1, color: 'text.primary', display: { lg: 'none' } }}
+            >
+              <MenuIcon />
+            </IconButton>
 
-        {/* <Searchbar /> */}
+            {/* <Searchbar /> */}
 
-        <Box
-          sx={{
-            flexGrow: 1,
-            alignSelf: 'stretch',
-            display: 'flex',
-            justifyContent: 'flex-end',
-            alignItems: 'center',
-            marginRight: (theme) => theme.spacing(2),
-          }}
-        >
-          {NavbarTool}
-        </Box>
+            <Box
+              sx={{
+                flexGrow: 1,
+                alignSelf: 'stretch',
+                display: 'flex',
+                justifyContent: 'flex-end',
+                alignItems: 'center',
+                marginRight: (theme) => theme.spacing(0),
+              }}
+            >
+              {toolbarExtra}
+            </Box>
 
-        <Stack direction="row" alignItems="center" spacing={{ xs: 1, sm: 1.5 }}>
-          {/* <LanguagePopover />
-          <NotificationsPopover /> */}
-          <AccountPopover accountPopoverConfig={navBarConfig?.accountPopover} />
+            <Stack
+              direction="row"
+              alignItems="center"
+              spacing={{ xs: 1, sm: 1.5 }}
+            >
+              {/* <LanguagePopover /> */}
+              {/* <NotificationsPopover /> */}
+              <Box sx={{ marginLeft: (theme) => theme.spacing(1) }} />
+              <AccountPopover
+                accountPopoverConfig={navBarConfig?.accountPopover}
+              />
+            </Stack>
+          </Stack>
+          {navbarExtraLine}
         </Stack>
       </ToolbarStyle>
     </RootStyle>

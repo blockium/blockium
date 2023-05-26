@@ -16,6 +16,7 @@ export const MonthYearPicker: React.FC<MonthYearPickerProps> = ({
   return (
     <DesktopDatePicker
       views={['year', 'month']}
+      format="MMM/yyyy"
       openTo="month"
       value={currentDate}
       onChange={(date) => setCurrentDate(date ?? new Date())}

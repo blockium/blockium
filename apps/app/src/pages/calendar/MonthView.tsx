@@ -37,7 +37,7 @@ export const MonthView: React.FC<MonthViewProps> = ({ date, onWeekClick }) => {
 
   return (
     <Box>
-      <Typography variant="h6" margin="2.5rem 0 0.5rem 0">
+      <Typography color="primary.dark" variant="h6" margin="2.5rem 0 0.5rem 0">
         {capitalizeFirstLetter(
           date.toLocaleString('default', { month: 'long' })
         )}{' '}
@@ -62,9 +62,11 @@ export const MonthView: React.FC<MonthViewProps> = ({ date, onWeekClick }) => {
               cursor: 'pointer',
               margin: '0.2rem 0',
               padding: '1rem 0',
-              '&:hover': {
-                borderRadius: '0.5rem',
-                outline: '1px solid #ccc',
+              '&:hover': (theme) => {
+                return {
+                  borderRadius: '0.5rem',
+                  outline: `2px dashed ${theme.palette.grey[500]}}`,
+                };
               },
             }}
           >

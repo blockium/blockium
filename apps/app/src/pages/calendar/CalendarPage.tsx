@@ -1,32 +1,23 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 
 import { MonthYearPicker, useCurrentDate } from '@postgpt/ui-common';
-import { useNavbarTool } from '@postgpt/ui-mininal-tmpl';
+import {
+  DRAWER_WIDTH,
+  useNavbarExtraLine,
+  useToolbarExtra,
+} from '@postgpt/ui-mininal-tmpl';
 import { msg } from '@postgpt/i18n';
 
 import MonthView from './MonthView'; // Import the MonthView component
 
 export const CalendarPage: React.FC = () => {
   const [currentDate, setCurrentDate] = useCurrentDate();
-
-  const renderMonths = () => {
-    const months = [];
-
-    // Show 3 months before, current month, and 3 months after
-    for (let i = -3; i <= 3; i++) {
-      const date = new Date(currentDate);
-      date.setMonth(currentDate.getMonth() + i);
-      months.push(<MonthView key={i} date={date} />);
-    }
-
-    return months;
-  };
-
-  const [, setNavbarTool] = useNavbarTool();
+  const [, setToolbarExtra] = useToolbarExtra();
+  const [, setNavbarExtraLine] = useNavbarExtraLine();
 
   useEffect(() => {
-    const navbarTool = (
+    const toolbarExtra = (
       <Box
         sx={{
           display: 'flex',
@@ -45,22 +36,29 @@ export const CalendarPage: React.FC = () => {
         </Button>
       </Box>
     );
+    setToolbarExtra(toolbarExtra);
 
-    setNavbarTool(navbarTool);
-  }, [setCurrentDate, setNavbarTool]);
-
-  return (
-    <Box sx={{ maxWidth: '100%', margin: (theme) => theme.spacing(2) }}>
-      <br></br>
-      <br></br>
+    const navbarExtraLine = (
       <Box
         sx={{
-          flexGrow: 1,
+          paddingTop: (theme) => theme.spacing(2),
+          paddingLeft: (theme) => theme.spacing(2),
+          paddingRight: (theme) => theme.spacing(2),
+
+          width: (theme) => {
+            const { lg } = theme.breakpoints.values;
+            return {
+              xs: '100%',
+              lg: `calc(${lg}-${DRAWER_WIDTH})`,
+              xl: `calc(${lg}px - ${theme.spacing(6)})`,
+            };
+          },
+
+          margin: '0 auto',
           display: 'grid',
           justifyItems: 'center',
           gridTemplateColumns: 'repeat(7, 1fr)',
           gap: 2,
-          marginBottom: '4.4rem',
         }}
       >
         {[
@@ -72,11 +70,42 @@ export const CalendarPage: React.FC = () => {
           msg('app.saturday-short'),
           msg('app.sunday-short'),
         ].map((day, index) => (
-          <Typography key={index} component="div" variant="subtitle1">
+          <Typography
+            color="primary.dark"
+            key={index}
+            component="div"
+            variant="subtitle1"
+          >
             {day}
           </Typography>
         ))}
       </Box>
+    );
+    setNavbarExtraLine(navbarExtraLine);
+    //
+  }, [setCurrentDate, setNavbarExtraLine, setToolbarExtra]);
+
+  const renderMonths = useCallback(() => {
+    const months = [];
+
+    // Show 3 months before, current month, and 3 months after
+    for (let i = -3; i <= 3; i++) {
+      const date = new Date(currentDate);
+      date.setMonth(currentDate.getMonth() + i);
+      months.push(<MonthView key={i} date={date} />);
+    }
+
+    return months;
+  }, [currentDate]);
+
+  return (
+    <Box
+      sx={{
+        maxWidth: '100%',
+        margin: (theme) => theme.spacing(0, 2),
+        marginTop: (theme) => theme.spacing(8),
+      }}
+    >
       {renderMonths()}
     </Box>
   );
