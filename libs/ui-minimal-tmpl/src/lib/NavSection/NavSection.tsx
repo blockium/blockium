@@ -90,6 +90,12 @@ function NavMenu({ item, active }: NavMenuProps) {
           onClick={handleOpen}
           sx={{
             ...(isActiveRoot && activeRootStyle),
+            ...(isActiveRoot && {
+              color: (theme) =>
+                theme.palette.mode === 'light'
+                  ? 'primary.main'
+                  : 'primary.light',
+            }),
           }}
         >
           <ListItemIconStyle>{icon && icon}</ListItemIconStyle>
@@ -156,6 +162,10 @@ function NavMenu({ item, active }: NavMenuProps) {
       to={href}
       sx={{
         ...(isActiveRoot && activeRootStyle),
+        ...(isActiveRoot && {
+          color: (theme) =>
+            theme.palette.mode === 'light' ? 'primary.main' : 'primary.light',
+        }),
       }}
     >
       <ListItemIconStyle>{icon && icon}</ListItemIconStyle>

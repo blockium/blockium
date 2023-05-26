@@ -71,7 +71,9 @@ export const CalendarPage: React.FC = () => {
           msg('app.sunday-short'),
         ].map((day, index) => (
           <Typography
-            color="primary.dark"
+            color={(theme) =>
+              theme.palette.mode === 'light' ? 'primary.dark' : 'primary.light'
+            }
             key={index}
             component="div"
             variant="subtitle1"

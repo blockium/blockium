@@ -33,6 +33,7 @@ export interface BackgroundColor {
 
 export interface PalleteConfig {
   primaryColors: PaletteColor;
+  primaryDarkColors: PaletteColor;
   secondaryColors: PaletteColor;
   secondaryDarkColors?: PaletteColor;
   backgroundColors?: BackgroundColor;
@@ -124,6 +125,15 @@ const PRIMARY = {
   main: '#329273',
   dark: '#19695F',
   darker: '#094146',
+  contrastText: GREY[0],
+};
+
+const PRIMARY_DARK = {
+  lighter: '#E7F8EF',
+  light: '#D8F9E2',
+  main: '#86DEB0',
+  dark: '#329273',
+  darker: '#19695F',
   contrastText: GREY[0],
 };
 
@@ -250,8 +260,11 @@ export const paletteDark: (config?: PalleteConfig) => PaletteOptions = (
   config?: PalleteConfig
 ) => {
   const primaryGradient =
-    config?.primaryColors.light && config?.primaryColors.main
-      ? createGradient(config.primaryColors.light, config.primaryColors.main)
+    config?.primaryDarkColors.light && config?.primaryDarkColors.main
+      ? createGradient(
+          config.primaryDarkColors.light,
+          config.primaryDarkColors.main
+        )
       : GRADIENTS.primary;
 
   const {
@@ -263,7 +276,7 @@ export const paletteDark: (config?: PalleteConfig) => PaletteOptions = (
   return {
     mode: 'dark',
     common: { black: '#000', white: '#fff' },
-    primary: { ...PRIMARY, ...config?.primaryColors },
+    primary: { ...PRIMARY_DARK, ...config?.primaryDarkColors },
     secondary: { ...SECONDARY_DARK, ...config?.secondaryDarkColors },
     info: { ...INFO },
     success: { ...SUCCESS },

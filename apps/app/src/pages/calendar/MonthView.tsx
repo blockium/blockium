@@ -37,7 +37,13 @@ export const MonthView: React.FC<MonthViewProps> = ({ date, onWeekClick }) => {
 
   return (
     <Box>
-      <Typography color="primary.dark" variant="h6" margin="2.5rem 0 0.5rem 0">
+      <Typography
+        color={(theme) =>
+          theme.palette.mode === 'light' ? 'primary.dark' : 'primary.light'
+        }
+        variant="h6"
+        margin="2.5rem 0 0.5rem 0"
+      >
         {capitalizeFirstLetter(
           date.toLocaleString('default', { month: 'long' })
         )}{' '}
