@@ -1,4 +1,5 @@
 import { Box, Typography } from '@mui/material';
+import { subDays } from 'date-fns';
 
 import { capitalizeFirstLetter } from '@postgpt/utils';
 
@@ -54,9 +55,20 @@ export const MonthView: React.FC<MonthViewProps> = ({ date, onWeekClick }) => {
           <Box
             key={index}
             onClick={(e) => {
-              const startDate = new Date(year, month, week[0] as number);
+              // Find the first non-blank day of the week
+              let weekFirstDay = week[0];
+              let i = 0;
+              while (!weekFirstDay) {
+                i++;
+                weekFirstDay = week[i];
+              }
+
+              const startDate = subDays(
+                new Date(year, month, weekFirstDay as number),
+                i
+              );
+
               onWeekClick?.(startDate);
-              console.log('Clicked!', startDate);
             }}
             sx={{
               flexGrow: 1,
