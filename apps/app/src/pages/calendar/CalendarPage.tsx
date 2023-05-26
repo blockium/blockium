@@ -1,6 +1,8 @@
+import { useEffect } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 
 import { MonthYearPicker, useCurrentDate } from '@postgpt/ui-common';
+import { useNavbarTool } from '@postgpt/ui-mininal-tmpl';
 import { msg } from '@postgpt/i18n';
 
 import MonthView from './MonthView'; // Import the MonthView component
@@ -21,16 +23,34 @@ export const CalendarPage: React.FC = () => {
     return months;
   };
 
+  const [, setNavbarTool] = useNavbarTool();
+
+  useEffect(() => {
+    const navbarTool = (
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '2rem',
+          marginRight: (theme) => theme.spacing(2),
+        }}
+      >
+        <MonthYearPicker label={msg('app.page.calendar.filter.date')} />
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => setCurrentDate(new Date())}
+        >
+          {msg('app.button.today')}
+        </Button>
+      </Box>
+    );
+
+    setNavbarTool(navbarTool);
+  }, [setCurrentDate, setNavbarTool]);
+
   return (
     <Box sx={{ maxWidth: '100%', margin: (theme) => theme.spacing(2) }}>
-      <MonthYearPicker label={msg('app.page.calendar.filter.date')} />
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => setCurrentDate(new Date())}
-      >
-        {msg('app.button.today')}
-      </Button>
       <br></br>
       <br></br>
       <Box

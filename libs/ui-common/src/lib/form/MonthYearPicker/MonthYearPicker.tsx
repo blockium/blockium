@@ -20,6 +20,7 @@ export const MonthYearPicker: React.FC<MonthYearPickerProps> = ({
       value={currentDate}
       onChange={(date) => setCurrentDate(date ?? new Date())}
       slotProps={{
+        textField: { size: 'small' },
         layout: {
           sx: {
             p: 1,

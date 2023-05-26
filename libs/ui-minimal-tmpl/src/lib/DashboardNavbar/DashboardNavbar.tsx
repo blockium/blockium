@@ -1,3 +1,5 @@
+import { ReactElement } from 'react';
+import { createGlobalState } from 'react-use';
 // material
 import { alpha, styled } from '@mui/material/styles';
 import { Box, Stack, AppBar, Toolbar, IconButton } from '@mui/material';
@@ -44,10 +46,14 @@ interface DashboardNavbarProps {
   onOpenSidebar: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
+export const useNavbarTool = createGlobalState<ReactElement>(<div></div>);
+
 export const DashboardNavbar: React.FC<DashboardNavbarProps> = ({
   navBarConfig,
   onOpenSidebar,
 }) => {
+  const [NavbarTool] = useNavbarTool();
+
   return (
     <RootStyle>
       <ToolbarStyle>
@@ -59,7 +65,19 @@ export const DashboardNavbar: React.FC<DashboardNavbarProps> = ({
         </IconButton>
 
         {/* <Searchbar /> */}
-        <Box sx={{ flexGrow: 1 }} />
+
+        <Box
+          sx={{
+            flexGrow: 1,
+            alignSelf: 'stretch',
+            display: 'flex',
+            justifyContent: 'flex-end',
+            alignItems: 'center',
+            marginRight: (theme) => theme.spacing(2),
+          }}
+        >
+          {NavbarTool}
+        </Box>
 
         <Stack direction="row" alignItems="center" spacing={{ xs: 1, sm: 1.5 }}>
           {/* <LanguagePopover />
