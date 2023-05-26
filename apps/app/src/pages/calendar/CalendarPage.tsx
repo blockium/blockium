@@ -84,6 +84,11 @@ export const CalendarPage: React.FC = () => {
       </Box>
     );
     setNavbarExtraLine(navbarExtraLine);
+
+    return () => {
+      setToolbarExtra(<div></div>);
+      setNavbarExtraLine(<div></div>);
+    };
     //
   }, [setCurrentDate, setNavbarExtraLine, setToolbarExtra]);
 
