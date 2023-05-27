@@ -19,8 +19,10 @@ import { msg } from '@postgpt/i18n';
 import MonthView from './MonthView'; // Import the MonthView component
 
 // const MONTHS_PER_PAGE = 11;
-const HALF_MONTHS_PER_PAGE = 5;
-const MONTHS_TO_ADD = 5;
+// const HALF_MONTHS_PER_PAGE = 5;
+// const MONTHS_TO_ADD = 5;
+const HALF_MONTHS_PER_PAGE = 15;
+const MONTHS_TO_ADD = 15;
 
 export const CalendarPage: React.FC = () => {
   const [currentDate, setCurrentDate] = useCurrentDate();
@@ -183,8 +185,6 @@ export const CalendarPage: React.FC = () => {
 
       const months: ReactNode[] = [];
 
-      console.log('topObserverRef.current', topObserverRef.current);
-
       // Show months before, current month, and months after
       for (let i = -HALF_MONTHS_PER_PAGE; i <= HALF_MONTHS_PER_PAGE; i++) {
         const date = new Date(currentDate);
@@ -220,13 +220,15 @@ export const CalendarPage: React.FC = () => {
     if (middleMonthRef.current && !scrolledToMiddle) {
       console.log('scrolling to middle');
 
-      middleMonthRef.current.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-        inline: 'start',
-      });
+      setTimeout(() => {
+        middleMonthRef.current?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+          inline: 'start',
+        });
 
-      setScrolledToMiddle(true);
+        setScrolledToMiddle(true);
+      }, 1000);
     }
   }, [scrolledToMiddle]);
 
@@ -241,13 +243,14 @@ export const CalendarPage: React.FC = () => {
     const topObserverElem = topObserverRef.current;
     console.log('topObserverElem', topObserverElem);
 
-    setTimeout(() => {
-      if (topObserverElem) {
-        console.log('observing topObserverRef');
-        observer?.observe(topObserverElem);
-        setChangedTopObserver(false);
-      }
-    }, 2000);
+    // TODO: Disabled. Will try to find another solution
+    // setTimeout(() => {
+    //   if (topObserverElem) {
+    //     console.log('observing topObserverRef');
+    //     observer?.observe(topObserverElem);
+    //     setChangedTopObserver(false);
+    //   }
+    // }, 1000);
 
     // return unObserveTop;
   }, [changedTopObserver, observer, unObserveTop]);
