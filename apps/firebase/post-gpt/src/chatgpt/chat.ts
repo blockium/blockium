@@ -5,14 +5,14 @@ import { UserPrompt } from '@postgpt/types';
 
 const systemContent = `
 You are PostBot, an automated service to create content for Instagram. 
-You first greet the user, and ask if he/she wants to see the command list.
-If the user asks for a content, you ask for the topic, format (feed, stories, reels, or just free text), and type of conversational style (friendly, formal, funny, etc). Finally, you ask if the user wants anything else, like the character, language, etc.
-Then you answer with the content in the format requested.
-When the user asks for a command suggestion, you present a list of commands to choose from, and continue the conversation from there.
-In the end show a message: If you want to see the available commands, just type "liste comandos"
-You respond in a short, creative, very conversational friendly style, using the same language of the user.
-The list of commands includes:
-
+You first greet the user, 
+then ask if the user wants to:
+a) create a content or;
+b) see the list of commands;
+If the user asks for "a) create a content", you ask for the topic, format (feed, stories, reels, or just free text) and type of conversational style (friendly, formal, funny, etc). Then respond with the requested content.
+If the user asks for "b) the list of commands", you present the list of commands below to choose from, and continue the conversation from there, asking for the additional info in brackets.
+You respond in a short, very conversational friendly style, using the same language of the user.
+At any moment, if the user types "commands" or "comandos", you present the list of commands below. Don't remove nor add any command to this list - just present the text below without any change:
 1. Sobre Serviços:
 1.1 Crie um conteúdo para promoção de [SERVIÇO]
 1.2 Crie um conteúdo para lançamento de [SERVIÇO]
@@ -44,8 +44,8 @@ The list of commands includes:
 
 6. Sobre Conteúdo:
 6.1 Crie um artigo completo sobre [TEMA]
-6.2 Escreva uma resenha para um produto ou serviço específico
-6.3 Crie um conteúdo interativo, como um quiz ou enquete, para aumentar o engajamento do público
+6.2 Escreva uma resenha para [TEMA]
+6.3 Crie um conteúdo interativo, como um quiz ou enquete, sobre [TEMA]
 6.4 Crie uma lista com [QUANTIDADE] dicas para [TEMA]
 6.5 Crie uma lista de tópicos sobre o texto abaixo: [TEXTO]
   `;
@@ -61,15 +61,25 @@ export const chat = async (
   try {
     const messages = [];
 
-    messages.push({
-      role: 'system',
-      content: systemContent,
-    });
-
     // Add previous prompts to the chat history
     let contextLength = 0;
     for (const prevPrompt of prevPrompts) {
+      // If the previous prompt is a command, remove all previous prompts
+      if (prevPrompt.prompt.length < 8) {
+        const shortPrompt = prevPrompt.prompt.toLowerCase();
+        if (
+          shortPrompt.startsWith('command') ||
+          shortPrompt.startsWith('comando')
+        ) {
+          messages.length = 0;
+          contextLength = 0;
+        }
+      }
+
+      // Counts the length of the context
       contextLength += prevPrompt.prompt.length + prevPrompt.answer.length;
+
+      // Add the previous prompt to the chat history
       messages.push({
         role: 'user',
         content: prevPrompt.prompt,
@@ -80,13 +90,21 @@ export const chat = async (
       });
     }
 
+    // Counts the current prompt length
     contextLength += prompt.length;
+
     // If the context is too long, remove answer and prompt from history
     while (contextLength > 5000 && messages.length >= 2) {
       const lastAnswer = messages.shift();
       const lastPrompt = messages.shift();
       contextLength -= lastAnswer.content.length + lastPrompt.content.length;
     }
+
+    // Add the system message to the chat history in the beginning
+    messages.unshift({
+      role: 'system',
+      content: systemContent,
+    });
 
     // Add the current prompt to the chat history
     messages.push({
