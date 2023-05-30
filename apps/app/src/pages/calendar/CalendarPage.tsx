@@ -1,11 +1,6 @@
-import {
-  ReactNode,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
+import { useIntersection } from 'react-use';
+import { startOfMonth } from 'date-fns';
 import { Box, Button, Typography } from '@mui/material';
 
 import { MonthYearPicker, useCurrentDate } from '@postgpt/ui-common';
@@ -18,90 +13,15 @@ import { msg } from '@postgpt/i18n';
 
 import MonthView from './MonthView'; // Import the MonthView component
 
-// const MONTHS_PER_PAGE = 11;
-// const HALF_MONTHS_PER_PAGE = 5;
-// const MONTHS_TO_ADD = 5;
-const HALF_MONTHS_PER_PAGE = 15;
-const MONTHS_TO_ADD = 15;
+const HALF_MONTHS_PER_PAGE = 5;
+const MONTHS_TO_ADD = 12;
 
-export const CalendarPage: React.FC = () => {
-  const [currentDate, setCurrentDate] = useCurrentDate();
+const useExtendNavbar = () => {
+  const [, setCurrentDate] = useCurrentDate();
   const [, setToolbarExtra] = useToolbarExtra();
   const [, setNavbarExtraLine] = useNavbarExtraLine();
-  const topObserverRef = useRef<HTMLBaseElement>(null);
-  const middleMonthRef = useRef<HTMLBaseElement>(null);
-  const bottomMonthRef = useRef<HTMLBaseElement>(null);
-  const monthsRef = useRef<ReactNode[]>([]);
-  const topMonthIndex = useRef<number>(-HALF_MONTHS_PER_PAGE);
-  // const bottomMonthIndex = useRef<number>(HALF_MONTHS_PER_PAGE);
-  // const [months, setMonths] = useState<ReactNode[]>([]);
-  const [scrolledToMiddle, setScrolledToMiddle] = useState(true);
-  const [changedTopObserver, setChangedTopObserver] = useState(false);
-  //  const [updateDate, setUpdateDate] = useState(new Date());
-
-  // Creates the intersection observer
-  let observer: IntersectionObserver | null = null;
-
-  const unObserveTop = useCallback(() => {
-    if (topObserverRef.current && observer) {
-      console.log('unobserving topObserverRef');
-      observer.unobserve(topObserverRef.current);
-    }
-  }, [observer]);
-
-  observer = useMemo(() => {
-    console.log('Creating the observer');
-
-    // Disconnect any previous observer
-    observer?.disconnect();
-
-    // Add new months to top
-    const addTopMonths: () => void = () => {
-      console.log('addTopMonths');
-
-      const months = monthsRef.current;
-      const newTopMonthIndex = topMonthIndex.current - MONTHS_TO_ADD;
-
-      // Add months before
-      for (let i = topMonthIndex.current - 1; i >= newTopMonthIndex; i--) {
-        const date = new Date(currentDate);
-        date.setMonth(currentDate.getMonth() + i);
-        if (i === newTopMonthIndex) {
-          months.unshift(
-            <MonthView ref={topObserverRef} key={i} date={date} />
-          );
-        } else {
-          months.unshift(<MonthView key={i} date={date} />);
-        }
-      }
-      topMonthIndex.current = newTopMonthIndex;
-
-      unObserveTop();
-      setChangedTopObserver(true);
-    };
-
-    const handleIntersection: IntersectionObserverCallback = (entries) => {
-      // The callback will return an array of entries,
-      // even if you are only observing a single item
-      for (const entry of entries) {
-        if (entry.isIntersecting) {
-          // If the element is visible
-          console.log('Visible');
-          addTopMonths();
-        } else {
-          // If the element is not visible
-          console.log('Not visible');
-        }
-      }
-    };
-
-    return new IntersectionObserver(handleIntersection);
-    //
-  }, [currentDate, observer, unObserveTop]);
 
   useEffect(() => {
-    console.log('useEffect1');
-
     const toolbarExtra = (
       <Box
         sx={{
@@ -176,7 +96,39 @@ export const CalendarPage: React.FC = () => {
     };
     //
   }, [setCurrentDate, setNavbarExtraLine, setToolbarExtra]);
+};
 
+export const CalendarPage: React.FC = () => {
+  useExtendNavbar();
+
+  const [currentDate] = useCurrentDate();
+  const currentDateRef = useRef(currentDate);
+
+  const [months, setMonths] = useState<ReactNode[]>([]);
+  const monthsRef = useRef<ReactNode[]>([]);
+  const middleMonthRef = useRef<HTMLBaseElement>(null);
+
+  const topMonthIndex = useRef<number>(-HALF_MONTHS_PER_PAGE);
+  const bottomMonthIndex = useRef<number>(HALF_MONTHS_PER_PAGE);
+
+  // Control the scroll after the first render
+  const [scrolledToMiddle, setScrolledToMiddle] = useState(false);
+
+  const topInsersectionRef = useRef<HTMLBaseElement>(null);
+  const topIntersection = useIntersection(topInsersectionRef, {
+    root: null,
+    rootMargin: '50%',
+    threshold: 0,
+  });
+
+  const bottomInsersectionRef = useRef<HTMLBaseElement>(null);
+  const bottomIntersection = useIntersection(bottomInsersectionRef, {
+    root: null,
+    rootMargin: '50%',
+    threshold: 0,
+  });
+
+  // Render months when the currentDate changes
   useEffect(() => {
     console.log('useEffect2');
 
@@ -187,73 +139,114 @@ export const CalendarPage: React.FC = () => {
 
       // Show months before, current month, and months after
       for (let i = -HALF_MONTHS_PER_PAGE; i <= HALF_MONTHS_PER_PAGE; i++) {
-        const date = new Date(currentDate);
+        const date = startOfMonth(currentDate);
         date.setMonth(currentDate.getMonth() + i);
-        if (i === -HALF_MONTHS_PER_PAGE) {
-          months.push(<MonthView ref={topObserverRef} key={i} date={date} />);
-        } else if (i === 0) {
+        if (i === 0) {
           months.push(<MonthView ref={middleMonthRef} key={i} date={date} />);
-        } else if (i === HALF_MONTHS_PER_PAGE) {
-          months.push(<MonthView ref={bottomMonthRef} key={i} date={date} />);
         } else {
           months.push(<MonthView key={i} date={date} />);
         }
       }
 
+      topMonthIndex.current = -HALF_MONTHS_PER_PAGE;
+      bottomMonthIndex.current = HALF_MONTHS_PER_PAGE;
       monthsRef.current = months;
-      unObserveTop();
-      setChangedTopObserver(true);
+      setMonths(months);
     };
 
     renderMonths();
     //
-    setScrolledToMiddle(false);
-    //
-    observer?.disconnect();
-    //
-  }, [currentDate, observer, unObserveTop]);
+    // Wait for components to be shown in the screen and then scroll to middle
+    setTimeout(() => {
+      console.log('scrolling to middle');
 
+      middleMonthRef.current?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'start',
+      });
+
+      // Another wait to the scroll to happen
+      // in order to push the topIntersection out of the view
+      setTimeout(() => {
+        setScrolledToMiddle(true);
+      }, 500);
+    }, 1000);
+
+    //
+  }, [currentDate]);
+
+  // When top intersection is visible, add more months to the top
   useEffect(() => {
     console.log('useEffect3');
 
-    // Scroll to the middle month
-    if (middleMonthRef.current && !scrolledToMiddle) {
-      console.log('scrolling to middle');
-
-      setTimeout(() => {
-        middleMonthRef.current?.scrollIntoView({
-          behavior: 'smooth',
-          block: 'center',
-          inline: 'start',
-        });
-
-        setScrolledToMiddle(true);
-      }, 1000);
-    }
-  }, [scrolledToMiddle]);
-
-  // Observes the top and bottom months being visible on the page
-  useEffect(() => {
-    console.log('useEffect4');
-
-    if (!changedTopObserver) {
+    if (!scrolledToMiddle || !topIntersection) {
       return;
     }
 
-    const topObserverElem = topObserverRef.current;
-    console.log('topObserverElem', topObserverElem);
+    // Add new months to top
+    const addTopMonths: () => void = () => {
+      console.log('addTopMonths');
 
-    // TODO: Disabled. Will try to find another solution
-    // setTimeout(() => {
-    //   if (topObserverElem) {
-    //     console.log('observing topObserverRef');
-    //     observer?.observe(topObserverElem);
-    //     setChangedTopObserver(false);
-    //   }
-    // }, 1000);
+      const months = monthsRef.current;
+      const newTopMonthIndex = topMonthIndex.current - MONTHS_TO_ADD;
 
-    // return unObserveTop;
-  }, [changedTopObserver, observer, unObserveTop]);
+      // Add months before
+      for (let i = topMonthIndex.current - 1; i >= newTopMonthIndex; i--) {
+        const date = startOfMonth(currentDateRef.current);
+        date.setMonth(date.getMonth() + i);
+        months.unshift(<MonthView key={i} date={date} />);
+      }
+
+      topMonthIndex.current = newTopMonthIndex;
+      setMonths([...months]);
+    };
+
+    if (topIntersection.isIntersecting) {
+      console.log('Visible');
+      addTopMonths();
+    } else {
+      console.log('Not Visible');
+    }
+  }, [scrolledToMiddle, topIntersection]);
+
+  // When bottom intersection is visible, add more months to the bottom
+  useEffect(() => {
+    console.log('useEffect4');
+
+    if (!bottomIntersection) {
+      return;
+    }
+
+    // Add new months to bottom
+    const addBottomMonths: () => void = () => {
+      console.log('addBottomMonths');
+
+      const months = monthsRef.current;
+      const newBottomMonthIndex = bottomMonthIndex.current + MONTHS_TO_ADD;
+
+      // Add months before
+      for (
+        let i = bottomMonthIndex.current + 1;
+        i <= newBottomMonthIndex;
+        i++
+      ) {
+        const date = startOfMonth(currentDateRef.current);
+        date.setMonth(date.getMonth() + i);
+        months.push(<MonthView key={i} date={date} />);
+      }
+
+      bottomMonthIndex.current = newBottomMonthIndex;
+      setMonths([...months]);
+    };
+
+    if (bottomIntersection.isIntersecting) {
+      console.log('Visible');
+      addBottomMonths();
+    } else {
+      console.log('Not Visible');
+    }
+  }, [bottomIntersection]);
 
   return (
     <Box
@@ -263,7 +256,9 @@ export const CalendarPage: React.FC = () => {
         marginTop: (theme) => theme.spacing(8),
       }}
     >
-      {monthsRef.current}
+      <Box ref={topInsersectionRef} />
+      {months}
+      <Box ref={bottomInsersectionRef} />
     </Box>
   );
 };
