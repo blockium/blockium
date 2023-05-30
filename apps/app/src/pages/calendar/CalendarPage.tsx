@@ -130,11 +130,7 @@ export const CalendarPage: React.FC = () => {
 
   // Render months when the currentDate changes
   useEffect(() => {
-    console.log('useEffect2');
-
     const renderMonths = () => {
-      console.log('renderMonths');
-
       const months: ReactNode[] = [];
 
       // Show months before, current month, and months after
@@ -158,8 +154,6 @@ export const CalendarPage: React.FC = () => {
     //
     // Wait for components to be shown in the screen and then scroll to middle
     setTimeout(() => {
-      console.log('scrolling to middle');
-
       middleMonthRef.current?.scrollIntoView({
         behavior: 'smooth',
         block: 'center',
@@ -178,16 +172,12 @@ export const CalendarPage: React.FC = () => {
 
   // When top intersection is visible, add more months to the top
   useEffect(() => {
-    console.log('useEffect3');
-
     if (!scrolledToMiddle || !topIntersection) {
       return;
     }
 
     // Add new months to top
     const addTopMonths: () => void = () => {
-      console.log('addTopMonths');
-
       const months = monthsRef.current;
       const newTopMonthIndex = topMonthIndex.current - MONTHS_TO_ADD;
 
@@ -202,26 +192,18 @@ export const CalendarPage: React.FC = () => {
       setMonths([...months]);
     };
 
-    if (topIntersection.isIntersecting) {
-      console.log('Visible');
-      addTopMonths();
-    } else {
-      console.log('Not Visible');
-    }
+    topIntersection.isIntersecting && addTopMonths();
+    //
   }, [scrolledToMiddle, topIntersection]);
 
   // When bottom intersection is visible, add more months to the bottom
   useEffect(() => {
-    console.log('useEffect4');
-
     if (!bottomIntersection) {
       return;
     }
 
     // Add new months to bottom
     const addBottomMonths: () => void = () => {
-      console.log('addBottomMonths');
-
       const months = monthsRef.current;
       const newBottomMonthIndex = bottomMonthIndex.current + MONTHS_TO_ADD;
 
@@ -240,12 +222,8 @@ export const CalendarPage: React.FC = () => {
       setMonths([...months]);
     };
 
-    if (bottomIntersection.isIntersecting) {
-      console.log('Visible');
-      addBottomMonths();
-    } else {
-      console.log('Not Visible');
-    }
+    bottomIntersection.isIntersecting && addBottomMonths();
+    //
   }, [bottomIntersection]);
 
   return (
