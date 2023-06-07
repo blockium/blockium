@@ -7,7 +7,7 @@
     "post-gpt": {
       "hosting": {
         "app": [
-          "postgpt"
+          "app-criaty"
         ],
         "site": [
           "post-gpt"
