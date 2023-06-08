@@ -20,6 +20,16 @@ const themeConfig: ThemeConfig = {
       'sans-serif',
     ],
     headerFonts: ['Poppins', 'sans-serif'],
+    // headerWeights: {
+    //   h1: 400,
+    //   h2: 400,
+    //   h3: 400,
+    //   h4: 400,
+    //   h5: 400,
+    //   h6: 400,
+    //   subtitle1: 400,
+    //   subtitle2: 400,
+    // },
   },
   palleteConfig: {
     primaryColors: {

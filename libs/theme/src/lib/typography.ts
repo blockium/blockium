@@ -25,6 +25,16 @@ declare module '@mui/material/styles/createTypography' {
 export interface FontConfig {
   primaryFonts: string[];
   headerFonts: string[];
+  headerWeights?: {
+    h1: number;
+    h2: number;
+    h3: number;
+    h4: number;
+    h5: number;
+    h6: number;
+    subtitle1: number;
+    subtitle2: number;
+  };
 }
 
 const htmlFontSize = 10;
@@ -71,6 +81,16 @@ const typography: (config?: FontConfig) => Typography = (
   config?: FontConfig
 ) => {
   const headerFonts = config?.headerFonts.join(',');
+  const headerWeights = config?.headerWeights || {
+    h1: 600,
+    h2: 600,
+    h3: 600,
+    h4: 600,
+    h5: 600,
+    h6: 600,
+    subtitle1: 600,
+    subtitle2: 600,
+  };
   return {
     fontFamily: config?.primaryFonts.join(',') || FONT_PRIMARY,
     fontWeightLight: 300,
@@ -79,55 +99,55 @@ const typography: (config?: FontConfig) => Typography = (
     fontWeightBold: 600,
     h1: {
       fontFamily: headerFonts || FONT_HEADERS,
-      fontWeight: 600,
+      fontWeight: headerWeights.h1,
       lineHeight: 80 / 64,
       fontSize: pxToRem(40),
       ...responsiveFontSizes({ sm: 52, md: 58, lg: 64 }),
     },
     h2: {
       fontFamily: headerFonts || FONT_HEADERS,
-      fontWeight: 600,
+      fontWeight: headerWeights.h2,
       lineHeight: 64 / 48,
       fontSize: pxToRem(32),
       ...responsiveFontSizes({ sm: 40, md: 44, lg: 48 }),
     },
     h3: {
       fontFamily: headerFonts || FONT_HEADERS,
-      fontWeight: 600,
+      fontWeight: headerWeights.h3,
       lineHeight: 1.5,
       fontSize: pxToRem(24),
       ...responsiveFontSizes({ sm: 26, md: 30, lg: 32 }),
     },
     h4: {
       fontFamily: headerFonts || FONT_HEADERS,
-      fontWeight: 600,
+      fontWeight: headerWeights.h4,
       lineHeight: 1.5,
       fontSize: pxToRem(20),
       ...responsiveFontSizes({ sm: 20, md: 24, lg: 24 }),
     },
     h5: {
       fontFamily: headerFonts || FONT_HEADERS,
-      fontWeight: 600,
+      fontWeight: headerWeights.h5,
       lineHeight: 1.5,
       fontSize: pxToRem(18),
       ...responsiveFontSizes({ sm: 19, md: 20, lg: 20 }),
     },
     h6: {
       fontFamily: headerFonts || FONT_HEADERS,
-      fontWeight: 600,
+      fontWeight: headerWeights.h6,
       lineHeight: 28 / 18,
       fontSize: pxToRem(17),
       ...responsiveFontSizes({ sm: 18, md: 18, lg: 18 }),
     },
     subtitle1: {
       fontFamily: headerFonts || FONT_HEADERS,
-      fontWeight: 600,
+      fontWeight: headerWeights.subtitle1,
       lineHeight: 1.5,
       fontSize: pxToRem(16),
     },
     subtitle2: {
       fontFamily: headerFonts || FONT_HEADERS,
-      fontWeight: 600,
+      fontWeight: headerWeights.subtitle2,
       lineHeight: 22 / 14,
       fontSize: pxToRem(14),
     },
