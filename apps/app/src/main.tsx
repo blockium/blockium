@@ -13,7 +13,7 @@ const themeConfig: ThemeConfig = {
   initialMode: 'light',
   fontConfig: {
     primaryFonts: [
-      '"Work Sans"',
+      '"Nunito Sans"',
       'Roboto',
       '"Helvetica Neue"',
       '-apple-system',
