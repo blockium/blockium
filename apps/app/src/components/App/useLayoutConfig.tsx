@@ -10,7 +10,7 @@ import StoreIcon from '@mui/icons-material/Store';
 
 import { LayoutConfig } from '@postgpt/ui-mininal-tmpl';
 import { useAuth, useSignOut } from '@postgpt/firebase';
-import { PostGptLogo } from '@postgpt/ui-common';
+import { CriatyLogo } from '@postgpt/ui-common';
 import { formatPhoneNumber } from '@postgpt/utils';
 
 const layoutConfig: LayoutConfig = {
@@ -83,16 +83,16 @@ export const useLayoutConfig = () => {
   if (layoutConfig?.sideBar) {
     layoutConfig.sideBar.logo =
       theme.palette.mode === 'light' ? (
-        <PostGptLogo
+        <CriatyLogo
           // full={false}
-          colorScheme="green-gray-gray-transparent"
+          colorScheme="green-green-gray-transparent"
           // width="10rem"
           height="10rem"
         />
       ) : (
-        <PostGptLogo
+        <CriatyLogo
           // full={false}
-          colorScheme="green-gray-green-transparent"
+          colorScheme="green-green-white-transparent"
           // width="10rem"
           height="10rem"
         />

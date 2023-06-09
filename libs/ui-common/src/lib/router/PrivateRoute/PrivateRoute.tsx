@@ -6,7 +6,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth, useSignIn } from '@postgpt/firebase';
 
 import { LoadingIndicator } from '../../progress';
-import { PostGptLogo } from '../../logo';
+import { CriatyLogo } from '../../logo';
 
 interface PrivateRouteProps {
   loginPath: string;
@@ -22,9 +22,9 @@ const LoadingPage = () => {
       sx={{ width: '100% ', height: '100vh' }}
     >
       <LoadingIndicator>
-        <PostGptLogo
+        <CriatyLogo
           full={false}
-          colorScheme="transparent-gray-gray-transparent"
+          colorScheme="transparent-green-green-transparent"
           sx={{ marginTop: '0.75rem' }}
         />
       </LoadingIndicator>

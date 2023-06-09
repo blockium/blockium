@@ -90,7 +90,7 @@ export const Login: React.FC<LoginProps> = ({
       <Alert severity="error" message={error} setMessage={setError} />
       <LoginHero leftImageSrc={leftImageSrc} topImageSrc={topImageSrc}>
         <Stack alignItems="center" width="300px" margin="2rem 0.5rem">
-          {/* <PostGptLogo
+          {/* <CriatyLogo
             // full={false}
             width="50rem"
             sx={{ maxWidth: { xs: '30rem', lg: '40rem', xl: '50rem' } }}
