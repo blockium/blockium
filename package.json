@@ -50,7 +50,7 @@
     "socket.io": "^4.6.1",
     "swiper": "^9.3.2",
     "tslib": "^2.3.0",
-    "whatsapp-web.js": "^1.19.5"
+    "whatsapp-web.js": "^1.21.0"
   },
   "devDependencies": {
     "@nrwl/cypress": "15.9.2",

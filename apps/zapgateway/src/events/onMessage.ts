@@ -54,7 +54,8 @@ const onMessage = async (msg, client: Client) => {
         url: process.env.POST_GPT_URL,
         data: {
           prompt: msg.body,
-          phone: contact.number,
+          // phone: contact.number,  // Old way used on version 1.19.5
+          phone: contact.id.user, // This works on version 1.21.0
           name: contact.pushname,
         },
         validateStatus: (status: number) => {
