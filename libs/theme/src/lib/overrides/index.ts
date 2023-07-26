@@ -11,10 +11,11 @@ import CssBaseline from './CssBaseline';
 import Autocomplete from './Autocomplete';
 import MobileStepper from './MobileStepper';
 import LocalizationProvider from './LocalizationProvider';
+import { Theme } from '@mui/material/styles/createTheme';
 
 // ----------------------------------------------------------------------
 
-export default function ComponentsOverrides(theme) {
+export default function ComponentsOverrides(theme: Theme) {
   return Object.assign(
     Card(theme),
     Input(theme),
@@ -26,6 +27,6 @@ export default function ComponentsOverrides(theme) {
     CssBaseline(theme),
     Autocomplete(theme),
     MobileStepper(theme),
-    LocalizationProvider(theme)
+    LocalizationProvider(theme),
   );
 }

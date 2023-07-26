@@ -150,7 +150,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
 
   const theme = createTheme(
     themeOptions,
-    ptBR // TODO: dynamically define locale
+    ptBR, // TODO: dynamically define locale
   );
   theme.components = { ...componentsOverride(theme), ...theme.components };
 

@@ -1,6 +1,8 @@
+import { Theme } from '@mui/material/styles/createTheme';
+
 // ----------------------------------------------------------------------
 
-export default function Tooltip(theme) {
+export default function Tooltip(theme: Theme) {
   return {
     MuiTooltip: {
       styleOverrides: {
