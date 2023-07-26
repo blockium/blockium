@@ -25,10 +25,9 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
         onAccept={(value: string) =>
           onChange({ target: { name: props.name, value } })
         }
-        onChange={onChange}
       />
     );
-  }
+  },
 );
 
 export default PhoneInput;
