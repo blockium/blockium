@@ -1,21 +1,9 @@
 {
   "firestore": {
-    "rules": "apps/firebase/post-gpt/firestore.rules",
-    "indexes": "apps/firebase/post-gpt/firestore.indexes.json"
+    "rules": "apps/firebase/criaty/firestore.rules",
+    "indexes": "apps/firebase/criaty/firestore.indexes.json"
   },
   "hosting": [
-    {
-      "target": "site",
-      "public": "dist/apps/site",
-      "cleanUrls": true,
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-      "rewrites": [
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
-    },
     {
       "target": "app",
       "public": "dist/apps/app",
@@ -30,14 +18,15 @@
     }
   ],
   "storage": {
-    "rules": "apps/firebase/post-gpt/storage.rules"
+    "rules": "apps/firebase/criaty/storage.rules"
   },
-  "functions": {
-    "codebase": "firebase-post-gpt",
-    "predeploy": ["npx nx build firebase-post-gpt"],
-    "runtime": "nodejs16",
-    "source": "dist/apps/firebase/post-gpt"
-  },
+  "functions": [
+    {
+      "codebase": "firebase-criaty-functions",
+      "source": "dist/apps/firebase/criaty-functions",
+      "runtime": "nodejs16"
+    }
+  ],
   "emulators": {
     "auth": {
       "port": 9099
@@ -48,8 +37,14 @@
     "firestore": {
       "port": 8080
     },
+    "database": {
+      "port": 9000
+    },
     "hosting": {
       "port": 5000
+    },
+    "pubsub": {
+      "port": 8085
     },
     "storage": {
       "port": 9199

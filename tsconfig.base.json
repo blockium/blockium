@@ -14,6 +14,7 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
+    "resolveJsonModule": true,
     "paths": {
       "@postgpt/firebase": ["libs/firebase/src/index.ts"],
       "@postgpt/i18n": ["libs/i18n/src/index.ts"],

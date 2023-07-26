@@ -34,11 +34,11 @@ export const PhoneForm: React.FC = () => {
       setErrorMessage('');
       setLoading(true);
       const appVerifier = new RecaptchaVerifier(
+        auth,
         'recaptcha-container',
         {
           size: 'invisible',
         },
-        auth
       );
       const result = await signInWithPhoneNumber(
         auth,

@@ -21,7 +21,8 @@ const login = async (msg, client: Client) => {
       method: 'post',
       url: process.env.LOGIN_URL,
       data: {
-        phone: contact.number,
+        // phone: contact.number,  // Old way used on version 1.19.5
+        phone: contact.id.user, // This works on version 1.21.0
         name: contact.pushname,
         sessionId,
       },
@@ -37,7 +38,7 @@ const login = async (msg, client: Client) => {
       // Send a success message to the user
       client.sendMessage(
         msg.from,
-        'Login efetuado com sucesso! Retorne para o app e continue'
+        'Login efetuado com sucesso! Retorne para o app e continue',
       );
     }
     //
@@ -45,7 +46,7 @@ const login = async (msg, client: Client) => {
     console.error(error);
     client.sendMessage(
       msg.from,
-      'Desculpe, houve um erro ao processar sua mensagem'
+      'Desculpe, houve um erro ao processar sua mensagem',
     );
   }
 };
