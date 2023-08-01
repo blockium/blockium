@@ -53,7 +53,7 @@ At any moment, if the user types "commands" or "comandos", you present the list 
 export const chat = async (
   prompt: string,
   prevPrompts: UserPrompt[],
-  apiKey: string
+  apiKey: string,
 ) => {
   const configuration = new Configuration({ apiKey });
   const openai = new OpenAIApi(configuration);
@@ -100,11 +100,15 @@ export const chat = async (
       contextLength -= lastAnswer.content.length + lastPrompt.content.length;
     }
 
+    // TODO: evaluate if should use the system message.
+    // For WhatsApp, this seems good
+    // but for WebApp, it's not generating good results
+
     // Add the system message to the chat history in the beginning
-    messages.unshift({
-      role: 'system',
-      content: systemContent,
-    });
+    // messages.unshift({
+    //   role: 'system',
+    //   content: systemContent,
+    // });
 
     // Add the current prompt to the chat history
     messages.push({
