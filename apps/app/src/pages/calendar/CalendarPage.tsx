@@ -1,4 +1,11 @@
-import { ReactNode, useEffect, useRef, useState } from 'react';
+import {
+  ReactNode,
+  Ref,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { useIntersection } from 'react-use';
 import { startOfMonth } from 'date-fns';
 import { Box, Button, Typography } from '@mui/material';
@@ -128,6 +135,18 @@ export const CalendarPage: React.FC = () => {
     threshold: 0,
   });
 
+  const onWeekClick = (startDate: Date) => {
+    // TODO: Open popup asking: topic and actor.
+    console.log(startDate);
+  };
+
+  const createMonthView = useCallback(
+    (i: number, date: Date, ref?: Ref<HTMLBaseElement>) => (
+      <MonthView key={i} date={date} ref={ref} onWeekClick={onWeekClick} />
+    ),
+    [],
+  );
+
   // Render months when the currentDate changes
   useEffect(() => {
     const renderMonths = () => {
@@ -138,9 +157,9 @@ export const CalendarPage: React.FC = () => {
         const date = startOfMonth(currentDate);
         date.setMonth(currentDate.getMonth() + i);
         if (i === 0) {
-          months.push(<MonthView ref={middleMonthRef} key={i} date={date} />);
+          months.push(createMonthView(i, date, middleMonthRef));
         } else {
-          months.push(<MonthView key={i} date={date} />);
+          months.push(createMonthView(i, date));
         }
       }
 
@@ -168,7 +187,7 @@ export const CalendarPage: React.FC = () => {
     }, 1000);
 
     //
-  }, [currentDate]);
+  }, [createMonthView, currentDate]);
 
   // When top intersection is visible, add more months to the top
   useEffect(() => {
@@ -185,7 +204,7 @@ export const CalendarPage: React.FC = () => {
       for (let i = topMonthIndex.current - 1; i >= newTopMonthIndex; i--) {
         const date = startOfMonth(currentDateRef.current);
         date.setMonth(date.getMonth() + i);
-        months.unshift(<MonthView key={i} date={date} />);
+        months.unshift(createMonthView(i, date));
       }
 
       topMonthIndex.current = newTopMonthIndex;
@@ -194,7 +213,7 @@ export const CalendarPage: React.FC = () => {
 
     topIntersection.isIntersecting && addTopMonths();
     //
-  }, [scrolledToMiddle, topIntersection]);
+  }, [createMonthView, scrolledToMiddle, topIntersection]);
 
   // When bottom intersection is visible, add more months to the bottom
   useEffect(() => {
@@ -215,7 +234,7 @@ export const CalendarPage: React.FC = () => {
       ) {
         const date = startOfMonth(currentDateRef.current);
         date.setMonth(date.getMonth() + i);
-        months.push(<MonthView key={i} date={date} />);
+        months.push(createMonthView(i, date));
       }
 
       bottomMonthIndex.current = newBottomMonthIndex;
@@ -224,7 +243,7 @@ export const CalendarPage: React.FC = () => {
 
     bottomIntersection.isIntersecting && addBottomMonths();
     //
-  }, [bottomIntersection]);
+  }, [bottomIntersection, createMonthView]);
 
   return (
     <Box
