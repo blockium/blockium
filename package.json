@@ -17,7 +17,8 @@
     "deploy": "nx deploy firebase-criaty",
     "deploy-functions": "nx deploy firebase-criaty-functions",
     "deploy-hosting": "nx deploy firebase-criaty -- --only hosting",
-    "deploy-zap": "npm run build-zap && flyctl deploy dist/apps/zapgateway"
+    "deploy-zap": "npm run build-zap && flyctl deploy dist/apps/zapgateway",
+    "restart-zap": "fly apps restart zapgateway"
   },
   "private": true,
   "dependencies": {
