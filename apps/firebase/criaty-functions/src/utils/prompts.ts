@@ -1,23 +1,21 @@
-export const getPostsPrompt = async (userId: string, postQuantity: number) => {
-  // TODO: Get businessDescription, businessServices, topic, character, language from Firebase
+import { User } from '@postgpt/types';
+
+export const getPostsPrompt = async (
+  user: User,
+  postQuantity: number,
+  topic?: string,
+  character?: string,
+) => {
   const businessDescription =
-    'Clínica de estética no Rio de Janeiro com técnica europeia que transforma a autoestima dos clientes.';
+    user.business?.description ?? 'Prestador de serviço';
 
-  const businessServices = `
-- unhas de gel
-- micropigmentação de sobrancelhas
-- micropigmentação de lábios
-- tratamento para pele
-- design de sobrancelha
-- lash lift
-- brow lamination
-- spa dos pés`;
+  const businessServices = user.business?.services ?? 'Serviços genéricos';
 
-  const topic = 'Dia das maes';
   const topicPrompt = topic ? `Aborde o tema "${topic}".` : '';
 
-  const character = 'Ana Tex - @anatex';
-  const characterPrompt = character ? `Responda como ${character}.` : '';
+  const characterPrompt = character
+    ? `falando como se fosse "${character}",`
+    : '';
 
   const language = 'portugues';
 
@@ -26,11 +24,9 @@ export const getPostsPrompt = async (userId: string, postQuantity: number) => {
   }`;
 
   const prompt = `
-${characterPrompt}
+Sendo criativo, crie ${postQuantityDescription} para Instagram, em ${language}, ${characterPrompt} para um negócio de "${businessDescription}" que oferece:
 
-Crie ${postQuantityDescription} Instagram, em ${language}, para "${businessDescription}" que oferece:
-
-${businessServices}
+"${businessServices}".
 
 ${topicPrompt}
 
@@ -59,19 +55,11 @@ O resultado deve vir num único JSON array.`;
   return prompt;
 };
 
-export const getWeeklyPostsPrompt = async (userId: string) => {
-  // TODO: Get businessDescription, businessServices from Firebase
+export const getWeeklyPostsPrompt = async (user: User) => {
   const businessDescription =
-    'Clínica de estética no Rio de Janeiro com técnica europeia que transforma a autoestima dos clientes.';
+    user.business?.description ?? 'Prestador de serviço';
 
-  const businessServices = `- unhas de gel
-    - micropigmentação de sobrancelhas
-    - micropigmentação de lábios
-    - tratamento para pele
-    - design de sobrancelha
-    - lash lift
-    - brow lamination
-    - spa dos pés`;
+  const businessServices = user.business?.services ?? 'Serviços genéricos';
 
   const prompt = `Crie um calendário editorial de postagem para o Instagram para "${businessDescription}" que oferece produtos/serviços de:
 

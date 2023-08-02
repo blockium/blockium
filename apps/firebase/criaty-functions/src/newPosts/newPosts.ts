@@ -29,6 +29,7 @@ const validateParams = (request, response) => {
   );
 };
 
+// Post quantity parameter must be maximum 3, due to a limitation of the GPT API
 export const newPosts = https.onRequest(async (request, response) => {
   // TODO: Review CORS policy
   const corsObj = cors({ origin: true });
@@ -42,13 +43,18 @@ export const newPosts = https.onRequest(async (request, response) => {
 
     const user = result as User;
 
-    const postQuantity = request.body.postQuantity ?? 1;
+    const { postQuantity, topic, character } = request.body;
 
-    const prompt = await getPostsPrompt(user.id, postQuantity);
-    console.log(prompt);
+    const prompt = await getPostsPrompt(
+      user,
+      postQuantity ?? 1,
+      topic,
+      character,
+    );
+    console.log('prompt', prompt);
 
-    // Sent a POST request to chatgpt endpoint
     try {
+      // Sent a POST request to chatgpt endpoint
       const answer = await axios({
         method: 'post',
         url: process.env.POST_GPT_URL,

@@ -136,7 +136,7 @@ export const CalendarPage: React.FC = () => {
   });
 
   const onWeekClick = (startDate: Date) => {
-    // TODO: Open popup asking: topic and actor.
+    // TODO: Open MenuPopover asking: topic and character (optional).
     console.log(startDate);
   };
 

@@ -35,7 +35,7 @@ const getUserPrompts = async (userId: string, limit: number) => {
   const userPrompts: UserPrompt[] = userPromptsQuery.docs.map(
     (userPromptDoc) => {
       return { ...userPromptDoc.data(), id: userPromptDoc.id };
-    }
+    },
   );
 
   return userPrompts.reverse();
@@ -44,7 +44,7 @@ const getUserPrompts = async (userId: string, limit: number) => {
 const saveUserPrompt = async (
   userId: string,
   prompt: string,
-  answer: string
+  answer: string,
 ) => {
   const userPrompt: UserPrompt = {
     userId,
@@ -72,7 +72,7 @@ export const chatgpt = runWith({ secrets: [openAiApiKey] }).https.onRequest(
 
       // Retrieve the user's prompt history
       const limit = Number(
-        request.body.historyLimit ?? process.env.PROMPT_HISTORY_LIMIT
+        request.body.historyLimit ?? process.env.PROMPT_HISTORY_LIMIT,
       );
       const prevPrompts = limit > 0 ? await getUserPrompts(user.id, limit) : [];
 
@@ -85,7 +85,7 @@ export const chatgpt = runWith({ secrets: [openAiApiKey] }).https.onRequest(
         response
           .status(424)
           .send(
-            'Houve um erro ao processar a solicitação. Por favor, tente novamente.'
+            'Houve um erro ao processar a solicitação. Por favor, tente novamente.',
           );
       } else {
         // Save the user's prompt and answer to the history
@@ -93,5 +93,5 @@ export const chatgpt = runWith({ secrets: [openAiApiKey] }).https.onRequest(
         response.status(200).send(answer);
       }
     });
-  }
+  },
 );
