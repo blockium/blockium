@@ -61,7 +61,7 @@ export const newWeeklyPosts = https.onRequest(async (request, response) => {
 
     const user = result as User;
 
-    const prompt = await getWeeklyPostsPrompt(user.id);
+    const prompt = await getWeeklyPostsPrompt(user);
 
     // Sent a POST request to chatgpt endpoint
     try {
@@ -88,7 +88,7 @@ export const newWeeklyPosts = https.onRequest(async (request, response) => {
       response
         .status(424)
         .send(
-          'Houve um erro ao gerar as postagem da semana. Por favor, tente novamente.'
+          'Houve um erro ao gerar as postagem da semana. Por favor, tente novamente.',
         );
     }
   });
