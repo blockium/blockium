@@ -1,20 +1,30 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, IconButton, Stack, TextField } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
+
 import { MenuPopover } from '@postgpt/ui-mininal-tmpl';
 import { msg } from '@postgpt/i18n';
 
 interface INewPostPopoverProps {
+  startDate: Date;
   anchorEl: HTMLElement | null;
   onClose: () => void;
 }
 
 const NewPostPopover: React.FC<INewPostPopoverProps> = ({
+  startDate,
   anchorEl,
   onClose,
 }) => {
   const [topic, setTopic] = useState('');
   const [character, setCharacter] = useState('');
+  const navigate = useNavigate();
+
+  const handleGenerate = () => {
+    onClose();
+    navigate(`/posts/weekly/${startDate.toISOString()}`);
+  };
 
   return (
     <MenuPopover
@@ -75,7 +85,7 @@ const NewPostPopover: React.FC<INewPostPopoverProps> = ({
           }}
         />
         <Button
-          onClick={onClose}
+          onClick={handleGenerate}
           color="primary"
           variant="contained"
           sx={{ mt: 2 }}

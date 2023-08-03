@@ -138,6 +138,7 @@ export const CalendarPage: React.FC = () => {
 
   const onWeekClick = (startDate: Date, element: HTMLElement | null) => {
     // Open MenuPopover asking: topic and character (optional).
+    setStartDate(startDate);
     setOpenPopover(element);
   };
 
@@ -246,6 +247,7 @@ export const CalendarPage: React.FC = () => {
     //
   }, [bottomIntersection, createMonthView]);
 
+  const [startDate, setStartDate] = useState<Date>(new Date());
   const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
   const handleClose = () => {
     setOpenPopover(null);
@@ -262,7 +264,11 @@ export const CalendarPage: React.FC = () => {
       <Box ref={topInsersectionRef} />
       {months}
       <Box ref={bottomInsersectionRef} />
-      <NewPostPopover anchorEl={openPopover} onClose={handleClose} />
+      <NewPostPopover
+        startDate={startDate}
+        anchorEl={openPopover}
+        onClose={handleClose}
+      />
     </Box>
   );
 };
