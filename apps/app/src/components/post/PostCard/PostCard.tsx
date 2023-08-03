@@ -1,94 +1,95 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
-  Typography,
+  Box,
   Card,
   CardContent,
-  CardActions,
-  Button,
+  CardHeader,
+  Grid,
+  IconButton,
+  Stack,
+  Step,
+  StepLabel,
+  Stepper,
+  Typography,
 } from '@mui/material';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-import { Post, PostStatus } from '@postgpt/types';
-import { useIntlMessage } from '@postgpt/i18n';
+import { Post } from '@postgpt/types';
+import { msg } from '@postgpt/i18n';
 
-import { PostEditDialog } from '../PostEditDialog';
+const steps = [
+  msg('app.post.status.defined'),
+  msg('app.post.status.created'),
+  msg('app.post.status.approved'),
+  msg('app.post.status.published'),
+];
 
-export const PostCard: React.FC<Post> = ({
-  title,
-  description,
-  hashtags,
-  format,
-  type,
-  typeDescription,
-  status = 'initial',
-  setStatus,
-}) => {
-  const [open, setOpen] = useState(false);
-  const [postTitle, setPostTitle] = useState(title);
-  const [postDescription, setPostDescription] = useState(description);
-  const [, setPostHashtags] = useState(hashtags);
-  const [postTypeDescription, setPostTypeDescription] =
-    useState(typeDescription);
-  const msg = useIntlMessage();
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const [newStatus, setNewStatus] = useState<PostStatus>(status);
-
-  const statusList: PostStatus[] = [
-    'initial',
-    'defined',
-    'created',
-    'approved',
-    'published',
-  ];
-  const statusLabel: { [status in PostStatus]: string } = {
-    initial: msg('app.post.status.initial'),
-    defined: msg('app.post.status.defined'),
-    created: msg('app.post.status.created'),
-    approved: msg('app.post.status.approved'),
-    published: msg('app.post.status.published'),
-  };
-  const nextStatus = (e: React.MouseEvent) => {
-    let i = statusList.indexOf(newStatus) + 1;
-    if (i === statusList.length) {
-      i = 0;
-    }
-    setStatus(statusList[i]);
-    setNewStatus(statusList[i]);
-  };
-
+const PostStepper: React.FC = () => {
+  const [activeStep, setActiveStep] = useState(0);
   return (
-    <>
-      <Card variant="outlined" sx={{ mb: 2 }}>
-        <CardContent onClick={handleClickOpen} sx={{ cursor: 'pointer ' }}>
-          <Typography variant="body1">{title}</Typography>
-        </CardContent>
-        <CardActions sx={{ justifyContent: 'center' }}>
-          <Button onClick={nextStatus} variant="text" color="primary" fullWidth>
-            {statusLabel[newStatus]}
-          </Button>
-        </CardActions>
-      </Card>
-      <PostEditDialog
-        open={open}
-        handleClose={handleClose}
-        title={postTitle}
-        description={postDescription}
-        hashtags={hashtags}
-        format={format}
-        type={type}
-        typeDescription={postTypeDescription}
-        setTitle={setPostTitle}
-        setDescription={setPostDescription}
-        setHashtags={setPostHashtags}
-        setTypeDescription={setPostTypeDescription}
-      />
-    </>
+    <Box sx={{ width: '100%', mt: '24px' }}>
+      <Stepper activeStep={activeStep} alternativeLabel>
+        {steps.map((label, index) => (
+          <Step
+            key={label}
+            onClick={() =>
+              setActiveStep(activeStep > index ? index : index + 1)
+            }
+            sx={{ cursor: 'pointer' }}
+          >
+            <StepLabel>{label}</StepLabel>
+          </Step>
+        ))}
+      </Stepper>
+    </Box>
   );
 };
+
+interface IPostCardProps {
+  post: Post;
+}
+
+export const PostCard: React.FC<IPostCardProps> = ({ post }) => {
+  return (
+    <Card>
+      <CardHeader
+        title={post.title}
+        action={
+          <Stack direction="row" gap="8px" alignItems="center">
+            <Typography variant="body2" textTransform="uppercase">
+              {post.format}
+            </Typography>
+            <IconButton>
+              <MoreVertIcon />
+            </IconButton>
+          </Stack>
+        }
+      />
+      <CardContent sx={{ cursor: 'pointer ' }}>
+        <Grid container spacing={4}>
+          <Grid item xs={12} md={6}>
+            <Stack gap="16px">
+              <Typography variant="caption" textTransform="uppercase">
+                Legenda:
+              </Typography>
+              <Typography variant="body1">{post.description}</Typography>
+              <Typography variant="body1">{post.hashtags}</Typography>
+              <Typography variant="caption" textTransform="uppercase" mt="16px">
+                {post.type}:
+              </Typography>
+              <Typography variant="body1">{post.typeDescription}</Typography>
+              <PostStepper />
+            </Stack>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Stack gap="16px">
+              <Box sx={{ bgcolor: '#D8D8D8', height: '418px' }}></Box>
+            </Stack>
+          </Grid>
+        </Grid>
+      </CardContent>
+    </Card>
+  );
+};
+
+export default PostCard;

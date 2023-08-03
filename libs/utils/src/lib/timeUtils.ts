@@ -5,15 +5,15 @@ import {
   formatRelative,
   getDay,
   getDaysInMonth,
-} from "date-fns";
-import { ptBR } from "date-fns/locale";
+} from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
 const formatRelativeLocale: object = {
   lastWeek: "eeee 'que passou'",
   yesterday: "'Ontem'",
   today: "'Hoje'",
   tomorrow: "'Amanhã'",
-  nextWeek: "eeee",
+  nextWeek: 'eeee',
   other: "dd 'de' MMM",
 };
 
@@ -25,33 +25,33 @@ const locale = {
 // ----------------------------------------------------------------------
 
 export function fDate(date: string | number | Date): string {
-  return format(new Date(date), "dd/MM/yyyy", { locale: ptBR });
+  return format(new Date(date), 'dd/MM/yyyy', { locale: ptBR });
   // return format(new Date(date), "dd MMMM yyyy");
 }
 
 export function fDateCalendar(date: string | number | Date): string {
-  return format(new Date(date), "dd MMM yyyy", { locale: ptBR });
+  return format(new Date(date), 'dd MMM yyyy', { locale: ptBR });
 }
 
 export function fDateCalendarShort(date: string | number | Date): string {
-  return format(new Date(date), "d.MM", { locale: ptBR });
+  return format(new Date(date), 'd.MM', { locale: ptBR });
 }
 
 export function fTime(date: string | number | Date): string {
-  return format(new Date(date), "HH:mm", { locale: ptBR });
+  return format(new Date(date), 'HH:mm', { locale: ptBR });
   // return format(new Date(date), "dd MMMM yyyy");
 }
 
 export function fDateTime(date: string | number | Date) {
-  return format(new Date(date), "dd MMM yyyy HH:mm", { locale: ptBR });
+  return format(new Date(date), 'dd MMM yyyy HH:mm', { locale: ptBR });
 }
 
 export function fDateTime2(date: string | number | Date) {
-  return format(new Date(date), "dd/MM/yyyy HH:mm", { locale: ptBR });
+  return format(new Date(date), 'dd/MM/yyyy HH:mm', { locale: ptBR });
 }
 
 export function fDateTimeSuffix(date: string | number | Date) {
-  return format(new Date(date), "dd/MM/yyyy hh:mm p", { locale: ptBR });
+  return format(new Date(date), 'dd/MM/yyyy hh:mm p', { locale: ptBR });
 }
 
 export function fToNow(date: string | number | Date) {
@@ -61,9 +61,9 @@ export function fToNow(date: string | number | Date) {
   });
 }
 
-const formatter = new Intl.RelativeTimeFormat("pt-BR", {
-  numeric: "auto",
-  style: "long",
+const formatter = new Intl.RelativeTimeFormat('pt-BR', {
+  numeric: 'auto',
+  style: 'long',
 });
 
 export function fBirthday(birthday: string | number | Date) {
@@ -93,17 +93,17 @@ export function fBirthday2(birthday: string | number | Date) {
   const hours = minutes / 60;
   const days = hours / 24;
 
-  if (days > -7 && days < 7) return formatter.format(days, "days");
+  if (days > -7 && days < 7) return formatter.format(days, 'days');
   else {
     const weeks = days / 7;
     if (weeks > -4 && weeks < 4)
-      return formatter.format(Math.floor(weeks), "weeks");
+      return formatter.format(Math.floor(weeks), 'weeks');
     else {
       const months = weeks / 4;
       return formatter.format(
         // TODO: REVIEW
         Math.floor(months > -6 ? months : -(months + 6)),
-        "months"
+        'months',
       );
     }
   }
@@ -112,7 +112,7 @@ export function fBirthday2(birthday: string | number | Date) {
 export function fAge(birthday: string | number | Date) {
   const now = new Date();
   const diff = differenceInCalendarYears(now, new Date(birthday));
-  return `${diff} ${diff > 1 ? "anos" : "ano"}`;
+  return `${diff} ${diff > 1 ? 'anos' : 'ano'}`;
 }
 
 // Return the number of days in the week until end of month

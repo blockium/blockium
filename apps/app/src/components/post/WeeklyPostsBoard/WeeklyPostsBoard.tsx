@@ -4,7 +4,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { Post } from '@postgpt/types';
 import { useIntlMessage } from '@postgpt/i18n';
 
-import { PostCard } from '../PostCard';
+import { PostCardOld } from '../PostCard';
 
 export const WeeklyPostsBoard: React.FC<Post[]> = (posts) => {
   const msg = useIntlMessage();
@@ -42,7 +42,7 @@ export const WeeklyPostsBoard: React.FC<Post[]> = (posts) => {
             >
               {day}
             </Typography>
-            <PostCard {...posts[index]} />
+            <PostCardOld {...posts[index]} />
             <IconButton color="primary" sx={{ alignSelf: 'center' }}>
               <AddIcon fontSize="large" />
             </IconButton>
