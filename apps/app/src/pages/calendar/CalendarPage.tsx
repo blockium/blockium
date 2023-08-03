@@ -18,7 +18,8 @@ import {
 } from '@postgpt/ui-mininal-tmpl';
 import { msg } from '@postgpt/i18n';
 
-import MonthView from './MonthView'; // Import the MonthView component
+import CalendarMonth from './CalendarMonth'; // Import the MonthView component
+import NewPostPopover from '../../components/post/NewPostPopover/NewPostPopover';
 
 const HALF_MONTHS_PER_PAGE = 5;
 const MONTHS_TO_ADD = 12;
@@ -135,14 +136,14 @@ export const CalendarPage: React.FC = () => {
     threshold: 0,
   });
 
-  const onWeekClick = (startDate: Date) => {
-    // TODO: Open MenuPopover asking: topic and character (optional).
-    console.log(startDate);
+  const onWeekClick = (startDate: Date, element: HTMLElement | null) => {
+    // Open MenuPopover asking: topic and character (optional).
+    setOpenPopover(element);
   };
 
   const createMonthView = useCallback(
     (i: number, date: Date, ref?: Ref<HTMLBaseElement>) => (
-      <MonthView key={i} date={date} ref={ref} onWeekClick={onWeekClick} />
+      <CalendarMonth key={i} date={date} ref={ref} onWeekClick={onWeekClick} />
     ),
     [],
   );
@@ -245,6 +246,11 @@ export const CalendarPage: React.FC = () => {
     //
   }, [bottomIntersection, createMonthView]);
 
+  const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
+  const handleClose = () => {
+    setOpenPopover(null);
+  };
+
   return (
     <Box
       sx={{
@@ -256,6 +262,7 @@ export const CalendarPage: React.FC = () => {
       <Box ref={topInsersectionRef} />
       {months}
       <Box ref={bottomInsersectionRef} />
+      <NewPostPopover anchorEl={openPopover} onClose={handleClose} />
     </Box>
   );
 };
