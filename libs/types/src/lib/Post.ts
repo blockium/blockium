@@ -2,7 +2,12 @@ export type PostFormat = 'feed' | 'story' | 'reels';
 
 export type PostType = 'image' | 'carousel' | 'video';
 
-export type PostStatus = 'initial' | 'liked' | 'finished' | 'approved';
+export type PostStatus =
+  | 'initial'
+  | 'defined'
+  | 'created'
+  | 'approved'
+  | 'published';
 
 export type Post = {
   title: string;

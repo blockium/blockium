@@ -40,12 +40,19 @@ export const PostCard: React.FC<Post> = ({
 
   const [newStatus, setNewStatus] = useState<PostStatus>(status);
 
-  const statusList: PostStatus[] = ['initial', 'liked', 'finished', 'approved'];
+  const statusList: PostStatus[] = [
+    'initial',
+    'defined',
+    'created',
+    'approved',
+    'published',
+  ];
   const statusLabel: { [status in PostStatus]: string } = {
-    initial: msg('app.post.like'),
-    liked: msg('app.post.design_ready'),
-    finished: msg('app.post.approve'),
-    approved: msg('app.post.approved'),
+    initial: msg('app.post.status.initial'),
+    defined: msg('app.post.status.defined'),
+    created: msg('app.post.status.created'),
+    approved: msg('app.post.status.approved'),
+    published: msg('app.post.status.published'),
   };
   const nextStatus = (e: React.MouseEvent) => {
     let i = statusList.indexOf(newStatus) + 1;
