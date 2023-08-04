@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, IconButton, Stack, TextField } from '@mui/material';
+import { IconButton, Stack, TextField } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 
 import { MenuPopover } from '@postgpt/ui-mininal-tmpl';
 import { msg } from '@postgpt/i18n';
+import { PostFormat, PostType } from '@postgpt/types';
+import { CTAButton } from '@postgpt/ui-common';
 
 interface INewPostPopoverProps {
   startDate: Date;
@@ -19,11 +21,18 @@ const NewPostPopover: React.FC<INewPostPopoverProps> = ({
 }) => {
   const [topic, setTopic] = useState('');
   const [character, setCharacter] = useState('');
+  const [format, setFormat] = useState<PostFormat>();
+  const [type, setType] = useState<PostType>();
   const navigate = useNavigate();
 
   const handleGenerate = () => {
     onClose();
-    navigate(`/posts/weekly/${startDate.toISOString()}`);
+    const path = `/posts/weekly/${startDate.toISOString()}`;
+    navigate(
+      topic
+        ? `${path}/${topic}/${String(format)}/${String(type)}/${character}`
+        : path,
+    );
   };
 
   return (
@@ -84,14 +93,14 @@ const NewPostPopover: React.FC<INewPostPopoverProps> = ({
             ),
           }}
         />
-        <Button
+        <CTAButton
           onClick={handleGenerate}
           color="primary"
           variant="contained"
           sx={{ mt: 2 }}
         >
           {msg('app.button.generate')}
-        </Button>
+        </CTAButton>
       </Stack>
     </MenuPopover>
   );

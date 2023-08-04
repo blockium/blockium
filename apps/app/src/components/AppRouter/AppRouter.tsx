@@ -26,7 +26,7 @@ export const AppRouter = () => {
         <Route path="/business" element={<BusinessPage />} />
         <Route path="/settings" element={<SettingsPage />} />
         <Route
-          path="/posts/weekly/:isoStartDate"
+          path="/posts/weekly/:isoStartDate/:topic?/:format?/:type?/:character?"
           element={<WeeklyPostsPage />}
         />
       </Route>
