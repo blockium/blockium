@@ -16,6 +16,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import { Post } from '@postgpt/types';
 import { msg } from '@postgpt/i18n';
+import { CriatyLogo, LoadingIndicator } from '@postgpt/ui-common';
 
 const steps = [
   msg('app.post.status.defined'),
@@ -46,11 +47,11 @@ const PostStepper: React.FC = () => {
 };
 
 interface IPostCardProps {
-  post: Post;
+  post?: Post;
 }
 
 export const PostCard: React.FC<IPostCardProps> = ({ post }) => {
-  return (
+  return post ? (
     <Card>
       <CardHeader
         title={post.title}
@@ -89,6 +90,14 @@ export const PostCard: React.FC<IPostCardProps> = ({ post }) => {
         </Grid>
       </CardContent>
     </Card>
+  ) : (
+    <LoadingIndicator>
+      <CriatyLogo
+        full={false}
+        colorScheme="transparent-green-green-transparent"
+        sx={{ marginTop: '0.75rem' }}
+      />
+    </LoadingIndicator>
   );
 };
 
