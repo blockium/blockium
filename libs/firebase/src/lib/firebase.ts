@@ -3,8 +3,15 @@ import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
 import { User, connectAuthEmulator, getAuth, signOut } from 'firebase/auth';
 import { getFunctions } from 'firebase/functions';
-import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore';
+import {
+  QueryDocumentSnapshot,
+  WithFieldValue,
+  collection,
+  connectFirestoreEmulator,
+  getFirestore,
+} from 'firebase/firestore';
 import { createGlobalState } from 'react-use';
+import { Post } from '@postgpt/types';
 
 // Gets environment variables from process (Node) or import.meta (Browser)
 const env: {
@@ -63,11 +70,23 @@ const analytics = getAnalytics(app);
 const auth = getAuth(app);
 auth.useDeviceLanguage();
 const functions = getFunctions(app);
-const db = getFirestore(app);
+const firestore = getFirestore(app);
+
+const converter = <T>() => ({
+  toFirestore: (data: WithFieldValue<T>) => data,
+  fromFirestore: (snap: QueryDocumentSnapshot) => snap.data() as T,
+});
+
+const dataPoint = <T>(collectionPath: string) =>
+  collection(firestore, collectionPath).withConverter(converter<T>());
+
+const db = {
+  posts: (userId: string) => dataPoint<Post>(`users/${userId}/posts`),
+};
 
 if (env.DEV) {
   connectAuthEmulator(auth, 'http://localhost:9099');
-  connectFirestoreEmulator(db, 'localhost', 8080);
+  connectFirestoreEmulator(firestore, 'localhost', 8080);
 }
 
 const useAuth = createGlobalState(auth.currentUser);
