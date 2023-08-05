@@ -30,6 +30,7 @@ function parseWeeklyPosts(answer: string): Post[][] {
     // console.log(lines);
 
     const post: Post = {
+      date: new Date(), // TODO: get date from prompt
       title: lines[0],
       description: lines[1],
       hashtags: lines[2],
