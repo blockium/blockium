@@ -1,28 +1,51 @@
 import axios from 'axios';
-import { Post, PostStatus } from '@postgpt/types';
+import { Post, PostFormat, PostStatus, PostType } from '@postgpt/types';
 import { msg } from '@postgpt/i18n';
 
-export const newPosts = async (postQuantity: number) => {
-  // TODO: obtain phone and name from session
-  const phone = '5521988456100';
-  const name = 'Marcos Luiz';
+export const newPosts = async (
+  postQuantity: number,
+  topic?: string,
+  character?: string,
+  format?: PostFormat,
+  type?: PostType,
+) => {
+  // Obtain phone and name from session
+  const phone = sessionStorage.getItem('phone');
+  const name = sessionStorage.getItem('name');
+
+  const data = {
+    phone,
+    name,
+    postQuantity,
+    topic,
+    character,
+    format,
+    type,
+  };
 
   // Sent a POST request to the new weekly posts endpoint
   try {
     const answer = await axios({
       method: 'post',
       url: import.meta.env.VITE_NEW_POSTS_URL,
-      data: {
-        phone,
-        name,
-        postQuantity,
-      },
+      data,
       validateStatus: (status: number) => {
         return status < 600;
       },
     });
 
-    return (answer.data as Post[]).map((post) => {
+    // console.log('answer', answer);
+
+    // The answer.data is generally an array of posts,
+    // but sometimes it's a JSON string with an erroneous format
+    const posts = Array.isArray(answer.data)
+      ? (answer.data as Post[])
+      : (JSON.parse(
+          // Remove the last comma from JSON string
+          answer.data.replace(/(?:,)([^,]+)$/gm, '\n}\n]'),
+        ) as Post[]);
+
+    return posts.map((post) => {
       const newPost: Post = {
         ...post,
         status: 'initial',
@@ -32,6 +55,7 @@ export const newPosts = async (postQuantity: number) => {
       };
       return newPost;
     });
+
     //
   } catch (error) {
     console.error(error);

@@ -1,41 +1,57 @@
-import { User } from '@postgpt/types';
+import { PostFormat, PostType, User } from '@postgpt/types';
+
+const getFormat = (format?: PostFormat) => {
+  return format ?? ['feed', 'story', 'reels'][Math.floor(Math.random() * 3)];
+};
+
+const getType = (format: PostFormat, type?: PostType) => {
+  return type ?? format === 'reels'
+    ? 'video'
+    : ['image', 'carousel', 'video'][Math.floor(Math.random() * 3)];
+};
 
 export const getPostsPrompt = async (
   user: User,
   postQuantity: number,
   topic?: string,
   character?: string,
+  format?: PostFormat,
+  type?: PostType,
 ) => {
   const businessDescription =
     user.business?.description ?? 'Prestador de serviço';
 
   const businessServices = user.business?.services ?? 'Serviços genéricos';
 
-  const topicPrompt = topic ? `Aborde o tema "${topic}".` : '';
+  const topicPrompt = topic ? `sobre "${topic}",` : '';
+
+  const postFormat = getFormat(format) as PostFormat;
+  const formatPrompt = `no formato ${postFormat},`;
+
+  const postType = getType(postFormat, type) as PostType;
+  const typePrompt = `do tipo ${postType},`;
 
   const characterPrompt = character
-    ? `falando como se fosse "${character}",`
+    ? `falando como o personagem "${character}",`
     : '';
 
   const language = 'portugues';
 
   const postQuantityDescription = `${postQuantity} ${
-    postQuantity > 1 ? 'posts' : 'único post'
+    postQuantity > 1 ? 'posts criativos' : 'post criativo'
   }`;
 
   const prompt = `
-Sendo criativo, crie ${postQuantityDescription} para Instagram, em ${language}, ${characterPrompt} para um negócio de "${businessDescription}" que oferece:
+Crie ${postQuantityDescription} para Instagram, em ${language}, ${topicPrompt} ${formatPrompt} ${typePrompt} ${characterPrompt} para um negócio de "${businessDescription}" que oferece:
 
 "${businessServices}".
 
-${topicPrompt}
-
-Cada post deve ter:
+O post deve ter:
 1. título
 2. descrição máximo 200 caracteres
 3. cinco hashtags
-4. format: stories, reels ou feed
-5. type: video, carousel ou image (em inglês), de acordo com o format acima
+4. format: ${postFormat}
+5. type: ${postType}
 6. descrição máximo 200 caracteres, de como criar o video, carousel ou image definido no item "5. type"
 
 Exemplo:
