@@ -68,7 +68,7 @@ export const PostCard: React.FC<IPostCardProps> = ({ post }) => {
       />
       <CardContent sx={{ cursor: 'pointer ' }}>
         <Grid container spacing={4}>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={12}>
             <Stack gap="16px">
               <Typography variant="caption" textTransform="uppercase">
                 Legenda:
@@ -82,11 +82,13 @@ export const PostCard: React.FC<IPostCardProps> = ({ post }) => {
               <PostStepper />
             </Stack>
           </Grid>
-          <Grid item xs={12} md={6}>
+          {/* This is to add an image representation of the post in future.
+              It might be also some ads for media creation services */}
+          {/* <Grid item xs={12} md={6}>
             <Stack gap="16px">
               <Box sx={{ bgcolor: '#D8D8D8', height: '418px' }}></Box>
             </Stack>
-          </Grid>
+          </Grid> */}
         </Grid>
       </CardContent>
     </Card>
