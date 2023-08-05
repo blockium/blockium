@@ -3,13 +3,15 @@ import { addDays, getDay } from 'date-fns';
 import { Grid, IconButton } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
-import { Post, PostFormat, PostStatus, PostType } from '@postgpt/types';
+import { Post, PostFormat, PostType } from '@postgpt/types';
 import { getPosts } from '@postgpt/firebase';
 import { msg } from '@postgpt/i18n';
 import { fDateCalendar } from '@postgpt/utils';
 import { CriatyLogo, LoadingIndicator } from '@postgpt/ui-common';
 
 import { PostCard } from '../../components';
+import { newPosts } from '../../apiRequests';
+import { useEffectOnce } from 'react-use';
 
 const formatDate = (date: Date) => {
   const weekDayLabels = [
@@ -24,26 +26,6 @@ const formatDate = (date: Date) => {
 
   return `${weekDayLabels[getDay(date)].toUpperCase()}, ${fDateCalendar(date)}`;
 };
-
-const postsTemp: (Post | undefined)[] = [
-  {
-    date: new Date(),
-    title: 'Hulk Kids Day',
-    description:
-      'No Dia das Crianças, nossos pequenos clientes se transformam em super-heróis com unhas de gel incríveis, micropigmentação de sobrancelhas estilosas e tratamentos faciais especiais. Todo o encanto da clínica de estética em uma experiência divertida e personalizada!',
-    hashtags:
-      '#diadascrianças #superheróis #autoestima #diversão #belezainfantil',
-    format: 'story',
-    type: 'carousel',
-    typeDescription:
-      'O carousel começa com uma imagem chamativa de uma criança sendo transformada em seu super-herói favorito. Em seguida, várias fotos mostram diferentes crianças com unhas de gel incríveis, micropigmentação de sobrancelhas estilosas e aproveitando os tratamentos faciais especiais. O carousel destaca a personalização dos serviços oferecidos pela clínica, proporcionando uma experiência única e divertida para as crianças no Dia das Crianças.',
-    status: 'initial',
-    setStatus: function (status: PostStatus): void {
-      throw new Error('Function not implemented.');
-    },
-  },
-  undefined,
-];
 
 interface IDayPostsViewProps {
   date: Date;
@@ -61,29 +43,58 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({
   character,
 }) => {
   const [posts, setPosts] = useState<(Post | undefined)[]>([]);
+  const [adding, setAdding] = useState(false);
+
+  const addPost = () => {
+    if (!adding) {
+      setAdding(true);
+
+      // Adds an undefined post to the list to show a loading indicator
+      setPosts([...posts, undefined]);
+
+      // Request the creation of one new post
+      newPosts(1, topic, character, format, type)
+        .then((newPosts) => {
+          if (typeof newPosts === 'string') {
+            // TODO: show error
+            console.log(newPosts);
+            setPosts([...posts]);
+            return;
+          }
+
+          // TODO: Save in Firebase
+
+          // Add the new post to the list
+          setPosts([...posts, ...newPosts]);
+        })
+        .finally(() => {
+          setAdding(false);
+        });
+    }
+  };
 
   useEffect(() => {
-    // fetch posts from Firebase
+    // fetch current posts from Firebase
     const fetchPosts = async () => {
       const dbPosts = await getPosts(
         sessionStorage.getItem('userId') ?? '',
         date,
         addDays(date, 1),
       );
-      console.log('posts', dbPosts);
 
-      if (dbPosts.length === 0) {
-        if (topic) {
-          // TODO: create a new post for the day
-          setPosts([undefined]);
-        }
-      } else {
-        setPosts(dbPosts);
+      if (dbPosts.length > 0) {
+        setPosts([...dbPosts, ...posts]);
       }
     };
-
     fetchPosts();
-  }, [date, topic]);
+  }, [date, posts]);
+
+  useEffectOnce(() => {
+    if (topic) {
+      // Create a new post for the day
+      addPost();
+    }
+  });
 
   return (
     <Grid container spacing={4}>
@@ -121,7 +132,7 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({
         xs={12}
         md={6}
       >
-        <IconButton size="large">
+        <IconButton onClick={addPost} size="large" disabled={adding}>
           <AddCircleOutlineIcon fontSize="large" />
         </IconButton>
       </Grid>
