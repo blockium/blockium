@@ -5,7 +5,7 @@ interface CTAButtonProps {
   onClick: () => void;
   disabled?: boolean;
   loading?: boolean;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   sx?: SxProps;
   [key: string]: unknown;
 }
