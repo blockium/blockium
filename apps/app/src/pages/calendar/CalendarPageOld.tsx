@@ -7,7 +7,7 @@ import {
   useState,
 } from 'react';
 import { useIntersection } from 'react-use';
-import { addMonths, startOfMonth } from 'date-fns';
+import { startOfMonth } from 'date-fns';
 import { Box, Button, Typography } from '@mui/material';
 
 import { MonthYearPicker, useCurrentDate } from '@postgpt/ui-common';
@@ -21,6 +21,7 @@ import { msg } from '@postgpt/i18n';
 import CalendarMonth from './CalendarMonth'; // Import the MonthView component
 import NewPostPopover from '../../components/post/NewPostPopover/NewPostPopover';
 
+const HALF_MONTHS_PER_PAGE = 5;
 const MONTHS_TO_ADD = 12;
 
 const useExtendNavbar = () => {
@@ -109,18 +110,22 @@ export const CalendarPage: React.FC = () => {
   useExtendNavbar();
 
   const [currentDate] = useCurrentDate();
-
-  const currentDateRef = useRef(startOfMonth(currentDate));
-  const topDateRef = useRef(currentDateRef.current);
-  const bottomDateRef = useRef(currentDateRef.current);
+  const currentDateRef = useRef(currentDate);
 
   const [months, setMonths] = useState<ReactNode[]>([]);
   const monthsRef = useRef<ReactNode[]>([]);
+  const middleMonthRef = useRef<HTMLBaseElement>(null);
+
+  const topMonthIndex = useRef<number>(-HALF_MONTHS_PER_PAGE);
+  const bottomMonthIndex = useRef<number>(HALF_MONTHS_PER_PAGE);
+
+  // Control the scroll after the first render
+  const [scrolledToMiddle, setScrolledToMiddle] = useState(false);
 
   const topInsersectionRef = useRef<HTMLBaseElement>(null);
   const topIntersection = useIntersection(topInsersectionRef, {
     root: null,
-    rootMargin: '-150px',
+    rootMargin: '50%',
     threshold: 0,
   });
 
@@ -138,60 +143,79 @@ export const CalendarPage: React.FC = () => {
   };
 
   const createMonthView = useCallback(
-    (date: Date, ref?: Ref<HTMLBaseElement>) => (
-      <CalendarMonth
-        key={date.toISOString()}
-        date={date}
-        ref={ref}
-        onWeekClick={onWeekClick}
-      />
+    (i: number, date: Date, ref?: Ref<HTMLBaseElement>) => (
+      <CalendarMonth key={i} date={date} ref={ref} onWeekClick={onWeekClick} />
     ),
     [],
   );
 
   // Render months when the currentDate changes
   useEffect(() => {
-    // Reset refs and months when currentDate changes
-    currentDateRef.current = startOfMonth(currentDate);
-    topDateRef.current = currentDateRef.current;
-    bottomDateRef.current = currentDateRef.current;
-
     const renderMonths = () => {
       const months: ReactNode[] = [];
-      months.push(createMonthView(currentDateRef.current));
+
+      // Show months before, current month, and months after
+      for (let i = -HALF_MONTHS_PER_PAGE; i <= HALF_MONTHS_PER_PAGE; i++) {
+        const date = startOfMonth(currentDate);
+        date.setMonth(currentDate.getMonth() + i);
+        if (i === 0) {
+          months.push(createMonthView(i, date, middleMonthRef));
+        } else {
+          months.push(createMonthView(i, date));
+        }
+      }
+
+      topMonthIndex.current = -HALF_MONTHS_PER_PAGE;
+      bottomMonthIndex.current = HALF_MONTHS_PER_PAGE;
       monthsRef.current = months;
       setMonths(months);
     };
 
     renderMonths();
     //
+    // Wait for components to be shown in the screen and then scroll to middle
+    setTimeout(() => {
+      middleMonthRef.current?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'start',
+      });
+
+      // Another wait to the scroll to happen
+      // in order to push the topIntersection out of the view
+      setTimeout(() => {
+        setScrolledToMiddle(true);
+      }, 500);
+    }, 1000);
+
+    //
   }, [createMonthView, currentDate]);
 
   // When top intersection is visible, add more months to the top
   useEffect(() => {
-    if (!topIntersection) {
+    if (!scrolledToMiddle || !topIntersection) {
       return;
     }
 
     // Add new months to top
     const addTopMonths: () => void = () => {
       const months = monthsRef.current;
+      const newTopMonthIndex = topMonthIndex.current - MONTHS_TO_ADD;
 
       // Add months before
-      let date = new Date(topDateRef.current);
-      for (let i = 0; i < MONTHS_TO_ADD; i++) {
-        date = addMonths(date, -1);
-        months.unshift(createMonthView(date));
+      for (let i = topMonthIndex.current - 1; i >= newTopMonthIndex; i--) {
+        const date = startOfMonth(currentDateRef.current);
+        date.setMonth(date.getMonth() + i);
+        months.unshift(createMonthView(i, date));
       }
-      topDateRef.current = date;
 
-      monthsRef.current = months;
+      topMonthIndex.current = newTopMonthIndex;
       setMonths([...months]);
     };
 
     topIntersection.isIntersecting && addTopMonths();
     //
-  }, [createMonthView, topIntersection]);
+  }, [createMonthView, scrolledToMiddle, topIntersection]);
 
   // When bottom intersection is visible, add more months to the bottom
   useEffect(() => {
@@ -202,16 +226,20 @@ export const CalendarPage: React.FC = () => {
     // Add new months to bottom
     const addBottomMonths: () => void = () => {
       const months = monthsRef.current;
+      const newBottomMonthIndex = bottomMonthIndex.current + MONTHS_TO_ADD;
 
-      // Add months after
-      let date = new Date(bottomDateRef.current);
-      for (let i = 0; i < MONTHS_TO_ADD; i++) {
-        date = addMonths(date, 1);
-        months.push(createMonthView(date));
+      // Add months before
+      for (
+        let i = bottomMonthIndex.current + 1;
+        i <= newBottomMonthIndex;
+        i++
+      ) {
+        const date = startOfMonth(currentDateRef.current);
+        date.setMonth(date.getMonth() + i);
+        months.push(createMonthView(i, date));
       }
-      bottomDateRef.current = date;
 
-      monthsRef.current = months;
+      bottomMonthIndex.current = newBottomMonthIndex;
       setMonths([...months]);
     };
 
@@ -233,8 +261,7 @@ export const CalendarPage: React.FC = () => {
         marginTop: (theme) => theme.spacing(8),
       }}
     >
-      {/* This has an odd effect on UX, so it was commented */}
-      {/* <Box ref={topInsersectionRef} sx={{ height: '5px', width: '100%' }} /> */}
+      <Box ref={topInsersectionRef} />
       {months}
       <Box ref={bottomInsersectionRef} />
       <NewPostPopover
