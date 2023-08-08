@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { IconButton, Stack, TextField } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 
@@ -11,6 +10,12 @@ import { CTAButton } from '@postgpt/ui-common';
 interface INewPostPopoverProps {
   startDate: Date;
   anchorEl: HTMLElement | null;
+  onGenerate: (
+    topic: string,
+    character?: string,
+    format?: PostFormat,
+    type?: PostType,
+  ) => void;
   onClose: () => void;
 }
 
@@ -18,25 +23,19 @@ interface INewPostPopoverProps {
 // TODO: !!! Add a select to choose the post format
 // TODO: !!! Add a select to choose the post type
 // TODO: !!! Call addPost from the NewPostPopover component, instead of navigating to the post weekly page. This should be a new prop of the component, a callback function, which accepts topic, character, format and type
-const NewPostPopover: React.FC<INewPostPopoverProps> = ({
+export const NewPostPopover: React.FC<INewPostPopoverProps> = ({
   startDate,
   anchorEl,
+  onGenerate,
   onClose,
 }) => {
   const [topic, setTopic] = useState('');
   const [character, setCharacter] = useState('');
   const [format, setFormat] = useState<PostFormat>();
   const [type, setType] = useState<PostType>();
-  const navigate = useNavigate();
 
   const handleGenerate = () => {
-    onClose();
-    const path = `/posts/weekly/${startDate.toISOString()}`;
-    navigate(
-      topic
-        ? `${path}/${topic}/${String(format)}/${String(type)}/${character}`
-        : path,
-    );
+    onGenerate(topic, character, format, type);
   };
 
   return (
@@ -45,7 +44,7 @@ const NewPostPopover: React.FC<INewPostPopoverProps> = ({
       anchorEl={anchorEl}
       onClose={onClose}
       anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-      transformOrigin={{ vertical: 'center', horizontal: 'center' }}
+      transformOrigin={{ vertical: 'top', horizontal: 'center' }}
       sx={{
         p: 1.5,
         mt: 1.5,

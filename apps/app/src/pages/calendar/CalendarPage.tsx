@@ -6,6 +6,7 @@ import {
   useRef,
   useState,
 } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useIntersection } from 'react-use';
 import { addMonths, startOfMonth } from 'date-fns';
 import { Box, Button, Typography } from '@mui/material';
@@ -19,7 +20,6 @@ import {
 import { msg } from '@postgpt/i18n';
 
 import CalendarMonth from './CalendarMonth'; // Import the MonthView component
-import NewPostPopover from '../../components/post/NewPostPopover/NewPostPopover';
 
 const MONTHS_TO_ADD = 12;
 
@@ -132,22 +132,19 @@ export const CalendarPage: React.FC = () => {
     threshold: 0,
   });
 
-  const onWeekClick = (startDate: Date, element: HTMLElement | null) => {
-    // Open MenuPopover asking: topic and character (optional).
-    setStartDate(startDate);
-    setOpenPopover(element);
-  };
-
+  const navigate = useNavigate();
   const createMonthView = useCallback(
     (date: Date, ref?: Ref<HTMLBaseElement>) => (
       <CalendarMonth
         key={date.toISOString()}
         date={date}
         ref={ref}
-        onWeekClick={onWeekClick}
+        onWeekClick={(startDate: Date, element: HTMLElement | null) => {
+          navigate(`/posts/weekly/${startDate.toISOString()}`);
+        }}
       />
     ),
-    [],
+    [navigate],
   );
 
   // Render months when the currentDate changes
@@ -220,12 +217,6 @@ export const CalendarPage: React.FC = () => {
     //
   }, [bottomIntersection, createMonthView]);
 
-  const [startDate, setStartDate] = useState<Date>(new Date());
-  const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
-  const handleClose = () => {
-    setOpenPopover(null);
-  };
-
   return (
     <Box
       sx={{
@@ -238,12 +229,6 @@ export const CalendarPage: React.FC = () => {
       {/* <Box ref={topInsersectionRef} sx={{ height: '5px', width: '100%' }} /> */}
       {months}
       <Box ref={bottomInsersectionRef} />
-      {/* TODO: !!! Move NewPostPopover from CalendarPage to DayPostsView onAdd click */}
-      <NewPostPopover
-        startDate={startDate}
-        anchorEl={openPopover}
-        onClose={handleClose}
-      />
     </Box>
   );
 };

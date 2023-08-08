@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { addDays, getDay } from 'date-fns';
 import { Grid, IconButton } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { addDoc } from 'firebase/firestore';
 
 import { Post, PostFormat, PostType } from '@postgpt/types';
 import { db, getPosts } from '@postgpt/firebase';
@@ -9,10 +10,8 @@ import { msg } from '@postgpt/i18n';
 import { fDateCalendar } from '@postgpt/utils';
 import { CriatyLogo, LoadingIndicator } from '@postgpt/ui-common';
 
-import { PostCard } from '../../components';
+import { NewPostPopover, PostCard } from '../../components';
 import { newPosts } from '../../apiRequests';
-import { useEffectOnce } from 'react-use';
-import { addDoc } from 'firebase/firestore';
 
 const formatDate = (date: Date) => {
   const weekDayLabels = [
@@ -30,25 +29,20 @@ const formatDate = (date: Date) => {
 
 interface IDayPostsViewProps {
   date: Date;
-  topic?: string;
-  format?: PostFormat;
-  type?: PostType;
-  character?: string;
 }
 
 // TODO: !!! Add a new "deletedDate" field to Post
 // TODO: !!! Show only post with "deletedDate" field undefined
-const DayPostsView: React.FC<IDayPostsViewProps> = ({
-  date,
-  topic,
-  format,
-  type,
-  character,
-}) => {
+const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
   const [posts, setPosts] = useState<(Post | undefined)[]>([]);
   const [adding, setAdding] = useState(false);
 
-  const addPost = () => {
+  const addPost = (
+    topic: string,
+    character?: string,
+    format?: PostFormat,
+    type?: PostType,
+  ) => {
     if (!adding) {
       setAdding(true);
 
@@ -93,7 +87,6 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({
   useEffect(() => {
     // fetch current posts from Firebase
     const fetchPosts = async () => {
-      console.log('fetching posts');
       const dbPosts = await getPosts(
         sessionStorage.getItem('userId') ?? '',
         date,
@@ -107,54 +100,74 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({
     fetchPosts();
   }, [date]);
 
-  useEffectOnce(() => {
-    if (topic) {
-      // Create a new post for the day
-      addPost();
-    }
-  });
+  const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
+
+  const onAddClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setOpenPopover(event.currentTarget);
+  };
+
+  const handleGenerate = (
+    topic: string,
+    character?: string,
+    format?: PostFormat,
+    type?: PostType,
+  ) => {
+    setOpenPopover(null);
+    addPost(topic, character, format, type);
+  };
+  const handleOnClose = () => {
+    setOpenPopover(null);
+  };
 
   return (
-    <Grid container spacing={4}>
-      <Grid item textAlign="center" xs={12}>
-        {formatDate(date)}
-      </Grid>
-      {posts.map((post, index) => (
+    <>
+      <Grid container spacing={4}>
+        <Grid item textAlign="center" xs={12}>
+          {formatDate(date)}
+        </Grid>
+        {posts.map((post, index) => (
+          <Grid
+            container
+            justifyContent="center"
+            alignItems="center"
+            item
+            xs={12}
+            md={6}
+            key={index}
+          >
+            {post ? (
+              <PostCard post={post} />
+            ) : (
+              <LoadingIndicator>
+                <CriatyLogo
+                  full={false}
+                  colorScheme="transparent-green-green-transparent"
+                  sx={{ marginTop: '0.75rem' }}
+                />
+              </LoadingIndicator>
+            )}
+          </Grid>
+        ))}
         <Grid
           container
+          item
           justifyContent="center"
           alignItems="center"
-          item
           xs={12}
           md={6}
-          key={index}
         >
-          {post ? (
-            <PostCard post={post} />
-          ) : (
-            <LoadingIndicator>
-              <CriatyLogo
-                full={false}
-                colorScheme="transparent-green-green-transparent"
-                sx={{ marginTop: '0.75rem' }}
-              />
-            </LoadingIndicator>
-          )}
+          <IconButton onClick={onAddClick} size="large" disabled={adding}>
+            <AddCircleOutlineIcon fontSize="large" />
+          </IconButton>
         </Grid>
-      ))}
-      <Grid
-        container
-        item
-        justifyContent="center"
-        alignItems="center"
-        xs={12}
-        md={6}
-      >
-        <IconButton onClick={addPost} size="large" disabled={adding}>
-          <AddCircleOutlineIcon fontSize="large" />
-        </IconButton>
       </Grid>
-    </Grid>
+      <NewPostPopover
+        startDate={date}
+        anchorEl={openPopover}
+        onGenerate={handleGenerate}
+        onClose={handleOnClose}
+      />
+    </>
   );
 };
 

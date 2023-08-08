@@ -1,3 +1,4 @@
+export * from './NewPostPopover/NewPostPopover';
 export * from './PostCard/PostCard';
 export * from './PostCard/PostCardOld';
 export * from './PostEditDialog/PostEditDialog';
