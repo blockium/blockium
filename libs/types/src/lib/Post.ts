@@ -18,5 +18,5 @@ export type Post = {
   type: PostType;
   typeDescription: string;
   status: PostStatus;
-  setStatus: (status: PostStatus) => void;
+  deletedAt?: Date;
 };

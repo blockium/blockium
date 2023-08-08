@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Post, PostFormat, PostStatus, PostType } from '@postgpt/types';
+import { Post, PostFormat, PostType } from '@postgpt/types';
 import { msg } from '@postgpt/i18n';
 
 export const newPosts = async (
@@ -49,9 +49,6 @@ export const newPosts = async (
       const newPost: Post = {
         ...post,
         status: 'initial',
-        setStatus: (status: PostStatus) => {
-          newPost.status = status;
-        },
       };
       return newPost;
     });

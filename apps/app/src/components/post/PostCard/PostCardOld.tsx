@@ -20,7 +20,6 @@ export const PostCardOld: React.FC<Post> = ({
   type,
   typeDescription,
   status = 'initial',
-  setStatus,
 }) => {
   const [open, setOpen] = useState(false);
   const [postTitle, setPostTitle] = useState(title);
@@ -59,7 +58,7 @@ export const PostCardOld: React.FC<Post> = ({
     if (i === statusList.length) {
       i = 0;
     }
-    setStatus(statusList[i]);
+    // setStatus(statusList[i]);
     setNewStatus(statusList[i]);
   };
 

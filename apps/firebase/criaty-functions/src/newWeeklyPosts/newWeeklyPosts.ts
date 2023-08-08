@@ -2,7 +2,7 @@ import { https } from 'firebase-functions';
 import cors from 'cors';
 import axios from 'axios';
 
-import { Post, PostFormat, PostStatus, PostType, User } from '@postgpt/types';
+import { Post, PostFormat, PostType, User } from '@postgpt/types';
 
 import { validateName, validatePhone, validateUser } from '../utils/validate';
 import { getOrCreateUser } from '../utils/user';
@@ -38,9 +38,6 @@ function parseWeeklyPosts(answer: string): Post[][] {
       type: lines[4].toLowerCase() as PostType,
       typeDescription: lines[5],
       status: 'initial',
-      setStatus: function (status: PostStatus) {
-        this.status = status;
-      },
     };
 
     posts.push([post]);
