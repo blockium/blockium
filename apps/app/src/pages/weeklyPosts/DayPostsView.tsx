@@ -4,7 +4,7 @@ import { Grid, IconButton } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 import { Post, PostFormat, PostType } from '@postgpt/types';
-import { getPosts } from '@postgpt/firebase';
+import { db, getPosts } from '@postgpt/firebase';
 import { msg } from '@postgpt/i18n';
 import { fDateCalendar } from '@postgpt/utils';
 import { CriatyLogo, LoadingIndicator } from '@postgpt/ui-common';
@@ -12,6 +12,7 @@ import { CriatyLogo, LoadingIndicator } from '@postgpt/ui-common';
 import { PostCard } from '../../components';
 import { newPosts } from '../../apiRequests';
 import { useEffectOnce } from 'react-use';
+import { addDoc } from 'firebase/firestore';
 
 const formatDate = (date: Date) => {
   const weekDayLabels = [
@@ -35,6 +36,8 @@ interface IDayPostsViewProps {
   character?: string;
 }
 
+// TODO: !!! Add a new "deletedDate" field to Post
+// TODO: !!! Show only post with "deletedDate" field undefined
 const DayPostsView: React.FC<IDayPostsViewProps> = ({
   date,
   topic,
@@ -50,22 +53,36 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({
       setAdding(true);
 
       // Adds an undefined post to the list to show a loading indicator
-      setPosts([...posts, undefined]);
+      setPosts((posts) => [...posts, undefined]);
 
       // Request the creation of one new post
       newPosts(1, topic, character, format, type)
-        .then((newPosts) => {
-          if (typeof newPosts === 'string') {
-            // TODO: show error
-            console.log(newPosts);
-            setPosts([...posts]);
+        .then(async (result) => {
+          if (typeof result === 'string') {
+            // TODO: !!! Show error in Alert when request post creation fails
+            console.log(result);
+
+            // slice remove undefined from end
+            setPosts((posts) => posts.slice(0, posts.length - 1));
             return;
           }
 
-          // TODO: Save in Firebase
+          // Save news posts in Firebase
+          for (const post of result) {
+            try {
+              await addDoc(db.posts(sessionStorage.getItem('userId') ?? ''), {
+                ...post,
+                date,
+              });
+            } catch (error) {
+              // TODO: !!! Show error in Alert when add post fails
+              console.log(error);
+            }
+          }
 
           // Add the new post to the list
-          setPosts([...posts, ...newPosts]);
+          // slice remove undefined from end
+          setPosts((posts) => [...posts.slice(0, posts.length - 1), ...result]);
         })
         .finally(() => {
           setAdding(false);
@@ -76,6 +93,7 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({
   useEffect(() => {
     // fetch current posts from Firebase
     const fetchPosts = async () => {
+      console.log('fetching posts');
       const dbPosts = await getPosts(
         sessionStorage.getItem('userId') ?? '',
         date,
@@ -83,11 +101,11 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({
       );
 
       if (dbPosts.length > 0) {
-        setPosts([...dbPosts, ...posts]);
+        setPosts((posts) => [...dbPosts, ...posts]);
       }
     };
     fetchPosts();
-  }, [date, posts]);
+  }, [date]);
 
   useEffectOnce(() => {
     if (topic) {

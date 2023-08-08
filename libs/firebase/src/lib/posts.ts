@@ -10,8 +10,8 @@ export const getPosts = async (
 ) => {
   const q = query(
     db.posts(userId),
-    where('date', '>=', startDate.toISOString()),
-    where('date', '<=', endDate.toISOString()),
+    where('date', '>=', startDate),
+    where('date', '<', endDate),
   );
 
   const posts: Post[] = [];
