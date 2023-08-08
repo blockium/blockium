@@ -22,6 +22,10 @@ type LoginProps = {
   loginPhone: string;
 };
 
+// No priority:
+// TODO: Create a LoginGoogle component
+// TODO: Merge the phone and email login accounts
+// TODO: After a login with Google, if there is no user phone, shows the msg "Você ainda não tem um telefone associado. O mesmo é necessário para podermos recuperar seu acesso se você necessitar, e também associar sua conta aos seus dados de pagamento. Isso é necessário apenas uma vez. Clique no botão abaixo para cadastrar o telefone"
 export const Login: React.FC<LoginProps> = ({
   leftImageSrc,
   topImageSrc,
@@ -49,7 +53,7 @@ export const Login: React.FC<LoginProps> = ({
         const phone = import.meta.env.VITE_POSTGPT_PHONE;
         const message = `LOGIN:${sessionId}`;
         const url = `https://wa.me/${phone}?text=${encodeURIComponent(
-          message
+          message,
         )}`;
         window.open(url);
 

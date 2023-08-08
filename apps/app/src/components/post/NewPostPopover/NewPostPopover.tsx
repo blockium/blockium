@@ -14,6 +14,10 @@ interface INewPostPopoverProps {
   onClose: () => void;
 }
 
+// TODO: !!! Show "As informações da empresa devem estar preenchidas para gerar um post. Clique aqui para preencher. (link para a Business page)" when the user tries to generate a post without a company info
+// TODO: !!! Add a select to choose the post format
+// TODO: !!! Add a select to choose the post type
+// TODO: !!! Call addPost from the NewPostPopover component, instead of navigating to the post weekly page. This should be a new prop of the component, a callback function, which accepts topic, character, format and type
 const NewPostPopover: React.FC<INewPostPopoverProps> = ({
   startDate,
   anchorEl,

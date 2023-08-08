@@ -33,17 +33,13 @@ export const PhoneForm: React.FC = () => {
     try {
       setErrorMessage('');
       setLoading(true);
-      const appVerifier = new RecaptchaVerifier(
-        auth,
-        'recaptcha-container',
-        {
-          size: 'invisible',
-        },
-      );
+      const appVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+        size: 'invisible',
+      });
       const result = await signInWithPhoneNumber(
         auth,
         phoneNumber,
-        appVerifier
+        appVerifier,
       );
       setConfirmationResult(result);
       //
@@ -56,6 +52,10 @@ export const PhoneForm: React.FC = () => {
     }
   };
 
+  // No priority:
+  // TODO: After login, if there is no user email, shows the msg "Você ainda não tem um email associado. O mesmo é necessário para podermos recuperar seu acesso se você necessitar, e também associar sua conta aos seus dados de pagamento. Isso é necessário apenas uma vez. Clique no botão abaixo para cadastrar o email"
+  // TODO: Create a form requesting the user email
+  // TODO: Save the email in the users table
   const login = async () => {
     if (!auth.currentUser) {
       setErrorMessage(msg('ui-auth.error.not-authenticated'));

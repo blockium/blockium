@@ -50,6 +50,18 @@ interface IPostCardProps {
   post?: Post;
 }
 
+// TODO: !!! Move the status stepper to the actions section
+// TODO: !!! Save the post status when user clicks on the stepper
+
+// TODO: !!! Add a menu popover when the user clicks on the 3-dots icon
+
+// TODO: !!! Add a button to delete the post on the menu popover
+// TODO: !!! Show a popup to confirm the post deletion
+// TODO: !!! Delete the post when the user confirms the deletion.
+
+// TODO: ! Open the post edit dialog when the user clicks on the post content
+
+// TODO: ! Add a "Mais"/"Menos" action to show/hide the post content. Default to show only the description (no hashtags, no type, no type description)
 export const PostCard: React.FC<IPostCardProps> = ({ post }) => {
   return post ? (
     <Card>

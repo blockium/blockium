@@ -105,6 +105,7 @@ const useExtendNavbar = () => {
   }, [setCurrentDate, setNavbarExtraLine, setToolbarExtra]);
 };
 
+// TODO: ! Remove CalendarPageOld
 export const CalendarPage: React.FC = () => {
   useExtendNavbar();
 
@@ -237,6 +238,7 @@ export const CalendarPage: React.FC = () => {
       {/* <Box ref={topInsersectionRef} sx={{ height: '5px', width: '100%' }} /> */}
       {months}
       <Box ref={bottomInsersectionRef} />
+      {/* TODO: !!! Move NewPostPopover from CalendarPage to DayPostsView onAdd click */}
       <NewPostPopover
         startDate={startDate}
         anchorEl={openPopover}

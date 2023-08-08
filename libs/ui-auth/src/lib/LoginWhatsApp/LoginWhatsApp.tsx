@@ -15,6 +15,9 @@ type LoginProps = {
   topImageSrc?: string;
 };
 
+// TODO: !!! After login, if there is no user email, shows the msg "Você ainda não tem um email associado. O mesmo é necessário para podermos recuperar seu acesso se você necessitar, e também associar sua conta aos seus dados de pagamento. Isso é necessário apenas uma vez. Clique no botão abaixo para cadastrar o email"
+// TODO: !!! Create a form requesting the user email
+// TODO: !!! Save the email in the users table
 export const LoginWhatsApp: React.FC<LoginProps> = ({
   leftImageSrc,
   topImageSrc,
