@@ -1,6 +1,7 @@
 import { useRef } from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import { subDays } from 'date-fns';
+import { BorderLinearProgress } from '@postgpt/ui-common';
 
 interface ICalendarWeekProps {
   week: (number | null)[];
@@ -9,7 +10,7 @@ interface ICalendarWeekProps {
   onWeekClick?: (date: Date, element: HTMLElement | null) => void;
 }
 
-// TODO: !!! Show post status on every day on CalendarWeek. Primary color when every post in a day is published, secondary color when there is a post in the day not published. The post status is a small line under the day number.
+// TODO: *** Show post status on every day on CalendarWeek. Primary color when every post in a day is published, secondary color when there is a post in the day not published. The post status is a small line under the day number.
 // TODO: !!! Use a callback to do generate this visual component, in order to generalize this component to be used in other places. The call will be like this: onDayRender: (day: number, month: number, year: number, dayView: ReactNode) => ReactNode
 // No priority:
 // TODO: Move Calendar components to a new library ui-calendar, so it can be used in other projects.
@@ -60,9 +61,18 @@ const CalendarWeek: React.FC<ICalendarWeekProps> = ({
       }}
     >
       {week.map((day, index) => (
-        <Typography key={index} component="div" variant="body1">
-          {day}
-        </Typography>
+        <Stack key={index} justifyContent="space-between" textAlign="center">
+          <Typography component="div" variant="body1">
+            {day}
+          </Typography>
+          {index > 3 && (
+            <BorderLinearProgress
+              variant="determinate"
+              value={25}
+              sx={{ minWidth: '30px' }}
+            />
+          )}
+        </Stack>
       ))}
     </Box>
   );
