@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useEffectOnce } from 'react-use';
 
-import { getUser } from '@postgpt/firebase';
+import { getUser } from '../users';
 
 export const useHasBusinessInfo = () => {
   const [hasBusinessInfo, setHasBusinessInfo] = useState<boolean>();

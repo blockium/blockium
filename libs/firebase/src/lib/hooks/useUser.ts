@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useEffectOnce } from 'react-use';
 
 import { User } from '@postgpt/types';
-import { getUser } from '@postgpt/firebase';
+import { getUser } from '../users';
 
 export const useUser = () => {
   const [user, setUser] = useState<User | null>();
