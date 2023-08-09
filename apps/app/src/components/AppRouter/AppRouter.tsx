@@ -7,6 +7,7 @@ import { App } from '../App';
 import {
   BusinessPage,
   CalendarPage,
+  NoBusinessPage,
   SettingsPage,
   WeeklyPostsPage,
 } from '../../pages';
@@ -24,6 +25,7 @@ export const AppRouter = () => {
       >
         <Route path="/" element={<CalendarPage />} />
         <Route path="/business" element={<BusinessPage />} />
+        <Route path="/nobusiness" element={<NoBusinessPage />} />
         <Route path="/settings" element={<SettingsPage />} />
         <Route
           path="/posts/weekly/:isoStartDate"

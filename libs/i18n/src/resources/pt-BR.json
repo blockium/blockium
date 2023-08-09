@@ -6,6 +6,8 @@
   "app.page.business.description": "Descrição da empresa",
   "app.page.business.services": "Atividades/Serviços que a empresa realiza",
   "app.page.calendar.filter.date": "Selecionar data",
+  "app.business-info-required": "As informações da empresa devem estar preenchidas para gerar posts.",
+  "app.button.click-to-continue": "Clique aqui para continuar",
   "app.button.save": "Salvar",
   "app.button.delete": "Excluir",
   "app.button.approve": "Aprovar",

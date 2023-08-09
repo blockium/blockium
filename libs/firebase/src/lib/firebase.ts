@@ -1,7 +1,12 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
-import { User, connectAuthEmulator, getAuth, signOut } from 'firebase/auth';
+import {
+  User as UserAuth,
+  connectAuthEmulator,
+  getAuth,
+  signOut,
+} from 'firebase/auth';
 import { getFunctions } from 'firebase/functions';
 import {
   QueryDocumentSnapshot,
@@ -11,7 +16,7 @@ import {
   getFirestore,
 } from 'firebase/firestore';
 import { createGlobalState } from 'react-use';
-import { Post } from '@postgpt/types';
+import { Post, User } from '@postgpt/types';
 
 // Gets environment variables from process (Node) or import.meta (Browser)
 const env: {
@@ -81,6 +86,7 @@ const dataPoint = <T>(collectionPath: string) =>
   collection(firestore, collectionPath).withConverter(converter<T>());
 
 const db = {
+  users: dataPoint<User>(`users`),
   posts: (userId: string) => dataPoint<Post>(`users/${userId}/posts`),
 };
 
@@ -93,7 +99,7 @@ const useAuth = createGlobalState(auth.currentUser);
 
 const useSignIn = () => {
   const [, setUser] = useAuth();
-  return (user: User | null) => {
+  return (user: UserAuth | null) => {
     setUser(user);
   };
 };

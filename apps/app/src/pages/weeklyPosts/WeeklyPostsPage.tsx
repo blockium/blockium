@@ -1,15 +1,20 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useParams, useNavigate } from 'react-router';
 import { addDays, startOfWeek } from 'date-fns';
 import { Stack } from '@mui/material';
 
 import DayPostsView from './DayPostsView';
+import { useHasBusinessInfo } from '../../hooks';
 
 export const WeeklyPostsPage: React.FC = (props) => {
   const { isoStartDate } = useParams();
   const [daysOfWeek, setDaysOfWeek] = useState<Date[]>([]);
+  const hasBusinessInfo = useHasBusinessInfo();
+  const navigate = useNavigate();
 
   useEffect(() => {
+    if (!hasBusinessInfo) return;
+
     const startDate = isoStartDate
       ? new Date(isoStartDate)
       : startOfWeek(new Date());
@@ -20,7 +25,16 @@ export const WeeklyPostsPage: React.FC = (props) => {
     }
     setDaysOfWeek(daysOfWeek);
     //
-  }, [isoStartDate]);
+  }, [hasBusinessInfo, isoStartDate]);
+
+  // If we don't know yet if the user has business info, return null
+  if (hasBusinessInfo === undefined) return null;
+
+  // If no business info, redirect to the no business page
+  if (hasBusinessInfo === false) {
+    navigate('/nobusiness');
+    return null;
+  }
 
   return (
     <Stack gap="96px">
