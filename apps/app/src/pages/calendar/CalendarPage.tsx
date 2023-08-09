@@ -105,7 +105,6 @@ const useExtendNavbar = () => {
   }, [setCurrentDate, setNavbarExtraLine, setToolbarExtra]);
 };
 
-// TODO: ! Remove CalendarPageOld
 export const CalendarPage: React.FC = () => {
   useExtendNavbar();
 

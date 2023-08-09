@@ -8,7 +8,7 @@ import { Post, PostFormat, PostType } from '@postgpt/types';
 import { db, getPosts } from '@postgpt/firebase';
 import { msg } from '@postgpt/i18n';
 import { fDateCalendar } from '@postgpt/utils';
-import { CriatyLogo, LoadingIndicator } from '@postgpt/ui-common';
+import { Alert, CriatyLogo, LoadingIndicator } from '@postgpt/ui-common';
 
 import { NewPostPopover, PostCard } from '../../components';
 import { newPosts } from '../../apiRequests';
@@ -36,6 +36,7 @@ interface IDayPostsViewProps {
 const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
   const [posts, setPosts] = useState<(Post | undefined)[]>([]);
   const [adding, setAdding] = useState(false);
+  const [message, setMessage] = useState<string | null>(null);
 
   const addPost = (
     topic: string,
@@ -53,8 +54,9 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
       newPosts(1, topic, character, format, type)
         .then(async (result) => {
           if (typeof result === 'string') {
-            // TODO: !!! Show error in Alert when request post creation fails
-            console.log(result);
+            // Show error in Alert when request post creation fails
+            console.error(result);
+            setMessage(msg('app.error.newPosts'));
 
             // slice remove undefined from end
             setPosts((posts) => posts.slice(0, posts.length - 1));
@@ -69,8 +71,9 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
                 date,
               });
             } catch (error) {
-              // TODO: !!! Show error in Alert when add post fails
-              console.log(error);
+              // Show error in Alert when add post fails
+              console.error(error);
+              setMessage(msg('app.error.savePosts'));
             }
           }
 
@@ -121,6 +124,7 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
 
   return (
     <>
+      <Alert severity="error" message={message} setMessage={setMessage} />
       <Grid container spacing={4}>
         <Grid item textAlign="center" xs={12}>
           {formatDate(date)}
