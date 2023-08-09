@@ -3,8 +3,8 @@ import { useParams, useNavigate } from 'react-router';
 import { addDays, startOfWeek } from 'date-fns';
 import { Stack } from '@mui/material';
 
+import { useHasBusinessInfo } from '@postgpt/firebase';
 import DayPostsView from './DayPostsView';
-import { useHasBusinessInfo } from '../../hooks';
 
 export const WeeklyPostsPage: React.FC = (props) => {
   const { isoStartDate } = useParams();

@@ -20,6 +20,8 @@ export const useHasBusinessInfo = () => {
           );
         }
       });
+    } else {
+      setHasBusinessInfo(false);
     }
   });
 

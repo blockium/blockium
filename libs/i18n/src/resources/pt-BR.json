@@ -4,6 +4,8 @@
   "app.page.business.subheader": "Forneça as informações da sua empresa para que possamos gerar conteúdo personalizado para você.",
   "app.page.business.name": "Nome da empresa",
   "app.page.business.description": "Descrição da empresa",
+  "app.page.business.saveSuccess": "Dados da empresa foram salvos com sucesso.",
+  "app.page.business.saveError": "Erro ao salvar os dados da empresa.",
   "app.page.business.services": "Atividades/Serviços que a empresa realiza",
   "app.page.calendar.filter.date": "Selecionar data",
   "app.business-info-required": "As informações da empresa devem estar preenchidas para gerar posts.",
