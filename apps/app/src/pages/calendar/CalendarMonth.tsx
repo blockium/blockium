@@ -1,4 +1,4 @@
-import { Ref, forwardRef } from 'react';
+import { ReactNode, Ref, forwardRef } from 'react';
 import { Box, Typography } from '@mui/material';
 
 import { capitalizeFirstLetter } from '@postgpt/utils';
@@ -6,12 +6,13 @@ import CalendarWeek from './CalendarWeek';
 
 interface CalendarMonthProps {
   date: Date;
-  onWeekClick?: (date: Date, element: HTMLElement | null) => void;
+  onWeekClick?: (weekStartdate: Date, element: HTMLElement | null) => void;
+  renderDay?: (date: Date) => ReactNode;
   ref?: Ref<HTMLBaseElement>;
 }
 
 export const CalendarMonth: React.FC<CalendarMonthProps> = forwardRef(
-  ({ date, onWeekClick }, ref) => {
+  ({ date, onWeekClick, renderDay }, ref) => {
     const month = date.getMonth();
     const year = date.getFullYear();
 
@@ -60,6 +61,7 @@ export const CalendarMonth: React.FC<CalendarMonthProps> = forwardRef(
             month={month}
             year={year}
             onWeekClick={onWeekClick}
+            renderDay={renderDay}
           />
         ))}
       </Box>

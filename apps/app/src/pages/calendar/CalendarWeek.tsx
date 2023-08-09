@@ -1,13 +1,13 @@
-import { useRef } from 'react';
-import { Box, Stack, Typography } from '@mui/material';
+import { ReactNode, useRef } from 'react';
+import { Box, Typography } from '@mui/material';
 import { subDays } from 'date-fns';
-import { BorderLinearProgress } from '@postgpt/ui-common';
 
 interface ICalendarWeekProps {
   week: (number | null)[];
   month: number;
   year: number;
-  onWeekClick?: (date: Date, element: HTMLElement | null) => void;
+  onWeekClick?: (weekStartDate: Date, element: HTMLElement | null) => void;
+  renderDay?: (date: Date) => ReactNode;
 }
 
 // TODO: *** Show post status on every day on CalendarWeek. Primary color when every post in a day is published, secondary color when there is a post in the day not published. The post status is a small line under the day number.
@@ -20,6 +20,7 @@ const CalendarWeek: React.FC<ICalendarWeekProps> = ({
   month,
   year,
   onWeekClick,
+  renderDay,
 }) => {
   const weekRef = useRef<HTMLElement>(null);
 
@@ -35,12 +36,12 @@ const CalendarWeek: React.FC<ICalendarWeekProps> = ({
           weekFirstDay = week[i];
         }
 
-        const startDate = subDays(
+        const weekStartDate = subDays(
           new Date(year, month, weekFirstDay as number),
           i,
         );
 
-        onWeekClick?.(startDate, weekRef.current);
+        onWeekClick?.(weekStartDate, weekRef.current);
       }}
       sx={{
         flexGrow: 1,
@@ -60,20 +61,15 @@ const CalendarWeek: React.FC<ICalendarWeekProps> = ({
         },
       }}
     >
-      {week.map((day, index) => (
-        <Stack key={index} justifyContent="space-between" textAlign="center">
-          <Typography component="div" variant="body1">
+      {week.map((day, index) =>
+        day && renderDay ? (
+          <Box key={index}>{renderDay(new Date(year, month, day))}</Box>
+        ) : (
+          <Typography key={index} component="div" variant="body1">
             {day}
           </Typography>
-          {index > 3 && (
-            <BorderLinearProgress
-              variant="determinate"
-              value={25}
-              sx={{ minWidth: '30px' }}
-            />
-          )}
-        </Stack>
-      ))}
+        ),
+      )}
     </Box>
   );
 };
