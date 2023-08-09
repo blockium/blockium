@@ -19,6 +19,7 @@ interface INewPostPopoverProps {
   onClose: () => void;
 }
 
+// Disable Generate button when topic is empty
 // TODO: !!! Add a select to choose the post format
 // TODO: !!! Add a select to choose the post type
 // TODO: !!! Call addPost from the NewPostPopover component, instead of navigating to the post weekly page. This should be a new prop of the component, a callback function, which accepts topic, character, format and type
@@ -95,11 +96,13 @@ export const NewPostPopover: React.FC<INewPostPopoverProps> = ({
             ),
           }}
         />
+        {/* Disable Generate button when topic is empty */}
         <CTAButton
           onClick={handleGenerate}
           color="primary"
           variant="contained"
           sx={{ mt: 2 }}
+          disabled={!topic}
         >
           {msg('app.button.generate')}
         </CTAButton>
