@@ -18,6 +18,8 @@ export const useHasBusinessInfo = () => {
               description.trim() !== '' &&
               services.trim() !== '',
           );
+        } else {
+          setHasBusinessInfo(false);
         }
       });
     } else {
