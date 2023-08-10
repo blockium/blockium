@@ -5,8 +5,7 @@ import { Stack, Typography } from '@mui/material';
 import { BorderLinearProgress } from '@postgpt/ui-common';
 import { getPosts } from '@postgpt/firebase';
 import { Post, PostStatus } from '@postgpt/types';
-
-import CalendarView from './CalendarView';
+import { CalendarView } from '@postgpt/ui-calendar';
 
 export const CalendarPage: React.FC = (props) => {
   const navigate = useNavigate();

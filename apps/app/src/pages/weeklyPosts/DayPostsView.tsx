@@ -9,10 +9,10 @@ import { db } from '@postgpt/firebase';
 import { msg } from '@postgpt/i18n';
 import { fDateCalendar } from '@postgpt/utils';
 import { Alert, CriatyLogo, LoadingIndicator } from '@postgpt/ui-common';
+import { useCalendarCache } from '@postgpt/ui-calendar';
 
 import { NewPostPopover, PostCard } from '../../components';
 import { newPosts } from '../../apiRequests';
-import { useCalendarCache } from '../calendar/useCalendarCache';
 
 const formatDate = (date: Date) => {
   const weekDayLabels = [

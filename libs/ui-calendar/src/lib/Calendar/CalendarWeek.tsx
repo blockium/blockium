@@ -2,7 +2,7 @@ import { ReactNode, useRef } from 'react';
 import { Box, Typography } from '@mui/material';
 import { startOfMonth, subDays } from 'date-fns';
 
-import { useCalendarCache } from './useCalendarCache';
+import { useCalendarCache } from '../hooks/useCalendarCache';
 
 interface ICalendarWeekProps {
   week: (number | null)[];

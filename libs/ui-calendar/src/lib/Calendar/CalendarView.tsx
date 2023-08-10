@@ -19,7 +19,7 @@ import {
 import { msg } from '@postgpt/i18n';
 
 import CalendarMonth from './CalendarMonth'; // Import the MonthView component
-import { useCalendarCache, CalendarCache } from './useCalendarCache';
+import { useCalendarCache, CalendarCache } from '../hooks/useCalendarCache';
 
 const MONTHS_TO_ADD = 12;
 
@@ -112,10 +112,7 @@ interface ICalendarViewProps {
   renderDay?: (dayDate: Date, monthData: unknown[]) => ReactNode;
 }
 
-// TODO: !!! Use a callback to do generate this visual component, in order to generalize this component to be used in other places. The call will be like this: onDayRender: (day: number, month: number, year: number, dayView: ReactNode) => ReactNode
-
 // No priority:
-// TODO: Move Calendar components to a new library ui-calendar, so it can be used in other projects.
 // TODO: Add onDayClick callback to Calendar, so it can be used in other projects.
 export const CalendarView: React.FC<ICalendarViewProps> = ({
   onWeekClick,
