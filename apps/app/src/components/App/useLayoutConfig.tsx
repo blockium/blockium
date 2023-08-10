@@ -17,14 +17,14 @@ const layoutConfig: LayoutConfig = {
   navBar: {
     accountPopover: {
       accountMenu: [
-        {
-          label: 'Meus Dados',
-          href: '/profile',
-          icon: <PersonIcon />,
-        },
+        // {
+        //   label: 'Meus Dados',
+        //   href: '/profile',
+        //   icon: <PersonIcon />,
+        // },
         {
           label: 'Ajuda',
-          href: 'mailto:suporte@postgpt.com.br',
+          href: 'mailto:ajuda@criaty.com.br',
           icon: <EmailIcon />,
         },
       ],
