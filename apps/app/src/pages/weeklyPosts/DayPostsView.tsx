@@ -1,17 +1,18 @@
 import { useEffect, useState } from 'react';
-import { addDays, getDay } from 'date-fns';
+import { getDay, startOfMonth } from 'date-fns';
 import { Grid, IconButton } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { addDoc } from 'firebase/firestore';
 
 import { Post, PostFormat, PostType } from '@postgpt/types';
-import { db, getPosts } from '@postgpt/firebase';
+import { db } from '@postgpt/firebase';
 import { msg } from '@postgpt/i18n';
 import { fDateCalendar } from '@postgpt/utils';
 import { Alert, CriatyLogo, LoadingIndicator } from '@postgpt/ui-common';
 
 import { NewPostPopover, PostCard } from '../../components';
 import { newPosts } from '../../apiRequests';
+import { useCalendarData } from '../calendar/useCalendarData';
 
 const formatDate = (date: Date) => {
   const weekDayLabels = [
@@ -34,9 +35,22 @@ interface IDayPostsViewProps {
 // TODO: !!! Add a new "deletedDate" field to Post
 // TODO: !!! Show only post with "deletedDate" field undefined
 const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
+  const [calendarData, setCalendarData] = useCalendarData();
+
   const [posts, setPosts] = useState<(Post | undefined)[]>([]);
   const [adding, setAdding] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+    console.log('useEffect');
+    const isoStartOfMonth = startOfMonth(date).toISOString();
+    const dayPosts = (calendarData[isoStartOfMonth] as Post[]).filter(
+      (post) => {
+        return post.date.toISOString() === date.toISOString();
+      },
+    );
+    setPosts(dayPosts);
+  }, [calendarData, date]);
 
   const addPost = (
     topic: string,
@@ -63,45 +77,40 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
             return;
           }
 
+          const isoStartOfMonth = startOfMonth(date).toISOString();
+          const monthData = [...calendarData[isoStartOfMonth]];
+
           // Save news posts in Firebase
           for (const post of result) {
+            const newPost = {
+              ...post,
+              date,
+            };
             try {
-              await addDoc(db.posts(sessionStorage.getItem('userId') ?? ''), {
-                ...post,
-                date,
-              });
+              await addDoc(
+                db.posts(sessionStorage.getItem('userId') ?? ''),
+                newPost,
+              );
             } catch (error) {
               // Show error in Alert when add post fails
               console.error(error);
               setMessage(msg('app.error.savePosts'));
+            } finally {
+              // Add the new post to the calendar data cache
+              monthData.push(newPost);
             }
           }
 
-          // Add the new post to the list
-          // slice remove undefined from end
-          setPosts((posts) => [...posts.slice(0, posts.length - 1), ...result]);
+          setCalendarData({
+            ...calendarData,
+            [isoStartOfMonth]: monthData,
+          });
         })
         .finally(() => {
           setAdding(false);
         });
     }
   };
-
-  useEffect(() => {
-    // fetch current posts from Firebase
-    const fetchPosts = async () => {
-      const dbPosts = await getPosts(
-        sessionStorage.getItem('userId') ?? '',
-        date,
-        addDays(date, 1),
-      );
-
-      if (dbPosts.length > 0) {
-        setPosts((posts) => [...dbPosts, ...posts]);
-      }
-    };
-    fetchPosts();
-  }, [date]);
 
   const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
 
@@ -118,6 +127,7 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
     setOpenPopover(null);
     addPost(topic, character, format, type);
   };
+
   const handleOnClose = () => {
     setOpenPopover(null);
   };
