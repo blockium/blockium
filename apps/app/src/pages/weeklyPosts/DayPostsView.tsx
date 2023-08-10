@@ -80,6 +80,7 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
 
           // Save news posts in Firebase
           for (const post of result) {
+            // TODO: *** Save topic, character, format and type in Firebase
             const newPost = {
               ...post,
               date,
