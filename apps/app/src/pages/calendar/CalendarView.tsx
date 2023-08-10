@@ -19,7 +19,7 @@ import {
 import { msg } from '@postgpt/i18n';
 
 import CalendarMonth from './CalendarMonth'; // Import the MonthView component
-import useCalendarData, { CalendarData } from './useCalendarData';
+import { useCalendarCache, CalendarCache } from './useCalendarCache';
 
 const MONTHS_TO_ADD = 12;
 
@@ -109,7 +109,7 @@ const useExtendNavbar = () => {
 interface ICalendarViewProps {
   onWeekClick?: (weekStartDate: Date, element: HTMLElement | null) => void;
   fetchMonthData?: (monthStartDate: Date) => Promise<unknown[]>;
-  renderDay?: (dayDate: Date, calendarData: unknown[]) => ReactNode;
+  renderDay?: (dayDate: Date, monthData: unknown[]) => ReactNode;
 }
 
 // TODO: !!! Use a callback to do generate this visual component, in order to generalize this component to be used in other places. The call will be like this: onDayRender: (day: number, month: number, year: number, dayView: ReactNode) => ReactNode
@@ -148,19 +148,19 @@ export const CalendarView: React.FC<ICalendarViewProps> = ({
   });
 
   // Keeps a cache of the month data to avoid re-fetching
-  const [calendarData, setCalendarData] = useCalendarData();
-  const calendarDataRef = useRef<CalendarData>(calendarData);
+  const [calendarCache, setCalendarCache] = useCalendarCache();
+  const calendarCacheRef = useRef<CalendarCache>(calendarCache);
 
   const createMonthView = useCallback(
     async (monthStartDate: Date, ref?: Ref<HTMLBaseElement>) => {
       // Check if month data is already loaded
       if (
         fetchMonthData &&
-        !calendarDataRef.current[monthStartDate.toISOString()]
+        !calendarCacheRef.current[monthStartDate.toISOString()]
       ) {
         // Load month data
         const newMonthData = await fetchMonthData(monthStartDate);
-        setCalendarData((prev) => ({
+        setCalendarCache((prev) => ({
           ...prev,
           [monthStartDate.toISOString()]: newMonthData,
         }));
@@ -177,7 +177,7 @@ export const CalendarView: React.FC<ICalendarViewProps> = ({
         />
       );
     },
-    [fetchMonthData, onWeekClick, renderDay, setCalendarData],
+    [fetchMonthData, onWeekClick, renderDay, setCalendarCache],
   );
 
   // Updates when the currentDate changes

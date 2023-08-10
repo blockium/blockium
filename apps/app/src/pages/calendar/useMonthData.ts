@@ -1,10 +1,10 @@
 import { startOfMonth } from 'date-fns';
 
-import useCalendarData from './useCalendarData';
+import { useCalendarCache } from './useCalendarCache';
 
 export const useMonthData = (date: Date) => {
-  const [monthData] = useCalendarData();
-  return monthData[startOfMonth(date).toISOString()];
+  const [calendarCache] = useCalendarCache();
+  return calendarCache[startOfMonth(date).toISOString()];
 };
 
 export default useMonthData;

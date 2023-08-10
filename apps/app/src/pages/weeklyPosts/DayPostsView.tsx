@@ -12,7 +12,7 @@ import { Alert, CriatyLogo, LoadingIndicator } from '@postgpt/ui-common';
 
 import { NewPostPopover, PostCard } from '../../components';
 import { newPosts } from '../../apiRequests';
-import { useCalendarData } from '../calendar/useCalendarData';
+import { useCalendarCache } from '../calendar/useCalendarCache';
 
 const formatDate = (date: Date) => {
   const weekDayLabels = [
@@ -35,7 +35,7 @@ interface IDayPostsViewProps {
 // TODO: !!! Add a new "deletedDate" field to Post
 // TODO: !!! Show only post with "deletedDate" field undefined
 const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
-  const [calendarData, setCalendarData] = useCalendarData();
+  const [calendarCache, setCalendarCache] = useCalendarCache();
 
   const [posts, setPosts] = useState<(Post | undefined)[]>([]);
   const [adding, setAdding] = useState(false);
@@ -44,13 +44,13 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
   useEffect(() => {
     console.log('useEffect');
     const isoStartOfMonth = startOfMonth(date).toISOString();
-    const dayPosts = (calendarData[isoStartOfMonth] as Post[]).filter(
+    const dayPosts = (calendarCache[isoStartOfMonth] as Post[]).filter(
       (post) => {
         return post.date.toISOString() === date.toISOString();
       },
     );
     setPosts(dayPosts);
-  }, [calendarData, date]);
+  }, [calendarCache, date]);
 
   const addPost = (
     topic: string,
@@ -78,7 +78,7 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
           }
 
           const isoStartOfMonth = startOfMonth(date).toISOString();
-          const monthData = [...calendarData[isoStartOfMonth]];
+          const monthData = [...calendarCache[isoStartOfMonth]];
 
           // Save news posts in Firebase
           for (const post of result) {
@@ -101,8 +101,8 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
             }
           }
 
-          setCalendarData({
-            ...calendarData,
+          setCalendarCache({
+            ...calendarCache,
             [isoStartOfMonth]: monthData,
           });
         })

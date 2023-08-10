@@ -2,7 +2,7 @@ import { ReactNode, useRef } from 'react';
 import { Box, Typography } from '@mui/material';
 import { startOfMonth, subDays } from 'date-fns';
 
-import useCalendarData from './useCalendarData';
+import { useCalendarCache } from './useCalendarCache';
 
 interface ICalendarWeekProps {
   week: (number | null)[];
@@ -20,7 +20,7 @@ const CalendarWeek: React.FC<ICalendarWeekProps> = ({
   renderDay,
 }) => {
   const weekRef = useRef<HTMLElement>(null);
-  const [calendarData] = useCalendarData();
+  const [calendarCache] = useCalendarCache();
 
   return (
     <Box
@@ -67,7 +67,7 @@ const CalendarWeek: React.FC<ICalendarWeekProps> = ({
           day &&
           renderDay?.(
             dayDate,
-            calendarData[startOfMonth(dayDate).toISOString()],
+            calendarCache[startOfMonth(dayDate).toISOString()],
           );
 
         return dayElement ? (
