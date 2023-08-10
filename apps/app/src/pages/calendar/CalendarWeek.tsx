@@ -1,20 +1,17 @@
 import { ReactNode, useRef } from 'react';
 import { Box, Typography } from '@mui/material';
-import { subDays } from 'date-fns';
+import { startOfMonth, subDays } from 'date-fns';
+
+import useCalendarData from './useCalendarData';
 
 interface ICalendarWeekProps {
   week: (number | null)[];
   month: number;
   year: number;
   onWeekClick?: (weekStartDate: Date, element: HTMLElement | null) => void;
-  renderDay?: (date: Date) => ReactNode;
+  renderDay?: (dayDate: Date, monthData: unknown[]) => ReactNode;
 }
 
-// TODO: *** Show post status on every day on CalendarWeek. Primary color when every post in a day is published, secondary color when there is a post in the day not published. The post status is a small line under the day number.
-// TODO: !!! Use a callback to do generate this visual component, in order to generalize this component to be used in other places. The call will be like this: onDayRender: (day: number, month: number, year: number, dayView: ReactNode) => ReactNode
-// No priority:
-// TODO: Move Calendar components to a new library ui-calendar, so it can be used in other projects.
-// TODO: Add onDayClick callback to CalendarWeek, so it can be used in other projects.
 const CalendarWeek: React.FC<ICalendarWeekProps> = ({
   week,
   month,
@@ -23,6 +20,7 @@ const CalendarWeek: React.FC<ICalendarWeekProps> = ({
   renderDay,
 }) => {
   const weekRef = useRef<HTMLElement>(null);
+  const [calendarData] = useCalendarData();
 
   return (
     <Box
@@ -61,15 +59,25 @@ const CalendarWeek: React.FC<ICalendarWeekProps> = ({
         },
       }}
     >
-      {week.map((day, index) =>
-        day && renderDay ? (
-          <Box key={index}>{renderDay(new Date(year, month, day))}</Box>
+      {week.map((day, index) => {
+        const dayDate = new Date(year, month, day || 1);
+
+        // Render day if not a blank day and there is a renderDay callback
+        const dayElement =
+          day &&
+          renderDay?.(
+            dayDate,
+            calendarData[startOfMonth(dayDate).toISOString()],
+          );
+
+        return dayElement ? (
+          <Box key={index}>{dayElement}</Box>
         ) : (
           <Typography key={index} component="div" variant="body1">
             {day}
           </Typography>
-        ),
-      )}
+        );
+      })}
     </Box>
   );
 };

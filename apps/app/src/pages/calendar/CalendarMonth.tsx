@@ -6,8 +6,8 @@ import CalendarWeek from './CalendarWeek';
 
 interface CalendarMonthProps {
   date: Date;
-  onWeekClick?: (weekStartdate: Date, element: HTMLElement | null) => void;
-  renderDay?: (date: Date) => ReactNode;
+  onWeekClick?: (weekStartDate: Date, element: HTMLElement | null) => void;
+  renderDay?: (dayDate: Date, monthData: unknown[]) => ReactNode;
   ref?: Ref<HTMLBaseElement>;
 }
 

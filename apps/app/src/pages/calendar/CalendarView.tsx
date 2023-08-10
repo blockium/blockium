@@ -19,9 +19,11 @@ import {
 import { msg } from '@postgpt/i18n';
 
 import CalendarMonth from './CalendarMonth'; // Import the MonthView component
+import useCalendarData, { CalendarData } from './useCalendarData';
 
 const MONTHS_TO_ADD = 12;
 
+// TODO: Move to useExtendNavbar hook
 const useExtendNavbar = () => {
   const [, setCurrentDate] = useCurrentDate();
   const [, setToolbarExtra] = useToolbarExtra();
@@ -106,20 +108,27 @@ const useExtendNavbar = () => {
 
 interface ICalendarViewProps {
   onWeekClick?: (weekStartDate: Date, element: HTMLElement | null) => void;
-  renderDay?: (date: Date) => ReactNode;
+  fetchMonthData?: (monthStartDate: Date) => Promise<unknown[]>;
+  renderDay?: (dayDate: Date, calendarData: unknown[]) => ReactNode;
 }
 
+// TODO: !!! Use a callback to do generate this visual component, in order to generalize this component to be used in other places. The call will be like this: onDayRender: (day: number, month: number, year: number, dayView: ReactNode) => ReactNode
+
+// No priority:
+// TODO: Move Calendar components to a new library ui-calendar, so it can be used in other projects.
+// TODO: Add onDayClick callback to Calendar, so it can be used in other projects.
 export const CalendarView: React.FC<ICalendarViewProps> = ({
   onWeekClick,
+  fetchMonthData,
   renderDay,
 }) => {
   useExtendNavbar();
 
   const [currentDate] = useCurrentDate();
 
-  const currentDateRef = useRef(startOfMonth(currentDate));
-  const topDateRef = useRef(currentDateRef.current);
-  const bottomDateRef = useRef(currentDateRef.current);
+  const topDateRef = useRef(addMonths(startOfMonth(currentDate), -1));
+  // Subtract 1 month to the bottom date to add current date
+  const bottomDateRef = useRef(addMonths(startOfMonth(currentDate), -1));
 
   const [months, setMonths] = useState<ReactNode[]>([]);
   const monthsRef = useRef<ReactNode[]>([]);
@@ -138,36 +147,50 @@ export const CalendarView: React.FC<ICalendarViewProps> = ({
     threshold: 0,
   });
 
+  // Keeps a cache of the month data to avoid re-fetching
+  const [calendarData, setCalendarData] = useCalendarData();
+  const calendarDataRef = useRef<CalendarData>(calendarData);
+
   const createMonthView = useCallback(
-    (date: Date, ref?: Ref<HTMLBaseElement>) => (
-      <CalendarMonth
-        key={date.toISOString()}
-        date={date}
-        ref={ref}
-        onWeekClick={onWeekClick}
-        renderDay={renderDay}
-      />
-    ),
-    [renderDay, onWeekClick],
+    async (monthStartDate: Date, ref?: Ref<HTMLBaseElement>) => {
+      // Check if month data is already loaded
+      if (
+        fetchMonthData &&
+        !calendarDataRef.current[monthStartDate.toISOString()]
+      ) {
+        // Load month data
+        const newMonthData = await fetchMonthData(monthStartDate);
+        setCalendarData((prev) => ({
+          ...prev,
+          [monthStartDate.toISOString()]: newMonthData,
+        }));
+      }
+      // Otherwise, keep the cached month data
+
+      return (
+        <CalendarMonth
+          key={monthStartDate.toISOString()}
+          date={monthStartDate}
+          ref={ref}
+          onWeekClick={onWeekClick}
+          renderDay={renderDay}
+        />
+      );
+    },
+    [fetchMonthData, onWeekClick, renderDay, setCalendarData],
   );
 
-  // Render months when the currentDate changes
+  // Updates when the currentDate changes
   useEffect(() => {
-    // Reset refs and months when currentDate changes
-    currentDateRef.current = startOfMonth(currentDate);
-    topDateRef.current = currentDateRef.current;
-    bottomDateRef.current = currentDateRef.current;
+    topDateRef.current = startOfMonth(currentDate);
+    // Subtract 1 month to the bottom date to add current date
+    bottomDateRef.current = addMonths(startOfMonth(currentDate), -1);
 
-    const renderMonths = () => {
-      const months: ReactNode[] = [];
-      months.push(createMonthView(currentDateRef.current));
-      monthsRef.current = months;
-      setMonths(months);
-    };
-
-    renderMonths();
+    const months: ReactNode[] = [];
+    setMonths(months);
+    monthsRef.current = months;
     //
-  }, [createMonthView, currentDate]);
+  }, [currentDate]);
 
   // When top intersection is visible, add more months to the top
   useEffect(() => {
@@ -176,14 +199,14 @@ export const CalendarView: React.FC<ICalendarViewProps> = ({
     }
 
     // Add new months to top
-    const addTopMonths: () => void = () => {
+    const addTopMonths = async () => {
       const months = monthsRef.current;
 
       // Add months before
       let date = new Date(topDateRef.current);
       for (let i = 0; i < MONTHS_TO_ADD; i++) {
         date = addMonths(date, -1);
-        months.unshift(createMonthView(date));
+        months.unshift(await createMonthView(date));
       }
       topDateRef.current = date;
 
@@ -202,14 +225,14 @@ export const CalendarView: React.FC<ICalendarViewProps> = ({
     }
 
     // Add new months to bottom
-    const addBottomMonths: () => void = () => {
+    const addBottomMonths = async () => {
       const months = monthsRef.current;
 
       // Add months after
       let date = new Date(bottomDateRef.current);
       for (let i = 0; i < MONTHS_TO_ADD; i++) {
         date = addMonths(date, 1);
-        months.push(createMonthView(date));
+        months.push(await createMonthView(date));
       }
       bottomDateRef.current = date;
 
