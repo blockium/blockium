@@ -1,4 +1,4 @@
-import { query, where, getDocs } from 'firebase/firestore';
+import { query, where, getDocs, Timestamp } from 'firebase/firestore';
 import { db } from './firebase';
 
 import { Post } from '@postgpt/types';
@@ -18,7 +18,11 @@ export const getPosts = async (
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
     // doc.data() is never undefined for query doc snapshots
-    posts.push(doc.data());
+    posts.push({
+      ...doc.data(),
+      id: doc.id,
+      date: (doc.data().date as unknown as Timestamp).toDate(),
+    });
   });
   return posts;
 };

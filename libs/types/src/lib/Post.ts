@@ -10,6 +10,7 @@ export type PostStatus =
   | 'published';
 
 export type Post = {
+  id?: string;
   date: Date;
   title: string;
   description: string;
