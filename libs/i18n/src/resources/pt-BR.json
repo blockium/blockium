@@ -51,6 +51,7 @@
   "app.popover.newpost.input.character": "Personagem",
   "app.error.newPosts": "Desculpe, houve um erro ao gerar as postagens",
   "app.error.savePosts": "Desculpe, houve um erro ao salvar as postagens",
+  "app.error.savePost": "Desculpe, houve um erro ao salvar o post",
   "ui-common.stepper.next": "Próximo",
   "ui-common.stepper.previous": "Anterior",
   "ui-auth.button.enter": "Entrar",

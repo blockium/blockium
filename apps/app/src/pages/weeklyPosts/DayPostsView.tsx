@@ -2,14 +2,13 @@ import { useEffect, useState } from 'react';
 import { getDay, startOfMonth } from 'date-fns';
 import { Grid, IconButton } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { addDoc } from 'firebase/firestore';
 
 import { Post, PostFormat, PostType } from '@postgpt/types';
-import { db } from '@postgpt/firebase';
 import { msg } from '@postgpt/i18n';
 import { fDateCalendar } from '@postgpt/utils';
 import { Alert, CriatyLogo, LoadingIndicator } from '@postgpt/ui-common';
 import { useCalendarCache } from '@postgpt/ui-calendar';
+import { addPost as addPostDb } from '@postgpt/firebase';
 
 import { NewPostPopover, PostCard } from '../../components';
 import { newPosts } from '../../apiRequests';
@@ -42,7 +41,6 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
   const [message, setMessage] = useState<string | null>(null);
 
   useEffect(() => {
-    console.log('useEffect');
     const isoStartOfMonth = startOfMonth(date).toISOString();
     const dayPosts = (calendarCache[isoStartOfMonth] as Post[]).filter(
       (post) => {
@@ -87,10 +85,10 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
               date,
             };
             try {
-              await addDoc(
-                db.posts(sessionStorage.getItem('userId') ?? ''),
-                newPost,
-              );
+              const userId = sessionStorage.getItem('userId') ?? '';
+              const postRef = await addPostDb(userId, newPost);
+              newPost.id = postRef.id;
+              //
             } catch (error) {
               // Show error in Alert when add post fails
               console.error(error);
@@ -150,7 +148,7 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
             key={index}
           >
             {post ? (
-              <PostCard post={post} />
+              <PostCard post={post} setMessage={setMessage} />
             ) : (
               <LoadingIndicator>
                 <CriatyLogo

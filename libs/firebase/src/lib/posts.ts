@@ -1,4 +1,12 @@
-import { query, where, getDocs, Timestamp } from 'firebase/firestore';
+import {
+  query,
+  where,
+  getDocs,
+  Timestamp,
+  doc,
+  setDoc,
+  addDoc,
+} from 'firebase/firestore';
 import { db } from './firebase';
 
 import { Post } from '@postgpt/types';
@@ -25,4 +33,13 @@ export const getPosts = async (
     });
   });
   return posts;
+};
+
+export const addPost = async (userId: string, post: Post) => {
+  return await addDoc(db.posts(userId), post);
+};
+
+export const savePost = async (userId: string, post: Post) => {
+  const docRef = doc(db.posts(userId), post.id);
+  await setDoc(docRef, post, { merge: true });
 };

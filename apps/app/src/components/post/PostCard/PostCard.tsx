@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Box,
   Card,
@@ -14,28 +14,64 @@ import {
 } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-import { Post } from '@postgpt/types';
+import { Post, PostStatus } from '@postgpt/types';
 import { msg } from '@postgpt/i18n';
-import { CriatyLogo, LoadingIndicator } from '@postgpt/ui-common';
+import { savePost, useUser } from '@postgpt/firebase';
 
-const steps = [
+const steps: PostStatus[] = [
+  'initial',
+  'defined',
+  'created',
+  'approved',
+  'published',
+];
+
+const stepLabels = [
   msg('app.post.status.defined'),
   msg('app.post.status.created'),
   msg('app.post.status.approved'),
   msg('app.post.status.published'),
 ];
 
-const PostStepper: React.FC = () => {
+interface IPostStepperProps {
+  post: Post;
+  setMessage: (message: string | null) => void;
+}
+
+const PostStepper: React.FC<IPostStepperProps> = ({ post, setMessage }) => {
   const [activeStep, setActiveStep] = useState(0);
+  const user = useUser();
+
+  // Get the active step from the post status
+  useEffect(() => {
+    setActiveStep(steps.indexOf(post.status));
+  }, [post.status]);
+
+  // Save the post status when user clicks on the stepper
+  const onStepClick = async (index: number) => {
+    if (!user?.id) return;
+
+    const newStepIndex = activeStep > index ? index : index + 1;
+
+    try {
+      post.status = steps[newStepIndex];
+      await savePost(user.id, post);
+      //
+    } catch (error) {
+      console.error('error saving post', error);
+      setMessage(msg('app.error.savePost'));
+    }
+
+    setActiveStep(newStepIndex);
+  };
+
   return (
     <Box sx={{ width: '100%', mt: '24px' }}>
       <Stepper activeStep={activeStep} alternativeLabel>
-        {steps.map((label, index) => (
+        {stepLabels.map((label, index) => (
           <Step
             key={label}
-            onClick={() =>
-              setActiveStep(activeStep > index ? index : index + 1)
-            }
+            onClick={() => onStepClick(index)}
             sx={{ cursor: 'pointer' }}
           >
             <StepLabel>{label}</StepLabel>
@@ -47,11 +83,11 @@ const PostStepper: React.FC = () => {
 };
 
 interface IPostCardProps {
-  post?: Post;
+  post: Post;
+  setMessage: (message: string | null) => void;
 }
 
 // TODO: !!! Move the status stepper to the actions section
-// TODO: !!! Save the post status when user clicks on the stepper
 
 // TODO: !!! Add a menu popover when the user clicks on the 3-dots icon
 
@@ -62,8 +98,8 @@ interface IPostCardProps {
 // TODO: ! Open the post edit dialog when the user clicks on the post content
 
 // TODO: ! Add a "Mais"/"Menos" action to show/hide the post content. Default to show only the description (no hashtags, no type, no type description)
-export const PostCard: React.FC<IPostCardProps> = ({ post }) => {
-  return post ? (
+export const PostCard: React.FC<IPostCardProps> = ({ post, setMessage }) => {
+  return (
     <Card>
       <CardHeader
         title={post.title}
@@ -91,7 +127,7 @@ export const PostCard: React.FC<IPostCardProps> = ({ post }) => {
                 {post.type}:
               </Typography>
               <Typography variant="body1">{post.typeDescription}</Typography>
-              <PostStepper />
+              <PostStepper post={post} setMessage={setMessage} />
             </Stack>
           </Grid>
           {/* This is to add an image representation of the post in future.
@@ -104,14 +140,6 @@ export const PostCard: React.FC<IPostCardProps> = ({ post }) => {
         </Grid>
       </CardContent>
     </Card>
-  ) : (
-    <LoadingIndicator>
-      <CriatyLogo
-        full={false}
-        colorScheme="transparent-green-green-transparent"
-        sx={{ marginTop: '0.75rem' }}
-      />
-    </LoadingIndicator>
   );
 };
 
