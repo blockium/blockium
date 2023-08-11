@@ -2,12 +2,42 @@ export type PostFormat = 'feed' | 'story' | 'reels';
 
 export type PostType = 'image' | 'carousel' | 'video';
 
+export type PostGoal =
+  | 'Service/Product'
+  | 'Offer'
+  | 'Tutorial'
+  | 'Tips'
+  | 'Behind-the-Scenes';
+
 export type PostStatus =
   | 'initial'
   | 'defined'
   | 'created'
   | 'approved'
   | 'published';
+
+export type PostParamServiceProduct = {
+  service: string;
+  topic: string;
+};
+
+export type PostParamPromotion = {
+  service: string;
+  offer: string;
+};
+
+export type PostParamTutorial = {
+  subject: string;
+};
+
+export type PostParams = {
+  goal: PostGoal;
+  type: PostType;
+  slides?: number; // required only if type is 'carousel'
+  format: PostFormat;
+  extra: PostParamServiceProduct | PostParamPromotion | PostParamTutorial;
+  character?: string;
+};
 
 export type Post = {
   id?: string;
@@ -19,5 +49,6 @@ export type Post = {
   type: PostType;
   typeDescription: string;
   status: PostStatus;
+  params?: PostParams;
   deletedAt?: Date;
 };
