@@ -33,7 +33,7 @@ export type PostParamTutorial = {
 export type PostParams = {
   goal: PostGoal;
   type: PostType;
-  slides?: number; // required only if type is 'carousel'
+  slidesCount?: number; // required only if type is 'carousel'
   format: PostFormat;
   extra: PostParamProduct | PostParamPromotion | PostParamTutorial;
   character?: string;
