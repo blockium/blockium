@@ -192,7 +192,7 @@ export const PostProduct: React.FC<IPostProductProps> = ({
           )}
         </Select>
       </FormControl>
-      <TextField
+      {/* <TextField
         margin="dense"
         label={msg('app.popover.newpost.input.character')}
         type="text"
@@ -209,7 +209,7 @@ export const PostProduct: React.FC<IPostProductProps> = ({
             </IconButton>
           ),
         }}
-      />
+      /> */}
       <Stack direction="row" gap={2}>
         <CTAButton
           onClick={() => setGoalElement(null)}
