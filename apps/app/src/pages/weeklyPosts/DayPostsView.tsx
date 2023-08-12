@@ -64,23 +64,31 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
       setPosts((posts) => [...posts, undefined]);
       setAdding(true);
 
-      const post = await addPost(date);
-      if (post) {
-        // Add the new post to the calendar data cache
-        const isoStartOfMonth = startOfMonth(date).toISOString();
-        const monthData = [...calendarCache[isoStartOfMonth]];
-        monthData.push(post);
+      try {
+        const post = await addPost(date);
+        if (post) {
+          // Add the new post to the calendar data cache
+          const isoStartOfMonth = startOfMonth(date).toISOString();
+          const monthData = [...calendarCache[isoStartOfMonth]];
+          monthData.push(post);
 
-        // This will update the post list
-        setCalendarCache({
-          ...calendarCache,
-          [isoStartOfMonth]: monthData,
-        });
-      } else {
+          // This will update the post list
+          setCalendarCache({
+            ...calendarCache,
+            [isoStartOfMonth]: monthData,
+          });
+        } else {
+          // slice remove undefined from end
+          setPosts((posts) => posts.slice(0, posts.length - 1));
+          // Show error in Alert when post creation fails
+          setMessage(msg('app.error.newPost'));
+        }
+      } catch (error) {
+        console.error(error);
         // slice remove undefined from end
         setPosts((posts) => posts.slice(0, posts.length - 1));
         // Show error in Alert when post creation fails
-        setMessage(msg('app.error.newPosts'));
+        setMessage(msg('app.error.newPost'));
       }
 
       setAdding(false);

@@ -12,10 +12,10 @@ import ClearIcon from '@mui/icons-material/Clear';
 
 import { msg } from '@postgpt/i18n';
 import { CTAButton } from '@postgpt/ui-common';
-import { Post, PostFormat, PostType } from '@postgpt/types';
+import { Post, PostFormat, PostParams, PostType } from '@postgpt/types';
 import { addPost as addPostDb } from '@postgpt/firebase';
 
-import { newPosts } from '../../../../apiRequests';
+import { newPostProduct } from '../../../../apiRequests';
 
 interface IPostProductProps {
   setGoalElement: (element: ReactElement | null) => void;
@@ -34,7 +34,7 @@ export const PostProduct: React.FC<IPostProductProps> = ({
   const [type, setType] = useState<PostType>();
   const [slidesCount, setSlidesCount] = useState<number>();
   const [format, setFormat] = useState<PostFormat>();
-  const [character, setCharacter] = useState('');
+  const [character] = useState('');
 
   const setTypeAndFormat = (type: PostType) => {
     setType(type);
@@ -47,7 +47,14 @@ export const PostProduct: React.FC<IPostProductProps> = ({
 
   const addPost = async (date: Date) => {
     // Request the creation of one new post
-    const result = await newPosts(1, topic, character, format, type);
+    const result = await newPostProduct(
+      product,
+      topic,
+      type as PostType,
+      slidesCount || 0,
+      format as PostFormat,
+      character,
+    );
 
     // If the result is a string, it's an error
     if (typeof result === 'string') {
@@ -55,23 +62,32 @@ export const PostProduct: React.FC<IPostProductProps> = ({
       return null;
     }
 
-    const post = result[0];
-    // TODO: *** Save topic, character, format and type in Firebase
+    const post = result;
+
+    // Save post generation params in Firebase
+    const params: PostParams = {
+      goal: 'Product',
+      type: type as PostType,
+      slidesCount: slidesCount || 0,
+      format: format as PostFormat,
+      extra: {
+        product,
+        topic,
+      },
+      character,
+    };
+
     const newPost = {
       ...post,
+      params,
       date,
+      createdAt: new Date(),
     };
-    try {
-      // Save news posts in Firebase
-      const userId = sessionStorage.getItem('userId') ?? '';
-      const postRef = await addPostDb(userId, newPost);
-      newPost.id = postRef.id;
-      //
-    } catch (error) {
-      console.error(error);
-      return null;
-      //
-    }
+
+    // Save news posts in Firebase
+    const userId = sessionStorage.getItem('userId') ?? '';
+    const postRef = await addPostDb(userId, newPost);
+    newPost.id = postRef.id;
 
     return newPost;
   };

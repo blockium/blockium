@@ -67,6 +67,7 @@
   "app.popover.newpost.input.format-story": "Story",
   "app.popover.newpost.input.format-reels": "Reels",
   "app.popover.newpost.input.character": "Personagem",
+  "app.error.newPost": "Desculpe, houve um erro ao gerar o post",
   "app.error.newPosts": "Desculpe, houve um erro ao gerar as postagens",
   "app.error.savePosts": "Desculpe, houve um erro ao salvar as postagens",
   "app.error.savePost": "Desculpe, houve um erro ao salvar o post",

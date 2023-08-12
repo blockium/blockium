@@ -17,12 +17,12 @@ export type PostStatus =
   | 'published';
 
 export type PostParamProduct = {
-  service: string;
+  product: string;
   topic: string;
 };
 
 export type PostParamPromotion = {
-  service: string;
+  product: string;
   offer: string;
 };
 
@@ -50,5 +50,6 @@ export type Post = {
   typeDescription: string;
   status: PostStatus;
   params?: PostParams;
+  createdAt?: Date;
   deletedAt?: Date;
 };
