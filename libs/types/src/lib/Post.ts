@@ -3,7 +3,7 @@ export type PostFormat = 'feed' | 'story' | 'reels';
 export type PostType = 'image' | 'carousel' | 'video';
 
 export type PostGoal =
-  | 'Service/Product'
+  | 'Product'
   | 'Offer'
   | 'Tutorial'
   | 'Tips'
@@ -16,7 +16,7 @@ export type PostStatus =
   | 'approved'
   | 'published';
 
-export type PostParamServiceProduct = {
+export type PostParamProduct = {
   service: string;
   topic: string;
 };
@@ -35,7 +35,7 @@ export type PostParams = {
   type: PostType;
   slides?: number; // required only if type is 'carousel'
   format: PostFormat;
-  extra: PostParamServiceProduct | PostParamPromotion | PostParamTutorial;
+  extra: PostParamProduct | PostParamPromotion | PostParamTutorial;
   character?: string;
 };
 

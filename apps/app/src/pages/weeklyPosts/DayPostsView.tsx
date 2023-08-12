@@ -3,15 +3,13 @@ import { getDay, startOfMonth } from 'date-fns';
 import { Grid, IconButton } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
-import { Post, PostFormat, PostType } from '@postgpt/types';
+import { Post } from '@postgpt/types';
 import { msg } from '@postgpt/i18n';
 import { fDateCalendar } from '@postgpt/utils';
 import { Alert, CriatyLogo, LoadingIndicator } from '@postgpt/ui-common';
 import { useCalendarCache } from '@postgpt/ui-calendar';
-import { addPost as addPostDb } from '@postgpt/firebase';
 
 import { NewPostPopover, PostCard } from '../../components';
-import { newPosts } from '../../apiRequests';
 
 const formatDate = (date: Date) => {
   const weekDayLabels = [
@@ -50,81 +48,43 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
     setPosts(dayPosts);
   }, [calendarCache, date]);
 
-  const addPost = (
-    topic: string,
-    character?: string,
-    format?: PostFormat,
-    type?: PostType,
-  ) => {
-    if (!adding) {
-      setAdding(true);
-
-      // Adds an undefined post to the list to show a loading indicator
-      setPosts((posts) => [...posts, undefined]);
-
-      // Request the creation of one new post
-      newPosts(1, topic, character, format, type)
-        .then(async (result) => {
-          if (typeof result === 'string') {
-            // Show error in Alert when request post creation fails
-            console.error(result);
-            setMessage(msg('app.error.newPosts'));
-
-            // slice remove undefined from end
-            setPosts((posts) => posts.slice(0, posts.length - 1));
-            return;
-          }
-
-          const isoStartOfMonth = startOfMonth(date).toISOString();
-          const monthData = [...calendarCache[isoStartOfMonth]];
-
-          // Save news posts in Firebase
-          for (const post of result) {
-            // TODO: *** Save topic, character, format and type in Firebase
-            const newPost = {
-              ...post,
-              date,
-            };
-            try {
-              const userId = sessionStorage.getItem('userId') ?? '';
-              const postRef = await addPostDb(userId, newPost);
-              newPost.id = postRef.id;
-              //
-            } catch (error) {
-              // Show error in Alert when add post fails
-              console.error(error);
-              setMessage(msg('app.error.savePosts'));
-            } finally {
-              // Add the new post to the calendar data cache
-              monthData.push(newPost);
-            }
-          }
-
-          setCalendarCache({
-            ...calendarCache,
-            [isoStartOfMonth]: monthData,
-          });
-        })
-        .finally(() => {
-          setAdding(false);
-        });
-    }
-  };
-
   const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
 
   const onAddClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setOpenPopover(event.currentTarget);
   };
 
-  const handleGenerate = (
-    topic: string,
-    character?: string,
-    format?: PostFormat,
-    type?: PostType,
+  const handleGenerate = async (
+    addPost: (date: Date) => Promise<Post | null>,
   ) => {
     setOpenPopover(null);
-    addPost(topic, character, format, type);
+
+    if (!adding) {
+      // Adds an undefined post to the list to show a loading indicator
+      setPosts((posts) => [...posts, undefined]);
+      setAdding(true);
+
+      const post = await addPost(date);
+      if (post) {
+        // Add the new post to the calendar data cache
+        const isoStartOfMonth = startOfMonth(date).toISOString();
+        const monthData = [...calendarCache[isoStartOfMonth]];
+        monthData.push(post);
+
+        // This will update the post list
+        setCalendarCache({
+          ...calendarCache,
+          [isoStartOfMonth]: monthData,
+        });
+      } else {
+        // slice remove undefined from end
+        setPosts((posts) => posts.slice(0, posts.length - 1));
+        // Show error in Alert when post creation fails
+        setMessage(msg('app.error.newPosts'));
+      }
+
+      setAdding(false);
+    }
   };
 
   const handleOnClose = () => {
@@ -175,7 +135,6 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
         </Grid>
       </Grid>
       <NewPostPopover
-        startDate={date}
         anchorEl={openPopover}
         onGenerate={handleGenerate}
         onClose={handleOnClose}
