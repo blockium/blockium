@@ -7,21 +7,14 @@ import { User, UserPrompt } from '@postgpt/types';
 import { db } from '../utils/db';
 import { chat } from './chat';
 import { getOrCreateUser } from '../utils/user';
-import {
-  validateName,
-  validatePhone,
-  validatePrompt,
-  validateUser,
-} from '../utils/validate';
+import { validatePrompt, validateUser } from '../utils/validate';
 
 const openAiApiKey = defineSecret('OPENAI_API_KEY');
 
 const validateParams = (request, response) => {
-  return (
-    validatePrompt(request, response) &&
-    validatePhone(request, response) &&
-    validateName(request, response)
-  );
+  return validatePrompt(request, response);
+  // validatePhone(request, response) &&
+  // validateName(request, response)
 };
 
 const getUserPrompts = async (userId: string, limit: number) => {
@@ -63,18 +56,25 @@ export const chatgpt = runWith({ secrets: [openAiApiKey] }).https.onRequest(
     corsObj(request, response, async () => {
       if (!validateParams(request, response)) return;
 
+      let user: User;
+      let prevPrompts = [];
+
       // Retrieve user id from Firestore. Saves new users if they don't exist
       const { phone, name } = request.body;
-      const result = await getOrCreateUser(phone, name || phone);
-      if (!validateUser(result, response)) return;
+      if (phone) {
+        const result = await getOrCreateUser(phone, name || phone);
+        if (!validateUser(result, response)) return;
 
-      const user = result as User;
+        user = result as User;
 
-      // Retrieve the user's prompt history
-      const limit = Number(
-        request.body.historyLimit ?? process.env.PROMPT_HISTORY_LIMIT,
-      );
-      const prevPrompts = limit > 0 ? await getUserPrompts(user.id, limit) : [];
+        // Retrieve the user's prompt history
+        const limit = Number(
+          request.body.historyLimit ?? process.env.PROMPT_HISTORY_LIMIT,
+        );
+        if (limit > 0) {
+          prevPrompts = await getUserPrompts(user.id, limit);
+        }
+      }
 
       // Send the prompt to the OpenAI API
       const { prompt } = request.body;
@@ -89,7 +89,9 @@ export const chatgpt = runWith({ secrets: [openAiApiKey] }).https.onRequest(
           );
       } else {
         // Save the user's prompt and answer to the history
-        await saveUserPrompt(user.id, prompt, answer);
+        if (user) {
+          await saveUserPrompt(user.id, prompt, answer);
+        }
         response.status(200).send(answer);
       }
     });

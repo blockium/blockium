@@ -2,6 +2,7 @@ export * from './chatgpt';
 export * from './getUser';
 export * from './login';
 export * from './loginWithPhone';
+export * from './newPostProduct';
 export * from './newPosts';
 export * from './newSession';
 export * from './newWeeklyPosts';
