@@ -70,7 +70,7 @@
   "app.error.newPost": "Desculpe, houve um erro ao gerar o post. Por favor, tente novamente",
   "app.error.newPosts": "Desculpe, houve um erro ao gerar as postagens. Por favor, tente novamente",
   "app.error.savePosts": "Desculpe, houve um erro ao salvar as postagens. Por favor, tente novamente",
-  "app.error.savePost": "Desculpe, houve um erro ao salvar o post",
+  "app.error.savePost": "Desculpe, houve um erro ao salvar o post. Por favor, tente novamente",
   "ui-common.stepper.next": "Próximo",
   "ui-common.stepper.previous": "Anterior",
   "ui-auth.button.enter": "Entrar",

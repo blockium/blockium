@@ -16,10 +16,14 @@ import { Post, PostFormat, PostParams, PostType } from '@postgpt/types';
 import { addPost as addPostDb } from '@postgpt/firebase';
 
 import { newPostProduct } from '../../../../apiRequests';
+import { useCalendarCache } from '@postgpt/ui-calendar';
+import { startOfMonth } from 'date-fns';
 
 interface IPostProductProps {
   setGoalElement: (element: ReactElement | null) => void;
-  onGenerate?: (addPost: (date: Date) => Promise<Post | null>) => Promise<void>;
+  onGenerate: (
+    addPost: (date: Date) => Promise<Post | string>,
+  ) => Promise<void>;
 }
 
 // TODO: *** PostProduct
@@ -29,6 +33,9 @@ export const PostProduct: React.FC<IPostProductProps> = ({
   setGoalElement,
   onGenerate,
 }) => {
+  console.log('PostProduct');
+
+  const [calendarCache, setCalendarCache] = useCalendarCache();
   const [product, setProduct] = useState('');
   const [topic, setTopic] = useState('');
   const [type, setType] = useState<PostType>('image');
@@ -59,7 +66,7 @@ export const PostProduct: React.FC<IPostProductProps> = ({
     // If the result is a string, it's an error
     if (typeof result === 'string') {
       console.error(result);
-      return null;
+      return result;
     }
 
     const post = result;
@@ -84,16 +91,30 @@ export const PostProduct: React.FC<IPostProductProps> = ({
       createdAt: new Date(),
     };
 
-    // Save news posts in Firebase
-    const userId = sessionStorage.getItem('userId') ?? '';
-    const postRef = await addPostDb(userId, newPost);
-    newPost.id = postRef.id;
+    try {
+      // Save news posts in Firebase
+      const userId = sessionStorage.getItem('userId') ?? '';
+      const postRef = await addPostDb(userId, newPost);
+      newPost.id = postRef.id;
+      return newPost;
+      //
+    } catch (error) {
+      console.error(error);
+      return msg('app.error.savePost');
+      //
+    } finally {
+      // Add the new post to the calendar data cache
+      const isoStartOfMonth = startOfMonth(date).toISOString();
+      const monthData = calendarCache[isoStartOfMonth];
+      monthData.push(newPost);
 
-    return newPost;
+      // This will update the post list
+      setCalendarCache({ ...calendarCache });
+    }
   };
 
   const handleGenerate = () => {
-    onGenerate?.(addPost);
+    onGenerate(addPost);
   };
 
   return (

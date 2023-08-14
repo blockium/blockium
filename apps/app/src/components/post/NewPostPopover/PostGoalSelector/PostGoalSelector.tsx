@@ -14,7 +14,9 @@ import { PostProduct } from '../PostProduct';
 
 interface IPostGoalSelectorProps {
   setGoalElement: (element: ReactElement | null) => void;
-  onGenerate?: (addPost: (date: Date) => Promise<Post | null>) => Promise<void>;
+  onGenerate: (
+    addPost: (date: Date) => Promise<Post | string>,
+  ) => Promise<void>;
 }
 
 // TODO: *** Add a select to choose the post goal

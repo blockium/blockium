@@ -7,7 +7,9 @@ import { PostGoalSelector } from './PostGoalSelector';
 
 interface INewPostPopoverProps {
   anchorEl: HTMLElement | null;
-  onGenerate?: (addPost: (date: Date) => Promise<Post | null>) => Promise<void>;
+  onGenerate: (
+    addPost: (date: Date) => Promise<Post | string>,
+  ) => Promise<void>;
   onClose: () => void;
 }
 
