@@ -121,12 +121,16 @@ export const PostCard: React.FC<IPostCardProps> = ({ post, setMessage }) => {
               <Typography variant="caption" textTransform="uppercase">
                 Legenda:
               </Typography>
-              <Typography variant="body1">{post.description}</Typography>
+              <Typography variant="body1" sx={{ whiteSpace: 'break-spaces' }}>
+                {post.description}
+              </Typography>
               <Typography variant="body1">{post.hashtags}</Typography>
               <Typography variant="caption" textTransform="uppercase" mt="16px">
                 {post.type}:
               </Typography>
-              <Typography variant="body1">{post.typeDescription}</Typography>
+              <Typography variant="body1" sx={{ whiteSpace: 'break-spaces' }}>
+                {post.typeDescription}
+              </Typography>
               <PostStepper post={post} setMessage={setMessage} />
             </Stack>
           </Grid>
