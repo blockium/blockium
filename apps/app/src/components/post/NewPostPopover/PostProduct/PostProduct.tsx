@@ -33,8 +33,6 @@ export const PostProduct: React.FC<IPostProductProps> = ({
   setGoalElement,
   onGenerate,
 }) => {
-  console.log('PostProduct');
-
   const [calendarCache, setCalendarCache] = useCalendarCache();
   const [product, setProduct] = useState('');
   const [topic, setTopic] = useState('');
