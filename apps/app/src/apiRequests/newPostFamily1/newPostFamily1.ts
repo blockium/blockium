@@ -1,8 +1,9 @@
 import axios from 'axios';
-import { Post, PostFormat, PostType } from '@postgpt/types';
+import { Post, PostFormat, PostGoal, PostType } from '@postgpt/types';
 import { msg } from '@postgpt/i18n';
 
-export const newPostProduct = async (
+export const newPostFamily1 = async (
+  goal: PostGoal,
   product: string,
   topic: string,
   type: PostType,
@@ -11,6 +12,7 @@ export const newPostProduct = async (
   character?: string,
 ) => {
   const params = {
+    goal,
     product,
     topic,
     type,
@@ -23,7 +25,7 @@ export const newPostProduct = async (
   try {
     const answer = await axios({
       method: 'post',
-      url: import.meta.env.VITE_NEW_POST_PRODUCT_URL,
+      url: import.meta.env.VITE_NEW_POST_FAMILY1_URL,
       data: params,
       validateStatus: (status: number) => {
         return status < 600;

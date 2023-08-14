@@ -4,7 +4,6 @@ import { Post } from '@postgpt/types';
 import { msg } from '@postgpt/i18n';
 
 // TODO: change to newPostOffer
-import { newPostProduct } from '../../../../apiRequests';
 import { PostFamily1 } from '../PostFamily1';
 
 interface IPostOfferProps {
@@ -20,7 +19,7 @@ export const PostOffer: React.FC<IPostOfferProps> = ({
 }) => {
   return (
     <PostFamily1
-      newPostFamily1={newPostProduct}
+      goal="Offer"
       productLabel={msg('app.popover.newpost.input.product')}
       topicLabel={msg('app.popover.newpost.input.product-offer')}
       setGoalElement={setGoalElement}

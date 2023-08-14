@@ -2,7 +2,9 @@ import { https } from 'firebase-functions';
 import cors from 'cors';
 import axios from 'axios';
 
-import { getPostProductPrompt } from '../prompts';
+import { PostGoal } from '@postgpt/types';
+
+import { getPostOfferPrompt, getPostProductPrompt } from '../prompts';
 
 const validateParams = (request, response) => {
   const { product, topic, type, slidesCount, format } = request.body;
@@ -21,16 +23,29 @@ const validateParams = (request, response) => {
   return true;
 };
 
-export const newPostProduct = https.onRequest(async (request, response) => {
+export const newPostFamily1 = https.onRequest(async (request, response) => {
   // TODO: Review CORS policy
   const corsObj = cors({ origin: true });
   corsObj(request, response, async () => {
     if (!validateParams(request, response)) return;
 
-    const { product, topic, type, slidesCount, format, character } =
+    const { goal, product, topic, type, slidesCount, format, character } =
       request.body;
 
-    const prompt = getPostProductPrompt(
+    let getPostPrompt;
+    switch (goal as PostGoal) {
+      case 'Product':
+        getPostPrompt = getPostProductPrompt;
+        break;
+      case 'Offer':
+        getPostPrompt = getPostOfferPrompt;
+        break;
+      default:
+        response.status(400).send('Parâmetros ausentes.');
+        return;
+    }
+
+    const prompt = getPostPrompt(
       product,
       topic,
       type,
@@ -38,7 +53,7 @@ export const newPostProduct = https.onRequest(async (request, response) => {
       format,
       character,
     );
-    console.log('prompt', prompt);
+    // console.log('prompt', prompt);
 
     try {
       // Sent a POST request to chatgpt endpoint

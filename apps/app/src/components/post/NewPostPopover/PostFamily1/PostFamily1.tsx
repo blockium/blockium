@@ -13,19 +13,20 @@ import ClearIcon from '@mui/icons-material/Clear';
 
 import { msg } from '@postgpt/i18n';
 import { CTAButton } from '@postgpt/ui-common';
-import { Post, PostFormat, PostParams, PostType } from '@postgpt/types';
+import {
+  Post,
+  PostFormat,
+  PostGoal,
+  PostParams,
+  PostType,
+} from '@postgpt/types';
 import { addPost as addPostDb } from '@postgpt/firebase';
 import { useCalendarCache } from '@postgpt/ui-calendar';
 
+import { newPostFamily1 } from '../../../../apiRequests';
+
 interface IPostFamily1Props {
-  newPostFamily1: (
-    product: string,
-    topic: string,
-    type: PostType,
-    slidesCount: number,
-    format: PostFormat,
-    character: string,
-  ) => Promise<Post | string>;
+  goal: PostGoal;
   productLabel: string;
   topicLabel: string;
   setGoalElement: (element: ReactElement | null) => void;
@@ -35,7 +36,7 @@ interface IPostFamily1Props {
 }
 
 export const PostFamily1: React.FC<IPostFamily1Props> = ({
-  newPostFamily1,
+  goal,
   productLabel,
   topicLabel,
   setGoalElement,
@@ -45,7 +46,7 @@ export const PostFamily1: React.FC<IPostFamily1Props> = ({
   const [product, setProduct] = useState('');
   const [topic, setTopic] = useState('');
   const [type, setType] = useState<PostType>('image');
-  const [slidesCount, setSlidesCount] = useState<number>();
+  const [slidesCount, setSlidesCount] = useState<number>(0);
   const [format, setFormat] = useState<PostFormat>('feed');
   const [character] = useState('');
 
@@ -61,6 +62,7 @@ export const PostFamily1: React.FC<IPostFamily1Props> = ({
   const addPost = async (date: Date) => {
     // Request the creation of one new post
     const result = await newPostFamily1(
+      goal,
       product,
       topic,
       type as PostType,
@@ -202,7 +204,7 @@ export const PostFamily1: React.FC<IPostFamily1Props> = ({
           endAdornment: (
             <IconButton
               sx={{ visibility: character ? 'visible' : 'hidden' }}
-              onClick={() => setSlidesCount(undefined)}
+              onClick={() => setSlidesCount(0)}
             >
               <ClearIcon />
             </IconButton>
