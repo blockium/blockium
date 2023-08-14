@@ -110,6 +110,6 @@ Exemplo:
   "hashtags": "#DiaDosPais #UnhasDeGel #EstiloMasculino #PaiVaidoso #Beleza",
   "format": ${format},
   "type": "video",
-  "typeDescription": "Roteiro do vídeo:\n\n1. Cena inicial: Mostrar alguém estressado tentando planejar posts.\n2. Transição para a nossa plataforma: Demonstração da interface amigável.\n3. Destacar recursos: Arraste e solte, agendamento automático, sugestões de conteúdo.\n4. Mostrar a pessoa relaxada e sorrindo.\n5. Chamada para ação: "Experimente agora e transforme seu Instagram!"\n6. Logotipo e informações de contato."
+  "typeDescription": "Roteiro do vídeo:\n\n1. Cena inicial: Mostrar alguém estressado tentando planejar posts.\n2. Transição para a nossa plataforma: Demonstração da interface amigável.\n3. Destacar recursos: Arraste e solte, agendamento automático, sugestões de conteúdo.\n4. Mostrar a pessoa relaxada e sorrindo.\n5. Chamada para ação: Experimente agora e transforme seu Instagram!\n6. Logotipo e informações de contato."
 }`;
 };

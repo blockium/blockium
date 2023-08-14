@@ -10,7 +10,7 @@ export const newPostProduct = async (
   format: PostFormat,
   character?: string,
 ) => {
-  const data = {
+  const params = {
     product,
     topic,
     type,
@@ -24,20 +24,29 @@ export const newPostProduct = async (
     const answer = await axios({
       method: 'post',
       url: import.meta.env.VITE_NEW_POST_PRODUCT_URL,
-      data,
+      data: params,
       validateStatus: (status: number) => {
         return status < 600;
       },
     });
 
-    // console.log('answer.data', answer.data.replace(/[\n](?![\s}])/gm, '\\n'));
+    let post: Post;
+    if (typeof answer.data === 'string') {
+      // Replace all line breaks that are not followed by a space or a closing curly brace
+      let data = answer.data.replace(/(\n+)(?![\s}])/gm, '\\n');
 
-    const post: Post = {
-      ...(typeof answer.data === 'string'
-        ? JSON.parse(answer.data.replace(/[\n](?![\s}])/gm, '\\n'))
-        : answer.data),
-      status: 'initial',
-    };
+      // Remove the last comma from JSON string
+      data = data.replace(/(,)(\n?)(\s*)}/gm, '\n}');
+
+      // TODO: !!! Remove double quotes inside 2 double quotes
+
+      console.log('data', answer.data, data);
+
+      post = { ...JSON.parse(data), status: 'initial' };
+    } else {
+      post = { ...answer.data, status: 'initial' };
+    }
+
     return post;
     //
   } catch (error) {

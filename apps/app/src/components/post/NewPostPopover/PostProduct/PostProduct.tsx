@@ -31,9 +31,9 @@ export const PostProduct: React.FC<IPostProductProps> = ({
 }) => {
   const [product, setProduct] = useState('');
   const [topic, setTopic] = useState('');
-  const [type, setType] = useState<PostType>();
+  const [type, setType] = useState<PostType>('image');
   const [slidesCount, setSlidesCount] = useState<number>();
-  const [format, setFormat] = useState<PostFormat>();
+  const [format, setFormat] = useState<PostFormat>('feed');
   const [character] = useState('');
 
   const setTypeAndFormat = (type: PostType) => {

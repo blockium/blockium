@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { getDay, startOfMonth } from 'date-fns';
 import { Grid, IconButton } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
@@ -32,6 +32,8 @@ interface IDayPostsViewProps {
 // TODO: !!! Add a new "deletedDate" field to Post
 // TODO: !!! Show only post with "deletedDate" field undefined
 const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
+  console.log('DayPostsView', date);
+
   const [calendarCache, setCalendarCache] = useCalendarCache();
 
   const [posts, setPosts] = useState<(Post | undefined)[]>([]);
@@ -39,12 +41,14 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
   const [message, setMessage] = useState<string | null>(null);
 
   useEffect(() => {
+    console.log('calendarCache', calendarCache);
     const isoStartOfMonth = startOfMonth(date).toISOString();
     const dayPosts = (calendarCache[isoStartOfMonth] as Post[]).filter(
       (post) => {
         return post.date.toISOString() === date.toISOString();
       },
     );
+    console.log('dayPosts', dayPosts);
     setPosts(dayPosts);
   }, [calendarCache, date]);
 
@@ -54,46 +58,57 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
     setOpenPopover(event.currentTarget);
   };
 
-  const handleGenerate = async (
-    addPost: (date: Date) => Promise<Post | null>,
-  ) => {
-    setOpenPopover(null);
+  const handleGenerate = useCallback(
+    async (addPost: (date: Date) => Promise<Post | null>) => {
+      setOpenPopover(null);
 
-    if (!adding) {
-      // Adds an undefined post to the list to show a loading indicator
-      setPosts((posts) => [...posts, undefined]);
-      setAdding(true);
+      if (!adding) {
+        // Adds an undefined post to the list to show a loading indicator
+        setPosts((posts) => [...posts, undefined]);
+        setAdding(true);
 
-      try {
-        const post = await addPost(date);
-        if (post) {
-          // Add the new post to the calendar data cache
-          const isoStartOfMonth = startOfMonth(date).toISOString();
-          const monthData = [...calendarCache[isoStartOfMonth]];
-          monthData.push(post);
+        try {
+          const post = await addPost(date);
+          if (post) {
+            // Add the new post to the calendar data cache
+            const isoStartOfMonth = startOfMonth(date).toISOString();
+            console.log('isoStartOfMonth', isoStartOfMonth);
+            console.log('calendarCache', calendarCache);
+            console.log(
+              'calendarCache[isoStartOfMonth]',
+              calendarCache[isoStartOfMonth],
+            );
+            const monthData = [...calendarCache[isoStartOfMonth]];
+            console.log('monthData antes', monthData);
+            monthData.push(post);
 
-          // This will update the post list
-          setCalendarCache({
-            ...calendarCache,
-            [isoStartOfMonth]: monthData,
-          });
-        } else {
+            console.log('monthData depois', monthData);
+
+            // This will update the post list
+            setCalendarCache({
+              ...calendarCache,
+              [isoStartOfMonth]: monthData,
+            });
+          } else {
+            // slice remove undefined from end
+            setPosts((posts) => posts.slice(0, posts.length - 1));
+            // Show error in Alert when post creation fails
+            setMessage(msg('app.error.newPost'));
+          }
+        } catch (error) {
+          console.error(error);
           // slice remove undefined from end
           setPosts((posts) => posts.slice(0, posts.length - 1));
           // Show error in Alert when post creation fails
           setMessage(msg('app.error.newPost'));
         }
-      } catch (error) {
-        console.error(error);
-        // slice remove undefined from end
-        setPosts((posts) => posts.slice(0, posts.length - 1));
-        // Show error in Alert when post creation fails
-        setMessage(msg('app.error.newPost'));
-      }
 
-      setAdding(false);
-    }
-  };
+        setAdding(false);
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [calendarCache, date],
+  );
 
   const handleOnClose = () => {
     setOpenPopover(null);
