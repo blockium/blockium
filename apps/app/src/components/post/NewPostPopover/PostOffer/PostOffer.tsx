@@ -1,19 +1,20 @@
 import { ReactElement } from 'react';
 
-import { msg } from '@postgpt/i18n';
 import { Post } from '@postgpt/types';
+import { msg } from '@postgpt/i18n';
 
+// TODO: change to newPostOffer
 import { newPostProduct } from '../../../../apiRequests';
 import { PostFamily1 } from '../PostFamily1';
 
-interface IPostProductProps {
+interface IPostOfferProps {
   setGoalElement: (element: ReactElement | null) => void;
   onGenerate: (
     addPost: (date: Date) => Promise<Post | string>,
   ) => Promise<void>;
 }
 
-export const PostProduct: React.FC<IPostProductProps> = ({
+export const PostOffer: React.FC<IPostOfferProps> = ({
   setGoalElement,
   onGenerate,
 }) => {
@@ -21,11 +22,11 @@ export const PostProduct: React.FC<IPostProductProps> = ({
     <PostFamily1
       newPostFamily1={newPostProduct}
       productLabel={msg('app.popover.newpost.input.product')}
-      topicLabel={msg('app.popover.newpost.input.product-topic')}
+      topicLabel={msg('app.popover.newpost.input.product-offer')}
       setGoalElement={setGoalElement}
       onGenerate={onGenerate}
     />
   );
 };
 
-export default PostProduct;
+export default PostOffer;

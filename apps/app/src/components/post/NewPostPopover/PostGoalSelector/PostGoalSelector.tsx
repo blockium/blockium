@@ -12,6 +12,7 @@ import { msg } from '@postgpt/i18n';
 import { Post } from '@postgpt/types';
 
 import { PostProduct } from '../PostProduct';
+import { PostOffer } from '../PostOffer';
 
 interface IPostGoalSelectorProps {
   setGoalElement: (element: ReactElement | null) => void;
@@ -35,7 +36,7 @@ export const PostGoalSelector: React.FC<IPostGoalSelectorProps> = ({
           {msg('app.post.goal.selector-title')}
         </ListSubheader>
       }
-      sx={{ maxHeight: '420px', overflow: 'auto' }}
+      sx={{ maxHeight: '480px', overflow: 'auto' }}
     >
       <ListItem disablePadding>
         <ListItemButton
@@ -53,7 +54,17 @@ export const PostGoalSelector: React.FC<IPostGoalSelectorProps> = ({
         </ListItemButton>
       </ListItem>
       <ListItem disablePadding>
-        <ListItemButton sx={{ py: '1.5rem' }}>
+        <ListItemButton
+          sx={{ py: '1.5rem' }}
+          onClick={() =>
+            setGoalElement(
+              <PostOffer
+                setGoalElement={setGoalElement}
+                onGenerate={onGenerate}
+              />,
+            )
+          }
+        >
           <ListItemText primary={msg('app.post.goal.offer')} />
         </ListItemButton>
       </ListItem>
@@ -85,7 +96,7 @@ export const PostGoalSelector: React.FC<IPostGoalSelectorProps> = ({
           </Badge>
         </ListItemButton>
       </ListItem>
-      <ListItem disablePadding>
+      {/* <ListItem disablePadding>
         <ListItemButton sx={{ py: '1.5rem' }}>
           <Badge badgeContent="breve" color="primary">
             <ListItemText primary={msg('app.post.goal.tips')} />
@@ -147,7 +158,7 @@ export const PostGoalSelector: React.FC<IPostGoalSelectorProps> = ({
             <ListItemText primary={msg('app.post.goal.motivational')} />
           </Badge>
         </ListItemButton>
-      </ListItem>
+      </ListItem> */}
     </List>
   );
 };

@@ -5,9 +5,19 @@ export type PostType = 'image' | 'carousel' | 'video';
 export type PostGoal =
   | 'Product'
   | 'Offer'
+  | 'Novelty'
+  | 'Event'
+  | 'Testimonial'
   | 'Tutorial'
   | 'Tips'
-  | 'Behind-the-Scenes';
+  | 'Behind-the-Scenes'
+  | 'TBT'
+  | 'Poll'
+  | 'FAQ'
+  | 'Challenge'
+  | 'Contest'
+  | 'Entertainment'
+  | 'Motivational';
 
 export type PostStatus =
   | 'initial'
@@ -21,7 +31,7 @@ export type PostParamProduct = {
   topic: string;
 };
 
-export type PostParamPromotion = {
+export type PostParamOffer = {
   product: string;
   offer: string;
 };
@@ -35,7 +45,7 @@ export type PostParams = {
   type: PostType;
   slidesCount?: number; // required only if type is 'carousel'
   format: PostFormat;
-  extra: PostParamProduct | PostParamPromotion | PostParamTutorial;
+  extra: PostParamProduct | PostParamOffer | PostParamTutorial;
   character?: string;
 };
 
