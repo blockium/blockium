@@ -35,10 +35,7 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
   console.log('DayPostsView', date);
 
   const [calendarCache] = useCalendarCache();
-
-  const [posts, setPosts] = useState<(Post | undefined)[]>([]);
-  const [adding, setAdding] = useState(false);
-  const [message, setMessage] = useState<string | null>(null);
+  const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
     const isoStartOfMonth = startOfMonth(date).toISOString();
@@ -50,6 +47,8 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
     setPosts(dayPosts);
   }, [calendarCache, date]);
 
+  const [adding, setAdding] = useState(false);
+  const [message, setMessage] = useState<string | null>(null);
   const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
 
   const onAddClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -62,15 +61,10 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
     setOpenPopover(null);
 
     if (!adding) {
-      // Adds an undefined post to the list to show a loading indicator
-      setPosts((posts) => [...posts, undefined]);
       setAdding(true);
 
       const result = await addPost(date);
       if (typeof result === 'string') {
-        // slice remove undefined from end
-        setPosts((posts) => posts.slice(0, posts.length - 1));
-
         // Show error in Alert when post creation fails
         setMessage(result);
       }
@@ -90,6 +84,7 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
         <Grid item textAlign="center" xs={12}>
           {formatDate(date)}
         </Grid>
+
         {posts.map((post, index) => (
           <Grid
             container
@@ -100,19 +95,29 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
             md={6}
             key={index}
           >
-            {post ? (
-              <PostCard post={post} setMessage={setMessage} />
-            ) : (
-              <LoadingIndicator>
-                <CriatyLogo
-                  full={false}
-                  colorScheme="transparent-green-green-transparent"
-                  sx={{ marginTop: '0.75rem' }}
-                />
-              </LoadingIndicator>
-            )}
+            <PostCard post={post} setMessage={setMessage} />
           </Grid>
         ))}
+
+        {adding && (
+          <Grid
+            container
+            justifyContent="center"
+            alignItems="center"
+            item
+            xs={12}
+            md={6}
+          >
+            <LoadingIndicator>
+              <CriatyLogo
+                full={false}
+                colorScheme="transparent-green-green-transparent"
+                sx={{ marginTop: '0.75rem' }}
+              />
+            </LoadingIndicator>
+          </Grid>
+        )}
+
         <Grid
           container
           item

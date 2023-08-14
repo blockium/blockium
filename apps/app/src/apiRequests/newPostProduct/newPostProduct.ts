@@ -40,7 +40,7 @@ export const newPostProduct = async (
 
       // TODO: !!! Remove double quotes inside 2 double quotes
 
-      console.log('data', answer.data, data);
+      // console.log('data', answer.data, data);
 
       post = { ...JSON.parse(data), status: 'initial' };
     } else {
