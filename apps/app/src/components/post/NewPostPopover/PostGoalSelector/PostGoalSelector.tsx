@@ -1,5 +1,6 @@
 import { ReactElement } from 'react';
 import {
+  Badge,
   List,
   ListItem,
   ListItemButton,
@@ -34,9 +35,11 @@ export const PostGoalSelector: React.FC<IPostGoalSelectorProps> = ({
           {msg('app.post.goal.selector-title')}
         </ListSubheader>
       }
+      sx={{ maxHeight: '420px', overflow: 'auto' }}
     >
       <ListItem disablePadding>
         <ListItemButton
+          sx={{ py: '1.5rem' }}
           onClick={() =>
             setGoalElement(
               <PostProduct
@@ -50,23 +53,99 @@ export const PostGoalSelector: React.FC<IPostGoalSelectorProps> = ({
         </ListItemButton>
       </ListItem>
       <ListItem disablePadding>
-        <ListItemButton>
+        <ListItemButton sx={{ py: '1.5rem' }}>
           <ListItemText primary={msg('app.post.goal.offer')} />
         </ListItemButton>
       </ListItem>
       <ListItem disablePadding>
-        <ListItemButton>
-          <ListItemText primary={msg('app.post.goal.tutorial')} />
+        <ListItemButton sx={{ py: '1.5rem' }}>
+          <Badge badgeContent="breve" color="primary">
+            <ListItemText primary={msg('app.post.goal.novelty')} />
+          </Badge>
         </ListItemButton>
       </ListItem>
       <ListItem disablePadding>
-        <ListItemButton>
-          <ListItemText primary={msg('app.post.goal.tips')} />
+        <ListItemButton sx={{ py: '1.5rem' }}>
+          <Badge badgeContent="breve" color="primary">
+            <ListItemText primary={msg('app.post.goal.event')} />
+          </Badge>
         </ListItemButton>
       </ListItem>
       <ListItem disablePadding>
-        <ListItemButton>
-          <ListItemText primary={msg('app.post.goal.behind-the-scenes')} />
+        <ListItemButton sx={{ py: '1.5rem' }}>
+          <Badge badgeContent="breve" color="primary">
+            <ListItemText primary={msg('app.post.goal.testimonial')} />
+          </Badge>
+        </ListItemButton>
+      </ListItem>
+      <ListItem disablePadding>
+        <ListItemButton sx={{ py: '1.5rem' }}>
+          <Badge badgeContent="breve" color="primary">
+            <ListItemText primary={msg('app.post.goal.tutorial')} />
+          </Badge>
+        </ListItemButton>
+      </ListItem>
+      <ListItem disablePadding>
+        <ListItemButton sx={{ py: '1.5rem' }}>
+          <Badge badgeContent="breve" color="primary">
+            <ListItemText primary={msg('app.post.goal.tips')} />
+          </Badge>
+        </ListItemButton>
+      </ListItem>
+      <ListItem disablePadding>
+        <ListItemButton sx={{ py: '1.5rem' }}>
+          <Badge badgeContent="breve" color="primary">
+            <ListItemText primary={msg('app.post.goal.behind-the-scenes')} />
+          </Badge>
+        </ListItemButton>
+      </ListItem>
+      <ListItem disablePadding>
+        <ListItemButton sx={{ py: '1.5rem' }}>
+          <Badge badgeContent="breve" color="primary">
+            <ListItemText primary={msg('app.post.goal.tbt')} />
+          </Badge>
+        </ListItemButton>
+      </ListItem>
+      <ListItem disablePadding>
+        <ListItemButton sx={{ py: '1.5rem' }}>
+          <Badge badgeContent="breve" color="primary">
+            <ListItemText primary={msg('app.post.goal.poll')} />
+          </Badge>
+        </ListItemButton>
+      </ListItem>
+      <ListItem disablePadding>
+        <ListItemButton sx={{ py: '1.5rem' }}>
+          <Badge badgeContent="breve" color="primary">
+            <ListItemText primary={msg('app.post.goal.faq')} />
+          </Badge>
+        </ListItemButton>
+      </ListItem>
+      <ListItem disablePadding>
+        <ListItemButton sx={{ py: '1.5rem' }}>
+          <Badge badgeContent="breve" color="primary">
+            <ListItemText primary={msg('app.post.goal.challenge')} />
+          </Badge>
+        </ListItemButton>
+      </ListItem>
+      <ListItem disablePadding>
+        <ListItemButton sx={{ py: '1.5rem' }}>
+          <Badge badgeContent="breve" color="primary">
+            <ListItemText primary={msg('app.post.goal.contest')} />
+          </Badge>
+        </ListItemButton>
+      </ListItem>
+      <ListItem disablePadding>
+        <ListItemButton sx={{ py: '1.5rem' }}>
+          <Badge badgeContent="breve" color="primary">
+            <ListItemText primary={msg('app.post.goal.entertainment')} />
+          </Badge>
+        </ListItemButton>
+      </ListItem>
+      <ListItem disablePadding>
+        <ListItemButton sx={{ py: '1.5rem' }}>
+          <Badge badgeContent="breve" color="primary">
+            <ListItemText primary={msg('app.post.goal.motivational')} />
+          </Badge>
         </ListItemButton>
       </ListItem>
     </List>
