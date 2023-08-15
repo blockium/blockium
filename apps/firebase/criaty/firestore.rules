@@ -14,7 +14,8 @@ service cloud.firestore {
   
   	// True if the user has an active subscription
     function isSubscriber(userId) {
-    	return get(/databases/$(database)/documents/users/$(userId)).data.subscriber == true;
+    	// return get(/databases/$(database)/documents/users/$(userId)).data.subscriber == true;
+    	return get(/databases/$(database)/documents/users/$(userId)).data.expirationDate >= request.time;
     }
   
   	// True if document was created by a partner

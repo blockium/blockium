@@ -11,4 +11,5 @@ export type User = {
   phone: string;
   authId?: string;
   business?: Business;
+  expirationDate: Date;
 };

@@ -4,6 +4,7 @@ import { UserRecord } from 'firebase-admin/auth';
 import { User } from '@postgpt/types';
 
 import { db } from './db';
+import { addDays } from 'date-fns';
 
 export const USER_ERROR_DIFFERENT_USER_NAME = 'USER_ERROR_DIFFERENT_USER_NAME';
 export const USER_ERROR_NON_UNIQUE_USER = 'USER_ERROR_NON_UNIQUE_USER';
@@ -12,12 +13,13 @@ export const USER_ERROR_NON_UNIQUE_USER = 'USER_ERROR_NON_UNIQUE_USER';
 export const createUser = async (
   phone: string,
   name: string,
-  displayName?: string
+  displayName?: string,
 ) => {
   const user: User = {
     name,
     displayName,
     phone,
+    expirationDate: addDays(new Date(), 3),
   };
   const userDoc = await db.users.add(user);
   user.id = userDoc.id;
@@ -37,7 +39,7 @@ export const getOrCreateUser = async (
   phone: string,
   name: string,
   displayName?: string,
-  allowDifferentNames?: boolean
+  allowDifferentNames?: boolean,
 ) => {
   const users = await getAllUsers(phone);
 
