@@ -14,7 +14,6 @@ interface IPostProductProps {
   onGenerate?: (addPost: (date: Date) => Promise<Post | null>) => Promise<void>;
 }
 
-// TODO: *** PostProduct
 // TODO: !!! Add a select to choose the post format
 // TODO: !!! Add a select to choose the post type
 export const PostProduct: React.FC<IPostProductProps> = ({
@@ -37,7 +36,7 @@ export const PostProduct: React.FC<IPostProductProps> = ({
     }
 
     const post = result[0];
-    // TODO: *** Save topic, character, format and type in Firebase
+    // TODO: Save topic, character, format and type in Firebase
     const newPost = {
       ...post,
       date,

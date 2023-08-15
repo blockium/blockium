@@ -21,7 +21,6 @@ interface IPostGoalSelectorProps {
   ) => Promise<void>;
 }
 
-// TODO: *** Add a select to choose the post goal
 export const PostGoalSelector: React.FC<IPostGoalSelectorProps> = ({
   setGoalElement,
   onGenerate,

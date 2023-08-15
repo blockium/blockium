@@ -89,11 +89,11 @@ interface IPostCardProps {
 
 // TODO: !!! Move the status stepper to the actions section
 
-// TODO: !!! Add a menu popover when the user clicks on the 3-dots icon
+// TODO: *** Add a menu popover when the user clicks on the 3-dots icon
 
-// TODO: !!! Add a button to delete the post on the menu popover
+// TODO: *** Add a button to delete the post on the menu popover
 // TODO: !!! Show a popup to confirm the post deletion
-// TODO: !!! Delete the post when the user confirms the deletion.
+// TODO: *** Delete the post when the user confirms the deletion. This saves the deletedAt field on the post and remove it from the calendarCache
 
 // TODO: ! Open the post edit dialog when the user clicks on the post content
 

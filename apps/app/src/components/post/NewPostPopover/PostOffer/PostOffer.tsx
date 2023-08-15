@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { Post } from '@postgpt/types';
 import { msg } from '@postgpt/i18n';
 
-// TODO: change to newPostOffer
 import { PostFamily1 } from '../PostFamily1';
 
 interface IPostOfferProps {
