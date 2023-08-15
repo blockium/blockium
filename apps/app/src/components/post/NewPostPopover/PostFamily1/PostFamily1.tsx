@@ -107,13 +107,7 @@ export const PostFamily1: React.FC<IPostFamily1Props> = ({
       const userId = sessionStorage.getItem('userId') ?? '';
       const postRef = await addPostDb(userId, newPost);
       newPost.id = postRef.id;
-      return newPost;
-      //
-    } catch (error) {
-      console.error(error);
-      return msg('app.error.savePost');
-      //
-    } finally {
+
       // Add the new post to the calendar data cache
       const isoStartOfMonth = startOfMonth(date).toISOString();
       const monthData = calendarCache[isoStartOfMonth];
@@ -121,6 +115,12 @@ export const PostFamily1: React.FC<IPostFamily1Props> = ({
 
       // This will update the post list
       setCalendarCache({ ...calendarCache });
+
+      return newPost;
+      //
+    } catch (error) {
+      console.error(error);
+      return msg('app.error.savePost');
     }
   };
 
