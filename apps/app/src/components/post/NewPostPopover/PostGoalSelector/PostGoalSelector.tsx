@@ -12,6 +12,12 @@ import { Post } from '@postgpt/types';
 
 import { PostProduct } from '../PostProduct';
 import { PostOffer } from '../PostOffer';
+import { PostNovelty } from '../PostNovelty';
+import { PostEvent } from '../PostEvent';
+import { PostTestimonial } from '../PostTestimonial';
+import { PostTutorial } from '../PostTutorial';
+import { PostTips } from '../PostTips';
+import { PostBehindTheScenes } from '../PostBehindTheScenes';
 
 interface IPostGoalSelectorProps {
   setGoalElement: (element: ReactElement | null) => void;
@@ -68,43 +74,101 @@ export const PostGoalSelector: React.FC<IPostGoalSelectorProps> = ({
       </ListItem>
       {/* TODO: *** Generate post with goal novelty */}
       <ListItem disablePadding>
-        <ListItemButton sx={{ py: '1.5rem' }}>
+        <ListItemButton
+          sx={{ py: '1.5rem' }}
+          onClick={() =>
+            setGoalElement(
+              <PostNovelty
+                setGoalElement={setGoalElement}
+                onGenerate={onGenerate}
+              />,
+            )
+          }
+        >
           <ListItemText primary={msg('app.post.goal.novelty')} />
         </ListItemButton>
       </ListItem>
       {/* TODO: *** Generate post with goal event */}
       <ListItem disablePadding>
-        <ListItemButton sx={{ py: '1.5rem' }}>
+        <ListItemButton
+          sx={{ py: '1.5rem' }}
+          onClick={() =>
+            setGoalElement(
+              <PostEvent
+                setGoalElement={setGoalElement}
+                onGenerate={onGenerate}
+              />,
+            )
+          }
+        >
           <ListItemText primary={msg('app.post.goal.event')} />
         </ListItemButton>
       </ListItem>
       {/* TODO: *** Generate post with goal testimonial */}
       <ListItem disablePadding>
-        <ListItemButton sx={{ py: '1.5rem' }}>
+        <ListItemButton
+          sx={{ py: '1.5rem' }}
+          onClick={() =>
+            setGoalElement(
+              <PostTestimonial
+                setGoalElement={setGoalElement}
+                onGenerate={onGenerate}
+              />,
+            )
+          }
+        >
           <ListItemText primary={msg('app.post.goal.testimonial')} />
         </ListItemButton>
       </ListItem>
       {/* TODO: *** Generate post with goal tutorial */}
       <ListItem disablePadding>
-        <ListItemButton sx={{ py: '1.5rem' }}>
+        <ListItemButton
+          sx={{ py: '1.5rem' }}
+          onClick={() =>
+            setGoalElement(
+              <PostTutorial
+                setGoalElement={setGoalElement}
+                onGenerate={onGenerate}
+              />,
+            )
+          }
+        >
           <ListItemText primary={msg('app.post.goal.tutorial')} />
         </ListItemButton>
       </ListItem>
+      {/* TODO: *** Generate post with goal tips */}
+      <ListItem disablePadding>
+        <ListItemButton
+          sx={{ py: '1.5rem' }}
+          onClick={() =>
+            setGoalElement(
+              <PostTips
+                setGoalElement={setGoalElement}
+                onGenerate={onGenerate}
+              />,
+            )
+          }
+        >
+          <ListItemText primary={msg('app.post.goal.tips')} />
+        </ListItemButton>
+      </ListItem>
+      {/* TODO: *** Generate post with goal behind-the-scenes */}
+      <ListItem disablePadding>
+        <ListItemButton
+          sx={{ py: '1.5rem' }}
+          onClick={() =>
+            setGoalElement(
+              <PostBehindTheScenes
+                setGoalElement={setGoalElement}
+                onGenerate={onGenerate}
+              />,
+            )
+          }
+        >
+          <ListItemText primary={msg('app.post.goal.behind-the-scenes')} />
+        </ListItemButton>
+      </ListItem>
       {/* <ListItem disablePadding>
-        <ListItemButton sx={{ py: '1.5rem' }}>
-          <Badge badgeContent="breve" color="primary">
-            <ListItemText primary={msg('app.post.goal.tips')} />
-          </Badge>
-        </ListItemButton>
-      </ListItem>
-      <ListItem disablePadding>
-        <ListItemButton sx={{ py: '1.5rem' }}>
-          <Badge badgeContent="breve" color="primary">
-            <ListItemText primary={msg('app.post.goal.behind-the-scenes')} />
-          </Badge>
-        </ListItemButton>
-      </ListItem>
-      <ListItem disablePadding>
         <ListItemButton sx={{ py: '1.5rem' }}>
           <Badge badgeContent="breve" color="primary">
             <ListItemText primary={msg('app.post.goal.tbt')} />

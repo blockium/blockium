@@ -5,22 +5,16 @@ import axios from 'axios';
 import { PostGoal } from '@postgpt/types';
 
 import {
-  getPostEventPrompt,
-  getPostOfferPrompt,
-  getPostProductPrompt,
-  getPostTestimonialPrompt,
+  getPostBehindTheScenesPrompt,
+  getPostNoveltyPrompt,
+  getPostTipsPrompt,
+  getPostTutorialPrompt,
 } from '../prompts';
 
 const validateParams = (request, response) => {
-  const { product, topic, type, slidesCount, format } = request.body;
+  const { topic, type, slidesCount, format } = request.body;
 
-  if (
-    !product ||
-    !topic ||
-    !type ||
-    !format ||
-    (type === 'carousel' && !slidesCount)
-  ) {
+  if (!topic || !type || !format || (type === 'carousel' && !slidesCount)) {
     response.status(400).send('Parâmetros ausentes.');
     return false;
   }
@@ -28,42 +22,34 @@ const validateParams = (request, response) => {
   return true;
 };
 
-export const newPostFamily1 = https.onRequest(async (request, response) => {
+export const newPostFamily2 = https.onRequest(async (request, response) => {
   // TODO: Review CORS policy
   const corsObj = cors({ origin: true });
   corsObj(request, response, async () => {
     if (!validateParams(request, response)) return;
 
-    const { goal, product, topic, type, slidesCount, format, character } =
-      request.body;
+    const { goal, topic, type, slidesCount, format, character } = request.body;
 
     let getPostPrompt;
     switch (goal as PostGoal) {
-      case 'Product':
-        getPostPrompt = getPostProductPrompt;
+      case 'Novelty':
+        getPostPrompt = getPostNoveltyPrompt;
         break;
-      case 'Offer':
-        getPostPrompt = getPostOfferPrompt;
+      case 'Tutorial':
+        getPostPrompt = getPostTutorialPrompt;
         break;
-      case 'Event':
-        getPostPrompt = getPostEventPrompt;
+      case 'Tips':
+        getPostPrompt = getPostTipsPrompt;
         break;
-      case 'Testimonial':
-        getPostPrompt = getPostTestimonialPrompt;
+      case 'Behind-the-Scenes':
+        getPostPrompt = getPostBehindTheScenesPrompt;
         break;
       default:
         response.status(400).send('Parâmetros ausentes.');
         return;
     }
 
-    const prompt = getPostPrompt(
-      product,
-      topic,
-      type,
-      slidesCount,
-      format,
-      character,
-    );
+    const prompt = getPostPrompt(topic, type, slidesCount, format, character);
     // console.log('prompt', prompt);
 
     try {

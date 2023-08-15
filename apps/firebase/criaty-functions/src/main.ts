@@ -3,6 +3,7 @@ export * from './getUser';
 export * from './login';
 export * from './loginWithPhone';
 export * from './newPostFamily1';
+export * from './newPostFamily2';
 export * from './newPosts';
 export * from './newSession';
 export * from './newWeeklyPosts';

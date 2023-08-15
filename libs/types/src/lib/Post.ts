@@ -26,18 +26,13 @@ export type PostStatus =
   | 'approved'
   | 'published';
 
-export type PostParamProduct = {
+export type PostParamFamily1 = {
   product: string;
   topic: string;
 };
 
-export type PostParamOffer = {
-  product: string;
-  offer: string;
-};
-
-export type PostParamTutorial = {
-  subject: string;
+export type PostParamFamily2 = {
+  topic: string;
 };
 
 export type PostParams = {
@@ -45,7 +40,7 @@ export type PostParams = {
   type: PostType;
   slidesCount?: number; // required only if type is 'carousel'
   format: PostFormat;
-  extra: PostParamProduct | PostParamOffer | PostParamTutorial;
+  extra: PostParamFamily1 | PostParamFamily2;
   character?: string;
 };
 

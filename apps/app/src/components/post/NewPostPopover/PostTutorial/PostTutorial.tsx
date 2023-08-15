@@ -3,7 +3,7 @@ import { ReactElement } from 'react';
 import { Post } from '@postgpt/types';
 import { msg } from '@postgpt/i18n';
 
-import { PostFamily1 } from '../PostFamily1';
+import { PostFamily2 } from '../PostFamily2';
 
 interface IPostTutorialProps {
   setGoalElement: (element: ReactElement | null) => void;
@@ -17,10 +17,9 @@ export const PostTutorial: React.FC<IPostTutorialProps> = ({
   onGenerate,
 }) => {
   return (
-    <PostFamily1
-      goal="Offer"
-      goalTitle={msg('app.post.goal.offer')}
-      productLabel={msg('app.popover.newpost.input.product')}
+    <PostFamily2
+      goal="Tutorial"
+      goalTitle={msg('app.post.goal.tutorial')}
       topicLabel={msg('app.popover.newpost.input.product-offer')}
       setGoalElement={setGoalElement}
       onGenerate={onGenerate}

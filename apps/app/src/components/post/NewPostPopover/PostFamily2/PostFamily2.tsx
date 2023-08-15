@@ -24,12 +24,11 @@ import {
 import { addPost as addPostDb } from '@postgpt/firebase';
 import { useCalendarCache } from '@postgpt/ui-calendar';
 
-import { newPostFamily1 } from '../../../../apiRequests';
+import { newPostFamily2 } from '../../../../apiRequests';
 
-interface IPostFamily1Props {
+interface IPostFamily2Props {
   goal: PostGoal;
   goalTitle: string;
-  productLabel: string;
   topicLabel: string;
   setGoalElement: (element: ReactElement | null) => void;
   onGenerate: (
@@ -37,16 +36,14 @@ interface IPostFamily1Props {
   ) => Promise<void>;
 }
 
-export const PostFamily1: React.FC<IPostFamily1Props> = ({
+export const PostFamily2: React.FC<IPostFamily2Props> = ({
   goal,
   goalTitle,
-  productLabel,
   topicLabel,
   setGoalElement,
   onGenerate,
 }) => {
   const [calendarCache, setCalendarCache] = useCalendarCache();
-  const [product, setProduct] = useState('');
   const [topic, setTopic] = useState('');
   const [type, setType] = useState<PostType>('image');
   const [slidesCount, setSlidesCount] = useState<number>(0);
@@ -64,9 +61,8 @@ export const PostFamily1: React.FC<IPostFamily1Props> = ({
 
   const addPost = async (date: Date) => {
     // Request the creation of one new post
-    const result = await newPostFamily1(
+    const result = await newPostFamily2(
       goal,
-      product,
       topic,
       type as PostType,
       slidesCount || 0,
@@ -89,7 +85,6 @@ export const PostFamily1: React.FC<IPostFamily1Props> = ({
       slidesCount: slidesCount || 0,
       format: format as PostFormat,
       extra: {
-        product,
         topic,
       },
       character,
@@ -137,27 +132,6 @@ export const PostFamily1: React.FC<IPostFamily1Props> = ({
         multiline
         rows={4}
         autoFocus
-        margin="dense"
-        label={productLabel}
-        type="text"
-        fullWidth
-        value={product}
-        onChange={(e) => setProduct(e.target.value)}
-        InputProps={{
-          endAdornment: (
-            <IconButton
-              sx={{ visibility: product ? 'visible' : 'hidden' }}
-              onClick={() => setProduct('')}
-            >
-              <ClearIcon />
-            </IconButton>
-          ),
-        }}
-        required
-      />
-      <TextField
-        multiline
-        rows={4}
         margin="dense"
         label={topicLabel}
         type="text"
@@ -279,11 +253,7 @@ export const PostFamily1: React.FC<IPostFamily1Props> = ({
           fullWidth
           sx={{ mt: 2 }}
           disabled={
-            !product ||
-            !topic ||
-            !type ||
-            !format ||
-            (type === 'carousel' && !slidesCount)
+            !topic || !type || !format || (type === 'carousel' && !slidesCount)
           }
         >
           {msg('app.button.generate')}
@@ -293,4 +263,4 @@ export const PostFamily1: React.FC<IPostFamily1Props> = ({
   );
 };
 
-export default PostFamily1;
+export default PostFamily2;
