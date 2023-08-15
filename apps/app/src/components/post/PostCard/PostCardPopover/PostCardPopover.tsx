@@ -1,5 +1,6 @@
 import { Badge, Link, ListItemIcon, MenuItem, Stack } from '@mui/material';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import MoveDownIcon from '@mui/icons-material/MoveDown';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -8,18 +9,20 @@ import { MenuPopover } from '@postgpt/ui-mininal-tmpl';
 
 interface IPostCardPopoverProps {
   anchorEl: HTMLElement | null;
+  onRegenerate: () => void;
   onClose: () => void;
   onDelete: () => void;
   onCopy?: () => void;
-  onRegenerate?: () => void;
+  onMove?: () => void;
 }
 
 export const PostCardPopover: React.FC<IPostCardPopoverProps> = ({
   anchorEl,
   onClose,
-  onDelete,
-  onCopy,
   onRegenerate,
+  onCopy,
+  onMove,
+  onDelete,
 }) => {
   return (
     <MenuPopover
@@ -40,18 +43,27 @@ export const PostCardPopover: React.FC<IPostCardPopoverProps> = ({
     >
       <MenuItem component={Link} onClick={onRegenerate} sx={{ m: 1 }}>
         <Stack direction="row">
-          {/* Add a button to regenerate the post  */}
+          {/* Button to regenerate the post  */}
+          <ListItemIcon>
+            <RefreshIcon />
+          </ListItemIcon>
+          {msg('app.button.regenerate')}
+        </Stack>
+      </MenuItem>
+      <MenuItem component={Link} onClick={onMove} sx={{ m: 1 }}>
+        <Stack direction="row">
+          {/* Button to move the post */}
           <Badge badgeContent="breve" color="primary">
             <ListItemIcon>
-              <RefreshIcon />
+              <MoveDownIcon />
             </ListItemIcon>
-            {msg('app.button.regenerate')}
+            {msg('app.button.move')}
           </Badge>
         </Stack>
       </MenuItem>
       <MenuItem component={Link} onClick={onCopy} sx={{ m: 1 }}>
         <Stack direction="row">
-          {/* Add a button to copy the post */}
+          {/* Button to copy the post */}
           <Badge badgeContent="breve" color="primary">
             <ListItemIcon>
               <ContentCopyIcon />
@@ -62,7 +74,7 @@ export const PostCardPopover: React.FC<IPostCardPopoverProps> = ({
       </MenuItem>
       <MenuItem component={Link} onClick={onDelete} sx={{ m: 1 }}>
         <Stack direction="row">
-          {/* Add a button to delete the post  */}
+          {/* Button to delete the post  */}
           <ListItemIcon>
             <DeleteIcon />
           </ListItemIcon>

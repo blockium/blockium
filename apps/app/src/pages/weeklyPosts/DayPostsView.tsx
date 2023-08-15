@@ -3,7 +3,7 @@ import { getDay, startOfMonth } from 'date-fns';
 import { Grid, IconButton } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
-import { Post } from '@postgpt/types';
+import { Post, PostParams } from '@postgpt/types';
 import { msg } from '@postgpt/i18n';
 import { fDateCalendar } from '@postgpt/utils';
 import { Alert, CriatyLogo, LoadingIndicator } from '@postgpt/ui-common';
@@ -45,15 +45,22 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
 
   const [adding, setAdding] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
+  const [postParams, setPostParams] = useState<PostParams>();
   const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
 
-  const onAddClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const onAddClick = (event: React.MouseEvent<HTMLElement>) => {
     setOpenPopover(event.currentTarget);
+  };
+
+  const onRegenerate = (element: HTMLElement, post: Post) => {
+    setPostParams(post.params);
+    setOpenPopover(element);
   };
 
   const handleGenerate = async (
     addPost: (date: Date) => Promise<Post | string>,
   ) => {
+    setPostParams(undefined);
     setOpenPopover(null);
 
     if (!adding) {
@@ -70,6 +77,7 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
   };
 
   const handleOnClose = () => {
+    setPostParams(undefined);
     setOpenPopover(null);
   };
 
@@ -91,7 +99,11 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
             md={6}
             key={index}
           >
-            <PostCard post={post} setMessage={setMessage} />
+            <PostCard
+              post={post}
+              setMessage={setMessage}
+              onRegenerate={onRegenerate}
+            />
           </Grid>
         ))}
 
@@ -129,6 +141,7 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
       </Grid>
       <NewPostPopover
         anchorEl={openPopover}
+        postParams={postParams}
         onGenerate={handleGenerate}
         onClose={handleOnClose}
       />

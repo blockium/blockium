@@ -1,12 +1,14 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 
 import { MenuPopover } from '@postgpt/ui-mininal-tmpl';
-import { Post } from '@postgpt/types';
+import { Post, PostParams } from '@postgpt/types';
 
 import { PostGoalSelector } from './PostGoalSelector';
+import { PostEvent } from './PostEvent';
 
 interface INewPostPopoverProps {
   anchorEl: HTMLElement | null;
+  postParams?: PostParams;
   onGenerate: (
     addPost: (date: Date) => Promise<Post | string>,
   ) => Promise<void>;
@@ -15,10 +17,24 @@ interface INewPostPopoverProps {
 
 export const NewPostPopover: React.FC<INewPostPopoverProps> = ({
   anchorEl,
+  postParams,
   onGenerate,
   onClose,
 }) => {
   const [goalElement, setGoalElement] = useState<ReactElement | null>(null);
+
+  useEffect(() => {
+    if (postParams) {
+      // TODO: Set according to postParams.goal
+      setGoalElement(
+        <PostEvent
+          setGoalElement={setGoalElement}
+          onGenerate={onGenerate}
+          postParams={postParams}
+        />,
+      );
+    }
+  }, [postParams, onGenerate]);
 
   const handleClose = () => {
     onClose();

@@ -18,6 +18,7 @@ import {
   Post,
   PostFormat,
   PostGoal,
+  PostParamFamily1,
   PostParams,
   PostType,
 } from '@postgpt/types';
@@ -35,6 +36,7 @@ interface IPostFamily1Props {
   onGenerate: (
     addPost: (date: Date) => Promise<Post | string>,
   ) => Promise<void>;
+  postParams?: PostParams;
 }
 
 export const PostFamily1: React.FC<IPostFamily1Props> = ({
@@ -44,14 +46,23 @@ export const PostFamily1: React.FC<IPostFamily1Props> = ({
   topicLabel,
   setGoalElement,
   onGenerate,
+  postParams,
 }) => {
   const [calendarCache, setCalendarCache] = useCalendarCache();
-  const [product, setProduct] = useState('');
-  const [topic, setTopic] = useState('');
-  const [type, setType] = useState<PostType>('image');
-  const [slidesCount, setSlidesCount] = useState<number>(0);
-  const [format, setFormat] = useState<PostFormat>('feed');
-  const [character] = useState('');
+  const [product, setProduct] = useState(
+    (postParams?.extra as PostParamFamily1)?.product || '',
+  );
+  const [topic, setTopic] = useState(
+    (postParams?.extra as PostParamFamily1)?.topic || '',
+  );
+  const [type, setType] = useState<PostType>(postParams?.type || 'image');
+  const [slidesCount, setSlidesCount] = useState<number>(
+    postParams?.slidesCount || 0,
+  );
+  const [format, setFormat] = useState<PostFormat>(
+    postParams?.format || 'feed',
+  );
+  const [character] = useState(postParams?.character || '');
 
   const setTypeAndFormat = (type: PostType) => {
     setType(type);

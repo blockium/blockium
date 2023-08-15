@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { startOfMonth } from 'date-fns';
 import {
   Box,
@@ -90,6 +90,7 @@ const PostStepper: React.FC<IPostStepperProps> = ({ post, setMessage }) => {
 interface IPostCardProps {
   post: Post;
   setMessage: (message: string | null) => void;
+  onRegenerate: (element: HTMLElement, post: Post) => void;
 }
 
 // TODO: !!! Copy a post. User can select a date and copy the post to that date.
@@ -101,12 +102,18 @@ interface IPostCardProps {
 // TODO: ! Open the post edit dialog when the user clicks on the post content
 
 // TODO: ! Add a "Mais"/"Menos" in actions section to show/hide the post content. Default to show only the description (no hashtags, no type, no type description)
-export const PostCard: React.FC<IPostCardProps> = ({ post, setMessage }) => {
+export const PostCard: React.FC<IPostCardProps> = ({
+  post,
+  setMessage,
+  onRegenerate,
+}) => {
   const [calendarCache, setCalendarCache] = useCalendarCache();
   const user = useUser();
 
   const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
   const [openConfirmDelete, setOpenConfirmDelete] = useState(false);
+
+  const postCardRef = useRef<HTMLDivElement>(null);
 
   const onMoreClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setOpenPopover(event.currentTarget);
@@ -114,6 +121,13 @@ export const PostCard: React.FC<IPostCardProps> = ({ post, setMessage }) => {
 
   const handleOnClose = () => {
     setOpenPopover(null);
+  };
+
+  const handleRegenerate = () => {
+    setOpenPopover(null);
+    if (postCardRef.current) {
+      onRegenerate(postCardRef.current, post);
+    }
   };
 
   // Show a popup to confirm the post deletion
@@ -148,7 +162,7 @@ export const PostCard: React.FC<IPostCardProps> = ({ post, setMessage }) => {
 
   return (
     <>
-      <Card>
+      <Card ref={postCardRef}>
         <CardHeader
           title={post.title}
           action={
@@ -199,6 +213,7 @@ export const PostCard: React.FC<IPostCardProps> = ({ post, setMessage }) => {
       {/* Add a menu popover when the user clicks on the 3-dots icon */}
       <PostCardPopover
         anchorEl={openPopover}
+        onRegenerate={handleRegenerate}
         onClose={handleOnClose}
         onDelete={handleDelete}
       />
