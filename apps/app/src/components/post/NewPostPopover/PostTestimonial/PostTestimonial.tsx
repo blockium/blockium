@@ -20,8 +20,8 @@ export const PostTestimonial: React.FC<IPostTestimonialProps> = ({
     <PostFamily1
       goal="Testimonial"
       goalTitle={msg('app.post.goal.testimonial')}
-      productLabel={msg('app.popover.newpost.input.product')}
-      topicLabel={msg('app.popover.newpost.input.product-offer')}
+      productLabel={msg('app.popover.newpost.input.testimonial')}
+      topicLabel={msg('app.popover.newpost.input.customer')}
       setGoalElement={setGoalElement}
       onGenerate={onGenerate}
     />

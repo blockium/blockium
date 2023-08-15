@@ -20,7 +20,7 @@ export const PostBehindTheScenes: React.FC<IPostBehindTheScenesProps> = ({
     <PostFamily2
       goal="Tutorial"
       goalTitle={msg('app.post.goal.behind-the-scenes')}
-      topicLabel={msg('app.popover.newpost.input.product-offer')}
+      topicLabel={msg('app.popover.newpost.input.scene')}
       setGoalElement={setGoalElement}
       onGenerate={onGenerate}
     />

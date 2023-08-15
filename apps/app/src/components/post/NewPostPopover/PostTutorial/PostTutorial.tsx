@@ -20,7 +20,7 @@ export const PostTutorial: React.FC<IPostTutorialProps> = ({
     <PostFamily2
       goal="Tutorial"
       goalTitle={msg('app.post.goal.tutorial')}
-      topicLabel={msg('app.popover.newpost.input.product-offer')}
+      topicLabel={msg('app.popover.newpost.input.subject')}
       setGoalElement={setGoalElement}
       onGenerate={onGenerate}
     />

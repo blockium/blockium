@@ -20,7 +20,7 @@ export const PostNovelty: React.FC<IPostNoveltyProps> = ({
     <PostFamily2
       goal="Novelty"
       goalTitle={msg('app.post.goal.novelty')}
-      topicLabel={msg('app.popover.newpost.input.product-offer')}
+      topicLabel={msg('app.popover.newpost.input.novelty')}
       setGoalElement={setGoalElement}
       onGenerate={onGenerate}
     />

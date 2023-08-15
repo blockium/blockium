@@ -20,8 +20,8 @@ export const PostEvent: React.FC<IPostEventProps> = ({
     <PostFamily1
       goal="Event"
       goalTitle={msg('app.post.goal.event')}
-      productLabel={msg('app.popover.newpost.input.product')}
-      topicLabel={msg('app.popover.newpost.input.product-offer')}
+      productLabel={msg('app.popover.newpost.input.event')}
+      topicLabel={msg('app.popover.newpost.input.event-details')}
       setGoalElement={setGoalElement}
       onGenerate={onGenerate}
     />
