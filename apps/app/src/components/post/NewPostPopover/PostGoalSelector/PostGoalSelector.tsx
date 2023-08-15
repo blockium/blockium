@@ -72,7 +72,6 @@ export const PostGoalSelector: React.FC<IPostGoalSelectorProps> = ({
           <ListItemText primary={msg('app.post.goal.offer')} />
         </ListItemButton>
       </ListItem>
-      {/* TODO: *** Generate post with goal novelty */}
       <ListItem disablePadding>
         <ListItemButton
           sx={{ py: '1.5rem' }}
@@ -88,7 +87,6 @@ export const PostGoalSelector: React.FC<IPostGoalSelectorProps> = ({
           <ListItemText primary={msg('app.post.goal.novelty')} />
         </ListItemButton>
       </ListItem>
-      {/* TODO: *** Generate post with goal event */}
       <ListItem disablePadding>
         <ListItemButton
           sx={{ py: '1.5rem' }}
@@ -104,7 +102,6 @@ export const PostGoalSelector: React.FC<IPostGoalSelectorProps> = ({
           <ListItemText primary={msg('app.post.goal.event')} />
         </ListItemButton>
       </ListItem>
-      {/* TODO: *** Generate post with goal testimonial */}
       <ListItem disablePadding>
         <ListItemButton
           sx={{ py: '1.5rem' }}
@@ -120,7 +117,6 @@ export const PostGoalSelector: React.FC<IPostGoalSelectorProps> = ({
           <ListItemText primary={msg('app.post.goal.testimonial')} />
         </ListItemButton>
       </ListItem>
-      {/* TODO: *** Generate post with goal tutorial */}
       <ListItem disablePadding>
         <ListItemButton
           sx={{ py: '1.5rem' }}
@@ -136,7 +132,6 @@ export const PostGoalSelector: React.FC<IPostGoalSelectorProps> = ({
           <ListItemText primary={msg('app.post.goal.tutorial')} />
         </ListItemButton>
       </ListItem>
-      {/* TODO: *** Generate post with goal tips */}
       <ListItem disablePadding>
         <ListItemButton
           sx={{ py: '1.5rem' }}
@@ -152,7 +147,6 @@ export const PostGoalSelector: React.FC<IPostGoalSelectorProps> = ({
           <ListItemText primary={msg('app.post.goal.tips')} />
         </ListItemButton>
       </ListItem>
-      {/* TODO: *** Generate post with goal behind-the-scenes */}
       <ListItem disablePadding>
         <ListItemButton
           sx={{ py: '1.5rem' }}
