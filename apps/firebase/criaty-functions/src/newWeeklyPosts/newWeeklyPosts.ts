@@ -30,7 +30,7 @@ function parseWeeklyPosts(answer: string): Post[][] {
     // console.log(lines);
 
     const post: Post = {
-      date: new Date(), // TODO: get date from prompt
+      date: new Date(),
       title: lines[0],
       description: lines[1],
       hashtags: lines[2],
@@ -38,6 +38,19 @@ function parseWeeklyPosts(answer: string): Post[][] {
       type: lines[4].toLowerCase() as PostType,
       typeDescription: lines[5],
       status: 'initial',
+      params: {
+        goal: 'Product',
+        type: 'image',
+        slidesCount: 0,
+        format: 'feed',
+        extra: {
+          product: '',
+          topic: '',
+        },
+        character: '',
+      },
+      createdAt: new Date(),
+      deletedAt: null,
     };
 
     posts.push([post]);
