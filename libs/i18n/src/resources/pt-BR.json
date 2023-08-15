@@ -55,6 +55,8 @@
   "app.post.status.created": "Criado",
   "app.post.status.approved": "Aprovado",
   "app.post.status.published": "Publicado",
+  "app.dialog.postdelete.title": "Excluir Post",
+  "app.dialog.postdelete.message": "Confirma a exclusão do post? Essa ação não poderá ser desfeita.",
   "app.dialog.postedit.title": "Postagem",
   "app.dialog.postedit.input.title": "Título",
   "app.dialog.postedit.input.description": "Legenda",

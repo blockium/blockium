@@ -19,6 +19,7 @@ import { msg } from '@postgpt/i18n';
 import { savePost, useUser } from '@postgpt/firebase';
 
 import { PostCardPopover } from './PostCardPopover';
+import { ConfirmDialog } from '@postgpt/ui-common';
 
 const steps: PostStatus[] = [
   'initial',
@@ -96,6 +97,7 @@ interface IPostCardProps {
 // TODO: ! Add a "Mais"/"Menos" in actions section to show/hide the post content. Default to show only the description (no hashtags, no type, no type description)
 export const PostCard: React.FC<IPostCardProps> = ({ post, setMessage }) => {
   const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
+  const [openConfirmDelete, setOpenConfirmDelete] = useState(false);
 
   const onMoreClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setOpenPopover(event.currentTarget);
@@ -105,9 +107,15 @@ export const PostCard: React.FC<IPostCardProps> = ({ post, setMessage }) => {
     setOpenPopover(null);
   };
 
-  // TODO: *** Show a popup to confirm the post deletion
-  // TODO: *** Delete the post when the user confirms the deletion. This saves the deletedAt field on the post and remove it from the calendarCache
+  // Show a popup to confirm the post deletion
   const handleDelete = () => {
+    setOpenPopover(null);
+    setOpenConfirmDelete(true);
+  };
+
+  // TODO: *** Delete the post when the user confirms the deletion. This saves the deletedAt field on the post and remove it from the calendarCache
+  const handleDeleteConfirmed = () => {
+    setOpenConfirmDelete(false);
     console.log('delete post');
   };
 
@@ -166,6 +174,14 @@ export const PostCard: React.FC<IPostCardProps> = ({ post, setMessage }) => {
         anchorEl={openPopover}
         onClose={handleOnClose}
         onDelete={handleDelete}
+      />
+      <ConfirmDialog
+        open={openConfirmDelete}
+        title={msg('app.dialog.postdelete.title')}
+        message={msg('app.dialog.postdelete.message')}
+        onConfirm={handleDeleteConfirmed}
+        onClose={() => setOpenConfirmDelete(false)}
+        confirmColor="error"
       />
     </>
   );
