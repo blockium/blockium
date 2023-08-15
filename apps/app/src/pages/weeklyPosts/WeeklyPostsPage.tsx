@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router';
+import { useParams } from 'react-router';
 import { addDays, startOfWeek } from 'date-fns';
 import { Stack } from '@mui/material';
 
-import { useHasBusinessInfo } from '@postgpt/firebase';
+// import { useHasBusinessInfo } from '@postgpt/firebase';
 import DayPostsView from './DayPostsView';
 
 // TODO: !!! Create a useExtendNavbar, similar to useExtendNavbar in libs/ui-calendar/src/lib/hooks/useExtendNavbar.ts, to add the week days to the navbar. When user clicks on a day, scroll to that day in the page (using the browser scroll behavior to an #id in every DayPostView)
 export const WeeklyPostsPage: React.FC = (props) => {
   const { isoStartDate } = useParams();
   const [daysOfWeek, setDaysOfWeek] = useState<Date[]>([]);
-  const hasBusinessInfo = useHasBusinessInfo();
-  const navigate = useNavigate();
+  // const hasBusinessInfo = useHasBusinessInfo();
+  // const navigate = useNavigate();
 
   useEffect(() => {
-    if (!hasBusinessInfo) return;
+    // if (!hasBusinessInfo) return;
 
     const startDate = isoStartDate
       ? new Date(isoStartDate)
@@ -26,16 +26,16 @@ export const WeeklyPostsPage: React.FC = (props) => {
     }
     setDaysOfWeek(daysOfWeek);
     //
-  }, [hasBusinessInfo, isoStartDate]);
+  }, [isoStartDate]);
 
   // If we don't know yet if the user has business info, return null
-  if (hasBusinessInfo === undefined) return null;
+  // if (hasBusinessInfo === undefined) return null;
 
   // If no business info, redirect to the no business page
-  if (hasBusinessInfo === false) {
-    navigate('/nobusiness');
-    return null;
-  }
+  // if (hasBusinessInfo === false) {
+  //   navigate('/nobusiness');
+  //   return null;
+  // }
 
   return (
     <Stack gap="96px">
