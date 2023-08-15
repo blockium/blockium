@@ -23,11 +23,16 @@ export const NewPostPopover: React.FC<INewPostPopoverProps> = ({
 }) => {
   const [goalElement, setGoalElement] = useState<ReactElement | null>(null);
 
+  const handleClose = () => {
+    onClose();
+    setGoalElement(null);
+  };
+
   return (
     <MenuPopover
       open={Boolean(anchorEl)}
       anchorEl={anchorEl}
-      onClose={onClose}
+      onClose={handleClose}
       anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       transformOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       sx={{

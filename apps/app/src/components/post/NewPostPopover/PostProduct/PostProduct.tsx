@@ -19,6 +19,7 @@ export const PostProduct: React.FC<IPostProductProps> = ({
   return (
     <PostFamily1
       goal="Product"
+      goalTitle={msg('app.post.goal.product')}
       productLabel={msg('app.popover.newpost.input.product')}
       topicLabel={msg('app.popover.newpost.input.product-topic')}
       setGoalElement={setGoalElement}

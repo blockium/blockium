@@ -8,6 +8,7 @@ import {
   Select,
   Stack,
   TextField,
+  Typography,
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 
@@ -27,6 +28,7 @@ import { newPostFamily1 } from '../../../../apiRequests';
 
 interface IPostFamily1Props {
   goal: PostGoal;
+  goalTitle: string;
   productLabel: string;
   topicLabel: string;
   setGoalElement: (element: ReactElement | null) => void;
@@ -37,6 +39,7 @@ interface IPostFamily1Props {
 
 export const PostFamily1: React.FC<IPostFamily1Props> = ({
   goal,
+  goalTitle,
   productLabel,
   topicLabel,
   setGoalElement,
@@ -122,11 +125,13 @@ export const PostFamily1: React.FC<IPostFamily1Props> = ({
   };
 
   const handleGenerate = () => {
+    setGoalElement(null);
     onGenerate(addPost);
   };
 
   return (
     <Stack sx={{ p: 1 }} gap={1}>
+      <Typography variant="h4">{goalTitle}</Typography>
       <TextField
         multiline
         rows={4}

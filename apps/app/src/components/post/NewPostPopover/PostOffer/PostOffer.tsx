@@ -20,6 +20,7 @@ export const PostOffer: React.FC<IPostOfferProps> = ({
   return (
     <PostFamily1
       goal="Offer"
+      goalTitle={msg('app.post.goal.offer')}
       productLabel={msg('app.popover.newpost.input.product')}
       topicLabel={msg('app.popover.newpost.input.product-offer')}
       setGoalElement={setGoalElement}
