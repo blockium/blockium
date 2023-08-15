@@ -92,6 +92,10 @@ interface IPostCardProps {
   setMessage: (message: string | null) => void;
 }
 
+// TODO: !!! Copy a post. User can select a date and copy the post to that date.
+// TODO: !!! Move a post. User can select a date and move the post to that date.
+// TODO: !!! Regenerate a post. User can select a date and regenerate the post to that date. Before regenerating, show a dialog showing current post params.
+
 // TODO: ! Move the status stepper to the actions section
 
 // TODO: ! Open the post edit dialog when the user clicks on the post content

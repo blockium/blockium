@@ -1,6 +1,5 @@
 import { ReactElement } from 'react';
 import {
-  Badge,
   List,
   ListItem,
   ListItemButton,
@@ -67,32 +66,28 @@ export const PostGoalSelector: React.FC<IPostGoalSelectorProps> = ({
           <ListItemText primary={msg('app.post.goal.offer')} />
         </ListItemButton>
       </ListItem>
+      {/* TODO: *** Generate post with goal novelty */}
       <ListItem disablePadding>
         <ListItemButton sx={{ py: '1.5rem' }}>
-          <Badge badgeContent="breve" color="primary">
-            <ListItemText primary={msg('app.post.goal.novelty')} />
-          </Badge>
+          <ListItemText primary={msg('app.post.goal.novelty')} />
         </ListItemButton>
       </ListItem>
+      {/* TODO: *** Generate post with goal event */}
       <ListItem disablePadding>
         <ListItemButton sx={{ py: '1.5rem' }}>
-          <Badge badgeContent="breve" color="primary">
-            <ListItemText primary={msg('app.post.goal.event')} />
-          </Badge>
+          <ListItemText primary={msg('app.post.goal.event')} />
         </ListItemButton>
       </ListItem>
+      {/* TODO: *** Generate post with goal testimonial */}
       <ListItem disablePadding>
         <ListItemButton sx={{ py: '1.5rem' }}>
-          <Badge badgeContent="breve" color="primary">
-            <ListItemText primary={msg('app.post.goal.testimonial')} />
-          </Badge>
+          <ListItemText primary={msg('app.post.goal.testimonial')} />
         </ListItemButton>
       </ListItem>
+      {/* TODO: *** Generate post with goal tutorial */}
       <ListItem disablePadding>
         <ListItemButton sx={{ py: '1.5rem' }}>
-          <Badge badgeContent="breve" color="primary">
-            <ListItemText primary={msg('app.post.goal.tutorial')} />
-          </Badge>
+          <ListItemText primary={msg('app.post.goal.tutorial')} />
         </ListItemButton>
       </ListItem>
       {/* <ListItem disablePadding>
