@@ -14,8 +14,8 @@ interface IPostProductProps {
   onGenerate?: (addPost: (date: Date) => Promise<Post | null>) => Promise<void>;
 }
 
-// TODO: !!! Add a select to choose the post format
-// TODO: !!! Add a select to choose the post type
+// TODO: Add a select to choose the post format
+// TODO: Add a select to choose the post type
 export const PostProduct: React.FC<IPostProductProps> = ({
   setGoalElement,
   onGenerate,

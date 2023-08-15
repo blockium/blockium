@@ -100,6 +100,7 @@ export const PostFamily1: React.FC<IPostFamily1Props> = ({
       params,
       date,
       createdAt: new Date(),
+      deletedAt: null,
     };
 
     try {

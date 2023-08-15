@@ -16,6 +16,7 @@ export const CalendarPage: React.FC = (props) => {
       monthStartDate.toLocaleDateString(),
     );
 
+    // Gets posts only with "deletedAt" == null in between startDate and endDate
     return await getPosts(
       sessionStorage.getItem('userId') ?? '',
       monthStartDate,

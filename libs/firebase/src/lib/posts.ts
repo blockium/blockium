@@ -16,10 +16,12 @@ export const getPosts = async (
   startDate: Date,
   endDate: Date,
 ) => {
+  // Gets posts only with "deletedAt" == null in between startDate and endDate
   const q = query(
     db.posts(userId),
     where('date', '>=', startDate),
     where('date', '<', endDate),
+    where('deletedAt', '==', null),
   );
 
   const posts: Post[] = [];

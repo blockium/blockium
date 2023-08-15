@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { startOfMonth } from 'date-fns';
 import {
   Box,
   Card,
@@ -15,11 +16,12 @@ import {
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import { Post, PostStatus } from '@postgpt/types';
-import { msg } from '@postgpt/i18n';
 import { savePost, useUser } from '@postgpt/firebase';
+import { ConfirmDialog } from '@postgpt/ui-common';
+import { useCalendarCache } from '@postgpt/ui-calendar';
+import { msg } from '@postgpt/i18n';
 
 import { PostCardPopover } from './PostCardPopover';
-import { ConfirmDialog } from '@postgpt/ui-common';
 
 const steps: PostStatus[] = [
   'initial',
@@ -90,12 +92,15 @@ interface IPostCardProps {
   setMessage: (message: string | null) => void;
 }
 
-// TODO: !!! Move the status stepper to the actions section
+// TODO: ! Move the status stepper to the actions section
 
 // TODO: ! Open the post edit dialog when the user clicks on the post content
 
 // TODO: ! Add a "Mais"/"Menos" in actions section to show/hide the post content. Default to show only the description (no hashtags, no type, no type description)
 export const PostCard: React.FC<IPostCardProps> = ({ post, setMessage }) => {
+  const [calendarCache, setCalendarCache] = useCalendarCache();
+  const user = useUser();
+
   const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
   const [openConfirmDelete, setOpenConfirmDelete] = useState(false);
 
@@ -113,10 +118,28 @@ export const PostCard: React.FC<IPostCardProps> = ({ post, setMessage }) => {
     setOpenConfirmDelete(true);
   };
 
-  // TODO: *** Delete the post when the user confirms the deletion. This saves the deletedAt field on the post and remove it from the calendarCache
-  const handleDeleteConfirmed = () => {
+  // Delete the post when the user confirms the deletion. This saves the deletedAt field on the post and remove it from the calendarCache
+  const handleDeleteConfirmed = async () => {
     setOpenConfirmDelete(false);
-    console.log('delete post');
+
+    if (!user?.id) return;
+
+    try {
+      post.deletedAt = new Date();
+      await savePost(user.id, post);
+
+      // Remove the post from the calendar data cache
+      const isoStartOfMonth = startOfMonth(post.date).toISOString();
+      const monthData = calendarCache[isoStartOfMonth];
+      monthData.splice(monthData.indexOf(post), 1);
+
+      // This will update the post list
+      setCalendarCache({ ...calendarCache });
+      //
+    } catch (error) {
+      console.error('error deleting post', error);
+      setMessage(msg('app.error.delePost'));
+    }
   };
 
   return (

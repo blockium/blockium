@@ -59,7 +59,7 @@ export type Post = {
   type: PostType;
   typeDescription: string;
   status: PostStatus;
-  params?: PostParams;
-  createdAt?: Date;
-  deletedAt?: Date;
+  params: PostParams;
+  createdAt: Date;
+  deletedAt: Date | null;
 };

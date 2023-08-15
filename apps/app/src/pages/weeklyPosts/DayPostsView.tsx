@@ -29,7 +29,6 @@ interface IDayPostsViewProps {
   date: Date;
 }
 
-// TODO: *** Show only post with undefined "deletedAt" field
 const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
   const [calendarCache] = useCalendarCache();
   const [posts, setPosts] = useState<Post[]>([]);
