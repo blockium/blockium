@@ -6,6 +6,7 @@ import { Stack } from '@mui/material';
 import { useHasBusinessInfo } from '@postgpt/firebase';
 import DayPostsView from './DayPostsView';
 
+// TODO: !!! Create a useExtendNavbar, similar to useExtendNavbar in libs/ui-calendar/src/lib/hooks/useExtendNavbar.ts, to add the week days to the navbar. When user clicks on a day, scroll to that day in the page (using the browser scroll behavior to an #id in every DayPostView)
 export const WeeklyPostsPage: React.FC = (props) => {
   const { isoStartDate } = useParams();
   const [daysOfWeek, setDaysOfWeek] = useState<Date[]>([]);

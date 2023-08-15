@@ -18,6 +18,8 @@ import { Post, PostStatus } from '@postgpt/types';
 import { msg } from '@postgpt/i18n';
 import { savePost, useUser } from '@postgpt/firebase';
 
+import { PostCardPopover } from './PostCardPopover';
+
 const steps: PostStatus[] = [
   'initial',
   'defined',
@@ -89,61 +91,83 @@ interface IPostCardProps {
 
 // TODO: !!! Move the status stepper to the actions section
 
-// TODO: *** Add a menu popover when the user clicks on the 3-dots icon
-
-// TODO: *** Add a button to delete the post on the menu popover
-// TODO: !!! Show a popup to confirm the post deletion
-// TODO: *** Delete the post when the user confirms the deletion. This saves the deletedAt field on the post and remove it from the calendarCache
-
 // TODO: ! Open the post edit dialog when the user clicks on the post content
 
-// TODO: ! Add a "Mais"/"Menos" action to show/hide the post content. Default to show only the description (no hashtags, no type, no type description)
+// TODO: ! Add a "Mais"/"Menos" in actions section to show/hide the post content. Default to show only the description (no hashtags, no type, no type description)
 export const PostCard: React.FC<IPostCardProps> = ({ post, setMessage }) => {
+  const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
+
+  const onMoreClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setOpenPopover(event.currentTarget);
+  };
+
+  const handleOnClose = () => {
+    setOpenPopover(null);
+  };
+
+  // TODO: *** Show a popup to confirm the post deletion
+  // TODO: *** Delete the post when the user confirms the deletion. This saves the deletedAt field on the post and remove it from the calendarCache
+  const handleDelete = () => {
+    console.log('delete post');
+  };
+
   return (
-    <Card>
-      <CardHeader
-        title={post.title}
-        action={
-          <Stack direction="row" gap="8px" alignItems="center">
-            <Typography variant="body2" textTransform="uppercase">
-              {post.format}
-            </Typography>
-            <IconButton>
-              <MoreVertIcon />
-            </IconButton>
-          </Stack>
-        }
-      />
-      <CardContent sx={{ cursor: 'pointer ' }}>
-        <Grid container spacing={4}>
-          <Grid item xs={12} md={12}>
-            <Stack gap="16px">
-              <Typography variant="caption" textTransform="uppercase">
-                Legenda:
+    <>
+      <Card>
+        <CardHeader
+          title={post.title}
+          action={
+            <Stack direction="row" gap="8px" alignItems="center">
+              <Typography variant="body2" textTransform="uppercase">
+                {post.format}
               </Typography>
-              <Typography variant="body1" sx={{ whiteSpace: 'break-spaces' }}>
-                {post.description}
-              </Typography>
-              <Typography variant="body1">{post.hashtags}</Typography>
-              <Typography variant="caption" textTransform="uppercase" mt="16px">
-                {post.type}:
-              </Typography>
-              <Typography variant="body1" sx={{ whiteSpace: 'break-spaces' }}>
-                {post.typeDescription}
-              </Typography>
-              <PostStepper post={post} setMessage={setMessage} />
+              <IconButton onClick={onMoreClick}>
+                <MoreVertIcon />
+              </IconButton>
             </Stack>
-          </Grid>
-          {/* This is to add an image representation of the post in future.
+          }
+        />
+        <CardContent sx={{ cursor: 'pointer ' }}>
+          <Grid container spacing={4}>
+            <Grid item xs={12} md={12}>
+              <Stack gap="16px">
+                <Typography variant="caption" textTransform="uppercase">
+                  Legenda:
+                </Typography>
+                <Typography variant="body1" sx={{ whiteSpace: 'break-spaces' }}>
+                  {post.description}
+                </Typography>
+                <Typography variant="body1">{post.hashtags}</Typography>
+                <Typography
+                  variant="caption"
+                  textTransform="uppercase"
+                  mt="16px"
+                >
+                  {post.type}:
+                </Typography>
+                <Typography variant="body1" sx={{ whiteSpace: 'break-spaces' }}>
+                  {post.typeDescription}
+                </Typography>
+                <PostStepper post={post} setMessage={setMessage} />
+              </Stack>
+            </Grid>
+            {/* This is to add an image representation of the post in future.
               It might be also some ads for media creation services */}
-          {/* <Grid item xs={12} md={6}>
+            {/* <Grid item xs={12} md={6}>
             <Stack gap="16px">
               <Box sx={{ bgcolor: '#D8D8D8', height: '418px' }}></Box>
             </Stack>
           </Grid> */}
-        </Grid>
-      </CardContent>
-    </Card>
+          </Grid>
+        </CardContent>
+      </Card>
+      {/* Add a menu popover when the user clicks on the 3-dots icon */}
+      <PostCardPopover
+        anchorEl={openPopover}
+        onClose={handleOnClose}
+        onDelete={handleDelete}
+      />
+    </>
   );
 };
 
