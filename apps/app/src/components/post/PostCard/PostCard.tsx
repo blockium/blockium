@@ -98,7 +98,6 @@ interface IPostCardProps {
 }
 
 // TODO: *** Move a post. User can select a date and move the post to that date.
-// TODO: *** Open the post edit dialog when the user clicks on the post content
 
 // TODO: ! Move the status stepper to the actions section
 
@@ -163,6 +162,21 @@ export const PostCard: React.FC<IPostCardProps> = ({
     }
   };
 
+  const handleCopyDescription = () => {
+    navigator.clipboard.writeText(post.description);
+    setMessage(msg('app.success.post-description-copied'));
+  };
+
+  const handleCopyHashtags = () => {
+    navigator.clipboard.writeText(post.hashtags);
+    setMessage(msg('app.success.post-hashtags-copied'));
+  };
+
+  const handleCopyTypeDescription = () => {
+    navigator.clipboard.writeText(post.typeDescription);
+    setMessage(msg('app.success.post-type-description-copied'));
+  };
+
   return (
     <>
       <Card ref={postCardRef}>
@@ -179,17 +193,27 @@ export const PostCard: React.FC<IPostCardProps> = ({
             </Stack>
           }
         />
-        <CardContent sx={{ cursor: 'pointer ' }}>
+        <CardContent>
           <Grid container spacing={4}>
             <Grid item xs={12} md={12}>
               <Stack gap="16px">
                 <Typography variant="caption" textTransform="uppercase">
                   Legenda:
                 </Typography>
-                <Typography variant="body1" sx={{ whiteSpace: 'break-spaces' }}>
+                <Typography
+                  variant="body1"
+                  sx={{ cursor: 'pointer ', whiteSpace: 'break-spaces' }}
+                  onClick={handleCopyDescription}
+                >
                   {post.description}
                 </Typography>
-                <Typography variant="body1">{post.hashtags}</Typography>
+                <Typography
+                  variant="body1"
+                  sx={{ cursor: 'pointer ' }}
+                  onClick={handleCopyHashtags}
+                >
+                  {post.hashtags}
+                </Typography>
                 <Typography
                   variant="caption"
                   textTransform="uppercase"
@@ -197,7 +221,11 @@ export const PostCard: React.FC<IPostCardProps> = ({
                 >
                   {post.type}:
                 </Typography>
-                <Typography variant="body1" sx={{ whiteSpace: 'break-spaces' }}>
+                <Typography
+                  variant="body1"
+                  sx={{ cursor: 'pointer ', whiteSpace: 'break-spaces' }}
+                  onClick={handleCopyTypeDescription}
+                >
                   {post.typeDescription}
                 </Typography>
                 <PostStepper post={post} setErrorMessage={setErrorMessage} />
