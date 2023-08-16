@@ -4,7 +4,14 @@ import { MenuPopover } from '@postgpt/ui-mininal-tmpl';
 import { Post, PostParams } from '@postgpt/types';
 
 import { PostGoalSelector } from './PostGoalSelector';
+import { PostProduct } from './PostProduct';
+import { PostOffer } from './PostOffer';
+import { PostNovelty } from './PostNovelty';
 import { PostEvent } from './PostEvent';
+import { PostTestimonial } from './PostTestimonial';
+import { PostTutorial } from './PostTutorial';
+import { PostTips } from './PostTips';
+import { PostBehindTheScenes } from './PostBehindTheScenes';
 
 interface INewPostPopoverProps {
   anchorEl: HTMLElement | null;
@@ -25,14 +32,80 @@ export const NewPostPopover: React.FC<INewPostPopoverProps> = ({
 
   useEffect(() => {
     if (postParams) {
-      // TODO: Set according to postParams.goal
-      setGoalElement(
-        <PostEvent
-          setGoalElement={setGoalElement}
-          onGenerate={onGenerate}
-          postParams={postParams}
-        />,
-      );
+      switch (postParams.goal) {
+        case 'Product':
+          setGoalElement(
+            <PostProduct
+              setGoalElement={setGoalElement}
+              onGenerate={onGenerate}
+              postParams={postParams}
+            />,
+          );
+          break;
+        case 'Offer':
+          setGoalElement(
+            <PostOffer
+              setGoalElement={setGoalElement}
+              onGenerate={onGenerate}
+              postParams={postParams}
+            />,
+          );
+          break;
+        case 'Novelty':
+          setGoalElement(
+            <PostNovelty
+              setGoalElement={setGoalElement}
+              onGenerate={onGenerate}
+              postParams={postParams}
+            />,
+          );
+          break;
+        case 'Event':
+          setGoalElement(
+            <PostEvent
+              setGoalElement={setGoalElement}
+              onGenerate={onGenerate}
+              postParams={postParams}
+            />,
+          );
+          break;
+        case 'Testimonial':
+          setGoalElement(
+            <PostTestimonial
+              setGoalElement={setGoalElement}
+              onGenerate={onGenerate}
+              postParams={postParams}
+            />,
+          );
+          break;
+        case 'Tutorial':
+          setGoalElement(
+            <PostTutorial
+              setGoalElement={setGoalElement}
+              onGenerate={onGenerate}
+              postParams={postParams}
+            />,
+          );
+          break;
+        case 'Tips':
+          setGoalElement(
+            <PostTips
+              setGoalElement={setGoalElement}
+              onGenerate={onGenerate}
+              postParams={postParams}
+            />,
+          );
+          break;
+        case 'Behind-the-Scenes':
+          setGoalElement(
+            <PostBehindTheScenes
+              setGoalElement={setGoalElement}
+              onGenerate={onGenerate}
+              postParams={postParams}
+            />,
+          );
+          break;
+      }
     }
   }, [postParams, onGenerate]);
 

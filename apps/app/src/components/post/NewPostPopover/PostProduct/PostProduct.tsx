@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 
 import { msg } from '@postgpt/i18n';
-import { Post } from '@postgpt/types';
+import { Post, PostParams } from '@postgpt/types';
 
 import { PostFamily1 } from '../PostFamily1';
 
@@ -10,11 +10,13 @@ interface IPostProductProps {
   onGenerate: (
     addPost: (date: Date) => Promise<Post | string>,
   ) => Promise<void>;
+  postParams?: PostParams;
 }
 
 export const PostProduct: React.FC<IPostProductProps> = ({
   setGoalElement,
   onGenerate,
+  postParams,
 }) => {
   return (
     <PostFamily1
@@ -24,6 +26,7 @@ export const PostProduct: React.FC<IPostProductProps> = ({
       topicLabel={msg('app.popover.newpost.input.product-topic')}
       setGoalElement={setGoalElement}
       onGenerate={onGenerate}
+      postParams={postParams}
     />
   );
 };
