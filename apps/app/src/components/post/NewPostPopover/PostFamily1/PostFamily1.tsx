@@ -115,7 +115,7 @@ export const PostFamily1: React.FC<IPostFamily1Props> = ({
     };
 
     try {
-      // Save news posts in Firebase
+      // Add new post in Firebase
       const userId = sessionStorage.getItem('userId') ?? '';
       const postRef = await addPostDb(userId, newPost);
       newPost.id = postRef.id;

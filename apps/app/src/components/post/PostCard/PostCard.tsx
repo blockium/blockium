@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { startOfMonth } from 'date-fns';
 import {
   Box,
   Card,
@@ -18,10 +17,10 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Post, PostStatus } from '@postgpt/types';
 import { savePost, useUser } from '@postgpt/firebase';
 import { ConfirmDialog } from '@postgpt/ui-common';
-import { useCalendarCache } from '@postgpt/ui-calendar';
 import { msg } from '@postgpt/i18n';
 
 import { PostCardPopover } from './PostCardPopover';
+import { useAddPost, useDeletePost } from '../../../hooks';
 
 const steps: PostStatus[] = [
   'initial',
@@ -97,13 +96,10 @@ interface IPostCardProps {
   onRegenerate: (element: HTMLElement, post: Post) => void;
 }
 
-// TODO: !!! Copy a post. User can select a date and copy the post to that date.
-// TODO: !!! Move a post. User can select a date and move the post to that date.
-// TODO: *** Regenerate a post. User can select a date and regenerate the post to that date. Before regenerating, show a dialog showing current post params.
+// TODO: *** Move a post. User can select a date and move the post to that date.
+// TODO: *** Open the post edit dialog when the user clicks on the post content
 
 // TODO: ! Move the status stepper to the actions section
-
-// TODO: ! Open the post edit dialog when the user clicks on the post content
 
 // TODO: ! Add a "Mais"/"Menos" in actions section to show/hide the post content. Default to show only the description (no hashtags, no type, no type description)
 export const PostCard: React.FC<IPostCardProps> = ({
@@ -112,8 +108,8 @@ export const PostCard: React.FC<IPostCardProps> = ({
   setErrorMessage,
   onRegenerate,
 }) => {
-  const [calendarCache, setCalendarCache] = useCalendarCache();
-  const user = useUser();
+  const addPost = useAddPost();
+  const deletePost = useDeletePost();
 
   const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
   const [openConfirmDelete, setOpenConfirmDelete] = useState(false);
@@ -135,9 +131,15 @@ export const PostCard: React.FC<IPostCardProps> = ({
     }
   };
 
-  const handleDuplicate = () => {
+  const handleDuplicate = async () => {
     setOpenPopover(null);
-    setMessage(msg('app.success.post-duplicated'));
+    const newPost = { ...post, createdAt: new Date() };
+    const result = await addPost(newPost);
+    if (typeof result === 'string') {
+      setErrorMessage(result);
+    } else {
+      setMessage(msg('app.success.post-duplicated'));
+    }
   };
 
   // Show a popup to confirm the post deletion
@@ -149,23 +151,8 @@ export const PostCard: React.FC<IPostCardProps> = ({
   // Delete the post when the user confirms the deletion. This saves the deletedAt field on the post and remove it from the calendarCache
   const handleDeleteConfirmed = async () => {
     setOpenConfirmDelete(false);
-
-    if (!user?.id) return;
-
-    try {
-      post.deletedAt = new Date();
-      await savePost(user.id, post);
-
-      // Remove the post from the calendar data cache
-      const isoStartOfMonth = startOfMonth(post.date).toISOString();
-      const monthData = calendarCache[isoStartOfMonth];
-      monthData.splice(monthData.indexOf(post), 1);
-
-      // This will update the post list
-      setCalendarCache({ ...calendarCache });
-      //
-    } catch (error) {
-      console.error('error deleting post', error);
+    const deleted = await deletePost(post);
+    if (!deleted) {
       setErrorMessage(msg('app.error.delePost'));
     }
   };
