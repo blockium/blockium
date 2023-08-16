@@ -9,9 +9,14 @@ export const useAddPost = () => {
   const [calendarCache, setCalendarCache] = useCalendarCache();
 
   return async (newPost: Post) => {
+    const userId = sessionStorage.getItem('userId');
+    if (!userId) {
+      console.error('userId not found');
+      return msg('app.error.noUserId');
+    }
+
     try {
       // Add new post in Firebase
-      const userId = sessionStorage.getItem('userId') ?? '';
       const postRef = await addPostDb(userId, newPost);
       newPost.id = postRef.id;
 

@@ -11,6 +11,8 @@ import { msg } from '@postgpt/i18n';
 import { Post } from '@postgpt/types';
 import { CTAButton } from '@postgpt/ui-common';
 
+import { useUpdatePost } from '../../../hooks';
+
 const goalMap: { [type: string]: string } = {
   Product: msg('app.post.goal.product'),
   Offer: msg('app.post.goal.offer'),
@@ -43,23 +45,44 @@ const typeMap: { [type: string]: string } = {
 
 interface PostEditDialogProps {
   open: boolean;
-  onClose: () => void;
   post: Post;
+  setMessage: (message: string | null) => void;
+  setErrorMessage: (message: string | null) => void;
+  onClose: () => void;
 }
 
 export const PostEditDialog: React.FC<PostEditDialogProps> = ({
   open,
-  onClose,
   post,
+  setMessage,
+  setErrorMessage,
+  onClose,
 }) => {
+  const updatePost = useUpdatePost();
   const [title, setTitle] = useState(post.title);
   const [description, setDescription] = useState(post.description);
   const [hashtags, setHashtags] = useState(post.hashtags);
   const [typeDescription, setTypeDescription] = useState(post.typeDescription);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     onClose();
-    // TODO: Save post
+
+    // Update post
+    const oldPost = { ...post };
+    post.title = title;
+    post.description = description;
+    post.hashtags = hashtags;
+    post.typeDescription = typeDescription;
+    const updated = await updatePost(post);
+    if (updated) {
+      setMessage(msg('app.success.post-updated'));
+    } else {
+      post.title = oldPost.title;
+      post.description = oldPost.description;
+      post.hashtags = oldPost.hashtags;
+      post.typeDescription = oldPost.typeDescription;
+      setErrorMessage(msg('app.error.updatePost'));
+    }
   };
 
   return (

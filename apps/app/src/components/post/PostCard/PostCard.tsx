@@ -159,7 +159,7 @@ export const PostCard: React.FC<IPostCardProps> = ({
     setOpenConfirmDelete(false);
     const deleted = await deletePost(post);
     if (!deleted) {
-      setErrorMessage(msg('app.error.delePost'));
+      setErrorMessage(msg('app.error.deletePost'));
     }
   };
 
@@ -233,6 +233,8 @@ export const PostCard: React.FC<IPostCardProps> = ({
       <PostEditDialog
         open={openEditDialog}
         post={post}
+        setMessage={setMessage}
+        setErrorMessage={setErrorMessage}
         onClose={() => setOpenEditDialog(false)}
       />
     </>

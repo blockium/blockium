@@ -9,7 +9,7 @@ export const useDeletePost = () => {
   const user = useUser();
 
   return async (post: Post) => {
-    if (!user?.id) return;
+    if (!user?.id) return false;
 
     try {
       post.deletedAt = new Date();
