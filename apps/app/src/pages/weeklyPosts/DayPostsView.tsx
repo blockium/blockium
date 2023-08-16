@@ -35,7 +35,7 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
 
   useEffect(() => {
     const isoStartOfMonth = startOfMonth(date).toISOString();
-    const dayPosts = (calendarCache[isoStartOfMonth] as Post[]).filter(
+    const dayPosts = ((calendarCache[isoStartOfMonth] as Post[]) || []).filter(
       (post) => {
         return post.date.toISOString() === date.toISOString();
       },
