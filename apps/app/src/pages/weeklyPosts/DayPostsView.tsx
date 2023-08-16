@@ -44,6 +44,7 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
   }, [calendarCache, date]);
 
   const [adding, setAdding] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
   const [postParams, setPostParams] = useState<PostParams>();
   const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
@@ -69,7 +70,7 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
       const result = await addPost(date);
       if (typeof result === 'string') {
         // Show error in Alert when post creation fails
-        setMessage(result);
+        setErrorMessage(result);
       }
 
       setAdding(false);
@@ -83,7 +84,12 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
 
   return (
     <>
-      <Alert severity="error" message={message} setMessage={setMessage} />
+      <Alert
+        severity="error"
+        message={errorMessage}
+        setMessage={setErrorMessage}
+      />
+      <Alert severity="success" message={message} setMessage={setMessage} />
       <Grid container spacing={4}>
         <Grid item textAlign="center" xs={12}>
           {formatDate(date)}
@@ -102,6 +108,7 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
             <PostCard
               post={post}
               setMessage={setMessage}
+              setErrorMessage={setErrorMessage}
               onRegenerate={onRegenerate}
             />
           </Grid>

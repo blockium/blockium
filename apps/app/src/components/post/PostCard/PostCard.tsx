@@ -40,10 +40,13 @@ const stepLabels = [
 
 interface IPostStepperProps {
   post: Post;
-  setMessage: (message: string | null) => void;
+  setErrorMessage: (message: string | null) => void;
 }
 
-const PostStepper: React.FC<IPostStepperProps> = ({ post, setMessage }) => {
+const PostStepper: React.FC<IPostStepperProps> = ({
+  post,
+  setErrorMessage,
+}) => {
   const [activeStep, setActiveStep] = useState(0);
   const user = useUser();
 
@@ -64,7 +67,7 @@ const PostStepper: React.FC<IPostStepperProps> = ({ post, setMessage }) => {
       //
     } catch (error) {
       console.error('error saving post', error);
-      setMessage(msg('app.error.savePost'));
+      setErrorMessage(msg('app.error.savePost'));
     }
 
     setActiveStep(newStepIndex);
@@ -90,6 +93,7 @@ const PostStepper: React.FC<IPostStepperProps> = ({ post, setMessage }) => {
 interface IPostCardProps {
   post: Post;
   setMessage: (message: string | null) => void;
+  setErrorMessage: (message: string | null) => void;
   onRegenerate: (element: HTMLElement, post: Post) => void;
 }
 
@@ -105,6 +109,7 @@ interface IPostCardProps {
 export const PostCard: React.FC<IPostCardProps> = ({
   post,
   setMessage,
+  setErrorMessage,
   onRegenerate,
 }) => {
   const [calendarCache, setCalendarCache] = useCalendarCache();
@@ -128,6 +133,11 @@ export const PostCard: React.FC<IPostCardProps> = ({
     if (postCardRef.current) {
       onRegenerate(postCardRef.current, post);
     }
+  };
+
+  const handleDuplicate = () => {
+    setOpenPopover(null);
+    setMessage(msg('app.success.post-duplicated'));
   };
 
   // Show a popup to confirm the post deletion
@@ -156,7 +166,7 @@ export const PostCard: React.FC<IPostCardProps> = ({
       //
     } catch (error) {
       console.error('error deleting post', error);
-      setMessage(msg('app.error.delePost'));
+      setErrorMessage(msg('app.error.delePost'));
     }
   };
 
@@ -197,7 +207,7 @@ export const PostCard: React.FC<IPostCardProps> = ({
                 <Typography variant="body1" sx={{ whiteSpace: 'break-spaces' }}>
                   {post.typeDescription}
                 </Typography>
-                <PostStepper post={post} setMessage={setMessage} />
+                <PostStepper post={post} setErrorMessage={setErrorMessage} />
               </Stack>
             </Grid>
             {/* This is to add an image representation of the post in future.
@@ -214,6 +224,7 @@ export const PostCard: React.FC<IPostCardProps> = ({
       <PostCardPopover
         anchorEl={openPopover}
         onRegenerate={handleRegenerate}
+        onDuplicate={handleDuplicate}
         onClose={handleOnClose}
         onDelete={handleDelete}
       />

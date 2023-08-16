@@ -12,7 +12,7 @@ interface IPostCardPopoverProps {
   onRegenerate: () => void;
   onClose: () => void;
   onDelete: () => void;
-  onCopy?: () => void;
+  onDuplicate?: () => void;
   onMove?: () => void;
 }
 
@@ -20,7 +20,7 @@ export const PostCardPopover: React.FC<IPostCardPopoverProps> = ({
   anchorEl,
   onClose,
   onRegenerate,
-  onCopy,
+  onDuplicate,
   onMove,
   onDelete,
 }) => {
@@ -61,15 +61,13 @@ export const PostCardPopover: React.FC<IPostCardPopoverProps> = ({
           </Badge>
         </Stack>
       </MenuItem>
-      <MenuItem component={Link} onClick={onCopy} sx={{ m: 1 }}>
+      <MenuItem component={Link} onClick={onDuplicate} sx={{ m: 1 }}>
         <Stack direction="row">
           {/* Button to copy the post */}
-          <Badge badgeContent="breve" color="primary">
-            <ListItemIcon>
-              <ContentCopyIcon />
-            </ListItemIcon>
-            {msg('app.button.copy')}
-          </Badge>
+          <ListItemIcon>
+            <ContentCopyIcon />
+          </ListItemIcon>
+          {msg('app.button.duplicate')}
         </Stack>
       </MenuItem>
       <MenuItem component={Link} onClick={onDelete} sx={{ m: 1 }}>
