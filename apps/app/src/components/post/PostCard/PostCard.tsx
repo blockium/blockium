@@ -21,6 +21,7 @@ import { msg } from '@postgpt/i18n';
 
 import { PostCardPopover } from './PostCardPopover';
 import { useAddPost, useDeletePost } from '../../../hooks';
+import { PostEditDialog } from '../PostEditDialog';
 
 const steps: PostStatus[] = [
   'initial',
@@ -112,8 +113,8 @@ export const PostCard: React.FC<IPostCardProps> = ({
   const deletePost = useDeletePost();
 
   const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
+  const [openEditDialog, setOpenEditDialog] = useState(false);
   const [openConfirmDelete, setOpenConfirmDelete] = useState(false);
-
   const postCardRef = useRef<HTMLDivElement>(null);
 
   const onMoreClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -122,6 +123,11 @@ export const PostCard: React.FC<IPostCardProps> = ({
 
   const handleOnClose = () => {
     setOpenPopover(null);
+  };
+
+  const handleEdit = () => {
+    setOpenPopover(null);
+    setOpenEditDialog(true);
   };
 
   const handleRegenerate = () => {
@@ -210,10 +216,11 @@ export const PostCard: React.FC<IPostCardProps> = ({
       {/* Add a menu popover when the user clicks on the 3-dots icon */}
       <PostCardPopover
         anchorEl={openPopover}
+        onEdit={handleEdit}
         onRegenerate={handleRegenerate}
         onDuplicate={handleDuplicate}
-        onClose={handleOnClose}
         onDelete={handleDelete}
+        onClose={handleOnClose}
       />
       <ConfirmDialog
         open={openConfirmDelete}
@@ -222,6 +229,11 @@ export const PostCard: React.FC<IPostCardProps> = ({
         onConfirm={handleDeleteConfirmed}
         onClose={() => setOpenConfirmDelete(false)}
         confirmColor="error"
+      />
+      <PostEditDialog
+        open={openEditDialog}
+        post={post}
+        onClose={() => setOpenEditDialog(false)}
       />
     </>
   );

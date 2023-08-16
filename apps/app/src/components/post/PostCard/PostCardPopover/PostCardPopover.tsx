@@ -1,4 +1,5 @@
 import { Badge, Link, ListItemIcon, MenuItem, Stack } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import MoveDownIcon from '@mui/icons-material/MoveDown';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
@@ -9,20 +10,22 @@ import { MenuPopover } from '@postgpt/ui-mininal-tmpl';
 
 interface IPostCardPopoverProps {
   anchorEl: HTMLElement | null;
+  onEdit?: () => void;
   onRegenerate: () => void;
-  onClose: () => void;
-  onDelete: () => void;
-  onDuplicate?: () => void;
   onMove?: () => void;
+  onDuplicate: () => void;
+  onDelete: () => void;
+  onClose: () => void;
 }
 
 export const PostCardPopover: React.FC<IPostCardPopoverProps> = ({
   anchorEl,
-  onClose,
+  onEdit,
   onRegenerate,
-  onDuplicate,
   onMove,
+  onDuplicate,
   onDelete,
+  onClose,
 }) => {
   return (
     <MenuPopover
@@ -41,6 +44,15 @@ export const PostCardPopover: React.FC<IPostCardPopoverProps> = ({
         },
       }}
     >
+      <MenuItem component={Link} onClick={onEdit} sx={{ m: 1 }}>
+        <Stack direction="row">
+          {/* Button to edit the post  */}
+          <ListItemIcon>
+            <EditIcon />
+          </ListItemIcon>
+          {msg('app.button.edit')}
+        </Stack>
+      </MenuItem>
       <MenuItem component={Link} onClick={onRegenerate} sx={{ m: 1 }}>
         <Stack direction="row">
           {/* Button to regenerate the post  */}

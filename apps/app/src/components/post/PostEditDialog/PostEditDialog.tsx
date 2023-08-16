@@ -1,63 +1,75 @@
+import { useState } from 'react';
 import {
   DialogTitle,
   DialogContent,
   TextField,
   DialogActions,
   Dialog,
-  Button,
 } from '@mui/material';
 
-import { useIntlMessage } from '@postgpt/i18n';
+import { msg } from '@postgpt/i18n';
+import { Post } from '@postgpt/types';
+import { CTAButton } from '@postgpt/ui-common';
+
+const goalMap: { [type: string]: string } = {
+  Product: msg('app.post.goal.product'),
+  Offer: msg('app.post.goal.offer'),
+  Novelty: msg('app.post.goal.novelty'),
+  Event: msg('app.post.goal.event'),
+  Testimonial: msg('app.post.goal.testimonial'),
+  Tutorial: msg('app.post.goal.tutorial'),
+  Tips: msg('app.post.goal.tips'),
+  'Behind-the-Scenes': msg('app.post.goal.behind-the-scenes'),
+  TBT: msg('app.post.goal.tbt'),
+  Poll: msg('app.post.goal.poll'),
+  FAQ: msg('app.post.goal.faq'),
+  Challenge: msg('app.post.goal.challenge'),
+  Contest: msg('app.post.goal.contest'),
+  Entertainment: msg('app.post.goal.entertainment'),
+  Motivational: msg('app.post.goal.motivational'),
+};
+
+const formatMap: { [type: string]: string } = {
+  feed: msg('app.dialog.postedit.input.formatFeed'),
+  stories: msg('app.dialog.postedit.input.formatStories'),
+  reels: msg('app.dialog.postedit.input.formatReels'),
+};
+
+const typeMap: { [type: string]: string } = {
+  image: msg('app.dialog.postedit.input.typeImage'),
+  video: msg('app.dialog.postedit.input.typeVideo'),
+  carousel: msg('app.dialog.postedit.input.typeCarousel'),
+};
 
 interface PostEditDialogProps {
   open: boolean;
-  handleClose: () => void;
-  title: string;
-  description: string;
-  hashtags: string;
-  format: string;
-  type: string;
-  typeDescription: string;
-  setTitle: (title: string) => void;
-  setDescription: (description: string) => void;
-  setHashtags: (hashtags: string) => void;
-  setTypeDescription: (media: string) => void;
+  onClose: () => void;
+  post: Post;
 }
 
 export const PostEditDialog: React.FC<PostEditDialogProps> = ({
   open,
-  handleClose,
-  title,
-  description,
-  hashtags,
-  format,
-  type,
-  typeDescription,
-  setTitle,
-  setDescription,
-  setHashtags,
-  setTypeDescription,
+  onClose,
+  post,
 }) => {
-  const msg = useIntlMessage();
+  const [title, setTitle] = useState(post.title);
+  const [description, setDescription] = useState(post.description);
+  const [hashtags, setHashtags] = useState(post.hashtags);
+  const [typeDescription, setTypeDescription] = useState(post.typeDescription);
 
-  const formatMap: { [type: string]: string } = {
-    feed: msg('app.dialog.postedit.input.formatFeed'),
-    stories: msg('app.dialog.postedit.input.formatStories'),
-    reels: msg('app.dialog.postedit.input.formatReels'),
-  };
-
-  const typeMap: { [type: string]: string } = {
-    image: msg('app.dialog.postedit.input.typeImage'),
-    video: msg('app.dialog.postedit.input.typeVideo'),
-    carousel: msg('app.dialog.postedit.input.typeCarousel'),
+  const handleSave = () => {
+    onClose();
+    // TODO: Save post
   };
 
   return (
-    <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>{msg('app.dialog.postedit.title')}</DialogTitle>
+    <Dialog open={open} onClose={onClose}>
+      <DialogTitle>{`${goalMap[post.params.goal]}`}</DialogTitle>
       <DialogContent>
         <TextField
           autoFocus
+          multiline
+          rows={2}
           margin="dense"
           label={msg('app.dialog.postedit.input.title')}
           type="text"
@@ -66,10 +78,10 @@ export const PostEditDialog: React.FC<PostEditDialogProps> = ({
           onChange={(e) => setTitle(e.target.value)}
         />
         <TextField
+          multiline
+          rows={3}
           margin="dense"
           label={msg('app.dialog.postedit.input.description')}
-          multiline
-          rows={5}
           fullWidth
           value={description}
           onChange={(e) => setDescription(e.target.value)}
@@ -82,24 +94,24 @@ export const PostEditDialog: React.FC<PostEditDialogProps> = ({
           onChange={(e) => setHashtags(e.target.value)}
         />
         <TextField
-          margin="dense"
-          label={`${formatMap[format]} ${msg(
-            'app.dialog.postedit.input.with'
-          )} ${typeMap[type]}`}
           multiline
-          rows={5}
+          rows={8}
+          margin="dense"
+          label={`${formatMap[post.format]} ${msg(
+            'app.dialog.postedit.input.with',
+          )} ${typeMap[post.type]}`}
           fullWidth
           value={typeDescription}
           onChange={(e) => setTypeDescription(e.target.value)}
         />
       </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose} color="secondary">
-          {msg('app.button.delete')}
-        </Button>
-        <Button onClick={handleClose} color="primary">
-          {msg('app.button.approve')}
-        </Button>
+      <DialogActions sx={{ gap: '1rem' }}>
+        <CTAButton variant="outlined" onClick={onClose} color="secondary">
+          {msg('app.button.cancel')}
+        </CTAButton>
+        <CTAButton variant="contained" onClick={handleSave} color="primary">
+          {msg('app.button.save')}
+        </CTAButton>
       </DialogActions>
     </Dialog>
   );
