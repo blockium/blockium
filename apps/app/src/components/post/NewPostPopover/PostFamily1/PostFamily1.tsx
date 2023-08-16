@@ -1,5 +1,4 @@
 import { ReactElement, useState } from 'react';
-import { startOfMonth } from 'date-fns';
 import {
   FormControl,
   IconButton,
@@ -22,10 +21,9 @@ import {
   PostParams,
   PostType,
 } from '@postgpt/types';
-import { addPost as addPostDb } from '@postgpt/firebase';
-import { useCalendarCache } from '@postgpt/ui-calendar';
 
 import { newPostFamily1 } from '../../../../apiRequests';
+import { useAddPost } from '../../../../hooks';
 
 interface IPostFamily1Props {
   goal: PostGoal;
@@ -48,7 +46,8 @@ export const PostFamily1: React.FC<IPostFamily1Props> = ({
   onGenerate,
   postParams,
 }) => {
-  const [calendarCache, setCalendarCache] = useCalendarCache();
+  const addPostDb = useAddPost();
+
   const [product, setProduct] = useState(
     (postParams?.extra as PostParamFamily1)?.product || '',
   );
@@ -114,26 +113,7 @@ export const PostFamily1: React.FC<IPostFamily1Props> = ({
       deletedAt: null,
     };
 
-    try {
-      // Add new post in Firebase
-      const userId = sessionStorage.getItem('userId') ?? '';
-      const postRef = await addPostDb(userId, newPost);
-      newPost.id = postRef.id;
-
-      // Add the new post to the calendar data cache
-      const isoStartOfMonth = startOfMonth(date).toISOString();
-      const monthData = calendarCache[isoStartOfMonth];
-      monthData.push(newPost);
-
-      // This will update the post list
-      setCalendarCache({ ...calendarCache });
-
-      return newPost;
-      //
-    } catch (error) {
-      console.error(error);
-      return msg('app.error.savePost');
-    }
+    return await addPostDb(newPost);
   };
 
   const handleGenerate = () => {
