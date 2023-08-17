@@ -11,10 +11,10 @@ export const CalendarPage: React.FC = (props) => {
   const navigate = useNavigate();
 
   const fetchMonthPosts = async (monthStartDate: Date) => {
-    console.log(
-      'fetching month posts for ',
-      monthStartDate.toLocaleDateString(),
-    );
+    // console.log(
+    //   'fetching month posts for ',
+    //   monthStartDate.toLocaleDateString(),
+    // );
 
     // Gets posts only with "deletedAt" == null in between startDate and endDate
     return await getPosts(

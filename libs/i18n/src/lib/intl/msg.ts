@@ -11,7 +11,7 @@ const intl = createIntl(
     locale: userLocale,
     messages: translationsForUsersLocale,
   },
-  cache
+  cache,
 );
 
 export function msg(id: string) {

@@ -24,11 +24,17 @@ if (userLang4.length > 2) {
   userLang4 = userLang4.substring(0, 2) + userLang4.substring(2).toUpperCase();
 }
 
-export const translationsForUsersLocale =
-  translations[userLang4] || translations[userLang2] || translations['en'];
+export const translationsForUsersLocale = translations['pt-BR'];
 
-export const userLocale = translations[userLang4]
-  ? userLang4
-  : translations[userLang2]
-  ? userLang2
-  : 'en';
+export const userLocale = 'pt-BR';
+
+// TODO: ! Translate resources/pt-BR.jso to English and uncomment the code below
+
+// export const translationsForUsersLocale =
+//   translations[userLang4] || translations[userLang2] || translations['en'];
+
+// export const userLocale = translations[userLang4]
+//   ? userLang4
+//   : translations[userLang2]
+//   ? userLang2
+//   : 'en';
