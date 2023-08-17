@@ -8,6 +8,7 @@ import {
   BusinessPage,
   CalendarPage,
   NoBusinessPage,
+  PartnersPage,
   SettingsPage,
   WeeklyPostsPage,
 } from '../../pages';
@@ -26,6 +27,8 @@ export const AppRouter = () => {
         <Route path="/" element={<CalendarPage />} />
         <Route path="/business" element={<BusinessPage />} />
         <Route path="/nobusiness" element={<NoBusinessPage />} />
+        <Route path="/partners" element={<PartnersPage />} />
+        {/* <Route path="/customers" element={<CustomersPage />} /> */}
         <Route path="/settings" element={<SettingsPage />} />
         <Route
           path="/posts/weekly/:isoStartDate"

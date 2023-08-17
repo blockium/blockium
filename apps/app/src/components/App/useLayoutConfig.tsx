@@ -1,9 +1,11 @@
 import { useTheme } from '@mui/material';
-import PersonIcon from '@mui/icons-material/Person';
+// import PersonIcon from '@mui/icons-material/Person';
 import EmailIcon from '@mui/icons-material/Email';
 // import PieChartIcon from '@mui/icons-material/PieChart';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import StoreIcon from '@mui/icons-material/Store';
+import HandshakeIcon from '@mui/icons-material/Handshake';
+import PeopleIcon from '@mui/icons-material/People';
 // import SettingsIcon from '@mui/icons-material/Settings';
 // import WalletIcon from '@mui/icons-material/Wallet';
 // import AdsClickIcon from '@mui/icons-material/AdsClick';
@@ -43,6 +45,18 @@ const layoutConfig: LayoutConfig = {
         href: '/',
         icon: <CalendarMonthIcon />,
       },
+      // TODO: !!! Show partners page
+      // {
+      //   label: 'Parceiros',
+      //   href: '/partners',
+      //   icon: <HandshakeIcon />,
+      // },
+      // TODO: !!! Show customers page
+      // {
+      //   label: 'Clientes',
+      //   href: '/customers',
+      //   icon: <PeopleIcon />,
+      // },
       {
         label: 'Meu Negócio',
         href: '/business',
