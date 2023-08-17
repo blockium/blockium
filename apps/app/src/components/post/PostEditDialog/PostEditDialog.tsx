@@ -5,6 +5,8 @@ import {
   TextField,
   DialogActions,
   Dialog,
+  useTheme,
+  useMediaQuery,
 } from '@mui/material';
 
 import { msg } from '@postgpt/i18n';
@@ -85,8 +87,11 @@ export const PostEditDialog: React.FC<PostEditDialogProps> = ({
     }
   };
 
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog open={open} onClose={onClose} fullScreen={fullScreen}>
       <DialogTitle>{`${goalMap[post.params.goal]}`}</DialogTitle>
       <DialogContent>
         <TextField
