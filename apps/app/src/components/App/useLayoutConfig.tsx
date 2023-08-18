@@ -57,11 +57,11 @@ const layoutConfig: LayoutConfig = {
       //   href: '/customers',
       //   icon: <PeopleIcon />,
       // },
-      {
-        label: 'Meu Negócio',
-        href: '/business',
-        icon: <StoreIcon />,
-      },
+      // {
+      //   label: 'Meu Negócio',
+      //   href: '/business',
+      //   icon: <StoreIcon />,
+      // },
       // {
       //   label: 'Configurações',
       //   href: '/settings',

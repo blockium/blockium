@@ -90,6 +90,7 @@ export const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
         setMessage={setErrorMessage}
       />
       <Alert severity="success" message={message} setMessage={setMessage} />
+      {/* The Box is the scroll point when user clicks on a day in navbar. From 1 (Monday) to 7 (Sunday) */}
       <Box height="120px" id={`day-${getDay(date) || 7}`}></Box>
       <Grid container spacing={4}>
         <Grid item textAlign="center" xs={12}>
