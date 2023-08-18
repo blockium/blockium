@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getDay, startOfMonth } from 'date-fns';
-import { Grid, IconButton } from '@mui/material';
+import { Box, Grid, IconButton } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 import { Post, PostParams } from '@postgpt/types';
@@ -9,7 +9,7 @@ import { fDateCalendar } from '@postgpt/utils';
 import { Alert, CriatyLogo, LoadingIndicator } from '@postgpt/ui-common';
 import { useCalendarCache } from '@postgpt/ui-calendar';
 
-import { NewPostPopover, PostCard } from '../../components';
+import { NewPostPopover, PostCard } from '../../../components';
 
 const formatDate = (date: Date) => {
   const weekDayLabels = [
@@ -29,7 +29,7 @@ interface IDayPostsViewProps {
   date: Date;
 }
 
-const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
+export const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
   const [calendarCache] = useCalendarCache();
   const [posts, setPosts] = useState<Post[]>([]);
 
@@ -90,6 +90,7 @@ const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
         setMessage={setErrorMessage}
       />
       <Alert severity="success" message={message} setMessage={setMessage} />
+      <Box height="120px" id={`day-${getDay(date) || 7}`}></Box>
       <Grid container spacing={4}>
         <Grid item textAlign="center" xs={12}>
           {formatDate(date)}

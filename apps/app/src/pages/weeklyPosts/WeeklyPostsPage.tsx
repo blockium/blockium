@@ -4,10 +4,13 @@ import { addDays, startOfWeek } from 'date-fns';
 import { Stack } from '@mui/material';
 
 // import { useHasBusinessInfo } from '@postgpt/firebase';
-import DayPostsView from './DayPostsView';
+import { DayPostsView } from './DayPostsView';
+import { useExtendNavbar } from './useExtendNavbar';
 
 // TODO: *** Create a useExtendNavbar, similar to useExtendNavbar in libs/ui-calendar/src/lib/hooks/useExtendNavbar.ts, to add the week days to the navbar. When user clicks on a day, scroll to that day in the page (using the browser scroll behavior to an #id in every DayPostView)
 export const WeeklyPostsPage: React.FC = (props) => {
+  useExtendNavbar();
+
   const { isoStartDate } = useParams();
   const [daysOfWeek, setDaysOfWeek] = useState<Date[]>([]);
   // const hasBusinessInfo = useHasBusinessInfo();
@@ -37,8 +40,19 @@ export const WeeklyPostsPage: React.FC = (props) => {
   //   return null;
   // }
 
+  useEffect(() => {
+    // Scroll to monday when page loads
+    setTimeout(() => {
+      document.querySelector(`#day-1`)?.scrollIntoView({
+        behavior: 'instant',
+        block: 'start',
+        inline: 'nearest',
+      });
+    }, 100);
+  }, []);
+
   return (
-    <Stack gap="96px">
+    <Stack gap="0px">
       {daysOfWeek.map((date) => (
         <DayPostsView key={date.toISOString()} date={date} />
       ))}
