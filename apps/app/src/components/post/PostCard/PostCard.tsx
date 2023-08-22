@@ -162,6 +162,11 @@ export const PostCard: React.FC<IPostCardProps> = ({
     }
   };
 
+  const handleCopyTitle = () => {
+    navigator.clipboard.writeText(post.title);
+    setMessage(msg('app.success.post-title-copied'));
+  };
+
   const handleCopyDescription = () => {
     navigator.clipboard.writeText(post.description);
     setMessage(msg('app.success.post-description-copied'));
@@ -181,7 +186,7 @@ export const PostCard: React.FC<IPostCardProps> = ({
     <>
       <Card ref={postCardRef}>
         <CardHeader
-          title={post.title}
+          title={<Box onClick={handleCopyTitle}>{post.title}</Box>}
           action={
             <Stack direction="row" gap="8px" alignItems="center">
               <Typography variant="body2" textTransform="uppercase">

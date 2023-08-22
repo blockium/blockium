@@ -149,6 +149,7 @@
   "app.error.deletePost": "Desculpe, houve um erro ao excluir o post. Por favor, tente novamente",
   "app.success.post-duplicated": "Post duplicado",
   "app.success.post-updated": "Post atualizado",
+  "app.success.post-title-copied": "Título copiado!",
   "app.success.post-description-copied": "Legenda copiada!",
   "app.success.post-hashtags-copied": "Hashtags copiadas!",
   "app.success.post-type-description-copied": "Descrição do formato do post copiada!",
