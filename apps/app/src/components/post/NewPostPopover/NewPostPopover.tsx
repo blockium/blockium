@@ -131,6 +131,7 @@ export const NewPostPopover: React.FC<INewPostPopoverProps> = ({
         },
         width: 400,
         maxWidth: '85%',
+        overflow: 'auto',
       }}
     >
       {goalElement || (
