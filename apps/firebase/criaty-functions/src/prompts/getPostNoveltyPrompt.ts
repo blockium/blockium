@@ -5,25 +5,29 @@ export const getPostNoveltyPrompt = (
   type: PostType,
   slidesCount: number,
   format: PostFormat,
-  character?: string,
+  tone?: string,
 ) => {
   switch (type) {
     case 'carousel':
-      return getCarouselPrompt(novelty, slidesCount, character);
+      return getCarouselPrompt(novelty, slidesCount, tone);
     case 'image':
-      return getImagePrompt(novelty, format, character);
+      return getImagePrompt(novelty, format, tone);
     case 'video':
-      return getVideoPrompt(novelty, format, character);
+      return getVideoPrompt(novelty, format, tone);
   }
 };
 
 const getCarouselPrompt = (
   novelty: string,
   slidesCount: number,
-  character?: string,
+  tone?: string,
 ) => {
+  const tonePrompt = tone ? `Use um tom de voz "${tone}".` : '';
+
   return `
 Crie um post para Instagram com o objetivo de "Divulgar o seguinte Lançamento ou Novidade": "${novelty}", no formato de carrossel, com ${slidesCount} slides.
+
+${tonePrompt}
 
 O resultado deve vir num JSON, no formato:
 
@@ -49,13 +53,13 @@ Exemplo:
 `;
 };
 
-const getImagePrompt = (
-  novelty: string,
-  format: PostFormat,
-  character?: string,
-) => {
+const getImagePrompt = (novelty: string, format: PostFormat, tone?: string) => {
+  const tonePrompt = tone ? `Use um tom de voz "${tone}".` : '';
+
   return `
 Crie um post para Instagram com o objetivo de "Divulgar o seguinte Lançamento ou Novidade": "${novelty}", no formato de imagem para ${format}.
+
+${tonePrompt}
 
 O resultado deve vir num JSON, no formato:
 
@@ -81,13 +85,13 @@ Exemplo:
 `;
 };
 
-const getVideoPrompt = (
-  novelty: string,
-  format: PostFormat,
-  character?: string,
-) => {
+const getVideoPrompt = (novelty: string, format: PostFormat, tone?: string) => {
+  const tonePrompt = tone ? `Use um tom de voz "${tone}".` : '';
+
   return `
 Crie um post para Instagram com o objetivo de "Divulgar o seguinte Lançamento ou Novidade": "${novelty}", no formato de vídeo para ${format}.
+
+${tonePrompt}
 
 O resultado deve vir num JSON, no formato:
 

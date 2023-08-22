@@ -6,15 +6,15 @@ export const getPostEventPrompt = (
   type: PostType,
   slidesCount: number,
   format: PostFormat,
-  character?: string,
+  tone?: string,
 ) => {
   switch (type) {
     case 'carousel':
-      return getCarouselPrompt(event, eventDetail, slidesCount, character);
+      return getCarouselPrompt(event, eventDetail, slidesCount, tone);
     case 'image':
-      return getImagePrompt(event, eventDetail, format, character);
+      return getImagePrompt(event, eventDetail, format, tone);
     case 'video':
-      return getVideoPrompt(event, eventDetail, format, character);
+      return getVideoPrompt(event, eventDetail, format, tone);
   }
 };
 
@@ -22,10 +22,14 @@ const getCarouselPrompt = (
   event: string,
   eventDetail: string,
   slidesCount: number,
-  character?: string,
+  tone?: string,
 ) => {
+  const tonePrompt = tone ? `Use um tom de voz "${tone}".` : '';
+
   return `
 Crie um post para Instagram com o objetivo de "Divulgar o Evento": "${event}", com os seguintes detalhes: "${eventDetail}", no formato de carrossel, com ${slidesCount} slides.
+
+${tonePrompt}
 
 O resultado deve vir num JSON, no formato:
 
@@ -55,10 +59,14 @@ const getImagePrompt = (
   event: string,
   eventDetail: string,
   format: PostFormat,
-  character?: string,
+  tone?: string,
 ) => {
+  const tonePrompt = tone ? `Use um tom de voz "${tone}".` : '';
+
   return `
 Crie um post para Instagram com o objetivo de "Divulgar o Evento": "${event}", com os seguintes detalhes: "${eventDetail}", no formato de imagem para ${format}.
+
+${tonePrompt}
 
 O resultado deve vir num JSON, no formato:
 
@@ -88,10 +96,14 @@ const getVideoPrompt = (
   event: string,
   eventDetail: string,
   format: PostFormat,
-  character?: string,
+  tone?: string,
 ) => {
+  const tonePrompt = tone ? `Use um tom de voz "${tone}".` : '';
+
   return `
 Crie um post para Instagram com o objetivo de "Divulgar o Evento": "${event}", com os seguintes detalhes: "${eventDetail}", no formato de vídeo para ${format}.
+
+${tonePrompt}
 
 O resultado deve vir num JSON, no formato:
 

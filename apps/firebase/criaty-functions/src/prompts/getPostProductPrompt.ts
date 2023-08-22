@@ -6,15 +6,15 @@ export const getPostProductPrompt = (
   type: PostType,
   slidesCount: number,
   format: PostFormat,
-  character?: string,
+  tone?: string,
 ) => {
   switch (type) {
     case 'carousel':
-      return getCarouselPrompt(product, topic, slidesCount, character);
+      return getCarouselPrompt(product, topic, slidesCount, tone);
     case 'image':
-      return getImagePrompt(product, topic, format, character);
+      return getImagePrompt(product, topic, format, tone);
     case 'video':
-      return getVideoPrompt(product, topic, format, character);
+      return getVideoPrompt(product, topic, format, tone);
   }
 };
 
@@ -22,10 +22,14 @@ const getCarouselPrompt = (
   product: string,
   topic: string,
   slidesCount: number,
-  character?: string,
+  tone?: string,
 ) => {
+  const tonePrompt = tone ? `Use um tom de voz "${tone}".` : '';
+
   return `
 Crie um post para Instagram com o objetivo de "Divulgar o Serviço/Produto" de ${product} com o tema ${topic}, no formato de carrossel, com ${slidesCount} slides.
+
+${tonePrompt}
 
 O resultado deve vir num JSON, no formato:
 
@@ -54,10 +58,14 @@ const getImagePrompt = (
   product: string,
   topic: string,
   format: PostFormat,
-  character?: string,
+  tone?: string,
 ) => {
+  const tonePrompt = tone ? `Use um tom de voz "${tone}".` : '';
+
   return `
 Crie um post para Instagram com o objetivo de "Divulgar o Serviço/Produto" de ${product} com o tema ${topic}, no formato de imagem para ${format}.
+
+${tonePrompt}
 
 O resultado deve vir num JSON, no formato:
 
@@ -86,10 +94,14 @@ const getVideoPrompt = (
   product: string,
   topic: string,
   format: PostFormat,
-  character?: string,
+  tone?: string,
 ) => {
+  const tonePrompt = tone ? `Use um tom de voz "${tone}".` : '';
+
   return `
 Crie um post para Instagram com o objetivo de "Divulgar o Serviço/Produto" de ${product} com o tema ${topic}, no formato de vídeo para ${format}.
+
+${tonePrompt}
 
 O resultado deve vir num JSON, no formato:
 

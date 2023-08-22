@@ -34,7 +34,7 @@ export const newPostFamily1 = https.onRequest(async (request, response) => {
   corsObj(request, response, async () => {
     if (!validateParams(request, response)) return;
 
-    const { goal, product, topic, type, slidesCount, format, character } =
+    const { goal, product, topic, type, slidesCount, format, tone } =
       request.body;
 
     let getPostPrompt;
@@ -62,7 +62,7 @@ export const newPostFamily1 = https.onRequest(async (request, response) => {
       type,
       slidesCount,
       format,
-      character,
+      tone,
     );
     // console.log('prompt', prompt);
 

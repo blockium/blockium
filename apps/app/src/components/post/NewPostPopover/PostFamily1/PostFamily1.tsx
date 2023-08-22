@@ -25,6 +25,38 @@ import {
 import { newPostFamily1 } from '../../../../apiRequests';
 import { useAddPost } from '../../../../hooks';
 
+const tones = [
+  msg(`app.post.tone.appreciative`),
+  msg(`app.post.tone.assertive`),
+  msg(`app.post.tone.awestruck`),
+  msg(`app.post.tone.casual`),
+  msg(`app.post.tone.cautionary`),
+  msg(`app.post.tone.compassionate`),
+  msg(`app.post.tone.convincing`),
+  msg(`app.post.tone.critical`),
+  msg(`app.post.tone.earnest`),
+  msg(`app.post.tone.enthusiastic`),
+  msg(`app.post.tone.formal`),
+  msg(`app.post.tone.funny`),
+  msg(`app.post.tone.humble`),
+  msg(`app.post.tone.humorous`),
+  msg(`app.post.tone.informative`),
+  msg(`app.post.tone.inspirational`),
+  msg(`app.post.tone.joyful`),
+  msg(`app.post.tone.passionate`),
+  msg(`app.post.tone.thoughtful`),
+  msg(`app.post.tone.urgent`),
+  msg(`app.post.tone.worried`),
+  msg(`app.post.tone.furious`),
+  msg(`app.post.tone.hulk-smashes`),
+  msg(`app.post.tone.batman`),
+  msg(`app.post.tone.superman`),
+  msg(`app.post.tone.wonder-woman`),
+  msg(`app.post.tone.star-wars`),
+  msg(`app.post.tone.fast-and-furious`),
+  msg(`app.post.tone.spider-man`),
+  msg(`app.post.tone.deadpool`),
+];
 interface IPostFamily1Props {
   goal: PostGoal;
   goalTitle: string;
@@ -61,7 +93,7 @@ export const PostFamily1: React.FC<IPostFamily1Props> = ({
   const [format, setFormat] = useState<PostFormat>(
     postParams?.format || 'feed',
   );
-  const [character] = useState(postParams?.character || '');
+  const [tone, setTone] = useState(postParams?.tone || '');
 
   const setTypeAndFormat = (type: PostType) => {
     setType(type);
@@ -81,7 +113,7 @@ export const PostFamily1: React.FC<IPostFamily1Props> = ({
       type as PostType,
       slidesCount || 0,
       format as PostFormat,
-      character,
+      tone,
     );
 
     // If the result is a string, it's an error
@@ -102,7 +134,7 @@ export const PostFamily1: React.FC<IPostFamily1Props> = ({
         product,
         topic,
       },
-      character,
+      tone,
     };
 
     const newPost = {
@@ -200,7 +232,7 @@ export const PostFamily1: React.FC<IPostFamily1Props> = ({
         InputProps={{
           endAdornment: (
             <IconButton
-              sx={{ visibility: character ? 'visible' : 'hidden' }}
+              sx={{ visibility: tone ? 'visible' : 'hidden' }}
               onClick={() => setSlidesCount(0)}
             >
               <ClearIcon />
@@ -235,24 +267,25 @@ export const PostFamily1: React.FC<IPostFamily1Props> = ({
           )}
         </Select>
       </FormControl>
-      {/* <TextField
-        margin="dense"
-        label={msg('app.popover.newpost.input.character')}
-        type="text"
-        fullWidth
-        value={character}
-        onChange={(e) => setCharacter(e.target.value)}
-        InputProps={{
-          endAdornment: (
-            <IconButton
-              sx={{ visibility: character ? 'visible' : 'hidden' }}
-              onClick={() => setCharacter('')}
-            >
-              <ClearIcon />
-            </IconButton>
-          ),
-        }}
-      /> */}
+      <FormControl fullWidth>
+        <InputLabel id="post-tone-label">
+          {msg('app.popover.newpost.input.tone')}
+        </InputLabel>
+        <Select
+          labelId="post-tone-label"
+          id="post-tone"
+          value={tone}
+          label={msg('app.popover.newpost.input.tone')}
+          onChange={(e) => setTone(e.target.value)}
+        >
+          <MenuItem value="">{msg(`app.post.tone.none`)}</MenuItem>
+          {tones.map((tone) => (
+            <MenuItem key={`${tone}`} value={tone}>
+              {tone}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
       <Stack direction="row" gap={2}>
         <CTAButton
           onClick={() => setGoalElement(null)}

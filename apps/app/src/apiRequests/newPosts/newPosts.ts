@@ -5,7 +5,7 @@ import { msg } from '@postgpt/i18n';
 export const newPosts = async (
   postQuantity: number,
   topic?: string,
-  character?: string,
+  tone?: string,
   format?: PostFormat,
   type?: PostType,
 ) => {
@@ -18,7 +18,7 @@ export const newPosts = async (
     name,
     postQuantity,
     topic,
-    character,
+    tone,
     format,
     type,
   };

@@ -47,7 +47,7 @@ function parseWeeklyPosts(answer: string): Post[][] {
           product: '',
           topic: '',
         },
-        character: '',
+        tone: '',
       },
       createdAt: new Date(),
       deletedAt: null,

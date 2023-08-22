@@ -1,3 +1,4 @@
+// TODO: Delete prompts.ts
 import { PostFormat, PostType, User } from '@postgpt/types';
 
 const getFormat = (format?: PostFormat) => {
@@ -14,7 +15,7 @@ export const getPostsPrompt = async (
   user: User,
   postQuantity: number,
   topic?: string,
-  character?: string,
+  tone?: string,
   format?: PostFormat,
   type?: PostType,
 ) => {
@@ -31,9 +32,7 @@ export const getPostsPrompt = async (
   const postType = getType(postFormat, type) as PostType;
   const typePrompt = `do tipo ${postType},`;
 
-  const characterPrompt = character
-    ? `falando como o personagem "${character}",`
-    : '';
+  const characterPrompt = tone ? `falando como o personagem "${tone}",` : '';
 
   const language = 'portugues';
 

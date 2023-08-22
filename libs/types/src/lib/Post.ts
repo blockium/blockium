@@ -41,7 +41,7 @@ export type PostParams = {
   slidesCount?: number; // required only if type is 'carousel'
   format: PostFormat;
   extra: PostParamFamily1 | PostParamFamily2;
-  character?: string;
+  tone?: string;
 };
 
 export type Post = {

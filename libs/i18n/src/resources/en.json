@@ -108,7 +108,7 @@
   "app.popover.newpost.input.format-feed": "Feed",
   "app.popover.newpost.input.format-story": "Story",
   "app.popover.newpost.input.format-reels": "Reels",
-  "app.popover.newpost.input.character": "Personagem",
+  "app.popover.newpost.input.tone": "Personagem",
   "app.error.noUserId": "Usuário não logado",
   "app.error.newPost": "Desculpe, houve um erro ao gerar o post. Por favor, tente novamente",
   "app.error.newPosts": "Desculpe, houve um erro ao gerar as postagens. Por favor, tente novamente",

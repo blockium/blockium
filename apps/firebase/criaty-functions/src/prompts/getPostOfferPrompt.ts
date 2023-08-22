@@ -6,15 +6,15 @@ export const getPostOfferPrompt = (
   type: PostType,
   slidesCount: number,
   format: PostFormat,
-  character?: string,
+  tone?: string,
 ) => {
   switch (type) {
     case 'carousel':
-      return getCarouselPrompt(product, offer, slidesCount, character);
+      return getCarouselPrompt(product, offer, slidesCount, tone);
     case 'image':
-      return getImagePrompt(product, offer, format, character);
+      return getImagePrompt(product, offer, format, tone);
     case 'video':
-      return getVideoPrompt(product, offer, format, character);
+      return getVideoPrompt(product, offer, format, tone);
   }
 };
 
@@ -22,10 +22,14 @@ const getCarouselPrompt = (
   product: string,
   offer: string,
   slidesCount: number,
-  character?: string,
+  tone?: string,
 ) => {
+  const tonePrompt = tone ? `Use um tom de voz "${tone}".` : '';
+
   return `
 Crie um post para Instagram com o objetivo de "Divulgar a promoção do Serviço/Produto" de ${product} com a oferta ${offer}, no formato de carrossel, com ${slidesCount} slides.
+
+${tonePrompt}
 
 O resultado deve vir num JSON, no formato:
 
@@ -55,10 +59,14 @@ const getImagePrompt = (
   product: string,
   offer: string,
   format: PostFormat,
-  character?: string,
+  tone?: string,
 ) => {
+  const tonePrompt = tone ? `Use um tom de voz "${tone}".` : '';
+
   return `
 Crie um post para Instagram com o objetivo de "Divulgar a promoção do Serviço/Produto" de ${product} com a oferta ${offer}, no formato de imagem para ${format}.
+
+${tonePrompt}
 
 O resultado deve vir num JSON, no formato:
 
@@ -88,10 +96,14 @@ const getVideoPrompt = (
   product: string,
   offer: string,
   format: PostFormat,
-  character?: string,
+  tone?: string,
 ) => {
+  const tonePrompt = tone ? `Use um tom de voz "${tone}".` : '';
+
   return `
 Crie um post para Instagram com o objetivo de "Divulgar a promoção do Serviço/Produto" de ${product} com a oferta ${offer}, no formato de vídeo para ${format}.
+
+${tonePrompt}
 
 O resultado deve vir num JSON, no formato:
 

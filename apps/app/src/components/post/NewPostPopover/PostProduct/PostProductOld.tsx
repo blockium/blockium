@@ -1,3 +1,4 @@
+// TODO: Delete PostProductOld.tsx
 import { ReactElement, useState } from 'react';
 import { IconButton, Stack, TextField } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -21,13 +22,13 @@ export const PostProduct: React.FC<IPostProductProps> = ({
   onGenerate,
 }) => {
   const [topic, setTopic] = useState('');
-  const [character, setCharacter] = useState('');
+  const [tone, setCharacter] = useState('');
   const [format, setFormat] = useState<PostFormat>();
   const [type, setType] = useState<PostType>();
 
   const addPost = async (date: Date) => {
     // Request the creation of one new post
-    const result = await newPosts(1, topic, character, format, type);
+    const result = await newPosts(1, topic, tone, format, type);
 
     // If the result is a string, it's an error
     if (typeof result === 'string') {
@@ -36,7 +37,7 @@ export const PostProduct: React.FC<IPostProductProps> = ({
     }
 
     const post = result[0];
-    // TODO: Save topic, character, format and type in Firebase
+    // TODO: Save topic, tone, format and type in Firebase
     const newPost = {
       ...post,
       date,
@@ -84,15 +85,15 @@ export const PostProduct: React.FC<IPostProductProps> = ({
       />
       <TextField
         margin="dense"
-        label={msg('app.popover.newpost.input.character')}
+        label={msg('app.popover.newpost.input.tone')}
         type="text"
         fullWidth
-        value={character}
+        value={tone}
         onChange={(e) => setCharacter(e.target.value)}
         InputProps={{
           endAdornment: (
             <IconButton
-              sx={{ visibility: character ? 'visible' : 'hidden' }}
+              sx={{ visibility: tone ? 'visible' : 'hidden' }}
               onClick={() => setCharacter('')}
             >
               <ClearIcon />

@@ -5,25 +5,29 @@ export const getPostBehindTheScenesPrompt = (
   type: PostType,
   slidesCount: number,
   format: PostFormat,
-  character?: string,
+  tone?: string,
 ) => {
   switch (type) {
     case 'carousel':
-      return getCarouselPrompt(scene, slidesCount, character);
+      return getCarouselPrompt(scene, slidesCount, tone);
     case 'image':
-      return getImagePrompt(scene, format, character);
+      return getImagePrompt(scene, format, tone);
     case 'video':
-      return getVideoPrompt(scene, format, character);
+      return getVideoPrompt(scene, format, tone);
   }
 };
 
 const getCarouselPrompt = (
   scene: string,
   slidesCount: number,
-  character?: string,
+  tone?: string,
 ) => {
+  const tonePrompt = tone ? `Use um tom de voz "${tone}".` : '';
+
   return `
 Crie um post para Instagram de bastidor com a seguinte cena "${scene}", no formato de carrossel, com ${slidesCount} slides.
+
+${tonePrompt}
 
 O resultado deve vir num JSON, no formato:
 
@@ -49,13 +53,13 @@ Exemplo:
 `;
 };
 
-const getImagePrompt = (
-  scene: string,
-  format: PostFormat,
-  character?: string,
-) => {
+const getImagePrompt = (scene: string, format: PostFormat, tone?: string) => {
+  const tonePrompt = tone ? `Use um tom de voz "${tone}".` : '';
+
   return `
 Crie um post para Instagram de bastidor com a seguinte cena "${scene}", no formato de imagem para ${format}.
+
+${tonePrompt}
 
 O resultado deve vir num JSON, no formato:
 
@@ -81,13 +85,13 @@ Exemplo:
 `;
 };
 
-const getVideoPrompt = (
-  scene: string,
-  format: PostFormat,
-  character?: string,
-) => {
+const getVideoPrompt = (scene: string, format: PostFormat, tone?: string) => {
+  const tonePrompt = tone ? `Use um tom de voz "${tone}".` : '';
+
   return `
 Crie um post para Instagram de bastidor com a seguinte cena "${scene}", no formato de vídeo para ${format}.
+
+${tonePrompt}
 
 O resultado deve vir num JSON, no formato:
 

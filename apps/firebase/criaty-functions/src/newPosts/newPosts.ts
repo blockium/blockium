@@ -43,13 +43,13 @@ export const newPosts = https.onRequest(async (request, response) => {
 
     const user = result as User;
 
-    const { postQuantity, topic, character, format, type } = request.body;
+    const { postQuantity, topic, tone, format, type } = request.body;
 
     const prompt = await getPostsPrompt(
       user,
       postQuantity ?? 1,
       topic,
-      character,
+      tone,
       format,
       type,
     );

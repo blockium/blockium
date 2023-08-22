@@ -9,7 +9,7 @@ export const newPostFamily1 = async (
   type: PostType,
   slidesCount: number,
   format: PostFormat,
-  character?: string,
+  tone?: string,
 ) => {
   const params = {
     goal,
@@ -18,7 +18,7 @@ export const newPostFamily1 = async (
     type,
     slidesCount,
     format,
-    character,
+    tone,
   };
 
   // Sent a POST request to new post endpoint

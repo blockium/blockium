@@ -28,7 +28,7 @@ export const newPostFamily2 = https.onRequest(async (request, response) => {
   corsObj(request, response, async () => {
     if (!validateParams(request, response)) return;
 
-    const { goal, topic, type, slidesCount, format, character } = request.body;
+    const { goal, topic, type, slidesCount, format, tone } = request.body;
 
     let getPostPrompt;
     switch (goal as PostGoal) {
@@ -49,7 +49,7 @@ export const newPostFamily2 = https.onRequest(async (request, response) => {
         return;
     }
 
-    const prompt = getPostPrompt(topic, type, slidesCount, format, character);
+    const prompt = getPostPrompt(topic, type, slidesCount, format, tone);
     // console.log('prompt', prompt);
 
     try {

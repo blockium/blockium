@@ -6,15 +6,15 @@ export const getPostTestimonialPrompt = (
   type: PostType,
   slidesCount: number,
   format: PostFormat,
-  character?: string,
+  tone?: string,
 ) => {
   switch (type) {
     case 'carousel':
-      return getCarouselPrompt(testimonial, customer, slidesCount, character);
+      return getCarouselPrompt(testimonial, customer, slidesCount, tone);
     case 'image':
-      return getImagePrompt(testimonial, customer, format, character);
+      return getImagePrompt(testimonial, customer, format, tone);
     case 'video':
-      return getVideoPrompt(testimonial, customer, format, character);
+      return getVideoPrompt(testimonial, customer, format, tone);
   }
 };
 
@@ -22,10 +22,14 @@ const getCarouselPrompt = (
   testimonial: string,
   customer: string,
   slidesCount: number,
-  character?: string,
+  tone?: string,
 ) => {
+  const tonePrompt = tone ? `Use um tom de voz "${tone}".` : '';
+
   return `
 Crie um post para Instagram com o objetivo de "Divulgar a História de Sucesso/Depoimento" a seguir: "${testimonial}", dado por "${customer}" no formato de carrossel, com ${slidesCount} slides.
+
+${tonePrompt}
 
 O resultado deve vir num JSON, no formato:
 
@@ -64,10 +68,14 @@ const getImagePrompt = (
   testimonial: string,
   customer: string,
   format: PostFormat,
-  character?: string,
+  tone?: string,
 ) => {
+  const tonePrompt = tone ? `Use um tom de voz "${tone}".` : '';
+
   return `
 Crie um post para Instagram com o objetivo de "Divulgar a História de Sucesso/Depoimento" a seguir: "${testimonial}", dado por "${customer}" no formato de imagem para ${format}.
+
+${tonePrompt}
 
 O resultado deve vir num JSON, no formato:
 
@@ -97,10 +105,14 @@ const getVideoPrompt = (
   testimonial: string,
   customer: string,
   format: PostFormat,
-  character?: string,
+  tone?: string,
 ) => {
+  const tonePrompt = tone ? `Use um tom de voz "${tone}".` : '';
+
   return `
 Crie um post para Instagram com o objetivo de "Divulgar a História de Sucesso/Depoimento" a seguir: "${testimonial}", dado por "${customer}" no formato de vídeo para ${format}.
+
+${tonePrompt}
 
 O resultado deve vir num JSON, no formato:
 
