@@ -5,6 +5,7 @@ import {
   ListItemButton,
   ListItemText,
   ListSubheader,
+  Typography,
 } from '@mui/material';
 
 import { msg } from '@postgpt/i18n';
@@ -37,7 +38,9 @@ export const PostGoalSelector: React.FC<IPostGoalSelectorProps> = ({
       aria-labelledby="nested-list-subheader"
       subheader={
         <ListSubheader id="nested-list-subheader">
-          {msg('app.post.goal.selector-title')}
+          <Typography variant="h4" pb={1.5}>
+            {msg('app.post.goal.selector-title')}
+          </Typography>
         </ListSubheader>
       }
       sx={{ maxHeight: '480px', overflow: 'auto' }}
