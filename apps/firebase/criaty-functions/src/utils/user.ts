@@ -19,7 +19,7 @@ export const createUser = async (
     name,
     displayName,
     phone,
-    expirationDate: addDays(new Date(), 3),
+    expirationDate: addDays(new Date(), 15),
   };
   const userDoc = await db.users.add(user);
   user.id = userDoc.id;
