@@ -3,7 +3,7 @@ import onMessage from './events/onMessage';
 
 // WhatsApp Puppeteer Client
 const client = new Client({
-  authStrategy: new LocalAuth({ clientId: 'post-gpt' }),
+  authStrategy: new LocalAuth({ clientId: 'criaty' }),
   puppeteer: {
     headless: true,
     args: [

@@ -50,7 +50,7 @@
     "socket.io": "^4.7.1",
     "swiper": "^10.0.4",
     "tslib": "^2.6.1",
-    "whatsapp-web.js": "^1.21.0"
+    "whatsapp-web.js": "^1.22.2-alpha.0"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.14.5",

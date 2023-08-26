@@ -33,7 +33,7 @@ io.on('connection', function (socket) {
         socket.emit('qr', url);
         socket.emit(
           'message',
-          'QRCode recebido, aponte a câmera  seu celular!'
+          'QRCode recebido, aponte a câmera  seu celular!',
         );
       });
     });
