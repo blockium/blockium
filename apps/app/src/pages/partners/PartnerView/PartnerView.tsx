@@ -13,11 +13,11 @@ import {
 } from '@mui/material';
 import HandshakeIcon from '@mui/icons-material/Handshake';
 
-import { msg } from '@postgpt/i18n';
-import { CTAButton } from '@postgpt/ui-common';
-import { Partner, PartnerPermission } from '@postgpt/types';
-import { isEmpty } from '@postgpt/utils';
-import { useUser } from '@postgpt/firebase';
+import { msg } from '@optilib/i18n';
+import { CTAButton } from '@optilib/ui-common';
+import { Partner, PartnerPermission } from '@optilib/types';
+import { isEmpty } from '@optilib/utils';
+import { useUser } from '@optilib/firebase';
 
 interface IPartnerViewProps {
   partner: Partner;

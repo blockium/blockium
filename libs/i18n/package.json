@@ -1,5 +1,5 @@
 {
-  "name": "@postgpt/i18n",
+  "name": "@optilib/i18n",
   "version": "0.0.1",
   "main": "./index.js",
   "types": "./index.d.ts",

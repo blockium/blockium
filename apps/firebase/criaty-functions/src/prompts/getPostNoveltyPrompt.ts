@@ -1,4 +1,4 @@
-import { PostFormat, PostType } from '@postgpt/types';
+import { PostFormat, PostType } from '@optilib/types';
 
 export const getPostNoveltyPrompt = (
   novelty: string,

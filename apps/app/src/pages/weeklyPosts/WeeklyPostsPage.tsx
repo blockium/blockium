@@ -3,7 +3,7 @@ import { useParams } from 'react-router';
 import { addDays, startOfWeek } from 'date-fns';
 import { Stack } from '@mui/material';
 
-// import { useHasBusinessInfo } from '@postgpt/firebase';
+// import { useHasBusinessInfo } from '@optilib/firebase';
 import { DayPostsView } from './DayPostsView';
 import { useExtendNavbar } from './useExtendNavbar';
 

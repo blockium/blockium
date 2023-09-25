@@ -1,7 +1,7 @@
 import { https } from 'firebase-functions';
 import cors from 'cors';
 
-import { Session, User } from '@postgpt/types';
+import { Session, User } from '@optilib/types';
 
 import {
   validateAuthId,

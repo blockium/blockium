@@ -2,7 +2,7 @@ import { https } from 'firebase-functions';
 import cors from 'cors';
 import axios from 'axios';
 
-import { PostGoal } from '@postgpt/types';
+import { PostGoal } from '@optilib/types';
 
 import {
   getPostBehindTheScenesPrompt,

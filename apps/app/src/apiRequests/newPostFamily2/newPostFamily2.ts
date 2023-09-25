@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { Post, PostFormat, PostGoal, PostType } from '@postgpt/types';
-import { msg } from '@postgpt/i18n';
+import { Post, PostFormat, PostGoal, PostType } from '@optilib/types';
+import { msg } from '@optilib/i18n';
 
 export const newPostFamily2 = async (
   goal: PostGoal,

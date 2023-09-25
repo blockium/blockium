@@ -1,7 +1,7 @@
 import { ReactNode, Ref, forwardRef } from 'react';
 import { Box, Typography } from '@mui/material';
 
-import { capitalizeFirstLetter } from '@postgpt/utils';
+import { capitalizeFirstLetter } from '@optilib/utils';
 import CalendarWeek from './CalendarWeek';
 
 interface CalendarMonthProps {

@@ -3,10 +3,10 @@ import { ReactElement, useState } from 'react';
 import { IconButton, Stack, TextField } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 
-import { msg } from '@postgpt/i18n';
-import { CTAButton } from '@postgpt/ui-common';
-import { Post, PostFormat, PostType } from '@postgpt/types';
-import { addPost as addPostDb } from '@postgpt/firebase';
+import { msg } from '@optilib/i18n';
+import { CTAButton } from '@optilib/ui-common';
+import { Post, PostFormat, PostType } from '@optilib/types';
+import { addPost as addPostDb } from '@optilib/firebase';
 
 import { newPosts } from '../../../../apiRequests';
 

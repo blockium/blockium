@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 import { Box } from '@mui/material';
 
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth, useSignIn } from '@postgpt/firebase';
+import { auth, useSignIn } from '@optilib/firebase';
 
 import { LoadingIndicator } from '../../progress';
 import { CriatyLogo } from '../../logo';

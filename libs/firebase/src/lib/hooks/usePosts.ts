@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { Post } from '@postgpt/types';
+import { Post } from '@optilib/types';
 import { getPosts } from '../posts';
 import { addDays } from 'date-fns';
 

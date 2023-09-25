@@ -4,8 +4,8 @@ import { Container, Stack } from '@mui/material';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import styles from './App.module.scss';
 
-import { DashboardLayout } from '@postgpt/ui-mininal-tmpl';
-import { LocalizationProvider } from '@postgpt/i18n-mui';
+import { DashboardLayout } from '@optilib/ui-mininal-tmpl';
+import { LocalizationProvider } from '@optilib/i18n-mui';
 
 import { useLayoutConfig } from './useLayoutConfig';
 

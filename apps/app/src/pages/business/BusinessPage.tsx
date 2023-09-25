@@ -9,10 +9,10 @@ import {
 } from '@mui/material';
 import StoreIcon from '@mui/icons-material/Store';
 
-import { msg } from '@postgpt/i18n';
-import { Alert, CTAButton } from '@postgpt/ui-common';
-import { isEmpty } from '@postgpt/utils';
-import { saveUserBusiness, useUser } from '@postgpt/firebase';
+import { msg } from '@optilib/i18n';
+import { Alert, CTAButton } from '@optilib/ui-common';
+import { isEmpty } from '@optilib/utils';
+import { saveUserBusiness, useUser } from '@optilib/firebase';
 
 interface BusinessPageProps {
   title?: string;

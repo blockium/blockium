@@ -10,49 +10,23 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "resolveJsonModule": true,
     "paths": {
-      "@postgpt/firebase": [
-        "libs/firebase/src/index.ts"
-      ],
-      "@postgpt/i18n": [
-        "libs/i18n/src/index.ts"
-      ],
-      "@postgpt/i18n-mui": [
-        "libs/i18n-mui/src/index.ts"
-      ],
-      "@postgpt/theme": [
-        "libs/theme/src/index.ts"
-      ],
-      "@postgpt/types": [
-        "libs/types/src/index.ts"
-      ],
-      "@postgpt/ui-auth": [
-        "libs/ui-auth/src/index.ts"
-      ],
-      "@postgpt/ui-calendar": [
-        "libs/ui-calendar/src/index.ts"
-      ],
-      "@postgpt/ui-common": [
-        "libs/ui-common/src/index.ts"
-      ],
-      "@postgpt/ui-mininal-tmpl": [
-        "libs/ui-minimal-tmpl/src/index.ts"
-      ],
-      "@postgpt/utils": [
-        "libs/utils/src/index.ts"
-      ]
+      "@optilib/firebase": ["libs/firebase/src/index.ts"],
+      "@optilib/i18n": ["libs/i18n/src/index.ts"],
+      "@optilib/i18n-mui": ["libs/i18n-mui/src/index.ts"],
+      "@optilib/theme": ["libs/theme/src/index.ts"],
+      "@optilib/types": ["libs/types/src/index.ts"],
+      "@optilib/ui-auth": ["libs/ui-auth/src/index.ts"],
+      "@optilib/ui-calendar": ["libs/ui-calendar/src/index.ts"],
+      "@optilib/ui-common": ["libs/ui-common/src/index.ts"],
+      "@optilib/ui-mininal-tmpl": ["libs/ui-minimal-tmpl/src/index.ts"],
+      "@optilib/utils": ["libs/utils/src/index.ts"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }

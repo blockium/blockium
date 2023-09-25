@@ -11,8 +11,8 @@ import {
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 
-import { msg } from '@postgpt/i18n';
-import { CTAButton } from '@postgpt/ui-common';
+import { msg } from '@optilib/i18n';
+import { CTAButton } from '@optilib/ui-common';
 import {
   Post,
   PostFormat,
@@ -20,7 +20,7 @@ import {
   PostParamFamily2,
   PostParams,
   PostType,
-} from '@postgpt/types';
+} from '@optilib/types';
 
 import { newPostFamily2 } from '../../../../apiRequests';
 import { useAddPost } from '../../../../hooks';

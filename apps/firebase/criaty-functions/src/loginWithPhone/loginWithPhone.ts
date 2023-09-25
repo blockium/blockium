@@ -1,7 +1,7 @@
 import { https } from 'firebase-functions';
 import cors from 'cors';
 
-import { User } from '@postgpt/types';
+import { User } from '@optilib/types';
 
 import {
   createSession,
@@ -42,7 +42,7 @@ export const loginWithPhone = https.onRequest(async (request, response) => {
         phone,
         phone,
         authUser.displayName,
-        true
+        true,
       )) as User;
       if (!validateUser(user, response)) return;
 

@@ -1,6 +1,6 @@
 import { Stack } from '@mui/material';
 
-import { LoginHero } from '@postgpt/ui-common';
+import { LoginHero } from '@optilib/ui-common';
 import { PhoneForm } from '../PhoneForm';
 
 type LoginProps = {

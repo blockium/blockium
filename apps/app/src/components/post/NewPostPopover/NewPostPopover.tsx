@@ -1,7 +1,7 @@
 import { ReactElement, useEffect, useState } from 'react';
 
-import { MenuPopover } from '@postgpt/ui-mininal-tmpl';
-import { Post, PostParams } from '@postgpt/types';
+import { MenuPopover } from '@optilib/ui-mininal-tmpl';
+import { Post, PostParams } from '@optilib/types';
 
 import { PostGoalSelector } from './PostGoalSelector';
 import { PostProduct } from './PostProduct';

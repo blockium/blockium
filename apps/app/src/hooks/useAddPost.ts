@@ -1,9 +1,9 @@
 import { startOfMonth } from 'date-fns';
 
-import { addPost as addPostDb } from '@postgpt/firebase';
-import { msg } from '@postgpt/i18n';
-import { Post } from '@postgpt/types';
-import { useCalendarCache } from '@postgpt/ui-calendar';
+import { addPost as addPostDb } from '@optilib/firebase';
+import { msg } from '@optilib/i18n';
+import { Post } from '@optilib/types';
+import { useCalendarCache } from '@optilib/ui-calendar';
 
 export const useAddPost = () => {
   const [calendarCache, setCalendarCache] = useCalendarCache();

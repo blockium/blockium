@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 
-import { Login, LoginPhone, LoginWhatsApp } from '@postgpt/ui-auth';
-import { PrivateRoute } from '@postgpt/ui-common';
+import { Login, LoginPhone, LoginWhatsApp } from '@optilib/ui-auth';
+import { PrivateRoute } from '@optilib/ui-common';
 
 import { App } from '../App';
 import {

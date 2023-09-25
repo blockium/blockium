@@ -3,11 +3,11 @@ import { getDay, startOfMonth } from 'date-fns';
 import { Box, Grid, IconButton } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
-import { Post, PostParams } from '@postgpt/types';
-import { msg } from '@postgpt/i18n';
-import { fDateCalendar } from '@postgpt/utils';
-import { Alert, CriatyLogo, LoadingIndicator } from '@postgpt/ui-common';
-import { useCalendarCache } from '@postgpt/ui-calendar';
+import { Post, PostParams } from '@optilib/types';
+import { msg } from '@optilib/i18n';
+import { fDateCalendar } from '@optilib/utils';
+import { Alert, CriatyLogo, LoadingIndicator } from '@optilib/ui-common';
+import { useCalendarCache } from '@optilib/ui-calendar';
 
 import { NewPostPopover, PostCard } from '../../../components';
 

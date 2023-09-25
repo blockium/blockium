@@ -10,10 +10,10 @@ import PeopleIcon from '@mui/icons-material/People';
 // import WalletIcon from '@mui/icons-material/Wallet';
 // import AdsClickIcon from '@mui/icons-material/AdsClick';
 
-import { LayoutConfig } from '@postgpt/ui-mininal-tmpl';
-import { useAuth, useSignOut } from '@postgpt/firebase';
-import { CriatyLogo } from '@postgpt/ui-common';
-import { formatPhoneNumber } from '@postgpt/utils';
+import { LayoutConfig } from '@optilib/ui-mininal-tmpl';
+import { useAuth, useSignOut } from '@optilib/firebase';
+import { CriatyLogo } from '@optilib/ui-common';
+import { formatPhoneNumber } from '@optilib/utils';
 
 const layoutConfig: LayoutConfig = {
   navBar: {

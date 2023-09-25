@@ -2,10 +2,10 @@ import { useNavigate } from 'react-router-dom';
 import { endOfMonth } from 'date-fns';
 import { Stack, Typography } from '@mui/material';
 
-import { BorderLinearProgress } from '@postgpt/ui-common';
-import { getPosts } from '@postgpt/firebase';
-import { Post, PostStatus } from '@postgpt/types';
-import { CalendarView } from '@postgpt/ui-calendar';
+import { BorderLinearProgress } from '@optilib/ui-common';
+import { getPosts } from '@optilib/firebase';
+import { Post, PostStatus } from '@optilib/types';
+import { CalendarView } from '@optilib/ui-calendar';
 
 export const CalendarPage: React.FC = (props) => {
   const navigate = useNavigate();

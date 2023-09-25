@@ -9,9 +9,9 @@ import {
   useMediaQuery,
 } from '@mui/material';
 
-import { msg } from '@postgpt/i18n';
-import { Post } from '@postgpt/types';
-import { CTAButton } from '@postgpt/ui-common';
+import { msg } from '@optilib/i18n';
+import { Post } from '@optilib/types';
+import { CTAButton } from '@optilib/ui-common';
 
 import { useUpdatePost } from '../../../hooks';
 

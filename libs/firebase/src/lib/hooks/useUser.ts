@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useEffectOnce } from 'react-use';
 
-import { User } from '@postgpt/types';
+import { User } from '@optilib/types';
 import { getUser } from '../users';
 
 export const useUser = () => {

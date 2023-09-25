@@ -1,6 +1,6 @@
-import { savePost, useUser } from '@postgpt/firebase';
-import { Post } from '@postgpt/types';
-// import { useCalendarCache } from '@postgpt/ui-calendar';
+import { savePost, useUser } from '@optilib/firebase';
+import { Post } from '@optilib/types';
+// import { useCalendarCache } from '@optilib/ui-calendar';
 
 export const useUpdatePost = () => {
   // const [calendarCache, setCalendarCache] = useCalendarCache();

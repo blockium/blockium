@@ -5,7 +5,7 @@ import MobileStepper from '@mui/material/MobileStepper';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 
-import { msg } from '@postgpt/i18n';
+import { msg } from '@optilib/i18n';
 
 const StepperButton = styled(Button)`
   &&& {
@@ -30,7 +30,7 @@ type SectionStepperProps = {
 };
 
 export const Stepper: React.FC<SectionStepperProps> = (
-  props: SectionStepperProps
+  props: SectionStepperProps,
 ) => {
   const {
     activeStep,

@@ -23,11 +23,11 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 // utils
-import { fToNow } from '@postgpt/utils';
+import { fToNow } from '@optilib/utils';
 // components
 import { MenuPopover } from '../MenuPopover';
 import { Scrollbar } from '../Scrollbar';
-import { msg } from '@postgpt/i18n';
+import { msg } from '@optilib/i18n';
 
 // ----------------------------------------------------------------------
 
@@ -85,7 +85,7 @@ export const NotificationsPopover: React.FC = () => {
   const [notifications, setNotifications] = useState(NOTIFICATIONS);
 
   const totalUnRead = notifications.filter(
-    (item) => item.isUnRead === true
+    (item) => item.isUnRead === true,
   ).length;
 
   const [open, setOpen] = useState<HTMLButtonElement | null>(null);
@@ -103,7 +103,7 @@ export const NotificationsPopover: React.FC = () => {
       notifications.map((notification) => ({
         ...notification,
         isUnRead: false,
-      }))
+      })),
     );
   };
 

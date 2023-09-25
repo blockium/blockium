@@ -13,10 +13,10 @@ import {
 } from '@mui/material';
 import HandshakeIcon from '@mui/icons-material/Handshake';
 
-import { useUser } from '@postgpt/firebase';
-import { Partner } from '@postgpt/types';
-import { msg } from '@postgpt/i18n';
-import { Alert, CTAButton } from '@postgpt/ui-common';
+import { useUser } from '@optilib/firebase';
+import { Partner } from '@optilib/types';
+import { msg } from '@optilib/i18n';
+import { Alert, CTAButton } from '@optilib/ui-common';
 
 import { PartnerView } from './PartnerView';
 

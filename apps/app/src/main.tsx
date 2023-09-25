@@ -2,8 +2,8 @@
 import * as ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 
-import { IntlProvider } from '@postgpt/i18n';
-import { ThemeConfig, ThemeProvider } from '@postgpt/theme';
+import { IntlProvider } from '@optilib/i18n';
+import { ThemeConfig, ThemeProvider } from '@optilib/theme';
 
 import { AppRouter } from './components/AppRouter';
 
@@ -75,7 +75,7 @@ const themeConfig: ThemeConfig = {
 };
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById('root') as HTMLElement,
 );
 root.render(
   // <StrictMode>
@@ -85,6 +85,6 @@ root.render(
         <AppRouter />
       </BrowserRouter>
     </ThemeProvider>
-  </IntlProvider>
+  </IntlProvider>,
   // </StrictMode>
 );

@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { Link, Stack, Typography } from '@mui/material';
 
 import { signInAnonymously } from 'firebase/auth';
-import { auth } from '@postgpt/firebase';
+import { auth } from '@optilib/firebase';
 
-import { useIntlMessage } from '@postgpt/i18n';
+import { useIntlMessage } from '@optilib/i18n';
 
-import { CTAButton, LoginHero, Alert } from '@postgpt/ui-common';
+import { CTAButton, LoginHero, Alert } from '@optilib/ui-common';
 import { getUser } from '../apiRequests';
 
 type LoginProps = {

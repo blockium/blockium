@@ -15,7 +15,7 @@ import {
   // Button,
 } from '@mui/material';
 
-import { msg } from '@postgpt/i18n';
+import { msg } from '@optilib/i18n';
 
 import { Scrollbar } from '../Scrollbar';
 import { NavSection } from '../NavSection';

@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 
-import { MonthYearPicker, useCurrentDate } from '@postgpt/ui-common';
+import { MonthYearPicker, useCurrentDate } from '@optilib/ui-common';
 import {
   DRAWER_WIDTH,
   useNavbarExtraLine,
   useToolbarExtra,
-} from '@postgpt/ui-mininal-tmpl';
-import { msg } from '@postgpt/i18n';
+} from '@optilib/ui-mininal-tmpl';
+import { msg } from '@optilib/i18n';
 
 export const useExtendNavbar = () => {
   const [, setCurrentDate] = useCurrentDate();

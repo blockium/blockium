@@ -9,7 +9,7 @@ import {
 } from 'firebase/firestore';
 import { db } from './firebase';
 
-import { Post } from '@postgpt/types';
+import { Post } from '@optilib/types';
 
 export const getPosts = async (
   userId: string,

@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { Post, PostFormat, PostType } from '@postgpt/types';
-import { msg } from '@postgpt/i18n';
+import { Post, PostFormat, PostType } from '@optilib/types';
+import { msg } from '@optilib/i18n';
 
 export const newPosts = async (
   postQuantity: number,

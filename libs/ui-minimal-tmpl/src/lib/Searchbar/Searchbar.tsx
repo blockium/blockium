@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
-import { msg } from '@postgpt/i18n';
+import { msg } from '@optilib/i18n';
 
 // ----------------------------------------------------------------------
 

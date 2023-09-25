@@ -10,7 +10,7 @@ import { useIntersection } from 'react-use';
 import { addMonths, startOfMonth } from 'date-fns';
 import { Box } from '@mui/material';
 
-import { useCurrentDate } from '@postgpt/ui-common';
+import { useCurrentDate } from '@optilib/ui-common';
 
 import CalendarMonth from './CalendarMonth'; // Import the MonthView component
 import { useCalendarCache, CalendarCache } from '../hooks/useCalendarCache';

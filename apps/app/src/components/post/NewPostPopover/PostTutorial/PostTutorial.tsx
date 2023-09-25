@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 
-import { Post, PostParams } from '@postgpt/types';
-import { msg } from '@postgpt/i18n';
+import { Post, PostParams } from '@optilib/types';
+import { msg } from '@optilib/i18n';
 
 import { PostFamily2 } from '../PostFamily2';
 

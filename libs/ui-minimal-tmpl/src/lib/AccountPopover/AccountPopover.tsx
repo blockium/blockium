@@ -14,8 +14,8 @@ import {
 } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 
-import { DarkModeSwitch } from '@postgpt/theme';
-import { msg } from '@postgpt/i18n';
+import { DarkModeSwitch } from '@optilib/theme';
+import { msg } from '@optilib/i18n';
 
 // components
 import { MenuPopover } from '../MenuPopover';

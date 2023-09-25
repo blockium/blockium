@@ -1,5 +1,5 @@
 import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { User } from '@postgpt/types';
+import { User } from '@optilib/types';
 import { db } from './firebase';
 
 export const getUser = async (userId: string) => {

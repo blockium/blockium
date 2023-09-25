@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { Stack, Typography } from '@mui/material';
 
-import { msg } from '@postgpt/i18n';
-import { CTAButton } from '@postgpt/ui-common';
+import { msg } from '@optilib/i18n';
+import { CTAButton } from '@optilib/ui-common';
 
 export const NoBusinessPage: React.FC = (props) => {
   const navigate = useNavigate();

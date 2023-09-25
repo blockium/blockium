@@ -8,8 +8,8 @@ import {
   Typography,
 } from '@mui/material';
 
-import { msg } from '@postgpt/i18n';
-import { Post } from '@postgpt/types';
+import { msg } from '@optilib/i18n';
+import { Post } from '@optilib/types';
 
 import { PostProduct } from '../PostProduct';
 import { PostOffer } from '../PostOffer';

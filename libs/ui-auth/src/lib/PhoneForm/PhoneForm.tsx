@@ -10,10 +10,10 @@ import {
   signInWithPhoneNumber,
   updateProfile,
 } from 'firebase/auth';
-import { auth } from '@postgpt/firebase';
+import { auth } from '@optilib/firebase';
 
-import { useIntlMessage } from '@postgpt/i18n';
-import { PhoneInput, CTAButton } from '@postgpt/ui-common';
+import { useIntlMessage } from '@optilib/i18n';
+import { PhoneInput, CTAButton } from '@optilib/ui-common';
 
 import { loginWithPhone } from '../apiRequests';
 

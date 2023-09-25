@@ -1,5 +1,5 @@
 {
-  "name": "@postgpt/i18n-mui",
+  "name": "@optilib/i18n-mui",
   "version": "0.0.1",
   "main": "./index.js",
   "types": "./index.d.ts",

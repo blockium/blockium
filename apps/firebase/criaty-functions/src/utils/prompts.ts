@@ -1,5 +1,5 @@
 // TODO: Delete prompts.ts
-import { PostFormat, PostType, User } from '@postgpt/types';
+import { PostFormat, PostType, User } from '@optilib/types';
 
 const getFormat = (format?: PostFormat) => {
   return format ?? ['feed', 'story', 'reels'][Math.floor(Math.random() * 3)];

@@ -1,6 +1,6 @@
 import admin from './admin';
 
-import { Session, User } from '@postgpt/types';
+import { Session, User } from '@optilib/types';
 
 import { db } from './db';
 import { getAuthUser, isAnonymousUser } from './user';
@@ -72,7 +72,7 @@ export const expireOldSessions = async (userId: string) => {
 export const updateSession = async (
   user: User,
   session: Session,
-  authId?: string
+  authId?: string,
 ) => {
   switch (session.status) {
     case 'new':

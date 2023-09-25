@@ -1,4 +1,4 @@
-import { Session, SessionStatus, User } from '@postgpt/types';
+import { Session, SessionStatus, User } from '@optilib/types';
 
 import {
   USER_ERROR_DIFFERENT_USER_NAME,
@@ -63,13 +63,13 @@ export const validateUser = (user: string | User, response) => {
       response
         .status(412)
         .send(
-          'O número de telefone informado está cadastrado para outra pessoa. Favor entrar em contato com o suporte.'
+          'O número de telefone informado está cadastrado para outra pessoa. Favor entrar em contato com o suporte.',
         );
     } else if (user === USER_ERROR_NON_UNIQUE_USER) {
       response
         .status(412)
         .send(
-          'Foi encontrado mais de um usuário com esse número. Favor entrar em contato com o suporte.'
+          'Foi encontrado mais de um usuário com esse número. Favor entrar em contato com o suporte.',
         );
     } else {
       response
@@ -94,7 +94,7 @@ export const validateSessionId = (request, response) => {
 export const validateSession = (
   session: string | Session,
   response,
-  validStatus?: SessionStatus[]
+  validStatus?: SessionStatus[],
 ) => {
   if (typeof session === 'string') {
     if (session === SESSION_ERROR_NOT_FOUND) {

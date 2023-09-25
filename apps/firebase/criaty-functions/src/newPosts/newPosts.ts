@@ -2,7 +2,7 @@ import { https } from 'firebase-functions';
 import cors from 'cors';
 import axios from 'axios';
 
-import { User } from '@postgpt/types';
+import { User } from '@optilib/types';
 
 import { validateName, validatePhone, validateUser } from '../utils/validate';
 import { getOrCreateUser } from '../utils/user';

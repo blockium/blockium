@@ -5,8 +5,8 @@ import MoveDownIcon from '@mui/icons-material/MoveDown';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import { msg } from '@postgpt/i18n';
-import { MenuPopover } from '@postgpt/ui-mininal-tmpl';
+import { msg } from '@optilib/i18n';
+import { MenuPopover } from '@optilib/ui-mininal-tmpl';
 
 interface IPostCardPopoverProps {
   anchorEl: HTMLElement | null;
