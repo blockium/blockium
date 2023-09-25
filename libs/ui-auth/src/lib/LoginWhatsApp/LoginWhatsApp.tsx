@@ -66,7 +66,7 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
   // };
 
   const getWhatsAppLink = () => {
-    const phone = import.meta.env.VITE_POSTGPT_PHONE;
+    const phone = import.meta.env.VITE_CRIATY_PHONE;
     const message = `LOGIN:${sessionId}`;
     return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
   };
