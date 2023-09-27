@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { Post } from '@optilib/types';
+import { Post } from '@blockium/types';
 import { getPosts } from '../posts';
 import { addDays } from 'date-fns';
 

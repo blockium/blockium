@@ -1,5 +1,5 @@
 import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { User } from '@optilib/types';
+import { User } from '@blockium/types';
 import { db } from './firebase';
 
 export const getUser = async (userId: string) => {

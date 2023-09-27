@@ -1,4 +1,4 @@
-import { Session, SessionStatus, User } from '@optilib/types';
+import { Session, SessionStatus, User } from '@blockium/types';
 
 import {
   USER_ERROR_DIFFERENT_USER_NAME,

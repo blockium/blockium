@@ -9,10 +9,10 @@ import {
 } from '@mui/material';
 import StoreIcon from '@mui/icons-material/Store';
 
-import { msg } from '@optilib/i18n';
-import { Alert, CTAButton } from '@optilib/ui-common';
-import { isEmpty } from '@optilib/utils';
-import { saveUserBusiness, useUser } from '@optilib/firebase';
+import { msg } from '@blockium/i18n';
+import { Alert, CTAButton } from '@blockium/ui-common';
+import { isEmpty } from '@blockium/utils';
+import { saveUserBusiness, useUser } from '@blockium/firebase';
 
 interface BusinessPageProps {
   title?: string;

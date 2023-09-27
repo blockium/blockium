@@ -1,5 +1,5 @@
 {
-  "name": "@optilib/ui-calendar",
+  "name": "@blockium/ui-calendar",
   "version": "0.0.1",
   "main": "./index.js",
   "types": "./index.d.ts",

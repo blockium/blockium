@@ -9,9 +9,9 @@ import {
   useMediaQuery,
 } from '@mui/material';
 
-import { msg } from '@optilib/i18n';
-import { Post } from '@optilib/types';
-import { CTAButton } from '@optilib/ui-common';
+import { msg } from '@blockium/i18n';
+import { Post } from '@blockium/types';
+import { CTAButton } from '@blockium/ui-common';
 
 import { useUpdatePost } from '../../../hooks';
 

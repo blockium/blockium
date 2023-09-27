@@ -2,8 +2,8 @@
 import * as ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 
-import { IntlProvider } from '@optilib/i18n';
-import { ThemeConfig, ThemeProvider } from '@optilib/theme';
+import { IntlProvider } from '@blockium/i18n';
+import { ThemeConfig, ThemeProvider } from '@blockium/theme';
 
 import { AppRouter } from './components/AppRouter';
 

@@ -2,7 +2,7 @@ import { https } from 'firebase-functions';
 import cors from 'cors';
 import axios from 'axios';
 
-import { PostGoal } from '@optilib/types';
+import { PostGoal } from '@blockium/types';
 
 import {
   getPostEventPrompt,

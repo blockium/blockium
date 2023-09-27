@@ -14,10 +14,10 @@ import {
 } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-import { Post, PostStatus } from '@optilib/types';
-import { savePost, useUser } from '@optilib/firebase';
-import { ConfirmDialog } from '@optilib/ui-common';
-import { msg } from '@optilib/i18n';
+import { Post, PostStatus } from '@blockium/types';
+import { savePost, useUser } from '@blockium/firebase';
+import { ConfirmDialog } from '@blockium/ui-common';
+import { msg } from '@blockium/i18n';
 
 import { PostCardPopover } from './PostCardPopover';
 import { useAddPost, useDeletePost } from '../../../hooks';

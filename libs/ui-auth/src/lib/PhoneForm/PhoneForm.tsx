@@ -10,10 +10,10 @@ import {
   signInWithPhoneNumber,
   updateProfile,
 } from 'firebase/auth';
-import { auth } from '@optilib/firebase';
+import { auth } from '@blockium/firebase';
 
-import { useIntlMessage } from '@optilib/i18n';
-import { PhoneInput, CTAButton } from '@optilib/ui-common';
+import { useIntlMessage } from '@blockium/i18n';
+import { PhoneInput, CTAButton } from '@blockium/ui-common';
 
 import { loginWithPhone } from '../apiRequests';
 

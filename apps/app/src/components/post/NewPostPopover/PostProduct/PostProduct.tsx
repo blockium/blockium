@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 
-import { msg } from '@optilib/i18n';
-import { Post, PostParams } from '@optilib/types';
+import { msg } from '@blockium/i18n';
+import { Post, PostParams } from '@blockium/types';
 
 import { PostFamily1 } from '../PostFamily1';
 

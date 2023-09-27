@@ -1,7 +1,7 @@
 import { ReactElement, useEffect, useState } from 'react';
 
-import { MenuPopover } from '@optilib/ui-mininal-tmpl';
-import { Post, PostParams } from '@optilib/types';
+import { MenuPopover } from '@blockium/ui-mininal-tmpl';
+import { Post, PostParams } from '@blockium/types';
 
 import { PostGoalSelector } from './PostGoalSelector';
 import { PostProduct } from './PostProduct';

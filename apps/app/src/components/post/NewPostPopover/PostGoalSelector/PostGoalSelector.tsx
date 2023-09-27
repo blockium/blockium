@@ -8,8 +8,8 @@ import {
   Typography,
 } from '@mui/material';
 
-import { msg } from '@optilib/i18n';
-import { Post } from '@optilib/types';
+import { msg } from '@blockium/i18n';
+import { Post } from '@blockium/types';
 
 import { PostProduct } from '../PostProduct';
 import { PostOffer } from '../PostOffer';

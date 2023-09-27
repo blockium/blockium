@@ -1,6 +1,6 @@
 import admin from './admin';
 
-import { Session, User, UserPrompt } from '@optilib/types';
+import { Session, User, UserPrompt } from '@blockium/types';
 
 const converter = <T>() => ({
   toFirestore: (data: T) => data,

@@ -1,9 +1,9 @@
 import { startOfMonth } from 'date-fns';
 
-import { addPost as addPostDb } from '@optilib/firebase';
-import { msg } from '@optilib/i18n';
-import { Post } from '@optilib/types';
-import { useCalendarCache } from '@optilib/ui-calendar';
+import { addPost as addPostDb } from '@blockium/firebase';
+import { msg } from '@blockium/i18n';
+import { Post } from '@blockium/types';
+import { useCalendarCache } from '@blockium/ui-calendar';
 
 export const useAddPost = () => {
   const [calendarCache, setCalendarCache] = useCalendarCache();

@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 
-import { DRAWER_WIDTH, useNavbarExtraLine } from '@optilib/ui-mininal-tmpl';
-import { msg } from '@optilib/i18n';
+import { DRAWER_WIDTH, useNavbarExtraLine } from '@blockium/ui-mininal-tmpl';
+import { msg } from '@blockium/i18n';
 
 export const useExtendNavbar = () => {
   const [, setNavbarExtraLine] = useNavbarExtraLine();

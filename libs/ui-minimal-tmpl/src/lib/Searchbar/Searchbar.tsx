@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
-import { msg } from '@optilib/i18n';
+import { msg } from '@blockium/i18n';
 
 // ----------------------------------------------------------------------
 

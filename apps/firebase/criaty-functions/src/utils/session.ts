@@ -1,6 +1,6 @@
 import admin from './admin';
 
-import { Session, User } from '@optilib/types';
+import { Session, User } from '@blockium/types';
 
 import { db } from './db';
 import { getAuthUser, isAnonymousUser } from './user';

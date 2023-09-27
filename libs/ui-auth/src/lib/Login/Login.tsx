@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Box, Stack } from '@mui/material';
 import PhoneIcon from '@mui/icons-material/Phone';
 
-import { useIntlMessage } from '@optilib/i18n';
+import { useIntlMessage } from '@blockium/i18n';
 
 import {
   GoogleIcon,
@@ -11,7 +11,7 @@ import {
   CTAButton,
   Alert,
   LoginHero,
-} from '@optilib/ui-common';
+} from '@blockium/ui-common';
 
 import { newSession } from '../apiRequests';
 

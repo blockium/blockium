@@ -5,7 +5,7 @@ import MobileStepper from '@mui/material/MobileStepper';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 
-import { msg } from '@optilib/i18n';
+import { msg } from '@blockium/i18n';
 
 const StepperButton = styled(Button)`
   &&& {

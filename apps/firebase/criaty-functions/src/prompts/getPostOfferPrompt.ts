@@ -1,4 +1,4 @@
-import { PostFormat, PostType } from '@optilib/types';
+import { PostFormat, PostType } from '@blockium/types';
 
 export const getPostOfferPrompt = (
   product: string,

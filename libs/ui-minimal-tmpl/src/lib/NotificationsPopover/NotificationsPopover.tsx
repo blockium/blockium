@@ -23,11 +23,11 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 // utils
-import { fToNow } from '@optilib/utils';
+import { fToNow } from '@blockium/utils';
 // components
 import { MenuPopover } from '../MenuPopover';
 import { Scrollbar } from '../Scrollbar';
-import { msg } from '@optilib/i18n';
+import { msg } from '@blockium/i18n';
 
 // ----------------------------------------------------------------------
 

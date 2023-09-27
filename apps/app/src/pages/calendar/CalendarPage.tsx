@@ -2,10 +2,10 @@ import { useNavigate } from 'react-router-dom';
 import { endOfMonth } from 'date-fns';
 import { Stack, Typography } from '@mui/material';
 
-import { BorderLinearProgress } from '@optilib/ui-common';
-import { getPosts } from '@optilib/firebase';
-import { Post, PostStatus } from '@optilib/types';
-import { CalendarView } from '@optilib/ui-calendar';
+import { BorderLinearProgress } from '@blockium/ui-common';
+import { getPosts } from '@blockium/firebase';
+import { Post, PostStatus } from '@blockium/types';
+import { CalendarView } from '@blockium/ui-calendar';
 
 export const CalendarPage: React.FC = (props) => {
   const navigate = useNavigate();

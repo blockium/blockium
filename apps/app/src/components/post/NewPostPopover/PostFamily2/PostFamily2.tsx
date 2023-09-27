@@ -11,8 +11,8 @@ import {
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 
-import { msg } from '@optilib/i18n';
-import { CTAButton } from '@optilib/ui-common';
+import { msg } from '@blockium/i18n';
+import { CTAButton } from '@blockium/ui-common';
 import {
   Post,
   PostFormat,
@@ -20,7 +20,7 @@ import {
   PostParamFamily2,
   PostParams,
   PostType,
-} from '@optilib/types';
+} from '@blockium/types';
 
 import { newPostFamily2 } from '../../../../apiRequests';
 import { useAddPost } from '../../../../hooks';

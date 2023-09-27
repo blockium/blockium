@@ -13,10 +13,10 @@ import {
 } from '@mui/material';
 import HandshakeIcon from '@mui/icons-material/Handshake';
 
-import { useUser } from '@optilib/firebase';
-import { Partner } from '@optilib/types';
-import { msg } from '@optilib/i18n';
-import { Alert, CTAButton } from '@optilib/ui-common';
+import { useUser } from '@blockium/firebase';
+import { Partner } from '@blockium/types';
+import { msg } from '@blockium/i18n';
+import { Alert, CTAButton } from '@blockium/ui-common';
 
 import { PartnerView } from './PartnerView';
 

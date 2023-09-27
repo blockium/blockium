@@ -16,16 +16,16 @@
     "baseUrl": ".",
     "resolveJsonModule": true,
     "paths": {
-      "@optilib/firebase": ["libs/firebase/src/index.ts"],
-      "@optilib/i18n": ["libs/i18n/src/index.ts"],
-      "@optilib/i18n-mui": ["libs/i18n-mui/src/index.ts"],
-      "@optilib/theme": ["libs/theme/src/index.ts"],
-      "@optilib/types": ["libs/types/src/index.ts"],
-      "@optilib/ui-auth": ["libs/ui-auth/src/index.ts"],
-      "@optilib/ui-calendar": ["libs/ui-calendar/src/index.ts"],
-      "@optilib/ui-common": ["libs/ui-common/src/index.ts"],
-      "@optilib/ui-mininal-tmpl": ["libs/ui-minimal-tmpl/src/index.ts"],
-      "@optilib/utils": ["libs/utils/src/index.ts"]
+      "@blockium/firebase": ["libs/firebase/src/index.ts"],
+      "@blockium/i18n": ["libs/i18n/src/index.ts"],
+      "@blockium/i18n-mui": ["libs/i18n-mui/src/index.ts"],
+      "@blockium/theme": ["libs/theme/src/index.ts"],
+      "@blockium/types": ["libs/types/src/index.ts"],
+      "@blockium/ui-auth": ["libs/ui-auth/src/index.ts"],
+      "@blockium/ui-calendar": ["libs/ui-calendar/src/index.ts"],
+      "@blockium/ui-common": ["libs/ui-common/src/index.ts"],
+      "@blockium/ui-mininal-tmpl": ["libs/ui-minimal-tmpl/src/index.ts"],
+      "@blockium/utils": ["libs/utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

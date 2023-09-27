@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import Switch from '@mui/material/Switch';
 import { Stack } from '@mui/material';
 
-import { msg } from '@optilib/i18n';
+import { msg } from '@blockium/i18n';
 
 import { useColorMode } from '../../theme';
 

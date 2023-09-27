@@ -14,8 +14,8 @@ import {
 } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 
-import { DarkModeSwitch } from '@optilib/theme';
-import { msg } from '@optilib/i18n';
+import { DarkModeSwitch } from '@blockium/theme';
+import { msg } from '@blockium/i18n';
 
 // components
 import { MenuPopover } from '../MenuPopover';

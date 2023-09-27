@@ -13,11 +13,11 @@ import {
 } from '@mui/material';
 import HandshakeIcon from '@mui/icons-material/Handshake';
 
-import { msg } from '@optilib/i18n';
-import { CTAButton } from '@optilib/ui-common';
-import { Partner, PartnerPermission } from '@optilib/types';
-import { isEmpty } from '@optilib/utils';
-import { useUser } from '@optilib/firebase';
+import { msg } from '@blockium/i18n';
+import { CTAButton } from '@blockium/ui-common';
+import { Partner, PartnerPermission } from '@blockium/types';
+import { isEmpty } from '@blockium/utils';
+import { useUser } from '@blockium/firebase';
 
 interface IPartnerViewProps {
   partner: Partner;

@@ -9,7 +9,7 @@ import enUS from 'date-fns/locale/en-US';
 import ptBR from 'date-fns/locale/pt-BR';
 import { Locale } from 'date-fns';
 
-import { userLocale } from '@optilib/i18n';
+import { userLocale } from '@blockium/i18n';
 
 const dateFnsLocales: { [key: string]: Locale } = {
   'en-US': enUS,

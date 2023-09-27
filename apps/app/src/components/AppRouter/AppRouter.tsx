@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 
-import { Login, LoginPhone, LoginWhatsApp } from '@optilib/ui-auth';
-import { PrivateRoute } from '@optilib/ui-common';
+import { Login, LoginPhone, LoginWhatsApp } from '@blockium/ui-auth';
+import { PrivateRoute } from '@blockium/ui-common';
 
 import { App } from '../App';
 import {

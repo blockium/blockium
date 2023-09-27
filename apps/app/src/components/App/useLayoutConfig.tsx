@@ -10,10 +10,10 @@ import PeopleIcon from '@mui/icons-material/People';
 // import WalletIcon from '@mui/icons-material/Wallet';
 // import AdsClickIcon from '@mui/icons-material/AdsClick';
 
-import { LayoutConfig } from '@optilib/ui-mininal-tmpl';
-import { useAuth, useSignOut } from '@optilib/firebase';
-import { CriatyLogo } from '@optilib/ui-common';
-import { formatPhoneNumber } from '@optilib/utils';
+import { LayoutConfig } from '@blockium/ui-mininal-tmpl';
+import { useAuth, useSignOut } from '@blockium/firebase';
+import { CriatyLogo } from '@blockium/ui-common';
+import { formatPhoneNumber } from '@blockium/utils';
 
 const layoutConfig: LayoutConfig = {
   navBar: {

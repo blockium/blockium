@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { Post, PostFormat, PostGoal, PostType } from '@optilib/types';
-import { msg } from '@optilib/i18n';
+import { Post, PostFormat, PostGoal, PostType } from '@blockium/types';
+import { msg } from '@blockium/i18n';
 
 export const newPostFamily2 = async (
   goal: PostGoal,
