@@ -1,5 +1,5 @@
 // TODO: Delete prompts.ts
-import { PostFormat, PostType, User } from '@blockium/types';
+import { PostFormat, PostType, User } from '@criaty/model';
 
 const getFormat = (format?: PostFormat) => {
   return format ?? ['feed', 'story', 'reels'][Math.floor(Math.random() * 3)];

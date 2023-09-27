@@ -1,7 +1,7 @@
 import { https } from 'firebase-functions';
 import cors from 'cors';
 
-import { User } from '@blockium/types';
+import { User } from '@criaty/model';
 
 import {
   createSession,

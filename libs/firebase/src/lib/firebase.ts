@@ -16,7 +16,7 @@ import {
   getFirestore,
 } from 'firebase/firestore';
 import { createGlobalState } from 'react-use';
-import { Post, User } from '@blockium/types';
+import { Post, User } from '@criaty/model';
 
 // Gets environment variables from process (Node) or import.meta (Browser)
 const env: {

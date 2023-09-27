@@ -1,6 +1,6 @@
 import admin from './admin';
 
-import { Session, User } from '@blockium/types';
+import { Session, User } from '@criaty/model';
 
 import { db } from './db';
 import { getAuthUser, isAnonymousUser } from './user';

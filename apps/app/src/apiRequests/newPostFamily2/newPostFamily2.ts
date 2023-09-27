@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Post, PostFormat, PostGoal, PostType } from '@blockium/types';
+import { Post, PostFormat, PostGoal, PostType } from '@criaty/model';
 import { msg } from '@blockium/i18n';
 
 export const newPostFamily2 = async (

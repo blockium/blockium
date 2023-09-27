@@ -1,7 +1,7 @@
 import { startOfMonth } from 'date-fns';
 
 import { savePost, useUser } from '@blockium/firebase';
-import { Post } from '@blockium/types';
+import { Post } from '@criaty/model';
 import { useCalendarCache } from '@blockium/ui-calendar';
 
 export const useDeletePost = () => {

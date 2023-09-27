@@ -4,7 +4,7 @@ import { Stack, Typography } from '@mui/material';
 
 import { BorderLinearProgress } from '@blockium/ui-common';
 import { getPosts } from '@blockium/firebase';
-import { Post, PostStatus } from '@blockium/types';
+import { Post, PostStatus } from '@criaty/model';
 import { CalendarView } from '@blockium/ui-calendar';
 
 export const CalendarPage: React.FC = (props) => {

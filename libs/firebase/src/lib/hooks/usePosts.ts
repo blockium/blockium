@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { Post } from '@blockium/types';
+import { Post } from '@criaty/model';
 import { getPosts } from '../posts';
 import { addDays } from 'date-fns';
 

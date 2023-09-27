@@ -1,29 +1,29 @@
 {
   "name": "types",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/types/src",
+  "sourceRoot": "libs/model/src",
   "projectType": "library",
   "targets": {
     "build": {
       "executor": "@nx/vite:build",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/libs/types"
+        "outputPath": "dist/libs/model"
       }
     },
     "test": {
       "executor": "@nx/vite:test",
-      "outputs": ["coverage/libs/types"],
+      "outputs": ["coverage/libs/model"],
       "options": {
         "passWithNoTests": true,
-        "reportsDirectory": "../../coverage/libs/types"
+        "reportsDirectory": "../../coverage/libs/model"
       }
     },
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/types/**/*.ts"]
+        "lintFilePatterns": ["libs/model/**/*.ts"]
       }
     }
   },

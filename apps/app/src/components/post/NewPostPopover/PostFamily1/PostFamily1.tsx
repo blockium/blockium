@@ -20,7 +20,7 @@ import {
   PostParamFamily1,
   PostParams,
   PostType,
-} from '@blockium/types';
+} from '@criaty/model';
 
 import { newPostFamily1 } from '../../../../apiRequests';
 import { useAddPost } from '../../../../hooks';

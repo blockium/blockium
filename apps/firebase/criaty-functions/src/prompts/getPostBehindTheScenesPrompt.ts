@@ -1,4 +1,4 @@
-import { PostFormat, PostType } from '@blockium/types';
+import { PostFormat, PostType } from '@criaty/model';
 
 export const getPostBehindTheScenesPrompt = (
   scene: string,

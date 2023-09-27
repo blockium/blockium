@@ -1,7 +1,7 @@
 import { logger } from 'firebase-functions';
 import { Configuration, CreateChatCompletionRequest, OpenAIApi } from 'openai';
 
-import { UserPrompt } from '@blockium/types';
+import { UserPrompt } from '@criaty/model';
 
 const systemContent = `
 You are PostBot, an automated service to create content for Instagram. 

@@ -1,7 +1,7 @@
 import admin from './admin';
 import { UserRecord } from 'firebase-admin/auth';
 
-import { User } from '@blockium/types';
+import { User } from '@criaty/model';
 
 import { db } from './db';
 import { addDays } from 'date-fns';

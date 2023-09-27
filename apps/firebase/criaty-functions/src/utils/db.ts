@@ -1,6 +1,6 @@
 import admin from './admin';
 
-import { Session, User, UserPrompt } from '@blockium/types';
+import { Session, User, UserPrompt } from '@criaty/model';
 
 const converter = <T>() => ({
   toFirestore: (data: T) => data,

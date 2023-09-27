@@ -1,4 +1,4 @@
-import { Session, SessionStatus, User } from '@blockium/types';
+import { Session, SessionStatus, User } from '@criaty/model';
 
 import {
   USER_ERROR_DIFFERENT_USER_NAME,

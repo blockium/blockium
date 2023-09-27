@@ -14,7 +14,7 @@ import {
 import HandshakeIcon from '@mui/icons-material/Handshake';
 
 import { useUser } from '@blockium/firebase';
-import { Partner } from '@blockium/types';
+import { Partner } from '@criaty/model';
 import { msg } from '@blockium/i18n';
 import { Alert, CTAButton } from '@blockium/ui-common';
 

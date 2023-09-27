@@ -2,7 +2,7 @@ import { runWith } from 'firebase-functions';
 import { defineSecret } from 'firebase-functions/params';
 import cors from 'cors';
 
-import { User, UserPrompt } from '@blockium/types';
+import { User, UserPrompt } from '@criaty/model';
 
 import { db } from '../utils/db';
 import { chat } from './chat';

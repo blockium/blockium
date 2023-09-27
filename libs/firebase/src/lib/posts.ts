@@ -9,7 +9,7 @@ import {
 } from 'firebase/firestore';
 import { db } from './firebase';
 
-import { Post } from '@blockium/types';
+import { Post } from '@criaty/model';
 
 export const getPosts = async (
   userId: string,

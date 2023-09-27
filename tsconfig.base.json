@@ -20,7 +20,7 @@
       "@blockium/i18n": ["libs/i18n/src/index.ts"],
       "@blockium/i18n-mui": ["libs/i18n-mui/src/index.ts"],
       "@blockium/theme": ["libs/theme/src/index.ts"],
-      "@blockium/types": ["libs/types/src/index.ts"],
+      "@criaty/model": ["libs/model/src/index.ts"],
       "@blockium/ui-auth": ["libs/ui-auth/src/index.ts"],
       "@blockium/ui-calendar": ["libs/ui-calendar/src/index.ts"],
       "@blockium/ui-common": ["libs/ui-common/src/index.ts"],
