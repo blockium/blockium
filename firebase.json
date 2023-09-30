@@ -24,7 +24,8 @@
     {
       "codebase": "firebase-criaty-functions",
       "source": "dist/apps/firebase/criaty-functions",
-      "runtime": "nodejs16"
+      "runtime": "nodejs16",
+      "ignore": ["*.local"]
     }
   ],
   "emulators": {

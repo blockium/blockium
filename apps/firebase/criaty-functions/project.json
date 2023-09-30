@@ -12,8 +12,11 @@
         "main": "apps/firebase/criaty-functions/src/main.ts",
         "tsConfig": "apps/firebase/criaty-functions/tsconfig.app.json",
         "assets": [
-          "apps/firebase/criaty-functions/.env",
-          "apps/firebase/criaty-functions/.env.local"
+          {
+            "glob": "**/*",
+            "input": "apps/firebase/criaty/environment",
+            "output": "."
+          }
         ],
         "generatePackageJson": true,
         "platform": "node",

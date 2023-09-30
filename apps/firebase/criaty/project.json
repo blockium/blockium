@@ -47,7 +47,7 @@
     "getconfig": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "nx run firebase-criaty:firebase functions:config:get > apps/firebase/criaty/.runtimeconfig.json"
+        "command": "nx run firebase-criaty:firebase functions:config:get > apps/firebase/criaty/environment/.runtimeconfig.json"
       }
     },
     "emulate": {
@@ -61,7 +61,7 @@
       }
     },
     "serve": {
-      "executor": "nx:run-commands",
+      "executor": "@simondotm/nx-firebase:serve",
       "options": {
         "commands": [
           "nx run firebase-criaty:watch",
