@@ -12,7 +12,7 @@ import PeopleIcon from '@mui/icons-material/People';
 
 import { LayoutConfig } from '@blockium/ui-mininal-tmpl';
 import { useAuth, useSignOut } from '@blockium/firebase';
-import { CriatyLogo } from '@blockium/ui-common';
+import { CriatyLogo } from '@criaty/ui-custom';
 import { formatPhoneNumber } from '@blockium/utils';
 
 const layoutConfig: LayoutConfig = {

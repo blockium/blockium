@@ -3,10 +3,11 @@ import { getDay, startOfMonth } from 'date-fns';
 import { Box, Grid, IconButton } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
-import { Post, PostParams } from '@criaty/model';
+import { Post, PostParams } from '@criaty/model-types';
 import { msg } from '@blockium/i18n';
 import { fDateCalendar } from '@blockium/utils';
-import { Alert, CriatyLogo, LoadingIndicator } from '@blockium/ui-common';
+import { Alert, LoadingIndicator } from '@blockium/ui-common';
+import { CriatyLogo } from '@criaty/ui-custom';
 import { useCalendarCache } from '@blockium/ui-calendar';
 
 import { NewPostPopover, PostCard } from '../../../components';

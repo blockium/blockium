@@ -13,8 +13,8 @@ import {
 } from '@mui/material';
 import HandshakeIcon from '@mui/icons-material/Handshake';
 
-import { useUser } from '@blockium/firebase';
-import { Partner } from '@criaty/model';
+import { useUser } from '@criaty/model';
+import { Partner } from '@criaty/model-types';
 import { msg } from '@blockium/i18n';
 import { Alert, CTAButton } from '@blockium/ui-common';
 

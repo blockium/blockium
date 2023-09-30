@@ -1,6 +1,6 @@
 import admin from './admin';
 
-import { Session, User, UserPrompt } from '@criaty/model';
+import { Session, User, UserPrompt } from '@criaty/model-types';
 
 const converter = <T>() => ({
   toFirestore: (data: T) => data,

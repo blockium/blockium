@@ -1,6 +1,6 @@
 {
-  "name": "monojs",
-  "version": "0.1.0",
+  "name": "criaty",
+  "version": "1.0.0",
   "license": "UNLICENSED",
   "scripts": {
     "start": "npm run start-firebase & npm run start-app",
@@ -50,7 +50,7 @@
     "socket.io": "^4.7.1",
     "swiper": "^10.0.4",
     "tslib": "^2.6.1",
-    "whatsapp-web.js": "^1.22.2-alpha.0"
+    "whatsapp-web.js": "^1.22.2-alpha.1"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.14.5",

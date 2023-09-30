@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 
 import { msg } from '@blockium/i18n';
-import { Post } from '@criaty/model';
+import { Post } from '@criaty/model-types';
 import { CTAButton } from '@blockium/ui-common';
 
 import { useUpdatePost } from '../../../hooks';

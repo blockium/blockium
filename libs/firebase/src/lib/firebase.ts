@@ -16,57 +16,21 @@ import {
   getFirestore,
 } from 'firebase/firestore';
 import { createGlobalState } from 'react-use';
-import { Post, User } from '@criaty/model';
 
-// Gets environment variables from process (Node) or import.meta (Browser)
-const env: {
-  FIREBASE_API_KEY?: string;
-  FIREBASE_AUTH_DOMAIN?: string;
-  FIREBASE_PROJECT_ID?: string;
-  FIREBASE_STORAGE_BUCKET?: string;
-  FIREBASE_MESSAGING_SENDER_ID?: string;
-  FIREBASE_APP_ID?: string;
-  FIREBASE_MEASUREMENT_ID?: string;
-  DEV?: boolean;
-} = {};
-
-const envSource =
-  typeof process !== 'undefined' ? process.env : import.meta.env;
-
-if (typeof process !== 'undefined') {
-  env.DEV = envSource.NODE_ENV === 'development';
-  env.FIREBASE_API_KEY = envSource.FIREBASE_API_KEY;
-  env.FIREBASE_AUTH_DOMAIN = envSource.FIREBASE_AUTH_DOMAIN;
-  env.FIREBASE_PROJECT_ID = envSource.FIREBASE_PROJECT_ID;
-  env.FIREBASE_STORAGE_BUCKET = envSource.FIREBASE_STORAGE_BUCKET;
-  env.FIREBASE_MESSAGING_SENDER_ID = envSource.FIREBASE_MESSAGING_SENDER_ID;
-  env.FIREBASE_APP_ID = envSource.FIREBASE_APP_ID;
-  env.FIREBASE_MEASUREMENT_ID = envSource.FIREBASE_MEASUREMENT_ID;
-} else {
-  env.DEV = envSource.MODE === 'development';
-  env.FIREBASE_API_KEY =
-    env.DEV ||
-    (typeof document !== 'undefined' &&
-      document.location.hostname === 'localhost')
-      ? envSource.VITE_FIREBASE_API_KEY_DEV
-      : envSource.VITE_FIREBASE_API_KEY;
-  env.FIREBASE_AUTH_DOMAIN = envSource.VITE_FIREBASE_AUTH_DOMAIN;
-  env.FIREBASE_PROJECT_ID = envSource.VITE_FIREBASE_PROJECT_ID;
-  env.FIREBASE_STORAGE_BUCKET = envSource.VITE_FIREBASE_STORAGE_BUCKET;
-  env.FIREBASE_MESSAGING_SENDER_ID =
-    envSource.VITE_FIREBASE_MESSAGING_SENDER_ID;
-  env.FIREBASE_APP_ID = envSource.VITE_FIREBASE_APP_ID;
-  env.FIREBASE_MEASUREMENT_ID = envSource.VITE_FIREBASE_MEASUREMENT_ID;
-}
+const envSource = import.meta.env;
+const isDevLocal =
+  typeof document !== 'undefined' && document.location.hostname === 'localhost';
 
 const firebaseConfig = {
-  apiKey: env.FIREBASE_API_KEY,
-  authDomain: env.FIREBASE_AUTH_DOMAIN,
-  projectId: env.FIREBASE_PROJECT_ID,
-  storageBucket: env.FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: env.FIREBASE_MESSAGING_SENDER_ID,
-  appId: env.FIREBASE_APP_ID,
-  measurementId: env.FIREBASE_MEASUREMENT_ID,
+  apiKey: isDevLocal
+    ? envSource['VITE_FIREBASE_API_KEY_DEV']
+    : envSource['VITE_FIREBASE_API_KEY'],
+  authDomain: envSource['VITE_FIREBASE_AUTH_DOMAIN'],
+  projectId: envSource['VITE_FIREBASE_PROJECT_ID'],
+  storageBucket: envSource['VITE_FIREBASE_STORAGE_BUCKET'],
+  messagingSenderId: envSource['VITE_FIREBASE_MESSAGING_SENDER_ID'],
+  appId: envSource['VITE_FIREBASE_APP_ID'],
+  measurementId: envSource['VITE_FIREBASE_MEASUREMENT_ID'],
 };
 
 // Initialize Firebase
@@ -77,20 +41,7 @@ auth.useDeviceLanguage();
 const functions = getFunctions(app);
 const firestore = getFirestore(app);
 
-const converter = <T>() => ({
-  toFirestore: (data: WithFieldValue<T>) => data,
-  fromFirestore: (snap: QueryDocumentSnapshot) => snap.data() as T,
-});
-
-const dataPoint = <T>(collectionPath: string) =>
-  collection(firestore, collectionPath).withConverter(converter<T>());
-
-const db = {
-  users: dataPoint<User>(`users`),
-  posts: (userId: string) => dataPoint<Post>(`users/${userId}/posts`),
-};
-
-if (env.DEV) {
+if (isDevLocal) {
   connectAuthEmulator(auth, 'http://localhost:9099');
   connectFirestoreEmulator(firestore, 'localhost', 8080);
 }
@@ -114,4 +65,21 @@ const useSignOut = () => {
   };
 };
 
-export { app, analytics, auth, useAuth, useSignIn, useSignOut, functions, db };
+const converter = <T>() => ({
+  toFirestore: (data: WithFieldValue<T>) => data,
+  fromFirestore: (snap: QueryDocumentSnapshot) => snap.data() as T,
+});
+
+const dataPoint = <T>(collectionPath: string) =>
+  collection(firestore, collectionPath).withConverter(converter<T>());
+
+export {
+  app,
+  analytics,
+  auth,
+  useAuth,
+  useSignIn,
+  useSignOut,
+  functions,
+  dataPoint,
+};

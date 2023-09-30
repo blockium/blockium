@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import { Login, LoginPhone, LoginWhatsApp } from '@blockium/ui-auth';
 import { PrivateRoute } from '@blockium/ui-common';
+import { CriatyLogo } from '@criaty/ui-custom';
 
 import { App } from '../App';
 import {
@@ -19,7 +20,16 @@ export const AppRouter = () => {
       <Route
         path="/"
         element={
-          <PrivateRoute loginPath="/login">
+          <PrivateRoute
+            loginPath="/login"
+            logo={
+              <CriatyLogo
+                full={false}
+                colorScheme="transparent-green-green-transparent"
+                sx={{ marginTop: '0.75rem' }}
+              />
+            }
+          >
             <App />
           </PrivateRoute>
         }

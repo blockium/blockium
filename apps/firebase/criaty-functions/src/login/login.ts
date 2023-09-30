@@ -1,7 +1,7 @@
 import { https } from 'firebase-functions';
 import cors from 'cors';
 
-import { Session, User } from '@criaty/model';
+import { Session, User } from '@criaty/model-types';
 
 import {
   validateName,

@@ -1,4 +1,4 @@
-import { Session, SessionStatus, User } from '@criaty/model';
+import { Session, SessionStatus, User } from '@criaty/model-types';
 
 import {
   USER_ERROR_DIFFERENT_USER_NAME,

@@ -1,7 +1,7 @@
 import { ReactElement, useEffect, useState } from 'react';
 
 import { MenuPopover } from '@blockium/ui-mininal-tmpl';
-import { Post, PostParams } from '@criaty/model';
+import { Post, PostParams } from '@criaty/model-types';
 
 import { PostGoalSelector } from './PostGoalSelector';
 import { PostProduct } from './PostProduct';

@@ -12,7 +12,7 @@ import StoreIcon from '@mui/icons-material/Store';
 import { msg } from '@blockium/i18n';
 import { Alert, CTAButton } from '@blockium/ui-common';
 import { isEmpty } from '@blockium/utils';
-import { saveUserBusiness, useUser } from '@blockium/firebase';
+import { saveUserBusiness, useUser } from '@criaty/model';
 
 interface BusinessPageProps {
   title?: string;

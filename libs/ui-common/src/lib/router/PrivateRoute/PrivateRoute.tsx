@@ -6,14 +6,18 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth, useSignIn } from '@blockium/firebase';
 
 import { LoadingIndicator } from '../../progress';
-import { CriatyLogo } from '../../logo';
 
 interface PrivateRouteProps {
   loginPath: string;
+  logo: React.ReactElement;
   children: React.ReactElement;
 }
 
-const LoadingPage = () => {
+interface LoadingPageProps {
+  logo: React.ReactElement;
+}
+
+const LoadingPage: React.FC<LoadingPageProps> = ({ logo }) => {
   return (
     <Box
       display="flex"
@@ -21,13 +25,7 @@ const LoadingPage = () => {
       alignItems="center"
       sx={{ width: '100% ', height: '100vh' }}
     >
-      <LoadingIndicator>
-        <CriatyLogo
-          full={false}
-          colorScheme="transparent-green-green-transparent"
-          sx={{ marginTop: '0.75rem' }}
-        />
-      </LoadingIndicator>
+      <LoadingIndicator>{logo}</LoadingIndicator>
     </Box>
   );
 };
@@ -44,7 +42,7 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = (props) => {
   }, [signIn]);
 
   if (loading) {
-    return <LoadingPage />;
+    return <LoadingPage logo={props.logo} />;
   }
 
   if (auth.currentUser) {

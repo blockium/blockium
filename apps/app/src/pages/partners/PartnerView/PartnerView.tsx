@@ -15,9 +15,9 @@ import HandshakeIcon from '@mui/icons-material/Handshake';
 
 import { msg } from '@blockium/i18n';
 import { CTAButton } from '@blockium/ui-common';
-import { Partner, PartnerPermission } from '@criaty/model';
+import { Partner, PartnerPermission } from '@criaty/model-types';
 import { isEmpty } from '@blockium/utils';
-import { useUser } from '@blockium/firebase';
+import { useUser } from '@criaty/model';
 
 interface IPartnerViewProps {
   partner: Partner;

@@ -1,4 +1,4 @@
-import { PostFormat, PostType } from '@criaty/model';
+import { PostFormat, PostType } from '@criaty/model-types';
 
 export const getPostNoveltyPrompt = (
   novelty: string,

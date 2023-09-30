@@ -1,5 +1,5 @@
 // TODO: Delete prompts.ts
-import { PostFormat, PostType, User } from '@criaty/model';
+import { PostFormat, PostType, User } from '@criaty/model-types';
 
 const getFormat = (format?: PostFormat) => {
   return format ?? ['feed', 'story', 'reels'][Math.floor(Math.random() * 3)];

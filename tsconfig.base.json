@@ -2,31 +2,63 @@
   "compileOnSave": false,
   "compilerOptions": {
     "rootDir": ".",
+    "baseUrl": ".",
+    "moduleResolution": "Bundler",
+    "module": "ES2022",
+    "target": "ES2015",
+    "lib": [
+      "ES2015",
+      "dom"
+    ],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
     "sourceMap": true,
     "declaration": false,
-    "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2015",
-    "module": "esnext",
-    "lib": ["es2017", "dom"],
-    "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
-    "baseUrl": ".",
     "resolveJsonModule": true,
     "paths": {
-      "@blockium/firebase": ["libs/firebase/src/index.ts"],
-      "@blockium/i18n": ["libs/i18n/src/index.ts"],
-      "@blockium/i18n-mui": ["libs/i18n-mui/src/index.ts"],
-      "@blockium/theme": ["libs/theme/src/index.ts"],
-      "@criaty/model": ["libs/model/src/index.ts"],
-      "@blockium/ui-auth": ["libs/ui-auth/src/index.ts"],
-      "@blockium/ui-calendar": ["libs/ui-calendar/src/index.ts"],
-      "@blockium/ui-common": ["libs/ui-common/src/index.ts"],
-      "@blockium/ui-mininal-tmpl": ["libs/ui-minimal-tmpl/src/index.ts"],
-      "@blockium/utils": ["libs/utils/src/index.ts"]
+      "@blockium/firebase": [
+        "libs/firebase/src/index.ts"
+      ],
+      "@blockium/i18n": [
+        "libs/i18n/src/index.ts"
+      ],
+      "@blockium/i18n-mui": [
+        "libs/i18n-mui/src/index.ts"
+      ],
+      "@blockium/theme": [
+        "libs/theme/src/index.ts"
+      ],
+      "@blockium/ui-auth": [
+        "libs/ui-auth/src/index.ts"
+      ],
+      "@blockium/ui-calendar": [
+        "libs/ui-calendar/src/index.ts"
+      ],
+      "@blockium/ui-common": [
+        "libs/ui-common/src/index.ts"
+      ],
+      "@blockium/ui-mininal-tmpl": [
+        "libs/ui-minimal-tmpl/src/index.ts"
+      ],
+      "@blockium/utils": [
+        "libs/utils/src/index.ts"
+      ],
+      "@criaty/model": [
+        "libs/model/src/index.ts"
+      ],
+      "@criaty/model-types": [
+        "libs/model-types/src/index.ts"
+      ],
+      "@criaty/ui-custom": [
+        "libs/ui-custom/src/index.ts"
+      ]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }

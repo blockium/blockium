@@ -20,7 +20,7 @@ import {
   PostParamFamily2,
   PostParams,
   PostType,
-} from '@criaty/model';
+} from '@criaty/model-types';
 
 import { newPostFamily2 } from '../../../../apiRequests';
 import { useAddPost } from '../../../../hooks';

@@ -3,8 +3,8 @@ import { endOfMonth } from 'date-fns';
 import { Stack, Typography } from '@mui/material';
 
 import { BorderLinearProgress } from '@blockium/ui-common';
-import { getPosts } from '@blockium/firebase';
-import { Post, PostStatus } from '@criaty/model';
+import { getPosts } from '@criaty/model';
+import { Post, PostStatus } from '@criaty/model-types';
 import { CalendarView } from '@blockium/ui-calendar';
 
 export const CalendarPage: React.FC = (props) => {

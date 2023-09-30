@@ -14,8 +14,8 @@ import {
 } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-import { Post, PostStatus } from '@criaty/model';
-import { savePost, useUser } from '@blockium/firebase';
+import { Post, PostStatus } from '@criaty/model-types';
+import { savePost, useUser } from '@criaty/model';
 import { ConfirmDialog } from '@blockium/ui-common';
 import { msg } from '@blockium/i18n';
 

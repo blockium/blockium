@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 
 import { msg } from '@blockium/i18n';
-import { Post } from '@criaty/model';
+import { Post } from '@criaty/model-types';
 
 import { PostProduct } from '../PostProduct';
 import { PostOffer } from '../PostOffer';

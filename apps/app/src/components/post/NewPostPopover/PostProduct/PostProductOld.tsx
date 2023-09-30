@@ -5,8 +5,8 @@ import ClearIcon from '@mui/icons-material/Clear';
 
 import { msg } from '@blockium/i18n';
 import { CTAButton } from '@blockium/ui-common';
-import { Post, PostFormat, PostType } from '@criaty/model';
-import { addPost as addPostDb } from '@blockium/firebase';
+import { Post, PostFormat, PostType } from '@criaty/model-types';
+import { addPost as addPostDb } from '@criaty/model';
 
 import { newPosts } from '../../../../apiRequests';
 

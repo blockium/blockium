@@ -2,7 +2,7 @@ import { https } from 'firebase-functions';
 import cors from 'cors';
 import axios from 'axios';
 
-import { Post, PostFormat, PostType, User } from '@criaty/model';
+import { Post, PostFormat, PostType, User } from '@criaty/model-types';
 
 import { validateName, validatePhone, validateUser } from '../utils/validate';
 import { getOrCreateUser } from '../utils/user';

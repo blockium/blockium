@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { Post, PostParams } from '@criaty/model';
+import { Post, PostParams } from '@criaty/model-types';
 import { msg } from '@blockium/i18n';
 
 import { PostFamily1 } from '../PostFamily1';

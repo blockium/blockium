@@ -1,8 +1,8 @@
 import { startOfMonth } from 'date-fns';
 
-import { addPost as addPostDb } from '@blockium/firebase';
+import { addPost as addPostDb } from '@criaty/model';
 import { msg } from '@blockium/i18n';
-import { Post } from '@criaty/model';
+import { Post } from '@criaty/model-types';
 import { useCalendarCache } from '@blockium/ui-calendar';
 
 export const useAddPost = () => {

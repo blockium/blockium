@@ -11,6 +11,9 @@
     }
   ],
   "compilerOptions": {
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "module": "ES2015",
+    "target": "ES2015",
+    "types": ["node"]
   }
 }
