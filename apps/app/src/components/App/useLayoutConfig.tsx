@@ -3,9 +3,9 @@ import { useTheme } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 // import PieChartIcon from '@mui/icons-material/PieChart';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import StoreIcon from '@mui/icons-material/Store';
-import HandshakeIcon from '@mui/icons-material/Handshake';
-import PeopleIcon from '@mui/icons-material/People';
+// import StoreIcon from '@mui/icons-material/Store';
+// import HandshakeIcon from '@mui/icons-material/Handshake';
+// import PeopleIcon from '@mui/icons-material/People';
 // import SettingsIcon from '@mui/icons-material/Settings';
 // import WalletIcon from '@mui/icons-material/Wallet';
 // import AdsClickIcon from '@mui/icons-material/AdsClick';
@@ -26,7 +26,7 @@ const layoutConfig: LayoutConfig = {
         // },
         {
           label: 'Ajuda',
-          href: 'mailto:ajuda@criaty.com.br',
+          href: 'mailto:ajuda@criaty.com',
           icon: <EmailIcon />,
         },
       ],
