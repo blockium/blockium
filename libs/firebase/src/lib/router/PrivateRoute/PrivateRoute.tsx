@@ -6,7 +6,7 @@ import { Firebase } from '../../firebase/firebase';
 
 interface PrivateRouteProps {
   loginPath: string;
-  loadingElement: React.ReactElement;
+  waitingAuth: React.ReactElement;
   children: React.ReactElement;
 }
 
@@ -14,22 +14,22 @@ const { getAuth, useAuth, useSignIn } = Firebase;
 
 export const PrivateRoute: React.FC<PrivateRouteProps> = ({
   loginPath,
-  loadingElement,
+  waitingAuth,
   children,
 }) => {
-  const [waitingAuth, setWaitingAuth] = useState(true);
+  const [isWaitingAuth, setIsWaitingAuth] = useState(true);
   const signIn = useSignIn();
   const [user] = useAuth();
 
   useEffect(() => {
     return onAuthStateChanged(getAuth(), (user) => {
       signIn(user);
-      setWaitingAuth(false);
+      setIsWaitingAuth(false);
     });
   }, [signIn]);
 
-  if (waitingAuth) {
-    return loadingElement;
+  if (isWaitingAuth) {
+    return waitingAuth;
   }
 
   if (user) {
