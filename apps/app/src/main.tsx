@@ -1,10 +1,9 @@
 // import { StrictMode } from 'react';
+import { lazy } from 'react';
 import * as ReactDOM from 'react-dom/client';
 
 import { IntlProvider } from '@blockium/i18n';
 import { ThemeConfig, ThemeProvider } from '@blockium/theme';
-
-import { AppRouter } from './components/AppRouter';
 
 // These are exact the defaults.
 // They are here just to show how to override them.
@@ -90,6 +89,8 @@ const firebaseConfig = {
 // Initialize Firebase
 const { Firebase } = await import('@blockium/firebase');
 Firebase.initFirebase(firebaseConfig);
+
+const AppRouter = lazy(() => import('./components/AppRouter/AppRouter'));
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
