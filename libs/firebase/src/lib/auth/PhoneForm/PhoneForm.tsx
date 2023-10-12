@@ -10,7 +10,8 @@ import {
   signInWithPhoneNumber,
   updateProfile,
 } from 'firebase/auth';
-import { auth } from '@blockium/firebase';
+import { Firebase } from '../../firebase/firebase';
+// import { auth } from '@blockium/firebase';
 
 import { useIntlMessage } from '@blockium/i18n';
 import { PhoneInput, CTAButton } from '@blockium/ui-common';
@@ -33,6 +34,7 @@ export const PhoneForm: React.FC = () => {
     try {
       setErrorMessage('');
       setLoading(true);
+      const auth = Firebase.getAuth();
       const appVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
         size: 'invisible',
       });
@@ -45,7 +47,7 @@ export const PhoneForm: React.FC = () => {
       //
     } catch (error: any) {
       console.log(error.message);
-      setErrorMessage(msg('ui-auth.error.auth.phone-sign-in'));
+      setErrorMessage(msg('firebase.error.auth.phone-sign-in'));
       //
     } finally {
       setLoading(false);
@@ -57,8 +59,9 @@ export const PhoneForm: React.FC = () => {
   // TODO: Create a form requesting the user email
   // TODO: Save the email in the users table
   const login = async () => {
+    const auth = Firebase.getAuth();
     if (!auth.currentUser) {
-      setErrorMessage(msg('ui-auth.error.not-authenticated'));
+      setErrorMessage(msg('firebase.error.not-authenticated'));
       return;
     }
 
@@ -85,7 +88,7 @@ export const PhoneForm: React.FC = () => {
       setLoading(true);
       const credential = await confirmationResult?.confirm(verificationCode);
       if (!credential) {
-        setErrorMessage(msg('ui-auth.error.auth.failed'));
+        setErrorMessage(msg('firebase.error.auth.failed'));
         //
       } else {
         if (credential.user.displayName) {
@@ -99,9 +102,9 @@ export const PhoneForm: React.FC = () => {
     } catch (error: any) {
       console.log(error.message);
       if (error.code === 'auth/code-expired') {
-        setErrorMessage(msg('ui-auth.error.auth.code-expired'));
+        setErrorMessage(msg('firebase.error.auth.code-expired'));
       } else {
-        setErrorMessage(msg('ui-auth.error.auth.invalid-code'));
+        setErrorMessage(msg('firebase.error.auth.invalid-code'));
       }
       //
     } finally {
@@ -110,8 +113,9 @@ export const PhoneForm: React.FC = () => {
   };
 
   const onEnter = async () => {
+    const auth = Firebase.getAuth();
     if (!auth.currentUser) {
-      setErrorMessage(msg('ui-auth.error.not-authenticated'));
+      setErrorMessage(msg('firebase.error.not-authenticated'));
       return;
     }
 
@@ -125,7 +129,7 @@ export const PhoneForm: React.FC = () => {
       //
     } catch (error: any) {
       console.log(error.message);
-      setErrorMessage(msg('ui-auth.error.auth.phone-sign-in'));
+      setErrorMessage(msg('firebase.error.auth.phone-sign-in'));
     }
   };
 
@@ -134,7 +138,7 @@ export const PhoneForm: React.FC = () => {
       {/* Phone Number Input and Sign In Button */}
       <TextField
         type="tel"
-        label={msg('ui-auth.label.phone-number')}
+        label={msg('firebase.label.phone-number')}
         helperText={!confirmationResult ? '+55 (21) 99999-9999' : ''}
         value={phoneNumber}
         onChange={(e) => setPhoneNumber(e.target.value)}
@@ -150,7 +154,7 @@ export const PhoneForm: React.FC = () => {
           loading={loading}
           disabled={phoneNumber.length < 11}
         >
-          {msg('ui-auth.button.send-code')}
+          {msg('firebase.button.send-code')}
         </CTAButton>
       )}
 
@@ -159,14 +163,14 @@ export const PhoneForm: React.FC = () => {
         <>
           <TextField
             type="number"
-            label={msg('ui-auth.label.verification-code')}
+            label={msg('firebase.label.verification-code')}
             value={verificationCode}
             onChange={(e) => setVerificationCode(e.target.value)}
             disabled={requestDisplayName}
           />
           {!requestDisplayName && (
             <CTAButton onClick={verifyCode} loading={loading}>
-              {msg('ui-auth.button.verify-code')}
+              {msg('firebase.button.verify-code')}
             </CTAButton>
           )}
         </>
@@ -177,7 +181,7 @@ export const PhoneForm: React.FC = () => {
         <>
           <TextField
             type="text"
-            label={msg('ui-auth.label.user-name')}
+            label={msg('firebase.label.user-name')}
             value={displayName}
             onChange={(e) => setDisplayName(e.target.value)}
           />
@@ -186,7 +190,7 @@ export const PhoneForm: React.FC = () => {
             loading={loading}
             disabled={displayName.length < 3}
           >
-            {msg('ui-auth.button.enter')}
+            {msg('firebase.button.enter')}
           </CTAButton>
         </>
       )}

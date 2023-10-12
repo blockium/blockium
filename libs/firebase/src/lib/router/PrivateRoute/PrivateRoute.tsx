@@ -3,9 +3,12 @@ import { Navigate } from 'react-router-dom';
 import { Box } from '@mui/material';
 
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth, useSignIn } from '@blockium/firebase';
+// import { getAuth, useAuth, useSignIn } from '@blockium/firebase';
+import { Firebase } from '../../firebase/firebase';
 
-import { LoadingIndicator } from '../../progress';
+import { LoadingIndicator } from '@blockium/ui-common';
+
+const { getAuth, useAuth, useSignIn } = Firebase;
 
 interface PrivateRouteProps {
   loginPath: string;
@@ -30,25 +33,37 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ logo }) => {
   );
 };
 
-export const PrivateRoute: React.FC<PrivateRouteProps> = (props) => {
+// const { auth, useSignIn } = await import('@blockium/firebase');
+// const { getAuth, useAuth, useSignIn } = await import(
+//   '@blockium/firebase'
+// );
+
+export const PrivateRoute: React.FC<PrivateRouteProps> = ({
+  loginPath,
+  logo,
+  children,
+}) => {
+  console.log('PrivateRoute');
   const [loading, setLoading] = useState(true);
   const signIn = useSignIn();
+  const [user] = useAuth();
 
   useEffect(() => {
-    return onAuthStateChanged(auth, (user) => {
+    console.log('getAuth', getAuth());
+    return onAuthStateChanged(getAuth(), (user) => {
       signIn(user);
       setLoading(false);
     });
   }, [signIn]);
 
   if (loading) {
-    return <LoadingPage logo={props.logo} />;
+    return <LoadingPage logo={logo} />;
   }
 
-  if (auth.currentUser) {
-    return props.children;
+  if (user) {
+    return children;
   } else {
-    return <Navigate to={props.loginPath} />;
+    return <Navigate to={loginPath} />;
   }
 };
 

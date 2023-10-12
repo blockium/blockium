@@ -4,7 +4,7 @@ import axios from 'axios';
 export const loginWithPhone = async (authId: string) => {
   return await axios({
     method: 'post',
-    url: import.meta.env.VITE_LOGIN_WITH_PHONE_URL,
+    url: import.meta.env['VITE_LOGIN_WITH_PHONE_URL'],
     data: {
       authId,
     },

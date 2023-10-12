@@ -4,7 +4,7 @@ import axios from 'axios';
 export const getUser = async (sessionId: string, authId: string) => {
   return await axios({
     method: 'post',
-    url: import.meta.env.VITE_GET_USER_URL,
+    url: import.meta.env['VITE_GET_USER_URL'],
     data: {
       sessionId,
       authId,

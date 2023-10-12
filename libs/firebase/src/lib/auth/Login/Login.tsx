@@ -50,7 +50,7 @@ export const Login: React.FC<LoginProps> = ({
         sessionStorage.setItem('sessionId', sessionId);
 
         // Open WhatsApp with the session id
-        const phone = import.meta.env.VITE_CRIATY_PHONE;
+        const phone = import.meta.env['VITE_CRIATY_PHONE'];
         const message = `LOGIN:${sessionId}`;
         const url = `https://wa.me/${phone}?text=${encodeURIComponent(
           message,
@@ -65,7 +65,7 @@ export const Login: React.FC<LoginProps> = ({
       //
     } catch (error) {
       console.error(error);
-      setError(msg('ui-auth.error.newSession'));
+      setError(msg('firebase.error.newSession'));
       //
     } finally {
       setLoadingWhatsApp(false);
@@ -106,7 +106,7 @@ export const Login: React.FC<LoginProps> = ({
             loading={loadingWhatsApp}
             disabled={loadingGoogle}
           >
-            {msg('ui-auth.button.loginWithWhatsApp')}
+            {msg('firebase.button.loginWithWhatsApp')}
           </CTAButton>
           {/* Box used instead of Stack gap due to support for old browsers */}
           <Box sx={{ height: '2rem' }}></Box>
@@ -118,7 +118,7 @@ export const Login: React.FC<LoginProps> = ({
             color="secondary"
             disabled={loadingWhatsApp || loadingGoogle}
           >
-            {msg('ui-auth.button.loginWithPhone')}
+            {msg('firebase.button.loginWithPhone')}
           </CTAButton>
           {false && (
             <>
@@ -133,7 +133,7 @@ export const Login: React.FC<LoginProps> = ({
                 disabled={loadingWhatsApp}
                 sx={{ marginTop: '2rem' }}
               >
-                {msg('ui-auth.button.loginWithGoogle')}
+                {msg('firebase.button.loginWithGoogle')}
               </CTAButton>
             </>
           )}{' '}

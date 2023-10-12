@@ -4,7 +4,7 @@ import axios from 'axios';
 export const newSession = async () => {
   return await axios({
     method: 'get',
-    url: import.meta.env.VITE_NEW_SESSION_URL,
+    url: import.meta.env['VITE_NEW_SESSION_URL'],
     data: {},
     validateStatus: (status: number) => {
       return status < 600;

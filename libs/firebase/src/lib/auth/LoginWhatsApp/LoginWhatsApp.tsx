@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { Link, Stack, Typography } from '@mui/material';
 
 import { signInAnonymously } from 'firebase/auth';
-import { auth } from '@blockium/firebase';
+import { Firebase } from '../../firebase/firebase';
+// import { auth } from '@blockium/firebase';
 
 import { useIntlMessage } from '@blockium/i18n';
 
@@ -34,7 +35,7 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
 
     try {
       // Create an anonymous user on Firebase
-      const credential = await signInAnonymously(auth);
+      const credential = await signInAnonymously(Firebase.getAuth());
 
       const answer = await getUser(sessionId, credential.user.uid);
 
@@ -54,7 +55,7 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
       //
     } catch (error) {
       console.error(error);
-      setError(msg('ui-auth.error.getUser'));
+      setError(msg('firebase.error.getUser'));
       //
     } finally {
       setLoadingWhatsApp(false);
@@ -66,7 +67,7 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
   // };
 
   const getWhatsAppLink = () => {
-    const phone = import.meta.env.VITE_CRIATY_PHONE;
+    const phone = import.meta.env['VITE_CRIATY_PHONE'];
     const message = `LOGIN:${sessionId}`;
     return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
   };
@@ -77,7 +78,7 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
       <LoginHero leftImageSrc={leftImageSrc} topImageSrc={topImageSrc}>
         <Stack alignItems="center" width="300px" margin="2rem 0.5rem">
           <Typography variant="h6">
-            1. {msg('ui-auth.login.whatsapp.msg1')}
+            1. {msg('firebase.login.whatsapp.msg1')}
           </Typography>
           {/* <Link onClick={copyToClipboard}>LOGIN:{sessionId}</Link> <br /> */}
           <Link
@@ -88,7 +89,7 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
             LOGIN:{sessionId}
           </Link>
           <Typography variant="h6" sx={{ marginTop: '6rem' }}>
-            2. {msg('ui-auth.login.whatsapp.msg2')}
+            2. {msg('firebase.login.whatsapp.msg2')}
           </Typography>
           <CTAButton
             onClick={loginWithWhatsApp}
@@ -96,7 +97,7 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
             loading={loadingWhatsApp}
             sx={{ marginTop: '2rem' }}
           >
-            {msg('ui-auth.button.enter')}
+            {msg('firebase.button.enter')}
           </CTAButton>
         </Stack>
       </LoginHero>
