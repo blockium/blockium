@@ -11,9 +11,10 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 // import AdsClickIcon from '@mui/icons-material/AdsClick';
 
 import { LayoutConfig } from '@blockium/ui-mininal-tmpl';
-import { useAuth, useSignOut } from '@blockium/firebase';
-import { CriatyLogo } from '@criaty/ui-custom';
 import { formatPhoneNumber } from '@blockium/utils';
+import { CriatyLogo } from '@criaty/ui-custom';
+
+const { Firebase } = await import('@blockium/firebase');
 
 const layoutConfig: LayoutConfig = {
   navBar: {
@@ -85,8 +86,8 @@ const layoutConfig: LayoutConfig = {
 };
 
 export const useLayoutConfig = () => {
-  const [user] = useAuth();
-  const signOut = useSignOut();
+  const [user] = Firebase.useAuth();
+  const signOut = Firebase.useSignOut();
 
   const handleSignOut = async () => {
     sessionStorage.clear();

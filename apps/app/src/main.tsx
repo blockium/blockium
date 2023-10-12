@@ -74,6 +74,24 @@ const themeConfig: ThemeConfig = {
   },
 };
 
+const envSource = import.meta.env;
+const isDevLocal =
+  typeof document !== 'undefined' && document.location.hostname === 'localhost';
+const firebaseConfig = {
+  apiKey: isDevLocal
+    ? envSource['VITE_FIREBASE_API_KEY_DEV']
+    : envSource['VITE_FIREBASE_API_KEY'],
+  authDomain: envSource['VITE_FIREBASE_AUTH_DOMAIN'],
+  projectId: envSource['VITE_FIREBASE_PROJECT_ID'],
+  storageBucket: envSource['VITE_FIREBASE_STORAGE_BUCKET'],
+  messagingSenderId: envSource['VITE_FIREBASE_MESSAGING_SENDER_ID'],
+  appId: envSource['VITE_FIREBASE_APP_ID'],
+  measurementId: envSource['VITE_FIREBASE_MEASUREMENT_ID'],
+};
+// Initialize Firebase
+const { Firebase } = await import('@blockium/firebase');
+Firebase.initFirebase(firebaseConfig);
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );

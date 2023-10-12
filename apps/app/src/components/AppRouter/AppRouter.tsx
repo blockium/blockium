@@ -1,7 +1,8 @@
+import loadable from '@loadable/component';
+import pMinDelay from 'p-min-delay';
 import { Route, Routes } from 'react-router-dom';
 
-import { Login, LoginPhone, LoginWhatsApp } from '@blockium/ui-auth';
-import { PrivateRoute } from '@blockium/ui-common';
+import { LoadingPage } from '@blockium/ui-common';
 import { CriatyLogo } from '@criaty/ui-custom';
 
 import { App } from '../App';
@@ -14,22 +15,49 @@ import {
   WeeklyPostsPage,
 } from '../../pages';
 
+const PrivateRoute = loadable(() =>
+  import('@blockium/firebase').then((module) => ({
+    default: module.PrivateRoute,
+  })),
+);
+const Login = loadable(() =>
+  import('@blockium/firebase').then((module) => ({
+    default: module.Login,
+  })),
+);
+const LoginPhone = loadable(() =>
+  pMinDelay(
+    import('@blockium/firebase').then((module) => ({
+      default: module.LoginPhone,
+    })),
+    200,
+  ),
+);
+const LoginWhatsApp = loadable(() =>
+  import('@blockium/firebase').then((module) => ({
+    default: module.LoginWhatsApp,
+  })),
+);
+
+const Loading = () => (
+  <LoadingPage
+    logo={
+      <CriatyLogo
+        full={false}
+        colorScheme="transparent-green-green-transparent"
+        sx={{ marginTop: '0.75rem' }}
+      />
+    }
+  />
+);
+
 export const AppRouter = () => {
   return (
     <Routes>
       <Route
         path="/"
         element={
-          <PrivateRoute
-            loginPath="/login"
-            logo={
-              <CriatyLogo
-                full={false}
-                colorScheme="transparent-green-green-transparent"
-                sx={{ marginTop: '0.75rem' }}
-              />
-            }
-          >
+          <PrivateRoute loginPath="/login" loadingElement={<Loading />}>
             <App />
           </PrivateRoute>
         }
