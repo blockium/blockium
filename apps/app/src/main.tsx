@@ -1,6 +1,5 @@
 // import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
 
 import { IntlProvider } from '@blockium/i18n';
 import { ThemeConfig, ThemeProvider } from '@blockium/theme';
@@ -99,9 +98,7 @@ root.render(
   // <StrictMode>
   <IntlProvider>
     <ThemeProvider config={themeConfig}>
-      <BrowserRouter>
-        <AppRouter />
-      </BrowserRouter>
+      <AppRouter />
     </ThemeProvider>
   </IntlProvider>,
   // </StrictMode>
