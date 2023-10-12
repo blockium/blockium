@@ -41,8 +41,6 @@ const fbServices: FirebaseServices = {};
 
 // Initialize Firebase
 const initFirebase = (firebaseConfig: FirebaseConfig) => {
-  console.log('initFirebase');
-
   fbServices.app = initializeApp(firebaseConfig);
   fbServices.analytics = fbGetAnalytics(fbServices.app);
   fbServices.auth = fbGetAuth(fbServices.app);
@@ -71,7 +69,7 @@ const getApp = () => {
 const getAnalytics = () => {
   const auth = fbServices.auth;
   if (!auth) {
-    throw new Error('initFirebase must be called before using getAuth');
+    throw new Error('initFirebase must be called before using getAnalytics');
   }
   return auth;
 };
@@ -126,10 +124,7 @@ const converter = <T>() => ({
 });
 
 const dataPoint = <T>(collectionPath: string) => {
-  const firestore = fbServices.firestore;
-  if (!firestore) {
-    throw new Error('initFirebase must be called before using firestore');
-  }
+  const firestore = getFirestore();
   return collection(firestore, collectionPath).withConverter(converter<T>());
 };
 
