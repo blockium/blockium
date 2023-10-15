@@ -17,7 +17,7 @@ export const createUser = async (
 ) => {
   const user: User = {
     name,
-    displayName,
+    displayName: displayName || name,
     phone,
     expirationDate: addDays(new Date(), 15),
   };
@@ -30,7 +30,7 @@ export const createUser = async (
 export const getAllUsers = async (phone: string) => {
   const userQuery = await db.users.where('phone', '==', phone).get();
   return userQuery.docs.map((userDoc) => {
-    return { ...userDoc.data(), id: userDoc.id };
+    return { ...(userDoc.data() as User), id: userDoc.id };
   });
 };
 

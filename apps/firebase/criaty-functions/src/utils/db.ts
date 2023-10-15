@@ -1,3 +1,4 @@
+import { DocumentData } from 'firebase-admin/firestore';
 import admin from './admin';
 
 import { Session, User, UserPrompt } from '@criaty/model-types';
@@ -8,7 +9,7 @@ const converter = <T>() => ({
     snap.data() as T,
 });
 
-const dataPoint = <T>(collectionPath: string) =>
+const dataPoint = <T extends DocumentData>(collectionPath: string) =>
   admin.firestore().collection(collectionPath).withConverter(converter<T>());
 
 const db = {

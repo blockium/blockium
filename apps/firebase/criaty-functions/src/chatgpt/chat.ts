@@ -58,7 +58,11 @@ export const chat = async (
   const openai = new OpenAI({ apiKey });
 
   try {
-    const messages = [];
+    type Message = {
+      role: 'user' | 'assistant' | 'system';
+      content: string;
+    };
+    const messages: Message[] = [];
 
     // Add previous prompts to the chat history
     let contextLength = 0;
@@ -94,8 +98,8 @@ export const chat = async (
 
     // If the context is too long, remove answer and prompt from history
     while (contextLength > 5000 && messages.length >= 2) {
-      const lastAnswer = messages.shift();
-      const lastPrompt = messages.shift();
+      const lastAnswer = messages.shift() as Message;
+      const lastPrompt = messages.shift() as Message;
       contextLength -= lastAnswer.content.length + lastPrompt.content.length;
     }
 
@@ -127,12 +131,16 @@ export const chat = async (
 
     const answer = completion.choices[0].message.content;
 
-    // Remove leading newlines
-    let i = 0;
-    while (answer[i] === '\n') i++;
-    return answer.slice(i);
-    //
-  } catch (error) {
+    if (answer !== null) {
+      // Remove leading newlines
+      let i = 0;
+      while (answer[i] === '\n') i++;
+      return answer.slice(i);
+    } else {
+      return false;
+    }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
     if (error.response) {
       logger.error(error.response.status, error.response.data);
       return false;

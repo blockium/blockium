@@ -37,6 +37,10 @@ export const getUser = https.onRequest(async (request, response) => {
       const authUser = await getAuthUser(request.body.authId);
       if (!validateAuthUser(authUser, response)) return;
 
+      // This should never occur as null is treated in validateAuthUser
+      // Just for Typescript not complaining below
+      if (authUser === null) return;
+
       // Commented to allow anonymous auth users
       // if (!validateAuthPhone(authUser.phoneNumber, response)) return;
 
@@ -44,11 +48,19 @@ export const getUser = https.onRequest(async (request, response) => {
       const phone = session.phone || authPhone;
       if (!validatePhone({ body: { phone } }, response)) return;
 
+      // This should never occur as null is treated in validatePhone
+      // Just for Typescript not complaining below
+      if (!phone) return;
+
       const name = session.name || authUser.displayName || phone;
 
       // Get a user data filtered by phone, creating if it doesn't exist
       const user = (await getOrCreateUser(phone, name)) as User;
       if (!validateUser(user, response)) return;
+
+      // This should never occur as null is treated in validateUser
+      // Just for Typescript not complaining below
+      if (!user.id) return;
 
       // Update app user's auth id in Firestore
       await updateUser(user.id, {
@@ -56,7 +68,7 @@ export const getUser = https.onRequest(async (request, response) => {
       });
 
       // Expire old sessions for a given userId
-      await expireOldSessions(session.userId);
+      await expireOldSessions(session.userId || '-');
 
       // Update session
       await updateSession(user, session, authUser.uid);

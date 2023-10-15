@@ -31,8 +31,16 @@ export const loginWithPhone = https.onRequest(async (request, response) => {
       const authUser = await getAuthUser(request.body.authId);
       if (!validateAuthUser(authUser, response)) return;
 
+      // This should never occur as null is treated in validateAuthUser
+      // Just for Typescript not complaining below
+      if (authUser === null) return;
+
       // Validates the user if it has a phone number
       if (!validateAuthPhone(authUser.phoneNumber, response)) return;
+
+      // This should never occur as null is treated in validateAuthPhone
+      // Just for Typescript not complaining below
+      if (!authUser.phoneNumber) return;
 
       const authPhone = authUser.phoneNumber.replace(/\D/g, '');
       const phone = authPhone;
@@ -45,6 +53,10 @@ export const loginWithPhone = https.onRequest(async (request, response) => {
         true,
       )) as User;
       if (!validateUser(user, response)) return;
+
+      // This should never occur as null is treated in validateUser
+      // Just for Typescript not complaining below
+      if (!user.id) return;
 
       // Update app user's auth id in Firestore
       await updateUser(user.id, {

@@ -26,7 +26,7 @@ export const getSession = async (sessionId: string) => {
     return SESSION_ERROR_NOT_FOUND;
   }
 
-  const session = sessionDoc.data();
+  const session = sessionDoc.data() as Session;
   session.id = sessionDoc.id;
 
   return session;
@@ -76,7 +76,7 @@ export const updateSession = async (
 ) => {
   switch (session.status) {
     case 'new':
-      await db.sessions.doc(session.id).update({
+      await db.sessions.doc(session.id || '-').update({
         status: 'waiting',
         waitingAt: admin.firestore.FieldValue.serverTimestamp(),
         userId: user.id,
@@ -86,7 +86,7 @@ export const updateSession = async (
       return 'waiting';
     //
     case 'waiting':
-      await db.sessions.doc(session.id).update({
+      await db.sessions.doc(session.id || '-').update({
         status: 'started',
         startedAt: admin.firestore.FieldValue.serverTimestamp(),
         authId,

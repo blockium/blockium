@@ -56,8 +56,8 @@ export const chatgpt = runWith({ secrets: [openAiApiKey] }).https.onRequest(
     corsObj(request, response, async () => {
       if (!validateParams(request, response)) return;
 
-      let user: User;
-      let prevPrompts = [];
+      let user: User | undefined = undefined;
+      let prevPrompts: UserPrompt[] = [];
 
       // Retrieve user id from Firestore. Saves new users if they don't exist
       const { phone, name } = request.body;
@@ -72,7 +72,7 @@ export const chatgpt = runWith({ secrets: [openAiApiKey] }).https.onRequest(
           request.body.historyLimit ?? process.env.PROMPT_HISTORY_LIMIT,
         );
         if (limit > 0) {
-          prevPrompts = await getUserPrompts(user.id, limit);
+          prevPrompts = await getUserPrompts(user.id || '-', limit);
         }
       }
 
@@ -89,7 +89,7 @@ export const chatgpt = runWith({ secrets: [openAiApiKey] }).https.onRequest(
           );
       } else {
         // Save the user's prompt and answer to the history
-        if (user) {
+        if (user?.id) {
           await saveUserPrompt(user.id, prompt, answer);
         }
         response.status(200).send(answer);

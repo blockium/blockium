@@ -78,6 +78,12 @@ export const validateUser = (user: string | User, response) => {
     }
     return false;
   } else {
+    if (!user.id) {
+      response
+        .status(412)
+        .send('Usuário sem id. Favor entrar em contato com o suporte.');
+      return false;
+    }
     return true;
   }
 };
@@ -125,7 +131,10 @@ export const validateAuthId = (request, response) => {
   return true;
 };
 
-export const validateAuthUser = async (authUser: UserRecord, response) => {
+export const validateAuthUser = async (
+  authUser: UserRecord | null,
+  response,
+) => {
   if (!authUser) {
     response.status(412).send('Conta de autenticação inexistente.');
     return false;
