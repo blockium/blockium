@@ -2,7 +2,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import viteTsConfigPaths from 'vite-tsconfig-paths';
-import { VitePWA } from 'vite-plugin-pwa';
+// import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
   cacheDir: '../../node_modules/.vite/app',
@@ -22,7 +22,7 @@ export default defineConfig({
     viteTsConfigPaths({
       root: '../../',
     }),
-    VitePWA({ registerType: 'autoUpdate' }),
+    // VitePWA({ registerType: 'autoUpdate' }),
   ],
 
   // Uncomment this if you are using workers.
