@@ -109,6 +109,7 @@
     "vite-plugin-dts": "^3.6.0",
     "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-externalize-deps": "^0.7.0",
+    "vite-plugin-pwa": "^0.16.5",
     "vite-tsconfig-paths": "4.2.1",
     "vitest": "0.34.6"
   }
