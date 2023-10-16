@@ -4,52 +4,38 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { LoadingPage } from '@blockium/ui-common';
 import { CriatyLogo } from '@criaty/ui-custom';
 
-const App = loadable(() =>
-  import('../App').then(({ App }) => ({ default: App })),
-);
+const App = loadable(() => import('../App').then(({ App }) => App));
 
 const BusinessPage = loadable(() =>
-  import('../../pages').then(({ BusinessPage }) => ({ default: BusinessPage })),
+  import('../../pages').then(({ BusinessPage }) => BusinessPage),
 );
 const CalendarPage = loadable(() =>
-  import('../../pages').then(({ CalendarPage }) => ({ default: CalendarPage })),
+  import('../../pages').then(({ CalendarPage }) => CalendarPage),
 );
 const NoBusinessPage = loadable(() =>
-  import('../../pages').then(({ NoBusinessPage }) => ({
-    default: NoBusinessPage,
-  })),
+  import('../../pages').then(({ NoBusinessPage }) => NoBusinessPage),
 );
 const PartnersPage = loadable(() =>
-  import('../../pages').then(({ PartnersPage }) => ({ default: PartnersPage })),
+  import('../../pages').then(({ PartnersPage }) => PartnersPage),
 );
 const SettingsPage = loadable(() =>
-  import('../../pages').then(({ SettingsPage }) => ({ default: SettingsPage })),
+  import('../../pages').then(({ SettingsPage }) => SettingsPage),
 );
 const WeeklyPostsPage = loadable(() =>
-  import('../../pages').then(({ WeeklyPostsPage }) => ({
-    default: WeeklyPostsPage,
-  })),
+  import('../../pages').then(({ WeeklyPostsPage }) => WeeklyPostsPage),
 );
 
 const PrivateRoute = loadable(() =>
-  import('@blockium/firebase').then((module) => ({
-    default: module.PrivateRoute,
-  })),
+  import('@blockium/firebase').then(({ PrivateRoute }) => PrivateRoute),
 );
 const Login = loadable(() =>
-  import('@blockium/firebase').then(({ Auth }) => ({
-    default: Auth.Login,
-  })),
+  import('@blockium/firebase').then(({ Login }) => Login),
 );
 const LoginPhone = loadable(() =>
-  import('@blockium/firebase').then(({ Auth }) => ({
-    default: Auth.LoginPhone,
-  })),
+  import('@blockium/firebase').then(({ LoginPhone }) => LoginPhone),
 );
 const LoginWhatsApp = loadable(() =>
-  import('@blockium/firebase').then(({ Auth }) => ({
-    default: Auth.LoginWhatsApp,
-  })),
+  import('@blockium/firebase').then(({ LoginWhatsApp }) => LoginWhatsApp),
 );
 
 const Loading = () => (
