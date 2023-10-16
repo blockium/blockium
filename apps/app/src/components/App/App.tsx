@@ -8,8 +8,8 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import { LocalizationProvider } from '@blockium/i18n-mui';
 import { DashboardLayout, LayoutConfig } from '@blockium/ui-mininal-tmpl';
 
-import { CriatyLogo } from '@criaty/ui-custom';
 import { withDynamicHook } from '@blockium/ui-common';
+import { CriatyLogo } from '@criaty/ui-custom';
 
 const layoutConfig: LayoutConfig = {
   navBar: {
@@ -41,18 +41,6 @@ const layoutConfig: LayoutConfig = {
         href: '/',
         icon: <CalendarMonthIcon />,
       },
-      // TODO: !!! Show partners page
-      // {
-      //   label: 'Parceiros',
-      //   href: '/partners',
-      //   icon: <HandshakeIcon />,
-      // },
-      // TODO: !!! Show customers page
-      // {
-      //   label: 'Clientes',
-      //   href: '/customers',
-      //   icon: <PeopleIcon />,
-      // },
       // {
       //   label: 'Meu Negócio',
       //   href: '/business',
@@ -91,15 +79,7 @@ const AppInternal: React.FC<any> = ({ useLayoutConfig }) => {
     <LocalizationProvider>
       <DashboardLayout layoutConfig={layoutConfigExtended}>
         <Container maxWidth="lg" sx={{ margin: '0 auto' }}>
-          <Stack alignItems="center" gap="4rem">
-            {/* <Typography variant="h1">Welcome to app!</Typography> */}
-            {/* <Link href="/" variant="h2">
-            Go to home
-          </Link>
-          <Link href="posts/weekly/list" variant="h2">
-            Go to posts
-          </Link> */}
-          </Stack>
+          <Stack alignItems="center" gap="4rem"></Stack>
           <Outlet />
         </Container>
       </DashboardLayout>
@@ -107,6 +87,7 @@ const AppInternal: React.FC<any> = ({ useLayoutConfig }) => {
   );
 };
 
+// withDynamicHook is used to dynamically load the hook useLayoutConfig
 export const App = () => {
   const AppWithHook = withDynamicHook(
     'useLayoutConfig',

@@ -1,5 +1,5 @@
 // import { StrictMode } from 'react';
-import { lazy } from 'react';
+import loadable from '@loadable/component';
 import * as ReactDOM from 'react-dom/client';
 
 import { IntlProvider } from '@blockium/i18n';
@@ -91,7 +91,7 @@ const firebaseConfig = {
 import('@blockium/firebase').then(({ Firebase }) => {
   Firebase.initFirebase(firebaseConfig);
 
-  const AppRouter = lazy(() => import('./components/AppRouter/AppRouter'));
+  const AppRouter = loadable(() => import('./components/AppRouter/AppRouter'));
 
   const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement,
