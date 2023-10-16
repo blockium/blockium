@@ -15,7 +15,7 @@ const translations: { [key: string]: { [key: string]: string } } = {
 };
 
 // Get user language with 2 characters
-const userLang2 = navigator.language?.substring(0, 2);
+// const userLang2 = navigator.language?.substring(0, 2);
 
 // Get user language with 4 characters
 let userLang4 = navigator.language;

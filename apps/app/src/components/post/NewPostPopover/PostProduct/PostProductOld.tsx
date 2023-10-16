@@ -23,8 +23,8 @@ export const PostProduct: React.FC<IPostProductProps> = ({
 }) => {
   const [topic, setTopic] = useState('');
   const [tone, setCharacter] = useState('');
-  const [format, setFormat] = useState<PostFormat>();
-  const [type, setType] = useState<PostType>();
+  const [format] = useState<PostFormat>();
+  const [type] = useState<PostType>();
 
   const addPost = async (date: Date) => {
     // Request the creation of one new post

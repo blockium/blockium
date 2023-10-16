@@ -1,24 +1,24 @@
-import { ReactElement, Ref, forwardRef } from 'react';
+// import { ReactElement, Ref, forwardRef } from 'react';
 import Dialog from '@mui/material/Dialog';
-import { TransitionProps } from '@mui/material/transitions';
-import Slide from '@mui/material/Slide';
+// import { TransitionProps } from '@mui/material/transitions';
+// import Slide from '@mui/material/Slide';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
 import StepperSection from '../StepperSection/StepperSection';
 import { useNavigate } from 'react-router-dom';
 
-const Transition = forwardRef(function Transition(
-  props: TransitionProps & {
-    children: ReactElement;
-  },
-  ref: Ref<unknown>
-) {
-  return (
-    <Slide direction="up" ref={ref} {...props} />
-    // <Grow ref={ref} {...props} />
-  );
-});
+// const Transition = forwardRef(function Transition(
+//   props: TransitionProps & {
+//     children: ReactElement;
+//   },
+//   ref: Ref<unknown>
+// ) {
+//   return (
+//     <Slide direction="up" ref={ref} {...props} />
+//     // <Grow ref={ref} {...props} />
+//   );
+// });
 
 type StepperDialogProps = {
   open: boolean;
@@ -26,7 +26,7 @@ type StepperDialogProps = {
 };
 
 export const StepperDialog: React.FC<StepperDialogProps> = (
-  props: StepperDialogProps
+  props: StepperDialogProps,
 ) => {
   const { open, onClose } = props;
   const navigate = useNavigate();

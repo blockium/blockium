@@ -1,8 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { Container, Stack } from '@mui/material';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import styles from './App.module.scss';
+// import styles from './App.module.scss';
 
 import { DashboardLayout } from '@blockium/ui-mininal-tmpl';
 import { LocalizationProvider } from '@blockium/i18n-mui';
