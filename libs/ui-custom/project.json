@@ -7,20 +7,14 @@
   "targets": {
     "lint": {
       "executor": "@nx/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "libs/ui-custom/**/*.{ts,tsx,js,jsx}"
-        ]
+        "lintFilePatterns": ["libs/ui-custom/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "build": {
       "executor": "@nx/vite:build",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
         "outputPath": "dist/libs/ui-custom"
@@ -36,9 +30,7 @@
     },
     "test": {
       "executor": "@nx/vite:test",
-      "outputs": [
-        "coverage/libs/ui-custom"
-      ],
+      "outputs": ["coverage/libs/ui-custom"],
       "options": {
         "passWithNoTests": true,
         "reportsDirectory": "../../coverage/libs/ui-custom"

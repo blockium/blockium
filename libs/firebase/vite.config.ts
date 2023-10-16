@@ -4,6 +4,7 @@ import react from '@vitejs/plugin-react';
 import viteTsConfigPaths from 'vite-tsconfig-paths';
 import dts from 'vite-plugin-dts';
 import { join } from 'path';
+import { externalizeDeps } from 'vite-plugin-externalize-deps';
 
 export default defineConfig({
   cacheDir: '../../node_modules/.vite/firebase',
@@ -17,6 +18,7 @@ export default defineConfig({
     viteTsConfigPaths({
       root: '../../',
     }),
+    externalizeDeps(),
   ],
 
   // Uncomment this if you are using workers.
@@ -31,7 +33,7 @@ export default defineConfig({
   // Configuration for building your library.
   // See: https://vitejs.dev/guide/build.html#library-mode
   build: {
-    target: 'es2022',
+    target: 'es2017',
     lib: {
       // Could also be a dictionary or array of multiple entry points.
       entry: 'src/index.ts',
@@ -43,21 +45,8 @@ export default defineConfig({
     },
     rollupOptions: {
       // External packages that should not be bundled into your library.
-      external: [
-        'react',
-        'react-dom',
-        'react/jsx-runtime',
-        '@mui/icons-material',
-        '@mui/material',
-        '@mui/x-date-pickers',
-        'axios',
-        'firebase',
-        'react-imask',
-        'react-intl',
-        'react-router-dom',
-        'react-use',
-        'swiper',
-      ],
+      // Not necessary due to externalizeDeps plugin.
+      // external: ['react', 'react-dom', 'react/jsx-runtime'],
     },
   },
 
