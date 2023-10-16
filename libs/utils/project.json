@@ -8,7 +8,8 @@
       "executor": "@nx/vite:build",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/libs/utils"
+        "outputPath": "dist/libs/utils",
+        "generatePackageJson": true
       }
     },
     "test": {

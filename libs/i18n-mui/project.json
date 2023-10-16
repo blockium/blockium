@@ -17,7 +17,8 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/libs/i18n-mui"
+        "outputPath": "dist/libs/i18n-mui",
+        "generatePackageJson": true
       },
       "configurations": {
         "development": {

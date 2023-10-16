@@ -7,23 +7,18 @@
   "targets": {
     "lint": {
       "executor": "@nx/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "libs/ui-calendar/**/*.{ts,tsx,js,jsx}"
-        ]
+        "lintFilePatterns": ["libs/ui-calendar/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "build": {
       "executor": "@nx/vite:build",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/libs/ui-calendar"
+        "outputPath": "dist/libs/ui-calendar",
+        "generatePackageJson": true
       },
       "configurations": {
         "development": {
@@ -36,9 +31,7 @@
     },
     "test": {
       "executor": "@nx/vite:test",
-      "outputs": [
-        "coverage/libs/ui-calendar"
-      ],
+      "outputs": ["coverage/libs/ui-calendar"],
       "options": {
         "passWithNoTests": true,
         "reportsDirectory": "../../coverage/libs/ui-calendar"

@@ -17,7 +17,8 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/libs/firebase"
+        "outputPath": "dist/libs/firebase",
+        "generatePackageJson": true
       },
       "configurations": {
         "development": {

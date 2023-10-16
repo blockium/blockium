@@ -17,7 +17,8 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/libs/theme"
+        "outputPath": "dist/libs/theme",
+        "generatePackageJson": true
       },
       "configurations": {
         "development": {

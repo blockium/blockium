@@ -17,7 +17,8 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/libs/ui-minimal-tmpl"
+        "outputPath": "dist/libs/ui-minimal-tmpl",
+        "generatePackageJson": true
       },
       "configurations": {
         "development": {
