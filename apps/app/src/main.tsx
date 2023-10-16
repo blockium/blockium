@@ -86,21 +86,23 @@ const firebaseConfig = {
   appId: envSource['VITE_FIREBASE_APP_ID'],
   measurementId: envSource['VITE_FIREBASE_MEASUREMENT_ID'],
 };
+
 // Initialize Firebase
-const { Firebase } = await import('@blockium/firebase');
-Firebase.initFirebase(firebaseConfig);
+import('@blockium/firebase').then(({ Firebase }) => {
+  Firebase.initFirebase(firebaseConfig);
 
-const AppRouter = lazy(() => import('./components/AppRouter/AppRouter'));
+  const AppRouter = lazy(() => import('./components/AppRouter/AppRouter'));
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement,
-);
-root.render(
-  // <StrictMode>
-  <IntlProvider>
-    <ThemeProvider config={themeConfig}>
-      <AppRouter />
-    </ThemeProvider>
-  </IntlProvider>,
-  // </StrictMode>
-);
+  const root = ReactDOM.createRoot(
+    document.getElementById('root') as HTMLElement,
+  );
+  root.render(
+    // <StrictMode>
+    <IntlProvider>
+      <ThemeProvider config={themeConfig}>
+        <AppRouter />
+      </ThemeProvider>
+    </IntlProvider>,
+    // </StrictMode>
+  );
+});

@@ -5,6 +5,7 @@ import { LoadingPage } from '@blockium/ui-common';
 import { CriatyLogo } from '@criaty/ui-custom';
 
 import { App } from '../App';
+
 import {
   BusinessPage,
   CalendarPage,
@@ -19,9 +20,21 @@ const PrivateRoute = loadable(() =>
     default: module.PrivateRoute,
   })),
 );
-
-const Auth = await import('@blockium/firebase').then((module) => module.Auth);
-const { Login, LoginPhone, LoginWhatsApp } = Auth;
+const Login = loadable(() =>
+  import('@blockium/firebase').then(({ Auth }) => ({
+    default: Auth.Login,
+  })),
+);
+const LoginPhone = loadable(() =>
+  import('@blockium/firebase').then(({ Auth }) => ({
+    default: Auth.LoginPhone,
+  })),
+);
+const LoginWhatsApp = loadable(() =>
+  import('@blockium/firebase').then(({ Auth }) => ({
+    default: Auth.LoginWhatsApp,
+  })),
+);
 
 const Loading = () => (
   <LoadingPage

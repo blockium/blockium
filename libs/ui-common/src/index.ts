@@ -6,3 +6,4 @@ export * from './lib/hero';
 export * from './lib/icon';
 export * from './lib/progress';
 export * from './lib/stepper';
+export * from './lib/utils';
