@@ -4,16 +4,32 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { LoadingPage } from '@blockium/ui-common';
 import { CriatyLogo } from '@criaty/ui-custom';
 
-import { App } from '../App';
+const App = loadable(() =>
+  import('../App').then(({ App }) => ({ default: App })),
+);
 
-import {
-  BusinessPage,
-  CalendarPage,
-  NoBusinessPage,
-  PartnersPage,
-  SettingsPage,
-  WeeklyPostsPage,
-} from '../../pages';
+const BusinessPage = loadable(() =>
+  import('../../pages').then(({ BusinessPage }) => ({ default: BusinessPage })),
+);
+const CalendarPage = loadable(() =>
+  import('../../pages').then(({ CalendarPage }) => ({ default: CalendarPage })),
+);
+const NoBusinessPage = loadable(() =>
+  import('../../pages').then(({ NoBusinessPage }) => ({
+    default: NoBusinessPage,
+  })),
+);
+const PartnersPage = loadable(() =>
+  import('../../pages').then(({ PartnersPage }) => ({ default: PartnersPage })),
+);
+const SettingsPage = loadable(() =>
+  import('../../pages').then(({ SettingsPage }) => ({ default: SettingsPage })),
+);
+const WeeklyPostsPage = loadable(() =>
+  import('../../pages').then(({ WeeklyPostsPage }) => ({
+    default: WeeklyPostsPage,
+  })),
+);
 
 const PrivateRoute = loadable(() =>
   import('@blockium/firebase').then((module) => ({
@@ -68,7 +84,6 @@ export const AppRouter = () => {
           <Route path="/business" element={<BusinessPage />} />
           <Route path="/nobusiness" element={<NoBusinessPage />} />
           <Route path="/partners" element={<PartnersPage />} />
-          {/* <Route path="/customers" element={<CustomersPage />} /> */}
           <Route path="/settings" element={<SettingsPage />} />
           <Route
             path="/posts/weekly/:isoStartDate"
