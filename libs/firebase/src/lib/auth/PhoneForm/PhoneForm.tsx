@@ -11,7 +11,6 @@ import {
   updateProfile,
 } from 'firebase/auth';
 import { Firebase } from '../../firebase/firebase';
-// import { auth } from '@blockium/firebase';
 
 import { useIntlMessage } from '@blockium/i18n';
 import { PhoneInput, CTAButton } from '@blockium/ui-common';

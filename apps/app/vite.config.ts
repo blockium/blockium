@@ -3,6 +3,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import { VitePWA } from 'vite-plugin-pwa';
+import { splitVendorChunkPlugin } from 'vite';
 
 export default defineConfig({
   cacheDir: '../../node_modules/.vite/app',
@@ -17,7 +18,12 @@ export default defineConfig({
     host: 'localhost',
   },
 
-  plugins: [react(), nxViteTsPaths(), VitePWA({ registerType: 'autoUpdate' })],
+  plugins: [
+    react(),
+    nxViteTsPaths(),
+    VitePWA({ registerType: 'autoUpdate' }),
+    splitVendorChunkPlugin(),
+  ],
 
   // Uncomment this if you are using workers.
   // worker: {
