@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import { Container, Stack } from '@mui/material';
-import EmailIcon from '@mui/icons-material/Email';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 // import styles from './App.module.scss';
@@ -21,9 +21,9 @@ const layoutConfig: LayoutConfig = {
         //   icon: <PersonIcon />,
         // },
         {
-          label: 'Ajuda',
-          href: 'mailto:ajuda@criaty.com',
-          icon: <EmailIcon />,
+          label: 'Suporte',
+          href: 'https://wa.me/5521967494619',
+          icon: <WhatsAppIcon />,
         },
       ],
     },
