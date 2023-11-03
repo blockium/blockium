@@ -10,6 +10,7 @@
     "start-zap-docker": "npm run build-zap-docker && docker run -p 8000:8000 -t zapgateway",
     "build": "npm run build-app && npm run build-firebase",
     "build-app": "nx build app --configuration production",
+    "build-app-analyzer": "cd apps/app && npx vite-bundle-visualizer && cd ../..",
     "build-firebase": "nx build firebase-criaty",
     "build-firebase-functions": "nx build firebase-criaty-functions",
     "build-zap": "nx build zapgateway --configuration production",
