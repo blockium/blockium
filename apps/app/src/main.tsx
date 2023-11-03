@@ -87,13 +87,13 @@ const firebaseConfig = {
   measurementId: envSource['VITE_FIREBASE_MEASUREMENT_ID'],
 };
 
-console.log('teste');
-
 // Initialize Firebase
 import('@blockium/firebase').then(({ Firebase }) => {
   Firebase.initFirebase(firebaseConfig);
 
-  const AppRouter = loadable(() => import('./components/AppRouter/AppRouter'));
+  const AppRouter = loadable(() =>
+    import('./components/AppRouter').then(({ AppRouter }) => AppRouter),
+  );
 
   const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement,

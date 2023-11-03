@@ -1,3 +1,3 @@
-export * from './App';
-export * from './AppRouter';
+export { App } from './App/App';
+export { AppRouter } from './AppRouter/AppRouter';
 export * from './post';
