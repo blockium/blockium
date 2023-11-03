@@ -1,4 +1,3 @@
-import { replace } from 'lodash';
 import numeral from 'numeral';
 import 'numeral/locales/pt-br';
 numeral.locale('pt-br');
@@ -34,7 +33,8 @@ export function fInteger(number: number | string) {
 }
 
 export function fShortenNumber(number: number | string) {
-  return replace(numeral(number).format('0.00a'), ',00', '');
+  const formattedNumber = numeral(number).format('0.00a');
+  return formattedNumber.replace(/,00/g, '');
 }
 
 export function fData(number: number | string) {
