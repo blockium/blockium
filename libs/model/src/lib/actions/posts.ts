@@ -6,7 +6,7 @@ import {
   doc,
   setDoc,
   addDoc,
-} from 'firebase/firestore';
+} from 'firebase/firestore/lite';
 
 import { db } from '../db';
 import { Post } from '@criaty/model-types';

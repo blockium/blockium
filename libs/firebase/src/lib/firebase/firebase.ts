@@ -16,7 +16,7 @@ import {
   collection,
   connectFirestoreEmulator,
   getFirestore as fbGetFirestore,
-} from 'firebase/firestore';
+} from 'firebase/firestore/lite';
 import { createGlobalState } from 'react-use';
 
 export type FirebaseConfig = {
