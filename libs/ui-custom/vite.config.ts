@@ -5,6 +5,7 @@ import dts from 'vite-plugin-dts';
 import * as path from 'path';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import { externalizeDeps } from 'vite-plugin-externalize-deps';
+import getSrcInputs from '../vite.config.utils';
 
 export default defineConfig({
   cacheDir: '../../node_modules/.vite/ui-custom',
@@ -42,6 +43,11 @@ export default defineConfig({
       formats: ['es'],
     },
     rollupOptions: {
+      input: getSrcInputs(__dirname),
+      output: {
+        assetFileNames: 'assets/[name][extname]',
+        entryFileNames: '[name].js',
+      },
       // External packages that should not be bundled into your library.
       // Not necessary due to externalizeDeps plugin.
       // external: ['react', 'react-dom', 'react/jsx-runtime'],
