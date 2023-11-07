@@ -6,7 +6,7 @@
   "tags": [],
   "targets": {
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["libs/ui-minimal-tmpl/**/*.{ts,tsx,js,jsx}"]
@@ -31,7 +31,7 @@
     },
     "test": {
       "executor": "@nx/vite:test",
-      "outputs": ["coverage/libs/ui-minimal-tmpl"],
+      "outputs": ["{workspaceRoot}/coverage/libs/ui-minimal-tmpl"],
       "options": {
         "passWithNoTests": true,
         "reportsDirectory": "../../coverage/libs/ui-minimal-tmpl"

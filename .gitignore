@@ -60,3 +60,5 @@ pubsub-debug.log
 ui-debug.log
 firebase-export*
 
+
+.nx/cache

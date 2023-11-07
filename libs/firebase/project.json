@@ -6,7 +6,7 @@
   "tags": [],
   "targets": {
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["libs/firebase/**/*.{ts,tsx,js,jsx}"]
@@ -31,7 +31,7 @@
     },
     "test": {
       "executor": "@nx/vite:test",
-      "outputs": ["coverage/libs/firebase"],
+      "outputs": ["{workspaceRoot}/coverage/libs/firebase"],
       "options": {
         "passWithNoTests": true,
         "reportsDirectory": "../../coverage/libs/firebase"

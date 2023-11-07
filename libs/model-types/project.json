@@ -14,14 +14,14 @@
     },
     "test": {
       "executor": "@nx/vite:test",
-      "outputs": ["coverage/libs/model-types"],
+      "outputs": ["{workspaceRoot}/coverage/libs/model-types"],
       "options": {
         "passWithNoTests": true,
         "reportsDirectory": "../../coverage/libs/model-types"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["libs/model-types/**/*.ts"]
