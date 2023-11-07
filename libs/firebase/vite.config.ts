@@ -1,7 +1,7 @@
 /// <reference types="vitest" />
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import viteTsConfigPaths from 'vite-tsconfig-paths';
+import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import dts from 'vite-plugin-dts';
 import { join } from 'path';
 import { externalizeDeps } from 'vite-plugin-externalize-deps';
@@ -13,13 +13,11 @@ export default defineConfig({
   cacheDir: '../../node_modules/.vite/firebase',
 
   plugins: [
+    react(),
+    nxViteTsPaths(),
     dts({
       entryRoot: 'src',
       tsconfigPath: join(__dirname, 'tsconfig.lib.json'),
-    }),
-    react(),
-    viteTsConfigPaths({
-      root: '../../',
     }),
 
     // Remove external dependencies from the bundle.
