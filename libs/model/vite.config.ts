@@ -6,6 +6,8 @@ import dts from 'vite-plugin-dts';
 import { join } from 'path';
 import { externalizeDeps } from 'vite-plugin-externalize-deps';
 import getSrcInputs from '../vite.config.utils';
+// @ts-expect-error: untyped.
+import postprocess from '@stadtlandnetz/rollup-plugin-postprocess';
 
 export default defineConfig({
   cacheDir: '../../node_modules/.vite/model',
@@ -19,7 +21,16 @@ export default defineConfig({
     viteTsConfigPaths({
       root: '../../',
     }),
+
+    // Remove external dependencies from the bundle.
     externalizeDeps(),
+
+    // Remove import for external dependencies at the index files only.
+    // In the postprocess pluging, the index.ts files start with "export...",
+    // followed by the imports of external libs which can be dropped.
+    postprocess((param: { code: string; sourceMap: string; format: string }) =>
+      param.code.startsWith('export') ? [[/import [^;]*/, '']] : [],
+    ),
   ],
 
   // Uncomment this if you are using workers.
@@ -45,8 +56,10 @@ export default defineConfig({
       formats: ['es'],
     },
     rollupOptions: {
+      // This will split code into different files, for tree shaking.
       input: getSrcInputs(__dirname),
       output: {
+        // This will split code into different files, for tree shaking.
         assetFileNames: 'assets/[name][extname]',
         entryFileNames: '[name].js',
       },
