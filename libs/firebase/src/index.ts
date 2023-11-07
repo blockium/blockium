@@ -1,4 +1,4 @@
-import { Firebase } from './lib';
-
-export * from './lib';
-export default Firebase;
+export * from './lib/auth';
+export * from './lib/firebase';
+export * from './lib/router';
+export * from './lib/theme';

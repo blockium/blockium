@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link, Stack, Typography } from '@mui/material';
 
 import { signInAnonymously } from 'firebase/auth';
-import { Firebase } from '../../firebase/firebase';
-// import { auth } from '@blockium/firebase';
+import { getAuth } from '../../firebase';
 
 import { useIntlMessage } from '@blockium/i18n';
 
@@ -35,7 +34,7 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
 
     try {
       // Create an anonymous user on Firebase
-      const credential = await signInAnonymously(Firebase.getAuth());
+      const credential = await signInAnonymously(getAuth());
 
       const answer = await getUser(sessionId, credential.user.uid);
 

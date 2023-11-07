@@ -88,8 +88,8 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-import('@blockium/firebase').then(({ Firebase }) => {
-  Firebase.initFirebase(firebaseConfig);
+import('@blockium/firebase').then(({ initFirebase }) => {
+  initFirebase(firebaseConfig);
 
   const AppRouter = loadable(() =>
     import('./components/AppRouter').then(({ AppRouter }) => AppRouter),

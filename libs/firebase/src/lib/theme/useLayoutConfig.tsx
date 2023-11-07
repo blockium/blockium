@@ -3,7 +3,7 @@ import { SvgIconProps, useTheme } from '@mui/material';
 import { LayoutConfig } from '@blockium/ui-mininal-tmpl';
 import { formatPhoneNumber } from '@blockium/utils';
 
-import Firebase from '../firebase/firebase';
+import { useAuth, useSignOut } from '../firebase';
 
 type AppLogo = React.FC<
   SvgIconProps & {
@@ -20,8 +20,8 @@ type UseLayoutConfigProps = {
 };
 
 export const useLayoutConfig = (props: UseLayoutConfigProps) => {
-  const [user] = Firebase.useAuth();
-  const signOut = Firebase.useSignOut();
+  const [user] = useAuth();
+  const signOut = useSignOut();
 
   const handleSignOut = async () => {
     sessionStorage.clear();

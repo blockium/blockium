@@ -2,15 +2,13 @@ import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 
 import { onAuthStateChanged } from 'firebase/auth';
-import { Firebase } from '../../firebase/firebase';
+import { getAuth, useAuth, useSignIn } from '../../firebase';
 
 interface PrivateRouteProps {
   loginPath: string;
   waitingAuth: React.ReactElement;
   children: React.ReactElement;
 }
-
-const { getAuth, useAuth, useSignIn } = Firebase;
 
 export const PrivateRoute: React.FC<PrivateRouteProps> = ({
   loginPath,

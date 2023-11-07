@@ -10,7 +10,7 @@ import {
   signInWithPhoneNumber,
   updateProfile,
 } from 'firebase/auth';
-import { Firebase } from '../../firebase/firebase';
+import { getAuth } from '../../firebase';
 
 import { useIntlMessage } from '@blockium/i18n';
 import { PhoneInput, CTAButton } from '@blockium/ui-common';
@@ -33,7 +33,7 @@ export const PhoneForm: React.FC = () => {
     try {
       setErrorMessage('');
       setLoading(true);
-      const auth = Firebase.getAuth();
+      const auth = getAuth();
       const appVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
         size: 'invisible',
       });
@@ -58,7 +58,7 @@ export const PhoneForm: React.FC = () => {
   // TODO: Create a form requesting the user email
   // TODO: Save the email in the users table
   const login = async () => {
-    const auth = Firebase.getAuth();
+    const auth = getAuth();
     if (!auth.currentUser) {
       setErrorMessage(msg('firebase.error.not-authenticated'));
       return;
@@ -112,7 +112,7 @@ export const PhoneForm: React.FC = () => {
   };
 
   const onEnter = async () => {
-    const auth = Firebase.getAuth();
+    const auth = getAuth();
     if (!auth.currentUser) {
       setErrorMessage(msg('firebase.error.not-authenticated'));
       return;
