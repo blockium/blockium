@@ -213,7 +213,7 @@ export const StepperSection = forwardRef<HTMLDivElement, StepperSectionProps>(
         </Container>
       </StepperContext.Provider>
     );
-  }
+  },
 );
 
 export default StepperSection;
