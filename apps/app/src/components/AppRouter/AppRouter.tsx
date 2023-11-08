@@ -80,8 +80,8 @@ export const AppRouter = () => {
           path="/login"
           element={
             <Login
-              leftImageSrc="/images/login_768_1064.png"
-              topImageSrc="/images/login_1064_768.png"
+              leftImageSrc="/images/login_768_1064.webp"
+              topImageSrc="/images/login_1064_768.webp"
               loginWhatsApp="/login-whatsapp"
               loginPhone="/login-phone"
             />
@@ -91,8 +91,8 @@ export const AppRouter = () => {
           path="/login-phone"
           element={
             <LoginPhone
-              leftImageSrc="/images/login_768_1064.png"
-              topImageSrc="/images/login_1064_768.png"
+              leftImageSrc="/images/login_768_1064.webp"
+              topImageSrc="/images/login_1064_768.webp"
             />
           }
         />
@@ -100,8 +100,8 @@ export const AppRouter = () => {
           path="/login-whatsapp"
           element={
             <LoginWhatsApp
-              leftImageSrc="/images/login_768_1064.png"
-              topImageSrc="/images/login_1064_768.png"
+              leftImageSrc="/images/login_768_1064.webp"
+              topImageSrc="/images/login_1064_768.webp"
             />
           }
         />

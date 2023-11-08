@@ -7,18 +7,6 @@ import { VitePWA } from 'vite-plugin-pwa';
 
 const manualChunks = (id: string) => {
   // console.log(id);
-  if (id.includes('node_modules/date-fns')) {
-    return 'date-fns';
-  }
-
-  // if (id.includes('node_modules/@mui')) {
-  //   return 'vendor-@mui';
-  // }
-
-  if (id.includes('node_modules/@firebase')) {
-    return '@firebase';
-  }
-
   if (
     id.includes('criaty/libs/model') ||
     id.includes('criaty/libs/ui-custom')
@@ -31,7 +19,7 @@ const manualChunks = (id: string) => {
   }
 
   if (id.includes('node_modules')) {
-    return 'vendor';
+    return id.toString().split('node_modules/')[1].split('/')[0].toString();
   }
 
   if (id.includes('src')) {
@@ -65,7 +53,7 @@ export default defineConfig({
   // },
 
   esbuild: {
-    minifyIdentifiers: false,
+    // minifyIdentifiers: false,
   },
 
   build: {
