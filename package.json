@@ -5,6 +5,7 @@
   "scripts": {
     "start": "npm run start-firebase & npm run start-app",
     "start-app": "nx serve app",
+    "start-app-prod": "npm run build-app && npx serve dist/apps/app",
     "start-firebase": "nx serve firebase-criaty",
     "start-zap": "nx serve zapgateway",
     "start-zap-docker": "npm run build-zap-docker && docker run -p 8000:8000 -t zapgateway",
