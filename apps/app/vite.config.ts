@@ -3,7 +3,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import { VitePWA } from 'vite-plugin-pwa';
-// import { splitVendorChunkPlugin } from 'vite';
+import { splitVendorChunkPlugin } from 'vite';
 
 const manualChunks = (id: string) => {
   // console.log(id);
@@ -11,9 +11,9 @@ const manualChunks = (id: string) => {
     return 'date-fns';
   }
 
-  if (id.includes('node_modules/@mui')) {
-    return '@mui';
-  }
+  // if (id.includes('node_modules/@mui')) {
+  //   return 'vendor-@mui';
+  // }
 
   if (id.includes('node_modules/@firebase')) {
     return '@firebase';
@@ -56,7 +56,7 @@ export default defineConfig({
     react(),
     nxViteTsPaths(),
     VitePWA({ registerType: 'autoUpdate' }),
-    // splitVendorChunkPlugin(),
+    splitVendorChunkPlugin(),
   ],
 
   // Uncomment this if you are using workers.
@@ -65,14 +65,14 @@ export default defineConfig({
   // },
 
   esbuild: {
-    // minifyIdentifiers: false,
+    minifyIdentifiers: false,
   },
 
   build: {
     target: 'es2017',
     rollupOptions: {
       output: {
-        manualChunks,
+        // manualChunks,
       },
     },
   },
