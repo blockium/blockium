@@ -1,0 +1,44 @@
+import i18next from 'i18next';
+import { initReactI18next } from 'react-i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
+import Backend from 'i18next-http-backend';
+
+// let i18nInitialized = false;
+
+export const i18nInit = () => {
+  // if (i18nInitialized) return;
+
+  if (i18next.isInitialized) return;
+
+  i18next
+    .use(Backend)
+    .use(LanguageDetector)
+    .use(initReactI18next)
+    .init({
+      debug: true,
+      supportedLngs: ['en', 'pt-BR'],
+      // fallbackLng: 'en',
+    });
+
+  // i18nInitialized = true;
+};
+
+export const addResourceBundle = (
+  lng: string,
+  ns: string,
+  resources: unknown,
+) => {
+  i18nInit();
+  i18next.addResourceBundle(lng, ns, resources);
+};
+
+export const addResourceBundles = (
+  bundles: { lng: string; ns: string; resources: unknown }[],
+) => {
+  i18nInit();
+  bundles.forEach((bundle) => {
+    i18next.addResourceBundle(bundle.lng, bundle.ns, bundle.resources);
+  });
+};
+
+export default i18nInit;

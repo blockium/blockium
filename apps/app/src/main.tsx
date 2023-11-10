@@ -2,8 +2,10 @@
 import loadable from '@loadable/component';
 import * as ReactDOM from 'react-dom/client';
 
-import { IntlProvider } from '@blockium/i18n';
+import { IntlProvider, i18nInit } from '@blockium/i18n';
 import { ThemeConfig, ThemeProvider } from '@blockium/theme';
+
+i18nInit();
 
 // These are exact the defaults.
 // They are here just to show how to override them.
