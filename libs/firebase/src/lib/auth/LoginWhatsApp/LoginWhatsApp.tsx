@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link, Stack, Typography } from '@mui/material';
 
+import { useTranslation } from 'react-i18next';
+
 import { signInAnonymously } from 'firebase/auth';
 import { getAuth } from '../../firebase';
-
-import { useIntlMessage } from '@blockium/i18n';
 
 import { CTAButton, LoginHero, Alert } from '@blockium/ui-common';
 import { getUser } from '../apiRequests';
@@ -15,7 +15,7 @@ type LoginProps = {
   topImageSrc?: string;
 };
 
-// TODO: !!! After login, if there is no user email, shows the msg "Você ainda não tem um email associado. O mesmo é necessário para podermos recuperar seu acesso se você necessitar, e também associar sua conta aos seus dados de pagamento. Isso é necessário apenas uma vez. Clique no botão abaixo para cadastrar o email"
+// TODO: !!! After login, if there is no user email, shows the t "Você ainda não tem um email associado. O mesmo é necessário para podermos recuperar seu acesso se você necessitar, e também associar sua conta aos seus dados de pagamento. Isso é necessário apenas uma vez. Clique no botão abaixo para cadastrar o email"
 // TODO: !!! Create a form requesting the user email
 // TODO: !!! Save the email in the users table
 export const LoginWhatsApp: React.FC<LoginProps> = ({
@@ -25,7 +25,7 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
   const [loadingWhatsApp, setLoadingWhatsApp] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
-  const msg = useIntlMessage();
+  const { t } = useTranslation();
 
   const sessionId = sessionStorage.getItem('sessionId') || '';
 
@@ -54,7 +54,7 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
       //
     } catch (error) {
       console.error(error);
-      setError(msg('firebase.error.getUser'));
+      setError(t('firebase:error.getUser'));
       //
     } finally {
       setLoadingWhatsApp(false);
@@ -77,7 +77,7 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
       <LoginHero leftImageSrc={leftImageSrc} topImageSrc={topImageSrc}>
         <Stack alignItems="center" width="300px" margin="2rem 0.5rem">
           <Typography variant="h6">
-            1. {msg('firebase.login.whatsapp.msg1')}
+            1. {t('firebase:login.whatsapp.msg1')}
           </Typography>
           {/* <Link onClick={copyToClipboard}>LOGIN:{sessionId}</Link> <br /> */}
           <Link
@@ -88,7 +88,7 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
             LOGIN:{sessionId}
           </Link>
           <Typography variant="h6" sx={{ marginTop: '6rem' }}>
-            2. {msg('firebase.login.whatsapp.msg2')}
+            2. {t('firebase:login.whatsapp.msg2')}
           </Typography>
           <CTAButton
             onClick={loginWithWhatsApp}
@@ -96,7 +96,7 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
             loading={loadingWhatsApp}
             sx={{ marginTop: '2rem' }}
           >
-            {msg('firebase.button.enter')}
+            {t('firebase:button.enter')}
           </CTAButton>
         </Stack>
       </LoginHero>

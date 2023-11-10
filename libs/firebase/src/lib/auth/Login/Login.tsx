@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Box, Stack } from '@mui/material';
 import PhoneIcon from '@mui/icons-material/Phone';
 
-import { useIntlMessage } from '@blockium/i18n';
+import { useTranslation } from 'react-i18next';
 
 import {
   GoogleIcon,
@@ -36,7 +36,7 @@ export const Login: React.FC<LoginProps> = ({
   const [loadingGoogle, setLoadingGoogle] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
-  const msg = useIntlMessage();
+  const { t } = useTranslation();
 
   const loginWithWhatsApp = async () => {
     setLoadingWhatsApp(true);
@@ -65,7 +65,7 @@ export const Login: React.FC<LoginProps> = ({
       //
     } catch (error) {
       console.error(error);
-      setError(msg('firebase.error.newSession'));
+      setError(t('firebase:error.newSession'));
       //
     } finally {
       setLoadingWhatsApp(false);
@@ -106,7 +106,7 @@ export const Login: React.FC<LoginProps> = ({
             loading={loadingWhatsApp}
             disabled={loadingGoogle}
           >
-            {msg('firebase.button.loginWithWhatsApp')}
+            {t('firebase:button.loginWithWhatsApp')}
           </CTAButton>
           {/* Box used instead of Stack gap due to support for old browsers */}
           <Box sx={{ height: '2rem' }}></Box>
@@ -118,7 +118,7 @@ export const Login: React.FC<LoginProps> = ({
             color="secondary"
             disabled={loadingWhatsApp || loadingGoogle}
           >
-            {msg('firebase.button.loginWithPhone')}
+            {t('firebase:button.loginWithPhone')}
           </CTAButton>
           {false && (
             <>
@@ -133,7 +133,7 @@ export const Login: React.FC<LoginProps> = ({
                 disabled={loadingWhatsApp}
                 sx={{ marginTop: '2rem' }}
               >
-                {msg('firebase.button.loginWithGoogle')}
+                {t('firebase:button.loginWithGoogle')}
               </CTAButton>
             </>
           )}{' '}
