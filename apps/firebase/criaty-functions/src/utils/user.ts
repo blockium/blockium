@@ -39,7 +39,7 @@ export const getOrCreateUser = async (
   phone: string,
   name: string,
   displayName?: string,
-  allowDifferentNames?: boolean,
+  allowDifferentNames = true,
 ) => {
   const users = await getAllUsers(phone);
 
