@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { set, sub } from 'date-fns';
 import { noCase } from 'change-case';
@@ -27,7 +28,6 @@ import { fToNow } from '@blockium/utils';
 // components
 import { MenuPopover } from '../MenuPopover';
 import { Scrollbar } from '../Scrollbar';
-import { msg } from '@blockium/i18n';
 
 // ----------------------------------------------------------------------
 
@@ -80,6 +80,8 @@ const NOTIFICATIONS = [
 ];
 
 export const NotificationsPopover: React.FC = () => {
+  const { t } = useTranslation();
+
   const anchorRef = useRef(null);
 
   const [notifications, setNotifications] = useState(NOTIFICATIONS);
@@ -129,17 +131,17 @@ export const NotificationsPopover: React.FC = () => {
         <Box sx={{ display: 'flex', alignItems: 'center', py: 2, px: 2.5 }}>
           <Box sx={{ flexGrow: 1 }}>
             <Typography variant="subtitle1">
-              {msg('ui-minimal-tmpl.notifications.title')}
+              {t('ui-minimal-tmpl:notifications.title')}
             </Typography>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              {msg('ui-minimal-tmpl.notifications.unread-info-part1')}{' '}
+              {t('ui-minimal-tmpl:notifications.unread-info-part1')}{' '}
               {totalUnRead}
-              {msg('ui-minimal-tmpl.notifications.unread-info-part2')}
+              {t('ui-minimal-tmpl:notifications.unread-info-part2')}
             </Typography>
           </Box>
 
           {totalUnRead > 0 && (
-            <Tooltip title={msg('ui-minimal-tmpl.notifications.tooltip.alt')}>
+            <Tooltip title={t('ui-minimal-tmpl:notifications.tooltip.alt')}>
               <IconButton color="primary" onClick={handleMarkAllAsRead}>
                 <DoneAllIcon width={20} height={20} />
               </IconButton>
@@ -157,7 +159,7 @@ export const NotificationsPopover: React.FC = () => {
                 disableSticky
                 sx={{ py: 1, px: 2.5, typography: 'overline' }}
               >
-                {msg('ui-minimal-tmpl.notifications.section.new')}
+                {t('ui-minimal-tmpl:notifications.section.new')}
               </ListSubheader>
             }
           >
@@ -176,7 +178,7 @@ export const NotificationsPopover: React.FC = () => {
                 disableSticky
                 sx={{ py: 1, px: 2.5, typography: 'overline' }}
               >
-                {msg('ui-minimal-tmpl.notifications.section.old')}
+                {t('ui-minimal-tmpl:notifications.section.old')}
               </ListSubheader>
             }
           >
@@ -193,7 +195,7 @@ export const NotificationsPopover: React.FC = () => {
 
         <Box sx={{ p: 1 }}>
           <Button fullWidth disableRipple>
-            {msg('ui-minimal-tmpl.notifications.button.view-all')}
+            {t('ui-minimal-tmpl:notifications.button.view-all')}
           </Button>
         </Box>
       </MenuPopover>

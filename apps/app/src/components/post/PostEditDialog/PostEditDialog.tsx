@@ -10,7 +10,6 @@ import {
   useMediaQuery,
 } from '@mui/material';
 
-import { msg } from '@blockium/i18n';
 import { Post } from '@criaty/model-types';
 import { CTAButton } from '@blockium/ui-common';
 
@@ -127,7 +126,7 @@ export const PostEditDialog: React.FC<PostEditDialogProps> = ({
           multiline
           rows={8}
           margin="dense"
-          label={`${formatMap[post.format]} ${msg(
+          label={`${formatMap[post.format]} ${t(
             'app.dialog.postedit.input.with',
           )} ${typeMap[post.type]}`}
           fullWidth

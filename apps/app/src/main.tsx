@@ -2,7 +2,7 @@
 import loadable from '@loadable/component';
 import * as ReactDOM from 'react-dom/client';
 
-import { IntlProvider, i18nInit } from '@blockium/i18n';
+import { i18nInit } from '@blockium/i18n';
 import { ThemeConfig, ThemeProvider } from '@blockium/theme';
 
 i18nInit();
@@ -102,11 +102,9 @@ import('@blockium/firebase').then(({ initFirebase }) => {
   );
   root.render(
     // <StrictMode>
-    <IntlProvider>
-      <ThemeProvider config={themeConfig}>
-        <AppRouter />
-      </ThemeProvider>
-    </IntlProvider>,
+    <ThemeProvider config={themeConfig}>
+      <AppRouter />
+    </ThemeProvider>,
     // </StrictMode>
   );
 });

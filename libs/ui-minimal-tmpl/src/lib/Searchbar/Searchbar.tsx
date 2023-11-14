@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 // material
 import { styled, alpha } from '@mui/material/styles';
 import {
@@ -10,8 +11,6 @@ import {
   ClickAwayListener,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-
-import { msg } from '@blockium/i18n';
 
 // ----------------------------------------------------------------------
 
@@ -42,6 +41,7 @@ const SearchbarStyle = styled('div')(({ theme }) => ({
 
 export const Searchbar: React.FC = () => {
   const [isOpen, setOpen] = useState(false);
+  const { t } = useTranslation();
 
   const handleOpen = () => {
     setOpen((prev) => !prev);
@@ -66,9 +66,7 @@ export const Searchbar: React.FC = () => {
               autoFocus
               fullWidth
               disableUnderline
-              placeholder={
-                msg('ui-minimal-tmpl.searchbar.button.search') + '...'
-              }
+              placeholder={t('ui-minimal-tmpl:searchbar.button.search') + '...'}
               startAdornment={
                 <InputAdornment position="start">
                   <SearchIcon
@@ -81,7 +79,7 @@ export const Searchbar: React.FC = () => {
               sx={{ mr: 1, fontWeight: 'fontWeightBold' }}
             />
             <Button variant="contained" onClick={handleClose}>
-              {msg('ui-minimal-tmpl.searchbar.button.search')}
+              {t('ui-minimal-tmpl:searchbar.button.search')}
             </Button>
           </SearchbarStyle>
         </Slide>

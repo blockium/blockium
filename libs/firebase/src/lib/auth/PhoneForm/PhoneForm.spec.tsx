@@ -1,20 +1,19 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
+import { t } from '@blockium/i18n';
 import { PhoneForm } from './PhoneForm';
-import { IntlProvider } from '@blockium/i18n';
 
-describe('PhoneForm', () => {
+describe('PhoneForm', async () => {
+  // await i18nInit();
+
   it('should render the phone number input and send code button', () => {
-    render(
-      <IntlProvider>
-        <PhoneForm />
-      </IntlProvider>,
-      { wrapper: MemoryRouter },
-    );
+    render(<PhoneForm />, { wrapper: MemoryRouter });
 
-    const phoneNumberInput = screen.getByLabelText('Número de telefone');
+    const phoneNumberInput = screen.getByLabelText(
+      t('firebase:label.phone-number'),
+    );
     const sendCodeButton = screen.getByRole('button', {
-      name: 'Enviar código',
+      name: t('firebase:button.send-code'),
     });
 
     expect(phoneNumberInput).toBeInTheDocument();
@@ -22,16 +21,13 @@ describe('PhoneForm', () => {
   });
 
   it('should disable the send code button when the phone number is invalid', () => {
-    render(
-      <IntlProvider>
-        <PhoneForm />
-      </IntlProvider>,
-      { wrapper: MemoryRouter },
-    );
+    render(<PhoneForm />, { wrapper: MemoryRouter });
 
-    const phoneNumberInput = screen.getByLabelText('Número de telefone');
+    const phoneNumberInput = screen.getByLabelText(
+      t('firebase:label.phone-number'),
+    );
     const sendCodeButton = screen.getByRole('button', {
-      name: 'Enviar código',
+      name: t('firebase:button.send-code'),
     });
 
     fireEvent.change(phoneNumberInput, { target: { value: '123' } });
@@ -41,13 +37,11 @@ describe('PhoneForm', () => {
 
   // it('should enable the send code button when the phone number is valid', () => {
   //   render(
-  //     <IntlProvider>
-  //       <PhoneForm />
-  //     </IntlProvider>,
+  //       <PhoneForm />,
   //     { wrapper: MemoryRouter },
   //   );
 
-  //   const phoneNumberInput = screen.getByLabelText('Número de telefone');
+  //   const phoneNumberInput = screen.getByLabelText(t('"label.phone-number"));
   //   const sendCodeButton = screen.getByRole('button', {
   //     name: 'Enviar código',
   //   });
@@ -61,13 +55,11 @@ describe('PhoneForm', () => {
 
   // it('should show the verification code input and verify button after sending code', async () => {
   //   render(
-  //     <IntlProvider>
-  //       <PhoneForm />
-  //     </IntlProvider>,
+  //       <PhoneForm />,
   //     { wrapper: MemoryRouter },
   //   );
 
-  //   const phoneNumberInput = screen.getByLabelText('Número de telefone');
+  //   const phoneNumberInput = screen.getByLabelText(t('"label.phone-number"));
   //   const sendCodeButton = screen.getByRole('button', {
   //     name: 'Enviar código',
   //   });
@@ -92,13 +84,11 @@ describe('PhoneForm', () => {
 
   // it('should show the user name input and enter button after verifying the code', async () => {
   //   render(
-  //     <IntlProvider>
-  //       <PhoneForm />
-  //     </IntlProvider>,
+  //       <PhoneForm />,
   //     { wrapper: MemoryRouter },
   //   );
 
-  //   const phoneNumberInput = screen.getByLabelText('Número de telefone');
+  //   const phoneNumberInput = screen.getByLabelText(t('"label.phone-number"));
   //   const sendCodeButton = screen.getByRole('button', {
   //     name: 'Enviar código',
   //   });
