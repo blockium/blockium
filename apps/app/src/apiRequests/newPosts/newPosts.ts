@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Post, PostFormat, PostType } from '@criaty/model-types';
-import { msg } from '@blockium/i18n';
+import { t } from '@blockium/i18n';
 
 export const newPosts = async (
   postQuantity: number,
@@ -56,6 +56,6 @@ export const newPosts = async (
     //
   } catch (error) {
     console.error(error);
-    return msg('app.error.newPosts');
+    return t('error.newPosts');
   }
 };

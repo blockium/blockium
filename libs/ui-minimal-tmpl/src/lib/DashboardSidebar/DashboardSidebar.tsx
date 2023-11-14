@@ -15,7 +15,7 @@ import {
   // Button,
 } from '@mui/material';
 
-import { msg } from '@blockium/i18n';
+import { useTranslation } from 'react-i18next';
 
 import { Scrollbar } from '../Scrollbar';
 import { NavSection } from '../NavSection';
@@ -64,6 +64,7 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
 }) => {
   const { tenantName, tenantContext, tenantPhotoUrl, logo } =
     sideBarConfig || {};
+  const { t } = useTranslation();
 
   const { pathname } = useLocation();
 
@@ -96,7 +97,7 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
             <AccountStyle>
               <Avatar
                 src={tenantPhotoUrl}
-                alt={msg('ui-minimal-tmpl.alt.user-photo')}
+                alt={t('ui-minimal-tmpl:alt.user-photo')}
               />
               <Box sx={{ ml: 2 }}>
                 <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>

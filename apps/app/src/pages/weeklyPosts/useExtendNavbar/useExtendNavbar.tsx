@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Box, Typography } from '@mui/material';
 
 import { DRAWER_WIDTH, useNavbarExtraLine } from '@blockium/ui-mininal-tmpl';
-import { msg } from '@blockium/i18n';
 
 export const useExtendNavbar = () => {
+  const { t } = useTranslation();
   const [, setNavbarExtraLine] = useNavbarExtraLine();
 
   useEffect(() => {
@@ -32,13 +33,13 @@ export const useExtendNavbar = () => {
         }}
       >
         {[
-          msg('app.monday-short'),
-          msg('app.tuesday-short'),
-          msg('app.wednesday-short'),
-          msg('app.thursday-short'),
-          msg('app.friday-short'),
-          msg('app.saturday-short'),
-          msg('app.sunday-short'),
+          t('monday-short'),
+          t('tuesday-short'),
+          t('wednesday-short'),
+          t('thursday-short'),
+          t('friday-short'),
+          t('saturday-short'),
+          t('sunday-short'),
         ].map((day, index) => (
           <Typography
             color={(theme) =>
@@ -67,7 +68,7 @@ export const useExtendNavbar = () => {
       setNavbarExtraLine(<div></div>);
     };
     //
-  }, [setNavbarExtraLine]);
+  }, [setNavbarExtraLine, t]);
 };
 
 export default useExtendNavbar;

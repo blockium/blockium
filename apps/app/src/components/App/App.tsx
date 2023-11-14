@@ -5,7 +5,8 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 // import styles from './App.module.scss';
 
-import { LocalizationProvider } from '@blockium/i18n-mui';
+import { t } from '@blockium/i18n';
+import { LocalizationProvider } from '@blockium/ui-common';
 import { DashboardLayout, LayoutConfig } from '@blockium/ui-mininal-tmpl';
 
 import { withDynamicHook } from '@blockium/ui-common';
@@ -16,12 +17,12 @@ const layoutConfig: LayoutConfig = {
     accountPopover: {
       accountMenu: [
         // {
-        //   label: 'Meus Dados',
+        //   label: t('account-menu.profile'),
         //   href: '/profile',
         //   icon: <PersonIcon />,
         // },
         {
-          label: 'Suporte',
+          label: t('account-menu.support'),
           href: 'https://wa.me/5521967494619',
           icon: <WhatsAppIcon />,
         },
@@ -31,39 +32,21 @@ const layoutConfig: LayoutConfig = {
   sideBar: {
     // tenantName: sessionStorage.getItem('name') || '',
     sideMenu: [
-      // {
-      //   label: 'Painel',
-      //   href: '/',
-      //   icon: <PieChartIcon />,
-      // },
       {
-        label: 'Calendário',
+        label: t('side-menu.calendar'),
         href: '/',
         icon: <CalendarMonthIcon />,
       },
       // {
-      //   label: 'Meu Negócio',
+      //   label: t('side-menu.my-business'),
       //   href: '/business',
       //   icon: <StoreIcon />,
       // },
       // {
-      //   label: 'Configurações',
+      //   label: t('side-menu.settings'),
       //   href: '/settings',
       //   icon: <SettingsIcon />,
       // info: 'Configurações do sistema',
-      // children: [
-      //   {
-      //     label: 'Despesas',
-      //     href: '/costs',
-      //     icon: <WalletIcon />,
-      //   },
-      //   {
-      //     label: 'Serviços & metas',
-      //     href: '/services',
-      //     icon: <AdsClickIcon />,
-      //   },
-      // ],
-      // },
     ],
   },
 };

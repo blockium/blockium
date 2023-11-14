@@ -1,0 +1,12 @@
+{
+  "alt.user-photo": "User Photo",
+  "menu-item.sign-out": "Exit",
+  "notifications.title": "Messages",
+  "notifications.unread-info-part1": "You have ",
+  "notifications.unread-info-part2": " unread messages",
+  "notifications.tooltip.alt": "Mark all as read",
+  "notifications.section.new": "New",
+  "notifications.section.old": "Old",
+  "notifications.button.view-all": "View all",
+  "searchbar.button.search": "Search"
+}

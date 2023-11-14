@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Post, PostFormat, PostGoal, PostType } from '@criaty/model-types';
-import { msg } from '@blockium/i18n';
+import { t } from '@blockium/i18n';
 
 export const newPostFamily2 = async (
   goal: PostGoal,
@@ -51,6 +51,6 @@ export const newPostFamily2 = async (
     //
   } catch (error) {
     console.error(error);
-    return msg('app.error.newPost');
+    return t('error.newPost');
   }
 };

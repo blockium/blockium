@@ -1,4 +1,5 @@
 import { PropsWithChildren } from 'react';
+import { useTranslation } from 'react-i18next';
 
 // Date configurarion for MUI Date Picker
 import { LocalizationProvider as MuiLocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -9,25 +10,27 @@ import enUS from 'date-fns/locale/en-US';
 import ptBR from 'date-fns/locale/pt-BR';
 import { Locale } from 'date-fns';
 
-import { userLocale } from '@blockium/i18n';
-
 const dateFnsLocales: { [key: string]: Locale } = {
   'en-US': enUS,
   'pt-BR': ptBR,
 };
 
-const dateFnsLocale = dateFnsLocales[userLocale] || dateFnsLocales['en-US'];
-
-const muiLocales: { [key: string]: typeof enUSMui } = {
-  'en-US': enUSMui,
-  'pt-BR': ptBRMui,
-};
-
-const muiLocale = muiLocales[userLocale] || muiLocales['en-US'];
-
 export const LocalizationProvider: React.FC<PropsWithChildren> = ({
   children,
 }) => {
+  const { i18n } = useTranslation();
+
+  const userLocale = i18n.language === 'pt-BR' ? 'pt-BR' : 'en-US';
+
+  const dateFnsLocale = dateFnsLocales[userLocale] || dateFnsLocales['en-US'];
+
+  const muiLocales: { [key: string]: typeof enUSMui } = {
+    'en-US': enUSMui,
+    'pt-BR': ptBRMui,
+  };
+
+  const muiLocale = muiLocales[userLocale] || muiLocales['en-US'];
+
   return (
     <MuiLocalizationProvider
       dateAdapter={AdapterDateFns}

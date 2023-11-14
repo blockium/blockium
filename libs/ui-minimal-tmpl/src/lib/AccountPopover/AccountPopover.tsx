@@ -15,7 +15,7 @@ import {
 import LogoutIcon from '@mui/icons-material/Logout';
 
 import { DarkModeSwitch } from '@blockium/theme';
-import { msg } from '@blockium/i18n';
+import { useTranslation } from 'react-i18next';
 
 // components
 import { MenuPopover } from '../MenuPopover';
@@ -37,6 +37,7 @@ export const AccountPopover: React.FC<AccountPopoverProps> = ({
 }) => {
   const { userName, userContact, userPhotoUrl, accountMenu, handleSignOut } =
     accountPopoverConfig || {};
+  const { t } = useTranslation();
 
   const anchorRef = useRef(null);
   const [open, setOpen] = useState<HTMLElement | null>(null);
@@ -69,10 +70,7 @@ export const AccountPopover: React.FC<AccountPopoverProps> = ({
           }),
         }}
       >
-        <Avatar
-          src={userPhotoUrl}
-          alt={msg('ui-minimal-tmpl.alt.user-photo')}
-        />
+        <Avatar src={userPhotoUrl} alt={t('ui-minimal-tmpl:alt.user-photo')} />
       </IconButton>
 
       <MenuPopover
@@ -132,7 +130,7 @@ export const AccountPopover: React.FC<AccountPopoverProps> = ({
               <ListItemIcon>
                 <LogoutIcon />
               </ListItemIcon>
-              {msg('ui-minimal-tmpl.menu-item.sign-out')}
+              {t('ui-minimal-tmpl:menu-item.sign-out')}
             </Stack>
           </MenuItem>
         )}

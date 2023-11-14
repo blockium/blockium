@@ -1,9 +1,9 @@
 // TODO: Delete PostProductOld.tsx
 import { ReactElement, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { IconButton, Stack, TextField } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 
-import { msg } from '@blockium/i18n';
 import { CTAButton } from '@blockium/ui-common';
 import { Post, PostFormat, PostType } from '@criaty/model-types';
 import { addPost as addPostDb } from '@criaty/model';
@@ -25,6 +25,7 @@ export const PostProduct: React.FC<IPostProductProps> = ({
   const [tone, setCharacter] = useState('');
   const [format] = useState<PostFormat>();
   const [type] = useState<PostType>();
+  const { t } = useTranslation();
 
   const addPost = async (date: Date) => {
     // Request the creation of one new post
@@ -66,7 +67,7 @@ export const PostProduct: React.FC<IPostProductProps> = ({
       <TextField
         autoFocus
         margin="dense"
-        label={msg('app.popover.newpost.input.topic')}
+        label={t('popover.newpost.input.topic')}
         type="text"
         fullWidth
         value={topic}
@@ -85,7 +86,7 @@ export const PostProduct: React.FC<IPostProductProps> = ({
       />
       <TextField
         margin="dense"
-        label={msg('app.popover.newpost.input.tone')}
+        label={t('popover.newpost.input.tone')}
         type="text"
         fullWidth
         value={tone}
@@ -109,7 +110,7 @@ export const PostProduct: React.FC<IPostProductProps> = ({
           fullWidth
           sx={{ mt: 2 }}
         >
-          {msg('app.button.back')}
+          {t('button.back')}
         </CTAButton>
         {/* Disable Generate button when topic is empty */}
         <CTAButton
@@ -120,7 +121,7 @@ export const PostProduct: React.FC<IPostProductProps> = ({
           sx={{ mt: 2 }}
           disabled={!topic}
         >
-          {msg('app.button.generate')}
+          {t('button.generate')}
         </CTAButton>
       </Stack>
     </Stack>

@@ -5,7 +5,7 @@ import MobileStepper from '@mui/material/MobileStepper';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 
-import { msg } from '@blockium/i18n';
+import { useTranslation } from 'react-i18next';
 
 const StepperButton = styled(Button)`
   &&& {
@@ -43,6 +43,7 @@ export const Stepper: React.FC<SectionStepperProps> = (
     hasNextLast,
   } = props;
   const theme = useTheme();
+  const { t } = useTranslation();
 
   return (
     <MobileStepper
@@ -57,7 +58,7 @@ export const Stepper: React.FC<SectionStepperProps> = (
           onClick={handleNext}
           disabled={!hasNextLast && activeStep === maxSteps - 1}
         >
-          {nextLabel || msg('ui-common.stepper.next')}
+          {nextLabel || t('ui-common:stepper.next')}
           {theme.direction === 'rtl' ? (
             <KeyboardArrowLeft />
           ) : (
@@ -77,7 +78,7 @@ export const Stepper: React.FC<SectionStepperProps> = (
           ) : (
             <KeyboardArrowLeft />
           )}
-          {backLabel || msg('ui-common.stepper.previous')}
+          {backLabel || t('ui-common:stepper.previous')}
         </StepperButton>
       }
     />

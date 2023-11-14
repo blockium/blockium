@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import {
   Avatar,
@@ -15,13 +16,13 @@ import HandshakeIcon from '@mui/icons-material/Handshake';
 
 import { useUser } from '@criaty/model';
 import { Partner } from '@criaty/model-types';
-import { msg } from '@blockium/i18n';
 import { Alert, CTAButton } from '@blockium/ui-common';
 
 import { PartnerView } from './PartnerView';
 
 // TODO: !!! PartnersPage
 export const PartnersPage: React.FC = () => {
+  const { t } = useTranslation();
   const user = useUser();
   const [partners, setPartners] = useState<Partner[]>([]);
   const [newPartner, setNewPartner] = useState<Partner | null>(null);
@@ -81,8 +82,8 @@ export const PartnersPage: React.FC = () => {
               <HandshakeIcon />
             </Avatar>
           }
-          title={msg('app.page.partners.title')}
-          subheader={msg('app.page.partners.subheader')}
+          title={t('page.partners.title')}
+          subheader={t('page.partners.subheader')}
         />
         <CardContent>
           <List
@@ -102,15 +103,13 @@ export const PartnersPage: React.FC = () => {
             })}
             {partners.length === 0 && (
               <ListSubheader component="div" id="nested-list-subheader">
-                {msg('app.page.partners.noPartners')}
+                {t('page.partners.noPartners')}
               </ListSubheader>
             )}
           </List>
         </CardContent>
         <CardActions>
-          <CTAButton onClick={onShowNewPartner}>
-            {msg('app.button.add')}
-          </CTAButton>
+          <CTAButton onClick={onShowNewPartner}>{t('button.add')}</CTAButton>
         </CardActions>
       </Card>
     </>

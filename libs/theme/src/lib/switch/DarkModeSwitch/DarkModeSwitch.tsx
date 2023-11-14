@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import Switch from '@mui/material/Switch';
 import { Stack } from '@mui/material';
 
-import { msg } from '@blockium/i18n';
+import { useTranslation } from 'react-i18next';
 
 import { useColorMode } from '../../theme';
 
@@ -60,14 +60,15 @@ export const DarkModeSwitch: React.FC<{
   [key: string]: unknown;
 }> = ({ showLabel, direction, ...other }) => {
   const colorMode = useColorMode();
+  const { t } = useTranslation();
 
   return (
     <Stack direction={direction || 'row'} alignItems="center" {...other}>
       {showLabel && (
         <Typography variant="body2">
           {colorMode.mode === 'dark'
-            ? msg('theme.dark-mode-switch.label.dark')
-            : msg('theme.dark-mode-switch.label.light')}
+            ? t('theme:dark-mode-switch.label.dark')
+            : t('theme:dark-mode-switch.label.light')}
         </Typography>
       )}
       <MaterialUISwitch

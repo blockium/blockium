@@ -1,0 +1,12 @@
+{
+  "alt.user-photo": "Foto do Usuário",
+  "menu-item.sign-out": "Sair",
+  "notifications.title": "Mensagens",
+  "notifications.unread-info-part1": "Você tem ",
+  "notifications.unread-info-part2": " mensagens não lidas",
+  "notifications.tooltip.alt": "Marque tudo como lido",
+  "notifications.section.new": "Novas",
+  "notifications.section.old": "Anteriores",
+  "notifications.button.view-all": "Ver Todas",
+  "searchbar.button.search": "Procurar"
+}

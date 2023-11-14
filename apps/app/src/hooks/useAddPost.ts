@@ -1,18 +1,19 @@
+import { useTranslation } from 'react-i18next';
 import { startOfMonth } from 'date-fns';
 
 import { addPost as addPostDb } from '@criaty/model';
-import { msg } from '@blockium/i18n';
 import { Post } from '@criaty/model-types';
 import { useCalendarCache } from '@blockium/ui-calendar';
 
 export const useAddPost = () => {
   const [calendarCache, setCalendarCache] = useCalendarCache();
+  const { t } = useTranslation();
 
   return async (newPost: Post) => {
     const userId = sessionStorage.getItem('userId');
     if (!userId) {
       console.error('userId not found');
-      return msg('app.error.noUserId');
+      return t('error.noUserId');
     }
 
     try {
@@ -32,7 +33,7 @@ export const useAddPost = () => {
       //
     } catch (error) {
       console.error(error);
-      return msg('app.error.savePost');
+      return t('error.savePost');
     }
   };
 };

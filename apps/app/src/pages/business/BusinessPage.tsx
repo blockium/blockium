@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Avatar,
   Card,
@@ -9,7 +10,6 @@ import {
 } from '@mui/material';
 import StoreIcon from '@mui/icons-material/Store';
 
-import { msg } from '@blockium/i18n';
 import { Alert, CTAButton } from '@blockium/ui-common';
 import { isEmpty } from '@blockium/utils';
 import { saveUserBusiness, useUser } from '@criaty/model';
@@ -24,6 +24,8 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({
   title,
   subheader,
 }) => {
+  const { t } = useTranslation();
+
   const user = useUser();
   const [businessName, setBusinessName] = useState('');
   const [businessDescription, setBusinessDescription] = useState('');
@@ -56,12 +58,12 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({
           services: businessServices,
         },
       });
-      setMessage(msg('app.page.business.saveSuccess'));
+      setMessage(t('page.business.saveSuccess'));
       setSeverity('success');
       //
     } catch (error) {
       console.error(error);
-      setMessage(msg('app.page.business.saveError'));
+      setMessage(t('page.business.saveError'));
       setSeverity('error');
       //
     } finally {
@@ -80,14 +82,14 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({
               <StoreIcon />
             </Avatar>
           }
-          title={msg('app.page.business.title')}
-          subheader={msg('app.page.business.subheader')}
+          title={t('page.business.title')}
+          subheader={t('page.business.subheader')}
         />
         <CardContent>
           {/* Business name Input */}
           <TextField
             type="text"
-            label={msg('app.page.business.name')}
+            label={t('page.business.name')}
             value={businessName}
             onChange={(e) => setBusinessName(e.target.value)}
             fullWidth
@@ -95,7 +97,7 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({
           {/* Business description Input */}
           <TextField
             type="text"
-            label={msg('app.page.business.description')}
+            label={t('page.business.description')}
             value={businessDescription}
             onChange={(e) => setBusinessDescription(e.target.value)}
             fullWidth
@@ -105,7 +107,7 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({
           {/* Business services Input */}
           <TextField
             type="text"
-            label={msg('app.page.business.services')}
+            label={t('page.business.services')}
             value={businessServices}
             onChange={(e) => setBusinessServices(e.target.value)}
             fullWidth
@@ -123,7 +125,7 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({
               isEmpty(businessServices)
             }
           >
-            {msg('app.button.save')}
+            {t('button.save')}
           </CTAButton>
         </CardActions>
       </Card>

@@ -1,4 +1,5 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   FormControl,
   IconButton,
@@ -11,7 +12,6 @@ import {
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 
-import { msg } from '@blockium/i18n';
 import { CTAButton } from '@blockium/ui-common';
 import {
   Post,
@@ -22,41 +22,11 @@ import {
   PostType,
 } from '@criaty/model-types';
 
+import { currentLanguage } from '@blockium/i18n';
+
 import { newPostFamily1 } from '../../../../apiRequests';
 import { useAddPost } from '../../../../hooks';
 
-const tones = [
-  msg(`app.post.tone.appreciative`),
-  msg(`app.post.tone.assertive`),
-  msg(`app.post.tone.awestruck`),
-  msg(`app.post.tone.casual`),
-  msg(`app.post.tone.cautionary`),
-  msg(`app.post.tone.compassionate`),
-  msg(`app.post.tone.convincing`),
-  msg(`app.post.tone.critical`),
-  msg(`app.post.tone.earnest`),
-  msg(`app.post.tone.enthusiastic`),
-  msg(`app.post.tone.formal`),
-  msg(`app.post.tone.funny`),
-  msg(`app.post.tone.humble`),
-  msg(`app.post.tone.humorous`),
-  msg(`app.post.tone.informative`),
-  msg(`app.post.tone.inspirational`),
-  msg(`app.post.tone.joyful`),
-  msg(`app.post.tone.passionate`),
-  msg(`app.post.tone.thoughtful`),
-  msg(`app.post.tone.urgent`),
-  msg(`app.post.tone.worried`),
-  msg(`app.post.tone.furious`),
-  msg(`app.post.tone.hulk-smashes`),
-  msg(`app.post.tone.batman`),
-  msg(`app.post.tone.superman`),
-  msg(`app.post.tone.wonder-woman`),
-  msg(`app.post.tone.star-wars`),
-  msg(`app.post.tone.fast-and-furious`),
-  msg(`app.post.tone.spider-man`),
-  msg(`app.post.tone.deadpool`),
-];
 interface IPostFamily1Props {
   goal: PostGoal;
   goalTitle: string;
@@ -94,6 +64,43 @@ export const PostFamily1: React.FC<IPostFamily1Props> = ({
     postParams?.format || 'feed',
   );
   const [tone, setTone] = useState(postParams?.tone || '');
+
+  const { t } = useTranslation();
+
+  const [tones, setTones] = useState<string[]>([]);
+  useEffect(() => {
+    const tones =
+      currentLanguage() === 'en'
+        ? [
+            t('post.tone.awestruck'),
+            t('post.tone.casual'),
+            t('post.tone.convincing'),
+            t('post.tone.enthusiastic'),
+            t('post.tone.formal'),
+            t('post.tone.funny'),
+            t('post.tone.furious'),
+            t('post.tone.humble'),
+            t('post.tone.inspirational'),
+            t('post.tone.batman'),
+            t('post.tone.deadpool'),
+            t('post.tone.star-wars'),
+          ]
+        : [
+            t('post.tone.convincing'), // "Convincente"
+            t('post.tone.casual'), // "Descontraído"
+            t('post.tone.funny'), // "Engraçado"
+            t('post.tone.enthusiastic'), // "Entusiasmado"
+            t('post.tone.formal'), // Formal
+            t('post.tone.furious'), // "Furioso"
+            t('post.tone.humble'), // Humilde
+            t('post.tone.awestruck'), // "Impressionado"
+            t('post.tone.inspirational'), // "Inspirador"
+            t('post.tone.batman'), // "Batman"
+            t('post.tone.deadpool'), // "Deadpool"
+            t('post.tone.star-wars'), // "Star Wars"
+          ];
+    setTones(tones);
+  }, [t]);
 
   const setTypeAndFormat = (type: PostType) => {
     setType(type);
@@ -201,30 +208,30 @@ export const PostFamily1: React.FC<IPostFamily1Props> = ({
       />
       <FormControl fullWidth>
         <InputLabel id="post-type-label" required>
-          {msg('app.popover.newpost.input.type')}
+          {t('popover.newpost.input.type')}
         </InputLabel>
         <Select
           labelId="post-type-label"
           id="post-type"
           value={type}
-          label={msg('app.popover.newpost.input.type')}
+          label={t('popover.newpost.input.type')}
           onChange={(e) => setTypeAndFormat(e.target.value as PostType)}
         >
           <MenuItem value="image">
-            {msg('app.popover.newpost.input.type-image')}
+            {t('popover.newpost.input.type-image')}
           </MenuItem>
           <MenuItem value="carousel">
-            {msg('app.popover.newpost.input.type-carousel')}
+            {t('popover.newpost.input.type-carousel')}
           </MenuItem>
           <MenuItem value="video">
-            {msg('app.popover.newpost.input.type-video')}
+            {t('popover.newpost.input.type-video')}
           </MenuItem>
         </Select>
       </FormControl>
       <TextField
         disabled={type !== 'carousel'}
         margin="dense"
-        label={msg('app.popover.newpost.input.slides-count')}
+        label={t('popover.newpost.input.slides-count')}
         type="number"
         fullWidth
         value={slidesCount}
@@ -243,42 +250,42 @@ export const PostFamily1: React.FC<IPostFamily1Props> = ({
       />
       <FormControl fullWidth>
         <InputLabel id="post-format-label" required>
-          {msg('app.popover.newpost.input.format')}
+          {t('popover.newpost.input.format')}
         </InputLabel>
         <Select
           labelId="post-format-label"
           id="post-format"
           value={format}
-          label={msg('app.popover.newpost.input.format')}
+          label={t('popover.newpost.input.format')}
           onChange={(e) => setFormat(e.target.value as PostFormat)}
         >
           <MenuItem value="feed">
-            {msg('app.popover.newpost.input.format-feed')}
+            {t('popover.newpost.input.format-feed')}
           </MenuItem>
           {(type === 'image' || type === 'video') && (
             <MenuItem value="story">
-              {msg('app.popover.newpost.input.format-story')}
+              {t('popover.newpost.input.format-story')}
             </MenuItem>
           )}
           {type === 'video' && (
             <MenuItem value="reels">
-              {msg('app.popover.newpost.input.format-reels')}
+              {t('popover.newpost.input.format-reels')}
             </MenuItem>
           )}
         </Select>
       </FormControl>
       <FormControl fullWidth>
         <InputLabel id="post-tone-label">
-          {msg('app.popover.newpost.input.tone')}
+          {t('popover.newpost.input.tone')}
         </InputLabel>
         <Select
           labelId="post-tone-label"
           id="post-tone"
           value={tone}
-          label={msg('app.popover.newpost.input.tone')}
+          label={t('popover.newpost.input.tone')}
           onChange={(e) => setTone(e.target.value)}
         >
-          <MenuItem value="">{msg(`app.post.tone.none`)}</MenuItem>
+          <MenuItem value="">{t('post.tone.none')}</MenuItem>
           {tones.map((tone) => (
             <MenuItem key={`${tone}`} value={tone}>
               {tone}
@@ -294,7 +301,7 @@ export const PostFamily1: React.FC<IPostFamily1Props> = ({
           fullWidth
           sx={{ mt: 2 }}
         >
-          {msg('app.button.back')}
+          {t('button.back')}
         </CTAButton>
         <CTAButton
           onClick={handleGenerate}
@@ -310,7 +317,7 @@ export const PostFamily1: React.FC<IPostFamily1Props> = ({
             (type === 'carousel' && !slidesCount)
           }
         >
-          {msg('app.button.generate')}
+          {t('button.generate')}
         </CTAButton>
       </Stack>
     </Stack>

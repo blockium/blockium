@@ -1,20 +1,31 @@
-import i18next from 'i18next';
+import i18next, { t } from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import Backend from 'i18next-http-backend';
 
+export { t };
+
+let isInitialized = false;
 export const i18nInit = () => {
-  if (i18next.isInitialized) return;
+  // The following check doesn't work due to async initialization
+  // if (i18next.isInitialized) return;
+  if (isInitialized) return;
+  isInitialized = true;
 
   return i18next
     .use(Backend)
     .use(LanguageDetector)
     .use(initReactI18next)
     .init({
-      debug: true,
+      // debug: true,
       supportedLngs: ['en', 'pt-BR'],
-      // fallbackLng: 'en',
+      fallbackLng: 'en',
+      load: 'currentOnly',
     });
+};
+
+export const currentLanguage = () => {
+  return i18next.language;
 };
 
 export const addResourceBundle = async (

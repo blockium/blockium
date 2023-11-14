@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Box,
   Card,
@@ -17,7 +18,6 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Post, PostStatus } from '@criaty/model-types';
 import { savePost, useUser } from '@criaty/model';
 import { ConfirmDialog } from '@blockium/ui-common';
-import { msg } from '@blockium/i18n';
 
 import { PostCardPopover } from './PostCardPopover';
 import { useAddPost, useDeletePost } from '../../../hooks';
@@ -31,13 +31,6 @@ const steps: PostStatus[] = [
   'published',
 ];
 
-const stepLabels = [
-  msg('app.post.status.defined'),
-  msg('app.post.status.created'),
-  msg('app.post.status.approved'),
-  msg('app.post.status.published'),
-];
-
 interface IPostStepperProps {
   post: Post;
   setErrorMessage: (message: string | null) => void;
@@ -49,6 +42,14 @@ const PostStepper: React.FC<IPostStepperProps> = ({
 }) => {
   const [activeStep, setActiveStep] = useState(0);
   const user = useUser();
+  const { t } = useTranslation();
+
+  const stepLabels = [
+    t('post.status.defined'),
+    t('post.status.created'),
+    t('post.status.approved'),
+    t('post.status.published'),
+  ];
 
   // Get the active step from the post status
   useEffect(() => {
@@ -67,7 +68,7 @@ const PostStepper: React.FC<IPostStepperProps> = ({
       //
     } catch (error) {
       console.error('error saving post', error);
-      setErrorMessage(msg('app.error.savePost'));
+      setErrorMessage(t('error.savePost'));
     }
 
     setActiveStep(newStepIndex);
@@ -116,6 +117,8 @@ export const PostCard: React.FC<IPostCardProps> = ({
   const [openConfirmDelete, setOpenConfirmDelete] = useState(false);
   const postCardRef = useRef<HTMLDivElement>(null);
 
+  const { t } = useTranslation();
+
   const onMoreClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setOpenPopover(event.currentTarget);
   };
@@ -143,7 +146,7 @@ export const PostCard: React.FC<IPostCardProps> = ({
     if (typeof result === 'string') {
       setErrorMessage(result);
     } else {
-      setMessage(msg('app.success.post-duplicated'));
+      setMessage(t('success.post-duplicated'));
     }
   };
 
@@ -158,28 +161,28 @@ export const PostCard: React.FC<IPostCardProps> = ({
     setOpenConfirmDelete(false);
     const deleted = await deletePost(post);
     if (!deleted) {
-      setErrorMessage(msg('app.error.deletePost'));
+      setErrorMessage(t('error.deletePost'));
     }
   };
 
   const handleCopyTitle = () => {
     navigator.clipboard.writeText(post.title);
-    setMessage(msg('app.success.post-title-copied'));
+    setMessage(t('success.post-title-copied'));
   };
 
   const handleCopyDescription = () => {
     navigator.clipboard.writeText(post.description);
-    setMessage(msg('app.success.post-description-copied'));
+    setMessage(t('success.post-description-copied'));
   };
 
   const handleCopyHashtags = () => {
     navigator.clipboard.writeText(post.hashtags);
-    setMessage(msg('app.success.post-hashtags-copied'));
+    setMessage(t('success.post-hashtags-copied'));
   };
 
   const handleCopyTypeDescription = () => {
     navigator.clipboard.writeText(post.typeDescription);
-    setMessage(msg('app.success.post-type-description-copied'));
+    setMessage(t('success.post-type-description-copied'));
   };
 
   return (
@@ -257,8 +260,8 @@ export const PostCard: React.FC<IPostCardProps> = ({
       />
       <ConfirmDialog
         open={openConfirmDelete}
-        title={msg('app.dialog.postdelete.title')}
-        message={msg('app.dialog.postdelete.message')}
+        title={t('dialog.postdelete.title')}
+        message={t('dialog.postdelete.message')}
         onConfirm={handleDeleteConfirmed}
         onClose={() => setOpenConfirmDelete(false)}
         confirmColor="error"

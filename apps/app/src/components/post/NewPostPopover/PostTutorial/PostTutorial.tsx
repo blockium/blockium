@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { Post, PostParams } from '@criaty/model-types';
-import { msg } from '@blockium/i18n';
 
 import { PostFamily2 } from '../PostFamily2';
 
@@ -18,11 +18,12 @@ export const PostTutorial: React.FC<IPostTutorialProps> = ({
   onGenerate,
   postParams,
 }) => {
+  const { t } = useTranslation();
   return (
     <PostFamily2
       goal="Tutorial"
-      goalTitle={msg('app.post.goal.tutorial')}
-      topicLabel={msg('app.popover.newpost.input.subject')}
+      goalTitle={t('post.goal.tutorial')}
+      topicLabel={t('popover.newpost.input.subject')}
       setGoalElement={setGoalElement}
       onGenerate={onGenerate}
       postParams={postParams}

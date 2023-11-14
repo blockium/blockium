@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Badge, Link, ListItemIcon, MenuItem, Stack } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import RefreshIcon from '@mui/icons-material/Refresh';
@@ -5,7 +6,6 @@ import MoveDownIcon from '@mui/icons-material/MoveDown';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import { msg } from '@blockium/i18n';
 import { MenuPopover } from '@blockium/ui-mininal-tmpl';
 
 interface IPostCardPopoverProps {
@@ -27,6 +27,7 @@ export const PostCardPopover: React.FC<IPostCardPopoverProps> = ({
   onDelete,
   onClose,
 }) => {
+  const { t } = useTranslation();
   return (
     <MenuPopover
       open={Boolean(anchorEl)}
@@ -50,7 +51,7 @@ export const PostCardPopover: React.FC<IPostCardPopoverProps> = ({
           <ListItemIcon>
             <EditIcon />
           </ListItemIcon>
-          {msg('app.button.edit')}
+          {t('button.edit')}
         </Stack>
       </MenuItem>
       <MenuItem component={Link} onClick={onRegenerate} sx={{ m: 1 }}>
@@ -59,7 +60,7 @@ export const PostCardPopover: React.FC<IPostCardPopoverProps> = ({
           <ListItemIcon>
             <RefreshIcon />
           </ListItemIcon>
-          {msg('app.button.regenerate')}
+          {t('button.regenerate')}
         </Stack>
       </MenuItem>
       <MenuItem component={Link} onClick={onMove} sx={{ m: 1 }}>
@@ -69,7 +70,7 @@ export const PostCardPopover: React.FC<IPostCardPopoverProps> = ({
             <ListItemIcon>
               <MoveDownIcon />
             </ListItemIcon>
-            {msg('app.button.move')}
+            {t('button.move')}
           </Badge>
         </Stack>
       </MenuItem>
@@ -79,7 +80,7 @@ export const PostCardPopover: React.FC<IPostCardPopoverProps> = ({
           <ListItemIcon>
             <ContentCopyIcon />
           </ListItemIcon>
-          {msg('app.button.duplicate')}
+          {t('button.duplicate')}
         </Stack>
       </MenuItem>
       <MenuItem component={Link} onClick={onDelete} sx={{ m: 1 }}>
@@ -88,7 +89,7 @@ export const PostCardPopover: React.FC<IPostCardPopoverProps> = ({
           <ListItemIcon>
             <DeleteIcon />
           </ListItemIcon>
-          {msg('app.button.delete')}
+          {t('button.delete')}
         </Stack>
       </MenuItem>
     </MenuPopover>

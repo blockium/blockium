@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { Post, PostParams } from '@criaty/model-types';
-import { msg } from '@blockium/i18n';
 
 import { PostFamily2 } from '../PostFamily2';
 
@@ -18,11 +18,12 @@ export const PostBehindTheScenes: React.FC<IPostBehindTheScenesProps> = ({
   onGenerate,
   postParams,
 }) => {
+  const { t } = useTranslation();
   return (
     <PostFamily2
       goal="Behind-the-Scenes"
-      goalTitle={msg('app.post.goal.behind-the-scenes')}
-      topicLabel={msg('app.popover.newpost.input.scene')}
+      goalTitle={t('post.goal.behind-the-scenes')}
+      topicLabel={t('popover.newpost.input.scene')}
       setGoalElement={setGoalElement}
       onGenerate={onGenerate}
       postParams={postParams}

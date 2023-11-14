@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Avatar,
   Card,
@@ -13,7 +14,6 @@ import {
 } from '@mui/material';
 import HandshakeIcon from '@mui/icons-material/Handshake';
 
-import { msg } from '@blockium/i18n';
 import { CTAButton } from '@blockium/ui-common';
 import { Partner, PartnerPermission } from '@criaty/model-types';
 import { isEmpty } from '@blockium/utils';
@@ -36,6 +36,7 @@ export const PartnerView: React.FC<IPartnerViewProps> = ({
   setMessage,
   setSeverity,
 }) => {
+  const { t } = useTranslation();
   const user = useUser();
   const [partnerName, setPartnerName] = useState(partner.name);
   const [partnerEmail, setPartnerEmail] = useState(partner.email);
@@ -69,12 +70,12 @@ export const PartnerView: React.FC<IPartnerViewProps> = ({
       partner.permission = permission;
       onPartnerAdded(partner);
 
-      setMessage(msg('app.page.partner.saveSuccess'));
+      setMessage(t('page.partner.saveSuccess'));
       setSeverity('success');
       //
     } catch (error) {
       console.error(error);
-      setMessage(msg('app.page.partner.saveError'));
+      setMessage(t('page.partner.saveError'));
       setSeverity('error');
       //
     } finally {
@@ -93,12 +94,12 @@ export const PartnerView: React.FC<IPartnerViewProps> = ({
 
       onPartnerDeleted(partner);
 
-      setMessage(msg('app.page.partner.deleteSuccess'));
+      setMessage(t('page.partner.deleteSuccess'));
       setSeverity('success');
       //
     } catch (error) {
       console.error(error);
-      setMessage(msg('app.page.partner.deleteError'));
+      setMessage(t('page.partner.deleteError'));
       setSeverity('error');
       //
     } finally {
@@ -114,8 +115,8 @@ export const PartnerView: React.FC<IPartnerViewProps> = ({
             <HandshakeIcon />
           </Avatar>
         }
-        title={msg('app.page.partner.title')}
-        subheader={msg('app.page.partner.subheader')}
+        title={t('page.partner.title')}
+        subheader={t('page.partner.subheader')}
       />
       <CardContent>
         {/* Partner name Input */}
@@ -123,7 +124,7 @@ export const PartnerView: React.FC<IPartnerViewProps> = ({
           required
           autoFocus
           type="text"
-          label={msg('app.page.partner.name')}
+          label={t('page.partner.name')}
           value={partnerName}
           onChange={(e) => setPartnerName(e.target.value)}
           fullWidth
@@ -132,7 +133,7 @@ export const PartnerView: React.FC<IPartnerViewProps> = ({
         <TextField
           required
           type="email"
-          label={msg('app.page.partner.email')}
+          label={t('page.partner.email')}
           value={partnerEmail}
           onChange={(e) => setPartnerEmail(e.target.value)}
           fullWidth
@@ -141,37 +142,37 @@ export const PartnerView: React.FC<IPartnerViewProps> = ({
         <TextField
           required
           type="phone"
-          label={msg('app.page.partner.phone')}
+          label={t('page.partner.phone')}
           value={partnerPhone}
           onChange={(e) => setPartnerPhone(e.target.value)}
           fullWidth
         />
         <FormControl fullWidth>
           <InputLabel id="partner-permission-label" required>
-            {msg('app.page.partner.permission')}
+            {t('page.partner.permission')}
           </InputLabel>
           <Select
             labelId="partner-permission-label"
             id="partner-permission"
             value={permission}
-            label={msg('app.page.partner.permission')}
+            label={t('page.partner.permission')}
             onChange={(e) => setPermission(e.target.value as PartnerPermission)}
           >
             <MenuItem value="editor">
-              {msg('app.page.partner.permission-editor')}
+              {t('page.partner.permission-editor')}
             </MenuItem>
             <MenuItem value="viewer">
-              {msg('app.page.partner.permission-viewer')}
+              {t('page.partner.permission-viewer')}
             </MenuItem>
           </Select>
         </FormControl>
       </CardContent>
       <CardActions>
         <CTAButton variant="outlined" onClick={onGoBack}>
-          {msg('app.button.back')}
+          {t('button.back')}
         </CTAButton>
         <CTAButton variant="outlined" color="error" onClick={onDelete}>
-          {msg('app.button.delete')}
+          {t('button.delete')}
         </CTAButton>
         {/* TODO: !!! Validate email */}
         {/* TODO: !!! Validate phone */}
@@ -184,7 +185,7 @@ export const PartnerView: React.FC<IPartnerViewProps> = ({
             isEmpty(partnerPhone)
           }
         >
-          {msg('app.button.save')}
+          {t('button.save')}
         </CTAButton>
       </CardActions>
     </Card>

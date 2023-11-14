@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Stack, Typography } from '@mui/material';
 
-import { msg } from '@blockium/i18n';
 import { CTAButton } from '@blockium/ui-common';
 
 export const NoBusinessPage: React.FC = (props) => {
@@ -9,12 +9,13 @@ export const NoBusinessPage: React.FC = (props) => {
   const goBusinessPage = () => {
     navigate('/business');
   };
+  const { t } = useTranslation();
 
   return (
     <Stack gap="48px" alignItems="center" textAlign="center">
-      <Typography variant="h6">{msg('app.business-info-required')}</Typography>
+      <Typography variant="h6">{t('business-info-required')}</Typography>
       <CTAButton onClick={goBusinessPage}>
-        {msg('app.button.click-to-continue')}
+        {t('button.click-to-continue')}
       </CTAButton>
     </Stack>
   );

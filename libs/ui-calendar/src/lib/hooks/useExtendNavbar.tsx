@@ -7,12 +7,13 @@ import {
   useNavbarExtraLine,
   useToolbarExtra,
 } from '@blockium/ui-mininal-tmpl';
-import { msg } from '@blockium/i18n';
+import { useTranslation } from 'react-i18next';
 
 export const useExtendNavbar = () => {
   const [, setCurrentDate] = useCurrentDate();
   const [, setToolbarExtra] = useToolbarExtra();
   const [, setNavbarExtraLine] = useNavbarExtraLine();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const toolbarExtra = (
@@ -24,13 +25,13 @@ export const useExtendNavbar = () => {
           marginRight: (theme) => theme.spacing(2),
         }}
       >
-        <MonthYearPicker label={msg('app.page.calendar.filter.date')} />
+        <MonthYearPicker label={t('ui-calendar:filter.date')} />
         <Button
           variant="contained"
           color="primary"
           onClick={() => setCurrentDate(new Date())}
         >
-          {msg('app.button.today')}
+          {t('ui-calendar:button.today')}
         </Button>
       </Box>
     );
@@ -60,13 +61,13 @@ export const useExtendNavbar = () => {
         }}
       >
         {[
-          msg('app.monday-short'),
-          msg('app.tuesday-short'),
-          msg('app.wednesday-short'),
-          msg('app.thursday-short'),
-          msg('app.friday-short'),
-          msg('app.saturday-short'),
-          msg('app.sunday-short'),
+          t('ui-calendar:monday-short'),
+          t('ui-calendar:tuesday-short'),
+          t('ui-calendar:wednesday-short'),
+          t('ui-calendar:thursday-short'),
+          t('ui-calendar:friday-short'),
+          t('ui-calendar:saturday-short'),
+          t('ui-calendar:sunday-short'),
         ].map((day, index) => (
           <Typography
             color={(theme) =>
@@ -88,7 +89,7 @@ export const useExtendNavbar = () => {
       setNavbarExtraLine(<div></div>);
     };
     //
-  }, [setCurrentDate, setNavbarExtraLine, setToolbarExtra]);
+  }, [setCurrentDate, setNavbarExtraLine, setToolbarExtra, t]);
 };
 
 export default useExtendNavbar;

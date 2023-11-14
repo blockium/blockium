@@ -1,30 +1,16 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { getDay, startOfMonth } from 'date-fns';
 import { Box, Grid, IconButton } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 import { Post, PostParams } from '@criaty/model-types';
-import { msg } from '@blockium/i18n';
 import { fDateCalendar } from '@blockium/utils';
 import { Alert, LoadingIndicator } from '@blockium/ui-common';
 import { CriatyLogo } from '@criaty/ui-custom';
 import { useCalendarCache } from '@blockium/ui-calendar';
 
 import { NewPostPopover, PostCard } from '../../../components';
-
-const formatDate = (date: Date) => {
-  const weekDayLabels = [
-    msg('app.sunday-short'),
-    msg('app.monday-short'),
-    msg('app.tuesday-short'),
-    msg('app.wednesday-short'),
-    msg('app.thursday-short'),
-    msg('app.friday-short'),
-    msg('app.saturday-short'),
-  ];
-
-  return `${weekDayLabels[getDay(date)].toUpperCase()}, ${fDateCalendar(date)}`;
-};
 
 interface IDayPostsViewProps {
   date: Date;
@@ -33,6 +19,23 @@ interface IDayPostsViewProps {
 export const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
   const [calendarCache] = useCalendarCache();
   const [posts, setPosts] = useState<Post[]>([]);
+
+  const { t } = useTranslation();
+  const formatDate = (date: Date) => {
+    const weekDayLabels = [
+      t('sunday-short'),
+      t('monday-short'),
+      t('tuesday-short'),
+      t('wednesday-short'),
+      t('thursday-short'),
+      t('friday-short'),
+      t('saturday-short'),
+    ];
+
+    return `${weekDayLabels[getDay(date)].toUpperCase()}, ${fDateCalendar(
+      date,
+    )}`;
+  };
 
   useEffect(() => {
     const isoStartOfMonth = startOfMonth(date).toISOString();

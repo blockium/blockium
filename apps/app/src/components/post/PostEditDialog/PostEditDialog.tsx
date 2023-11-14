@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   DialogTitle,
   DialogContent,
@@ -14,36 +15,6 @@ import { Post } from '@criaty/model-types';
 import { CTAButton } from '@blockium/ui-common';
 
 import { useUpdatePost } from '../../../hooks';
-
-const goalMap: { [type: string]: string } = {
-  Product: msg('app.post.goal.product'),
-  Offer: msg('app.post.goal.offer'),
-  Novelty: msg('app.post.goal.novelty'),
-  Event: msg('app.post.goal.event'),
-  Testimonial: msg('app.post.goal.testimonial'),
-  Tutorial: msg('app.post.goal.tutorial'),
-  Tips: msg('app.post.goal.tips'),
-  'Behind-the-Scenes': msg('app.post.goal.behind-the-scenes'),
-  TBT: msg('app.post.goal.tbt'),
-  Poll: msg('app.post.goal.poll'),
-  FAQ: msg('app.post.goal.faq'),
-  Challenge: msg('app.post.goal.challenge'),
-  Contest: msg('app.post.goal.contest'),
-  Entertainment: msg('app.post.goal.entertainment'),
-  Motivational: msg('app.post.goal.motivational'),
-};
-
-const formatMap: { [type: string]: string } = {
-  feed: msg('app.dialog.postedit.input.formatFeed'),
-  stories: msg('app.dialog.postedit.input.formatStories'),
-  reels: msg('app.dialog.postedit.input.formatReels'),
-};
-
-const typeMap: { [type: string]: string } = {
-  image: msg('app.dialog.postedit.input.typeImage'),
-  video: msg('app.dialog.postedit.input.typeVideo'),
-  carousel: msg('app.dialog.postedit.input.typeCarousel'),
-};
 
 interface PostEditDialogProps {
   open: boolean;
@@ -65,6 +36,37 @@ export const PostEditDialog: React.FC<PostEditDialogProps> = ({
   const [description, setDescription] = useState(post.description);
   const [hashtags, setHashtags] = useState(post.hashtags);
   const [typeDescription, setTypeDescription] = useState(post.typeDescription);
+  const { t } = useTranslation();
+
+  const goalMap: { [type: string]: string } = {
+    Product: t('post.goal.product'),
+    Offer: t('post.goal.offer'),
+    Novelty: t('post.goal.novelty'),
+    Event: t('post.goal.event'),
+    Testimonial: t('post.goal.testimonial'),
+    Tutorial: t('post.goal.tutorial'),
+    Tips: t('post.goal.tips'),
+    'Behind-the-Scenes': t('post.goal.behind-the-scenes'),
+    TBT: t('post.goal.tbt'),
+    Poll: t('post.goal.poll'),
+    FAQ: t('post.goal.faq'),
+    Challenge: t('post.goal.challenge'),
+    Contest: t('post.goal.contest'),
+    Entertainment: t('post.goal.entertainment'),
+    Motivational: t('post.goal.motivational'),
+  };
+
+  const formatMap: { [type: string]: string } = {
+    feed: t('dialog.postedit.input.formatFeed'),
+    stories: t('dialog.postedit.input.formatStories'),
+    reels: t('dialog.postedit.input.formatReels'),
+  };
+
+  const typeMap: { [type: string]: string } = {
+    image: t('dialog.postedit.input.typeImage'),
+    video: t('dialog.postedit.input.typeVideo'),
+    carousel: t('dialog.postedit.input.typeCarousel'),
+  };
 
   const handleSave = async () => {
     onClose();
@@ -77,13 +79,13 @@ export const PostEditDialog: React.FC<PostEditDialogProps> = ({
     post.typeDescription = typeDescription;
     const updated = await updatePost(post);
     if (updated) {
-      setMessage(msg('app.success.post-updated'));
+      setMessage(t('success.post-updated'));
     } else {
       post.title = oldPost.title;
       post.description = oldPost.description;
       post.hashtags = oldPost.hashtags;
       post.typeDescription = oldPost.typeDescription;
-      setErrorMessage(msg('app.error.updatePost'));
+      setErrorMessage(t('error.updatePost'));
     }
   };
 
@@ -99,7 +101,7 @@ export const PostEditDialog: React.FC<PostEditDialogProps> = ({
           multiline
           rows={2}
           margin="dense"
-          label={msg('app.dialog.postedit.input.title')}
+          label={t('dialog.postedit.input.title')}
           type="text"
           fullWidth
           value={title}
@@ -109,14 +111,14 @@ export const PostEditDialog: React.FC<PostEditDialogProps> = ({
           multiline
           rows={3}
           margin="dense"
-          label={msg('app.dialog.postedit.input.description')}
+          label={t('dialog.postedit.input.description')}
           fullWidth
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
         <TextField
           margin="dense"
-          label={msg('app.dialog.postedit.input.hashtags')}
+          label={t('dialog.postedit.input.hashtags')}
           fullWidth
           value={hashtags}
           onChange={(e) => setHashtags(e.target.value)}
@@ -135,10 +137,10 @@ export const PostEditDialog: React.FC<PostEditDialogProps> = ({
       </DialogContent>
       <DialogActions sx={{ gap: '1rem' }}>
         <CTAButton variant="outlined" onClick={onClose} color="secondary">
-          {msg('app.button.cancel')}
+          {t('button.cancel')}
         </CTAButton>
         <CTAButton variant="contained" onClick={handleSave} color="primary">
-          {msg('app.button.save')}
+          {t('button.save')}
         </CTAButton>
       </DialogActions>
     </Dialog>

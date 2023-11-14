@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { msg } from '@blockium/i18n';
 import { Post, PostParams } from '@criaty/model-types';
 
 import { PostFamily1 } from '../PostFamily1';
@@ -18,12 +18,13 @@ export const PostProduct: React.FC<IPostProductProps> = ({
   onGenerate,
   postParams,
 }) => {
+  const { t } = useTranslation();
   return (
     <PostFamily1
       goal="Product"
-      goalTitle={msg('app.post.goal.product')}
-      productLabel={msg('app.popover.newpost.input.product')}
-      topicLabel={msg('app.popover.newpost.input.product-topic')}
+      goalTitle={t('post.goal.product')}
+      productLabel={t('popover.newpost.input.product')}
+      topicLabel={t('popover.newpost.input.product-topic')}
       setGoalElement={setGoalElement}
       onGenerate={onGenerate}
       postParams={postParams}
