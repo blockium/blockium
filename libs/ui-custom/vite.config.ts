@@ -40,6 +40,10 @@ export default defineConfig({
   //  ],
   // },
 
+  esbuild: {
+    // minifyIdentifiers: false,
+  },
+
   // Configuration for building your library.
   // See: https://vitejs.dev/guide/build.html#library-mode
   build: {
@@ -74,5 +78,6 @@ export default defineConfig({
     },
     environment: 'jsdom',
     include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+    setupFiles: './vitest.config.ts',
   },
 });
