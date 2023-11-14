@@ -1,0 +1,10 @@
+{
+  "date-format.last-week": "'past' eeee",
+  "date-format.yesterday": "'Yesterday'",
+  "date-format.today": "'Today'",
+  "date-format.tomorrow": "'Tomorrow'",
+  "date-format.next-week": "eeee",
+  "date-format.other": "dd 'of' MMM",
+  "year-suffix-one": "year",
+  "year-suffix-many": "years"
+}

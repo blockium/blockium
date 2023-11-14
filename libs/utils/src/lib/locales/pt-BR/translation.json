@@ -1,0 +1,10 @@
+{
+  "date-format.last-week": "eeee 'que passou'",
+  "date-format.yesterday": "'Ontem'",
+  "date-format.today": "'Hoje'",
+  "date-format.tomorrow": "'Amanhã'",
+  "date-format.next-week": "eeee",
+  "date-format.other": "dd 'de' MMM",
+  "year-suffix-one": "ano",
+  "year-suffix-many": "anos"
+}
