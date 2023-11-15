@@ -59,7 +59,8 @@ export const App: React.FC = () => {
 
   const layoutConfigExtended = useLayoutConfig({
     layoutConfig,
-    AppLogo: CriatyLogo,
+    AppLogo: <CriatyLogo />,
+    AppLogoDark: <CriatyLogo colorScheme="green-green-white-transparent" />,
   });
 
   return (

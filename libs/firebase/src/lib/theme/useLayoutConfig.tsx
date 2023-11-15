@@ -1,22 +1,23 @@
-import { SvgIconProps, useTheme } from '@mui/material';
+import { useTheme } from '@mui/material';
 
 import { LayoutConfig } from '@blockium/ui-mininal-tmpl';
 import { formatPhoneNumber } from '@blockium/utils';
 
 import { useAuth, useSignOut } from '../firebase';
 
-type AppLogo = React.FC<
-  SvgIconProps & {
-    children?: React.ReactNode;
-    width?: string;
-    height?: string;
-    [key: string]: unknown;
-  }
->;
+// type AppLogo = React.FC<
+//   SvgIconProps & {
+//     children?: React.ReactNode;
+//     width?: string;
+//     height?: string;
+//     [key: string]: unknown;
+//   }
+// >;
 
 type UseLayoutConfigProps = {
   layoutConfig: LayoutConfig;
-  AppLogo: AppLogo;
+  AppLogo: React.ReactElement;
+  AppLogoDark?: React.ReactElement;
 };
 
 export const useLayoutConfig = (props: UseLayoutConfigProps) => {
@@ -28,26 +29,12 @@ export const useLayoutConfig = (props: UseLayoutConfigProps) => {
     await signOut();
   };
 
-  const { layoutConfig, AppLogo } = props;
+  const { layoutConfig, AppLogo, AppLogoDark } = props;
 
   const theme = useTheme();
   if (layoutConfig?.sideBar) {
     layoutConfig.sideBar.logo =
-      theme.palette.mode === 'light' ? (
-        <AppLogo
-          // full={false}
-          colorScheme="green-green-gray-transparent"
-          // width="10rem"
-          height="10rem"
-        />
-      ) : (
-        <AppLogo
-          // full={false}
-          colorScheme="green-green-white-transparent"
-          // width="10rem"
-          height="10rem"
-        />
-      );
+      theme.palette.mode === 'light' ? AppLogo : AppLogoDark || AppLogo;
   }
 
   if (layoutConfig?.navBar?.accountPopover) {
