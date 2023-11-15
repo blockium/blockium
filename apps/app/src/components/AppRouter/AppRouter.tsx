@@ -1,11 +1,18 @@
 import loadable from '@loadable/component';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
+import {
+  PrivateRoute,
+  Login,
+  LoginPhone,
+  LoginWhatsApp,
+} from '@blockium/firebase';
 import { LoadingPage } from '@blockium/ui-common';
 import { CriatyLogo } from '@criaty/ui-custom';
 
-const App = loadable(() => import('../App').then(({ App }) => App));
+import { App } from '../App';
 
+// 1. Dynamically import pages in order to optimize request time
 const BusinessPage = loadable(() =>
   import('../../pages').then(({ BusinessPage }) => BusinessPage),
 );
@@ -25,19 +32,7 @@ const WeeklyPostsPage = loadable(() =>
   import('../../pages').then(({ WeeklyPostsPage }) => WeeklyPostsPage),
 );
 
-const PrivateRoute = loadable(() =>
-  import('@blockium/firebase').then(({ PrivateRoute }) => PrivateRoute),
-);
-const Login = loadable(() =>
-  import('@blockium/firebase').then(({ Login }) => Login),
-);
-const LoginPhone = loadable(() =>
-  import('@blockium/firebase').then(({ LoginPhone }) => LoginPhone),
-);
-const LoginWhatsApp = loadable(() =>
-  import('@blockium/firebase').then(({ LoginWhatsApp }) => LoginWhatsApp),
-);
-
+// 2. Create a loading page
 const Loading = () => (
   <LoadingPage
     logo={
@@ -54,18 +49,20 @@ export const AppRouter = () => {
   return (
     <BrowserRouter>
       <Routes>
+        {/* 3. Define the main route using PrivateRoute wrapping the App */}
         <Route
           path="/"
           element={
             <PrivateRoute
               loginPath="/login"
-              waitingAuth={<Loading />} // Feedback waiting onAuthStateChanged
-              fallback={<Loading />} // Feedback when lazy loading
+              waitingAuth={<Loading />} // Loading while waiting for auth
             >
+              {/* 4. Create the App with a react-router-dom Outlet within */}
               <App />
             </PrivateRoute>
           }
         >
+          {/* 5. Create the sub-routes whose components will be within App */}
           <Route path="/" element={<CalendarPage />} />
           <Route path="/business" element={<BusinessPage />} />
           <Route path="/nobusiness" element={<NoBusinessPage />} />
@@ -76,9 +73,11 @@ export const AppRouter = () => {
             element={<WeeklyPostsPage />}
           />
         </Route>
+        {/* 6. Create the login route */}
         <Route
           path="/login"
           element={
+            // 7. In the login component, define the login methods
             <Login
               leftImageSrc="/images/login_768_1064.webp"
               topImageSrc="/images/login_1064_768.webp"
@@ -87,6 +86,7 @@ export const AppRouter = () => {
             />
           }
         />
+        {/* 8. Create routes for each login method */}
         <Route
           path="/login-phone"
           element={

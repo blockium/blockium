@@ -1,14 +1,26 @@
-// import { StrictMode } from 'react';
-import loadable from '@loadable/component';
+import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
 
-import { i18nInit } from '@blockium/i18n';
+import { initFirebase } from '@blockium/firebase';
 import { ThemeConfig, ThemeProvider } from '@blockium/theme';
 
-i18nInit();
+import { AppRouter } from './components';
 
-// These are exact the defaults.
-// They are here just to show how to override them.
+// 1. Initialize Firebase
+initFirebase({
+  apiKey:
+    document.location.hostname === 'localhost'
+      ? import.meta.env['VITE_FIREBASE_API_KEY_DEV']
+      : import.meta.env['VITE_FIREBASE_API_KEY'],
+  authDomain: import.meta.env['VITE_FIREBASE_AUTH_DOMAIN'],
+  projectId: import.meta.env['VITE_FIREBASE_PROJECT_ID'],
+  storageBucket: import.meta.env['VITE_FIREBASE_STORAGE_BUCKET'],
+  messagingSenderId: import.meta.env['VITE_FIREBASE_MESSAGING_SENDER_ID'],
+  appId: import.meta.env['VITE_FIREBASE_APP_ID'],
+  measurementId: import.meta.env['VITE_FIREBASE_MEASUREMENT_ID'],
+});
+
+// 2. Customize theme
 const themeConfig: ThemeConfig = {
   initialMode: 'light',
   fontConfig: {
@@ -74,37 +86,16 @@ const themeConfig: ThemeConfig = {
   },
 };
 
-const envSource = import.meta.env;
-const isDevLocal =
-  typeof document !== 'undefined' && document.location.hostname === 'localhost';
-const firebaseConfig = {
-  apiKey: isDevLocal
-    ? envSource['VITE_FIREBASE_API_KEY_DEV']
-    : envSource['VITE_FIREBASE_API_KEY'],
-  authDomain: envSource['VITE_FIREBASE_AUTH_DOMAIN'],
-  projectId: envSource['VITE_FIREBASE_PROJECT_ID'],
-  storageBucket: envSource['VITE_FIREBASE_STORAGE_BUCKET'],
-  messagingSenderId: envSource['VITE_FIREBASE_MESSAGING_SENDER_ID'],
-  appId: envSource['VITE_FIREBASE_APP_ID'],
-  measurementId: envSource['VITE_FIREBASE_MEASUREMENT_ID'],
-};
-
-// Initialize Firebase
-import('@blockium/firebase').then(({ initFirebase }) => {
-  initFirebase(firebaseConfig);
-
-  const AppRouter = loadable(() =>
-    import('./components/AppRouter').then(({ AppRouter }) => AppRouter),
-  );
-
-  const root = ReactDOM.createRoot(
-    document.getElementById('root') as HTMLElement,
-  );
-  root.render(
-    // <StrictMode>
+// 3. Render App
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement,
+);
+root.render(
+  <StrictMode>
     <ThemeProvider config={themeConfig}>
+      {/* 4. Create the AppRouter */}
       <AppRouter />
-    </ThemeProvider>,
-    // </StrictMode>
-  );
-});
+    </ThemeProvider>
+    ,
+  </StrictMode>,
+);
