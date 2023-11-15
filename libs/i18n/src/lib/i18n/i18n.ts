@@ -5,12 +5,9 @@ import Backend from 'i18next-http-backend';
 
 export { t };
 
-let isInitialized = false;
 export const i18nInit = () => {
-  // The following check doesn't work due to async initialization
-  // if (i18next.isInitialized) return;
-  if (isInitialized) return;
-  isInitialized = true;
+  if (i18next.isInitialized) return;
+  i18next.isInitialized = true;
 
   return i18next
     .use(Backend)
@@ -19,7 +16,7 @@ export const i18nInit = () => {
     .init({
       // debug: true,
       supportedLngs: ['en', 'pt-BR'],
-      fallbackLng: 'en',
+      fallbackLng: 'pt-BR',
       load: 'currentOnly',
     });
 };
