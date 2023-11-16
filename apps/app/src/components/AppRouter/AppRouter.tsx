@@ -10,7 +10,7 @@ import {
 import { LoadingPage } from '@blockium/ui-common';
 import { CriatyLogo } from '@criaty/ui-custom';
 
-import { App } from '../App';
+import { App2 } from '../App2';
 
 // 1. Dynamically import pages in order to optimize request time
 const BusinessPage = loadable(() =>
@@ -49,7 +49,7 @@ export const AppRouter = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {/* 3. Define the main route using PrivateRoute wrapping the App */}
+        {/* 3. Define the main route using PrivateRoute wrapping the App2 */}
         <Route
           path="/"
           element={
@@ -57,12 +57,12 @@ export const AppRouter = () => {
               loginPath="/login"
               waitingAuth={<Loading />} // Loading while waiting for auth
             >
-              {/* 4. Create the App with a react-router-dom Outlet within */}
-              <App />
+              {/* 4. Create the App2 with a react-router-dom Outlet within */}
+              <App2 />
             </PrivateRoute>
           }
         >
-          {/* 5. Create the sub-routes whose components will be within App */}
+          {/* 5. Create the sub-routes whose components will be within App2 */}
           <Route path="/" element={<CalendarPage />} />
           <Route path="/business" element={<BusinessPage />} />
           <Route path="/nobusiness" element={<NoBusinessPage />} />

@@ -2,14 +2,14 @@ import { render } from '@testing-library/react';
 
 import { BrowserRouter } from 'react-router-dom';
 
-import App from './App';
+import App2 from './App2';
 
-describe('App', () => {
+describe('App2', () => {
   it('should render successfully', () => {
     const { baseElement } = render(
       <BrowserRouter>
-        <App />
-      </BrowserRouter>
+        <App2 />
+      </BrowserRouter>,
     );
     expect(baseElement).toBeTruthy();
   });

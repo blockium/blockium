@@ -3,9 +3,6 @@ import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import Backend from 'i18next-http-backend';
 
-// TODO: avoid using this export
-export { t };
-
 export const i18nInit = () => {
   if (i18next.isInitialized) return;
   i18next.isInitialized = true;
@@ -17,7 +14,7 @@ export const i18nInit = () => {
     .init({
       // debug: true,
       supportedLngs: ['en', 'pt-BR'],
-      fallbackLng: 'pt-BR',
+      fallbackLng: 'en',
       load: 'currentOnly',
     });
 };
@@ -43,5 +40,7 @@ export const addResourceBundles = async (
     i18next.addResourceBundle(bundle.lng, bundle.ns, bundle.resources);
   });
 };
+
+export { t };
 
 export default i18nInit;

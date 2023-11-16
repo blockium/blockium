@@ -1,4 +1,5 @@
 import {
+  Locale,
   differenceInCalendarYears,
   format,
   formatDistanceToNow,
@@ -10,56 +11,63 @@ import { enUS, ptBR } from 'date-fns/locale';
 
 import { t, currentLanguage } from '@blockium/i18n';
 
-const formatRelativeLocale: object = {
-  lastWeek: t('utils:date-format.last-week'),
-  yesterday: t('utils:date-format.yesterday'),
-  today: t('utils:date-format.today'),
-  tomorrow: t('utils:date-format.tomorrow'),
-  nextWeek: t('utils:date-format.next-week'),
-  other: t('utils:date-format.other'),
-};
+let localeCache: Locale;
+const locale = () => {
+  if (localeCache) return localeCache;
 
-const locale = {
-  ...(currentLanguage() === 'pt-BR' ? ptBR : enUS),
-  formatRelative: (token: keyof typeof formatRelativeLocale) =>
-    formatRelativeLocale[token],
+  const formatRelativeLocale: object = {
+    lastWeek: t('utils:date-format.last-week'),
+    yesterday: t('utils:date-format.yesterday'),
+    today: t('utils:date-format.today'),
+    tomorrow: t('utils:date-format.tomorrow'),
+    nextWeek: t('utils:date-format.next-week'),
+    other: t('utils:date-format.other'),
+  };
+
+  localeCache = {
+    ...(currentLanguage() === 'pt-BR' ? ptBR : enUS),
+    formatRelative: (token: keyof typeof formatRelativeLocale) =>
+      formatRelativeLocale[token],
+  };
+
+  return localeCache;
 };
 // ----------------------------------------------------------------------
 
 export function fDate(date: string | number | Date): string {
-  return format(new Date(date), 'dd/MM/yyyy', { locale });
+  return format(new Date(date), 'dd/MM/yyyy', { locale: locale() });
   // return format(new Date(date), "dd MMMM yyyy");
 }
 
 export function fDateCalendar(date: string | number | Date): string {
-  return format(new Date(date), 'dd MMM yyyy', { locale });
+  return format(new Date(date), 'dd MMM yyyy', { locale: locale() });
 }
 
 export function fDateCalendarShort(date: string | number | Date): string {
-  return format(new Date(date), 'd.MM', { locale });
+  return format(new Date(date), 'd.MM', { locale: locale() });
 }
 
 export function fTime(date: string | number | Date): string {
-  return format(new Date(date), 'HH:mm', { locale });
+  return format(new Date(date), 'HH:mm', { locale: locale() });
   // return format(new Date(date), "dd MMMM yyyy");
 }
 
 export function fDateTime(date: string | number | Date) {
-  return format(new Date(date), 'dd MMM yyyy HH:mm', { locale });
+  return format(new Date(date), 'dd MMM yyyy HH:mm', { locale: locale() });
 }
 
 export function fDateTime2(date: string | number | Date) {
-  return format(new Date(date), 'dd/MM/yyyy HH:mm', { locale });
+  return format(new Date(date), 'dd/MM/yyyy HH:mm', { locale: locale() });
 }
 
 export function fDateTimeSuffix(date: string | number | Date) {
-  return format(new Date(date), 'dd/MM/yyyy hh:mm p', { locale });
+  return format(new Date(date), 'dd/MM/yyyy hh:mm p', { locale: locale() });
 }
 
 export function fToNow(date: string | number | Date) {
   return formatDistanceToNow(new Date(date), {
     addSuffix: true,
-    locale,
+    locale: locale(),
   });
 }
 
@@ -77,7 +85,7 @@ export function fBirthday(birthday: string | number | Date) {
   date.setFullYear(now.getFullYear());
 
   return formatRelative(new Date(date), now, {
-    locale,
+    locale: locale(),
   });
 }
 
