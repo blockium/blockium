@@ -181,6 +181,7 @@ export const App: React.FC = (props) => {
           sx={{ marginTop: '0.75rem' }}
         />
       }
+      loginMethods={['whatsapp', 'phone']}
       loginLeftImageSrc="/images/login_768_1064.webp"
       loginTopImageSrc="/images/login_1064_768.webp"
     />
