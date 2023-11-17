@@ -22,7 +22,6 @@ export const validatePrompt = (request, response) => {
 export const validatePhone = (request, response) => {
   const { phone } = request.body;
 
-  // Validate phone number format (Brazilian international format)
   if (!phone) {
     response.status(400).send('Por favor, informe seu telefone.');
     return false;
@@ -42,6 +41,16 @@ export const validateAuthPhone = (authPhone, response) => {
     response.status(412).send('Usuário autenticado sem número de telefone.');
     return false;
   }
+  return true;
+};
+
+export const validateAuthEmail = (email, response) => {
+  // Validate email
+  if (!email) {
+    response.status(412).send('Usuário autenticado sem email.');
+    return false;
+  }
+
   return true;
 };
 
@@ -69,7 +78,7 @@ export const validateUser = (user: string | User, response) => {
       response
         .status(412)
         .send(
-          'Foi encontrado mais de um usuário com esse número. Favor entrar em contato com o suporte.',
+          'Foi encontrado mais de um usuário em nossos registros. Favor entrar em contato com o suporte.',
         );
     } else {
       response

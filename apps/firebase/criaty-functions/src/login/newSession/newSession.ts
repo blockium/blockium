@@ -1,7 +1,7 @@
 import { https } from 'firebase-functions';
 import cors from 'cors';
 
-import { createSession } from '../utils/session';
+import { createSession } from '../../utils/session';
 
 export const newSession = https.onRequest(async (request, response) => {
   // TODO: Review CORS policy

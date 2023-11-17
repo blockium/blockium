@@ -9,16 +9,18 @@ import { addDays } from 'date-fns';
 export const USER_ERROR_DIFFERENT_USER_NAME = 'USER_ERROR_DIFFERENT_USER_NAME';
 export const USER_ERROR_NON_UNIQUE_USER = 'USER_ERROR_NON_UNIQUE_USER';
 
-// Save user's data (phone, name) in Firestore at users collection
+// Save user's data (name, phone, email) in Firestore at users collection
 export const createUser = async (
-  phone: string,
   name: string,
   displayName?: string,
+  phone?: string,
+  email?: string,
 ) => {
   const user: User = {
     name,
     displayName: displayName || name,
     phone,
+    email,
     expirationDate: addDays(new Date(), 15),
   };
   const userDoc = await db.users.add(user);
@@ -27,8 +29,15 @@ export const createUser = async (
 };
 
 // Get all users with same phone
-export const getAllUsers = async (phone: string) => {
+export const getAllUsersByPhone = async (phone: string) => {
   const userQuery = await db.users.where('phone', '==', phone).get();
+  return userQuery.docs.map((userDoc) => {
+    return { ...(userDoc.data() as User), id: userDoc.id };
+  });
+};
+
+export const getAllUsersByAuthId = async (authId: string) => {
+  const userQuery = await db.users.where('authId', '==', authId).get();
   return userQuery.docs.map((userDoc) => {
     return { ...(userDoc.data() as User), id: userDoc.id };
   });
@@ -41,11 +50,11 @@ export const getOrCreateUser = async (
   displayName?: string,
   allowDifferentNames = true,
 ) => {
-  const users = await getAllUsers(phone);
+  const users = await getAllUsersByPhone(phone);
 
   switch (users.length) {
     case 0:
-      return await createUser(phone, name, displayName || name);
+      return await createUser(name, displayName || name, phone);
     case 1:
       if (users[0].name === phone && phone !== name) {
         // Update user's name
@@ -65,6 +74,38 @@ export const getOrCreateUser = async (
       return users[0].name === name || allowDifferentNames
         ? users[0]
         : USER_ERROR_DIFFERENT_USER_NAME;
+    default:
+      return USER_ERROR_NON_UNIQUE_USER;
+  }
+};
+
+// Get a user data filtered by email, creating if it doesn't exist
+export const getOrCreateUserByAuthId = async (
+  authId: string,
+  name: string,
+  displayName?: string,
+  email?: string,
+  phone?: string,
+) => {
+  const users = await getAllUsersByAuthId(authId);
+
+  switch (users.length) {
+    case 0:
+      return await createUser(name, displayName || name, phone, email);
+    case 1:
+      if (
+        users[0].name !== name ||
+        users[0].displayName !== displayName ||
+        users[0].email !== email ||
+        users[0].phone !== phone
+      ) {
+        // Update user
+        await updateUser(users[0].id, { name, displayName, phone, email });
+        users[0].name = name;
+      }
+
+      return users[0];
+    //
     default:
       return USER_ERROR_NON_UNIQUE_USER;
   }

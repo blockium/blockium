@@ -4,9 +4,13 @@ import axios from 'axios';
 
 import { Post, PostFormat, PostType, User } from '@criaty/model-types';
 
-import { validateName, validatePhone, validateUser } from '../utils/validate';
-import { getOrCreateUser } from '../utils/user';
-import { getWeeklyPostsPrompt } from '../utils/prompts';
+import {
+  validateName,
+  validatePhone,
+  validateUser,
+} from '../../utils/validate';
+import { getOrCreateUser } from '../../utils/user';
+import { getWeeklyPostsPrompt } from '../../utils/prompts';
 
 const validateParams = (request, response) => {
   return validatePhone(request, response) && validateName(request, response);

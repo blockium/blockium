@@ -80,8 +80,9 @@ export const updateSession = async (
         status: 'waiting',
         waitingAt: admin.firestore.FieldValue.serverTimestamp(),
         userId: user.id,
-        phone: user.phone,
         name: user.name,
+        email: user.email,
+        phone: user.phone,
       });
       return 'waiting';
     //

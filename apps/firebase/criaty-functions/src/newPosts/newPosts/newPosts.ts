@@ -4,9 +4,13 @@ import axios from 'axios';
 
 import { User } from '@criaty/model-types';
 
-import { validateName, validatePhone, validateUser } from '../utils/validate';
-import { getOrCreateUser } from '../utils/user';
-import { getPostsPrompt } from '../utils/prompts';
+import {
+  validateName,
+  validatePhone,
+  validateUser,
+} from '../../utils/validate';
+import { getOrCreateUser } from '../../utils/user';
+import { getPostsPrompt } from '../../utils/prompts';
 
 const validatePostQuantity = (request, response) => {
   const { postQuantity } = request.body;

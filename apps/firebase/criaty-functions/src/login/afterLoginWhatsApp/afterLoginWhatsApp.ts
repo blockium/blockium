@@ -11,9 +11,13 @@ import {
   validateSession,
   validateSessionId,
   validateUser,
-} from '../utils/validate';
-import { getAuthUser, getOrCreateUser, updateUser } from '../utils/user';
-import { expireOldSessions, getSession, updateSession } from '../utils/session';
+} from '../../utils/validate';
+import { getAuthUser, getOrCreateUser, updateUser } from '../../utils/user';
+import {
+  expireOldSessions,
+  getSession,
+  updateSession,
+} from '../../utils/session';
 
 const validateParams = (request, response) => {
   return (
@@ -21,7 +25,7 @@ const validateParams = (request, response) => {
   );
 };
 
-export const getUser = https.onRequest(async (request, response) => {
+export const afterLoginWhatsApp = https.onRequest(async (request, response) => {
   // TODO: Review CORS policy
   const corsObj = cors({ origin: true });
   corsObj(request, response, async () => {
@@ -80,7 +84,7 @@ export const getUser = https.onRequest(async (request, response) => {
       //
     } catch (error) {
       console.log(error);
-      response.status(424).send('Houve um erro ao obter o usuário.');
+      response.status(424).send('Houve um erro ao realizar o after login.');
     }
   });
 });

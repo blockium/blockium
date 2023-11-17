@@ -9,9 +9,9 @@ import {
   validateSession,
   validateSessionId,
   validateUser,
-} from '../utils/validate';
-import { getSession, updateSession } from '../utils/session';
-import { getOrCreateUser } from '../utils/user';
+} from '../../utils/validate';
+import { getSession, updateSession } from '../../utils/session';
+import { getOrCreateUser } from '../../utils/user';
 
 const validateParams = (request, response) => {
   return (
@@ -21,7 +21,7 @@ const validateParams = (request, response) => {
   );
 };
 
-export const login = https.onRequest(async (request, response) => {
+export const loginWhatsApp = https.onRequest(async (request, response) => {
   // TODO: Review CORS policy
   const corsObj = cors({ origin: true });
   corsObj(request, response, async () => {

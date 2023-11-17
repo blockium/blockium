@@ -8,7 +8,8 @@ export type Session = {
   startedAt?: string;
   expiredAt?: string;
   userId?: string;
-  phone?: string;
   name?: string;
+  email?: string;
+  phone?: string;
   authId?: string | null;
 };

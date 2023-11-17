@@ -8,7 +8,8 @@ export type User = {
   id?: string;
   name: string;
   displayName: string;
-  phone: string;
+  phone?: string;
+  email?: string;
   authId?: string;
   business?: Business;
   expirationDate: Date;

@@ -1,11 +1,19 @@
+// Chat GPT functions
 export * from './chatgpt';
-export * from './getUser';
-export * from './login';
-export * from './loginWithPhone';
-export * from './newPostFamily1';
-export * from './newPostFamily2';
-export * from './newPosts';
-export * from './newSession';
-export * from './newWeeklyPosts';
+
+// Login related functions
+export * from './login/newSession';
+export * from './login/loginWhatsApp';
+export * from './login/afterLoginWhatsApp';
+export * from './login/afterLoginPhone';
+export * from './login/afterLoginEmail';
+
+// Post related functions
+export * from './newPosts/newPostFamily1';
+export * from './newPosts/newPostFamily2';
+export * from './newPosts/newPosts';
+export * from './newPosts/newWeeklyPosts';
+
+// Payment related functions
 export * from './payment';
-export * from './paymentTest';
+export * from './payment/paymentTest';

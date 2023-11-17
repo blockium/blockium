@@ -7,20 +7,24 @@ import {
   createSession,
   expireOldSessions,
   updateSession,
-} from '../utils/session';
-import { getAuthUser, getOrCreateUser, updateUser } from '../utils/user';
+} from '../../utils/session';
 import {
+  getAuthUser,
+  getOrCreateUserByAuthId,
+  updateUser,
+} from '../../utils/user';
+import {
+  validateAuthEmail,
   validateAuthId,
-  validateAuthPhone,
   validateAuthUser,
   validateUser,
-} from '../utils/validate';
+} from '../../utils/validate';
 
 const validateParams = (request, response) => {
   return validateAuthId(request, response);
 };
 
-export const loginWithPhone = https.onRequest(async (request, response) => {
+export const afterLoginEmail = https.onRequest(async (request, response) => {
   // TODO: Review CORS policy
   const corsObj = cors({ origin: true });
   corsObj(request, response, async () => {
@@ -35,22 +39,19 @@ export const loginWithPhone = https.onRequest(async (request, response) => {
       // Just for Typescript not complaining below
       if (authUser === null) return;
 
-      // Validates the user if it has a phone number
-      if (!validateAuthPhone(authUser.phoneNumber, response)) return;
-
-      // This should never occur as null is treated in validateAuthPhone
-      // Just for Typescript not complaining below
-      if (!authUser.phoneNumber) return;
-
-      const authPhone = authUser.phoneNumber.replace(/\D/g, '');
-      const phone = authPhone;
+      // Validates the user if it has an email
+      if (!validateAuthEmail(authUser.email, response)) return;
 
       // Get a user data filtered by phone, creating if it doesn't exist
-      const user = (await getOrCreateUser(
-        phone,
-        phone,
+      const user = (await getOrCreateUserByAuthId(
+        authUser.uid,
+        authUser.displayName ||
+          authUser.email ||
+          authUser.phoneNumber ||
+          'No name',
         authUser.displayName,
-        true,
+        authUser.email,
+        authUser.phoneNumber?.replace(/\D/g, ''),
       )) as User;
       if (!validateUser(user, response)) return;
 
@@ -75,13 +76,13 @@ export const loginWithPhone = https.onRequest(async (request, response) => {
       // Update session - from 'waiting' to 'started'
       await updateSession(user, session, authUser.uid);
 
-      const { id: userId, name, displayName } = user;
+      const { id: userId, name, displayName, email, phone } = user;
       response
         .status(200)
-        .send(JSON.stringify({ userId, phone, name, displayName }));
+        .send(JSON.stringify({ userId, name, displayName, email, phone }));
     } catch (error) {
       console.log(error);
-      response.status(424).send('Houve um erro ao realizar o login.');
+      response.status(424).send('Houve um erro ao realizar o after login.');
     }
   });
 });
