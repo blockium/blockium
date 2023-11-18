@@ -4,7 +4,7 @@ import * as ReactDOM from 'react-dom/client';
 import { initFirebase } from '@blockium/firebase';
 import { ThemeConfig, ThemeProvider } from '@blockium/theme';
 
-import { AppRouter } from './components';
+import { App2Router } from './components';
 
 // 1. Initialize Firebase
 initFirebase({
@@ -93,8 +93,8 @@ const root = ReactDOM.createRoot(
 root.render(
   <StrictMode>
     <ThemeProvider config={themeConfig}>
-      {/* 4. Create the AppRouter */}
-      <AppRouter />
+      {/* 4. Create the AppRouter2 */}
+      <App2Router />
     </ThemeProvider>
     ,
   </StrictMode>,

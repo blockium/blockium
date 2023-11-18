@@ -45,7 +45,7 @@ const Loading = () => (
   />
 );
 
-export const AppRouter = () => {
+export const App2Router = () => {
   return (
     <BrowserRouter>
       <Routes>
@@ -109,4 +109,4 @@ export const AppRouter = () => {
   );
 };
 
-export default AppRouter;
+export default App2Router;
