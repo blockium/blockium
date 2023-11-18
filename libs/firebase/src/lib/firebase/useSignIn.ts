@@ -1,9 +1,9 @@
-import { User as UserAuth } from 'firebase/auth';
+import { User as AuthUser } from 'firebase/auth';
 import useAuth from './useAuth';
 
 export const useSignIn = () => {
   const [, setUser] = useAuth();
-  return (user: UserAuth | null) => {
+  return (user: AuthUser | null) => {
     setUser(user);
   };
 };

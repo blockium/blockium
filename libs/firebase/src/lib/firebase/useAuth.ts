@@ -1,5 +1,5 @@
 import { createGlobalState } from 'react-use';
-import { User as UserAuth } from 'firebase/auth';
+import { User as AuthUser } from 'firebase/auth';
 
-export const useAuth = createGlobalState<UserAuth | null>(null);
+export const useAuth = createGlobalState<AuthUser | null>(null);
 export default useAuth;

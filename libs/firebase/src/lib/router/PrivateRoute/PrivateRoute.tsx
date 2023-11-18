@@ -17,11 +17,11 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({
 }) => {
   const [isWaitingAuth, setIsWaitingAuth] = useState(true);
   const signIn = useSignIn();
-  const [user] = useAuth();
+  const [authUser] = useAuth();
 
   useEffect(() => {
-    return onAuthStateChanged(getAuth(), (user) => {
-      signIn(user);
+    return onAuthStateChanged(getAuth(), (authUser) => {
+      signIn(authUser);
       setIsWaitingAuth(false);
     });
   }, [signIn]);
@@ -30,7 +30,7 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({
     return waitingAuth;
   }
 
-  if (user) {
+  if (authUser) {
     return children;
   } else {
     return <Navigate to={loginPath} />;

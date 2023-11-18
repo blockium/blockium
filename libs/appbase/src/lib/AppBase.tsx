@@ -2,7 +2,11 @@ import { ReactElement } from 'react';
 import { BrowserRouter, Route, Routes, Outlet } from 'react-router-dom';
 import { Container, Stack } from '@mui/material';
 
-import { FirebaseConfig, initFirebase } from '@blockium/firebase';
+import {
+  FirebaseConfig,
+  initFirebase,
+  useLayoutConfig,
+} from '@blockium/firebase';
 import {
   PrivateRoute,
   Login,
@@ -27,10 +31,42 @@ interface AppBaseProps {
   routeElements: RouteElement[];
   openRouteElements?: RouteElement[];
   loadingLogo: ReactElement;
+  appLogo: ReactElement;
+  appLogoDark?: ReactElement;
   loginMethods: LoginMethod[];
   loginLeftImageSrc: string;
   loginTopImageSrc?: string;
 }
+
+interface AppLayoutProps {
+  layoutConfig: LayoutConfig;
+  appLogo: ReactElement;
+  appLogoDark?: ReactElement;
+}
+
+// It's necessary to wrap the useLayoutConfig hook in a component
+// Because it requires the ThemeProvider context
+const AppLayout: React.FC<AppLayoutProps> = ({
+  layoutConfig,
+  appLogo,
+  appLogoDark,
+}) => {
+  const layoutConfigExtended = useLayoutConfig({
+    layoutConfig,
+    AppLogo: appLogo,
+    AppLogoDark: appLogoDark,
+  });
+
+  return (
+    <DashboardLayout layoutConfig={layoutConfigExtended}>
+      <Container maxWidth="lg" sx={{ margin: '0 auto' }}>
+        <Stack alignItems="center" gap="4rem"></Stack>
+        {/* 6. Add the react-router-dom Outlet */}
+        <Outlet />
+      </Container>
+    </DashboardLayout>
+  );
+};
 
 // AppBase is the base component of the app. It is responsible for:
 // 1. Initializing Firebase
@@ -65,6 +101,8 @@ export const AppBase: React.FC<AppBaseProps> = ({
   routeElements,
   openRouteElements,
   loadingLogo,
+  appLogo,
+  appLogoDark,
   loginMethods,
   loginLeftImageSrc,
   loginTopImageSrc,
@@ -87,14 +125,13 @@ export const AppBase: React.FC<AppBaseProps> = ({
               >
                 {/* 4. Wrap the App with the LocalizationProvider */}
                 <LocalizationProvider>
-                  {/* 5. Wrap the App with the DashboardLayout passing the layout config */}
-                  <DashboardLayout layoutConfig={layoutConfig}>
-                    <Container maxWidth="lg" sx={{ margin: '0 auto' }}>
-                      <Stack alignItems="center" gap="4rem"></Stack>
-                      {/* 6. Add the react-router-dom Outlet */}
-                      <Outlet />
-                    </Container>
-                  </DashboardLayout>
+                  {/* 5. In AppLayout, wrap the App with the DashboardLayout passing the layout config */}
+                  {/* 6. In AppLayout, add the react-router-dom Outlet */}
+                  <AppLayout
+                    layoutConfig={layoutConfig}
+                    appLogo={appLogo}
+                    appLogoDark={appLogoDark}
+                  />
                 </LocalizationProvider>
               </PrivateRoute>
             }
@@ -135,7 +172,7 @@ export const AppBase: React.FC<AppBaseProps> = ({
               />
             }
           />
-          {/* 11. Create open routes */}
+          {/* 11. Create open routes without layouts */}
           {openRouteElements?.map((routeElement, index) => (
             <Route {...routeElement} key={index} />
           ))}

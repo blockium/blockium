@@ -9,7 +9,6 @@ import { AppBase } from '@blockium/appbase';
 import { ThemeConfig } from '@blockium/theme';
 import { CriatyLogo } from '@criaty/ui-custom';
 import { LayoutConfig } from '@blockium/ui-mininal-tmpl';
-import { useLayoutConfig } from '@blockium/firebase';
 
 // 1. Dynamically import pages in order to optimize request time
 const BusinessPage = loadable(() =>
@@ -152,11 +151,6 @@ export const App: React.FC = (props) => {
       ],
     },
   };
-  const layoutConfigExtended = useLayoutConfig({
-    layoutConfig,
-    AppLogo: <CriatyLogo />,
-    AppLogoDark: <CriatyLogo colorScheme="green-green-white-transparent" />,
-  });
 
   // 4. Define the routes
   const routeElements = [
@@ -172,8 +166,10 @@ export const App: React.FC = (props) => {
     <AppBase
       firebaseConfig={firebaseConfig}
       themeConfig={themeConfig}
-      layoutConfig={layoutConfigExtended}
+      layoutConfig={layoutConfig}
       routeElements={routeElements}
+      appLogo={<CriatyLogo />}
+      appLogoDark={<CriatyLogo colorScheme="green-green-white-transparent" />}
       loadingLogo={
         <CriatyLogo
           full={false}

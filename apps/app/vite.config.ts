@@ -53,7 +53,7 @@ export default defineConfig({
   // },
 
   esbuild: {
-    // minifyIdentifiers: false,
+    minifyIdentifiers: true,
   },
 
   build: {
