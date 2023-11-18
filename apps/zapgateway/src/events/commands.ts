@@ -19,7 +19,7 @@ const login = async (msg, client: Client) => {
   try {
     const answer = await axios({
       method: 'post',
-      url: process.env.LOGIN_URL,
+      url: process.env.LOGIN_WHATSAPP_URL,
       data: {
         // phone: contact.number,  // Old way used on version 1.19.5
         phone: contact.id.user, // This works on version 1.21.0

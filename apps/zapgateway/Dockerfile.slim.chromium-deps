@@ -12,7 +12,7 @@ RUN apt-get update \
 ENV HOST=0.0.0.0
 ENV PORT=8000
 ENV POST_GPT_URL='https://us-central1-post-gpt.cloudfunctions.net/chatgpt'
-ENV LOGIN_URL='https://us-central1-post-gpt.cloudfunctions.net/login'
+ENV LOGIN_WHATSAPP_URL='https://us-central1-post-gpt.cloudfunctions.net/loginWhatsApp'
 
 WORKDIR /app
 
