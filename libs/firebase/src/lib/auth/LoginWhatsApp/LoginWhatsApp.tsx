@@ -8,7 +8,7 @@ import { signInAnonymously } from 'firebase/auth';
 import { getAuth } from '../../firebase';
 
 import { CTAButton, LoginHero, Alert } from '@blockium/ui-common';
-import { getUser } from '../apiRequests';
+import { afterLoginWhatsApp } from '../apiRequests';
 
 type LoginProps = {
   leftImageSrc: string;
@@ -29,14 +29,14 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
 
   const sessionId = sessionStorage.getItem('sessionId') || '';
 
-  const loginWithWhatsApp = async () => {
+  const finishLogin = async () => {
     setLoadingWhatsApp(true);
 
     try {
       // Create an anonymous user on Firebase
       const credential = await signInAnonymously(getAuth());
 
-      const answer = await getUser(sessionId, credential.user.uid);
+      const answer = await afterLoginWhatsApp(sessionId, credential.user.uid);
 
       if (answer.status === 200) {
         // Save the user data in the session storage
@@ -54,7 +54,7 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
       //
     } catch (error) {
       console.error(error);
-      setError(t('firebase:error.getUser'));
+      setError(t('firebase:error.afterLoginWhatsApp'));
       //
     } finally {
       setLoadingWhatsApp(false);
@@ -91,7 +91,7 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
             2. {t('firebase:login.whatsapp.msg2')}
           </Typography>
           <CTAButton
-            onClick={loginWithWhatsApp}
+            onClick={finishLogin}
             // variant="outlined"
             loading={loadingWhatsApp}
             sx={{ marginTop: '2rem' }}

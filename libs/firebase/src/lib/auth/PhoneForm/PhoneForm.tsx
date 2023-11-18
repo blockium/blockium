@@ -16,7 +16,7 @@ import { getAuth } from '../../firebase';
 
 import { PhoneInput, CTAButton } from '@blockium/ui-common';
 
-import { loginWithPhone } from '../apiRequests';
+import { afterLoginPhone } from '../apiRequests';
 
 export const PhoneForm: React.FC = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -30,7 +30,7 @@ export const PhoneForm: React.FC = () => {
   const [requestDisplayName, setRequestDisplayName] = useState(false);
   const [displayName, setDisplayName] = useState('');
 
-  const signIn = async () => {
+  const login = async () => {
     try {
       setErrorMessage('');
       setLoading(true);
@@ -54,61 +54,6 @@ export const PhoneForm: React.FC = () => {
     }
   };
 
-  // No priority:
-  // TODO: After login, if there is no user email, shows the t "Você ainda não tem um email associado. O mesmo é necessário para podermos recuperar seu acesso se você necessitar, e também associar sua conta aos seus dados de pagamento. Isso é necessário apenas uma vez. Clique no botão abaixo para cadastrar o email"
-  // TODO: Create a form requesting the user email
-  // TODO: Save the email in the users table
-  const login = async () => {
-    const auth = getAuth();
-    if (!auth.currentUser) {
-      setErrorMessage(t('firebase:error.not-authenticated'));
-      return;
-    }
-
-    let answer;
-    try {
-      answer = await loginWithPhone(auth.currentUser.uid);
-    } catch (error: any) {
-      console.log(error.message);
-      setErrorMessage(t('firebase:error.auth.loginWithPhone'));
-      return;
-    }
-
-    if (answer.status === 200) {
-      // Save the user data in the session storage
-      // Uses the info returned by the API
-      const { userId, phone, name, displayName } = answer.data;
-      sessionStorage.setItem('userId', userId);
-      sessionStorage.setItem('phone', phone);
-      sessionStorage.setItem('name', name);
-      sessionStorage.setItem('displayName', displayName);
-
-      navigate('/');
-      //
-    } else if (answer.status === 204) {
-      // Save the user data in the session storage
-      // Uses the info from the authenticated user
-      const {
-        uid: userId,
-        phoneNumber: phone,
-        displayName: name,
-        displayName,
-      } = auth.currentUser;
-      sessionStorage.setItem('userId', userId);
-      sessionStorage.setItem('phone', phone || t('firebase:label.no-phone'));
-      sessionStorage.setItem('name', name || t('firebase:label.no-name'));
-      sessionStorage.setItem(
-        'displayName',
-        displayName || t('firebase:label.no-name'),
-      );
-
-      navigate('/');
-      //
-    } else {
-      setErrorMessage(answer.data);
-    }
-  };
-
   const verifyCode = async () => {
     try {
       setErrorMessage('');
@@ -119,7 +64,8 @@ export const PhoneForm: React.FC = () => {
         //
       } else {
         if (credential.user.displayName) {
-          await login();
+          // User already has a display name
+          await finishLogin();
           //
         } else {
           // Request user display name
@@ -139,7 +85,7 @@ export const PhoneForm: React.FC = () => {
     }
   };
 
-  const onEnter = async () => {
+  const onSetDisplayName = async () => {
     const auth = getAuth();
     if (!auth.currentUser) {
       setErrorMessage(t('firebase:error.not-authenticated'));
@@ -152,11 +98,69 @@ export const PhoneForm: React.FC = () => {
       await updateProfile(auth.currentUser, {
         displayName,
       });
-      await login();
+      await finishLogin();
       //
     } catch (error: any) {
       console.log(error.message);
       setErrorMessage(t('firebase:error.auth.phone-sign-in'));
+    }
+  };
+
+  // No priority:
+  // TODO: After login, if there is no user email, shows the t "Você ainda não tem um email associado. O mesmo é necessário para podermos recuperar seu acesso se você necessitar, e também associar sua conta aos seus dados de pagamento. Isso é necessário apenas uma vez. Clique no botão abaixo para cadastrar o email"
+  // TODO: Create a form requesting the user email
+  // TODO: Save the email in the users table
+  const finishLogin = async () => {
+    const auth = getAuth();
+    if (!auth.currentUser) {
+      setErrorMessage(t('firebase:error.not-authenticated'));
+      return;
+    }
+
+    let answer;
+    try {
+      answer = await afterLoginPhone(auth.currentUser.uid);
+    } catch (error: any) {
+      console.log(error.message);
+      setErrorMessage(t('firebase:error.auth.afterLoginPhone'));
+      return;
+    }
+
+    if (answer.status === 200) {
+      // Save the user data in the session storage
+      // Uses the info returned by the API
+      const { userId, name, displayName, phone, email } = answer.data;
+      sessionStorage.setItem('userId', userId);
+      sessionStorage.setItem('phone', phone);
+      sessionStorage.setItem('email', email);
+      sessionStorage.setItem('name', name);
+      sessionStorage.setItem('displayName', displayName);
+
+      navigate('/');
+      //
+    } else if (answer.status === 204) {
+      // Save the user data in the session storage
+      // Uses the info from the authenticated user
+      const {
+        uid: userId,
+        phoneNumber: phone,
+        email,
+        displayName: name,
+        displayName,
+      } = auth.currentUser;
+      sessionStorage.setItem('userId', userId);
+      sessionStorage.setItem('phone', phone || t('firebase:label.no-phone'));
+      sessionStorage.setItem('email', email || t('firebase:label.no-email'));
+      sessionStorage.setItem('name', name || t('firebase:label.no-name'));
+      sessionStorage.setItem(
+        'displayName',
+        displayName || t('firebase:label.no-name'),
+      );
+
+      navigate('/');
+      //
+    } else {
+      setErrorMessage(answer.data);
     }
   };
 
@@ -176,7 +180,7 @@ export const PhoneForm: React.FC = () => {
       />
       {!confirmationResult && (
         <CTAButton
-          onClick={signIn}
+          onClick={login}
           startIcon={<PhoneIcon sx={{ marginRight: '1rem' }} />}
           loading={loading}
           disabled={phoneNumber.length < 11}
@@ -213,7 +217,7 @@ export const PhoneForm: React.FC = () => {
             onChange={(e) => setDisplayName(e.target.value)}
           />
           <CTAButton
-            onClick={onEnter}
+            onClick={onSetDisplayName}
             loading={loading}
             disabled={displayName.length < 3}
           >

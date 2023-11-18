@@ -110,12 +110,9 @@ export const AppBase: React.FC<AppBaseProps> = ({
             element={
               // 9. In the login component, define the login methods
               <Login
+                loginMethods={loginMethods}
                 leftImageSrc={loginLeftImageSrc}
                 topImageSrc={loginTopImageSrc || loginLeftImageSrc}
-                // TODO: loginMethods should be a prop of Login
-                // loginMethods={loginMethods}
-                loginWhatsApp="/login-whatsapp"
-                loginPhone="/login-phone"
               />
             }
           />
