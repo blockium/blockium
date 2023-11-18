@@ -82,7 +82,7 @@ export const Login: React.FC<LoginProps> = ({
 
     try {
       const authUser = await signIn('google');
-      finishLoginWithEmail(authUser);
+      await finishLoginWithEmail(authUser);
     } catch (error: any) {
       setError(error.message);
     } finally {
