@@ -79,10 +79,9 @@ export const AppRouter = () => {
           element={
             // 7. In the login component, define the login methods
             <Login
+              loginMethods={['whatsapp', 'phone', 'google']}
               leftImageSrc="/images/login_768_1064.webp"
               topImageSrc="/images/login_1064_768.webp"
-              loginWhatsApp="/login-whatsapp"
-              loginPhone="/login-phone"
             />
           }
         />
