@@ -43,7 +43,7 @@ export default defineConfig({
   plugins: [
     react(),
     nxViteTsPaths(),
-    VitePWA({ registerType: 'autoUpdate' }),
+    VitePWA({ manifest: false, registerType: 'autoUpdate' }),
     // splitVendorChunkPlugin(),
   ],
 
