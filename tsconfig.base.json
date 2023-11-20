@@ -1,21 +1,26 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    // Basic options
     "noEmit": true,
     "module": "esnext",
     "target": "es2017",
     "jsx": "react-jsx",
+    // Optimization options
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "importHelpers": true,
+    // Linting Options
     "strict": true,
     "noUnusedLocals": true,
     "noFallthroughCasesInSwitch": true,
+    // Module Resolution Options
     "baseUrl": ".",
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
+    //
     "paths": {
       "@blockium/appbase": ["libs/appbase/src/index.ts"],
       "@blockium/firebase": ["libs/firebase/src/index.ts"],
