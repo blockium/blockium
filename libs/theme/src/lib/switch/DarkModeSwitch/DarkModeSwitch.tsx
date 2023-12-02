@@ -1,7 +1,4 @@
-import { styled } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
-import Switch from '@mui/material/Switch';
-import { Stack } from '@mui/material';
+import { Stack, Switch, Typography, styled } from '@mui/material';
 
 import { useTranslation } from 'react-i18next';
 

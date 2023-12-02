@@ -1,4 +1,4 @@
-import { alpha, PaletteOptions } from '@mui/material/styles';
+import { alpha, PaletteColor, PaletteOptions } from '@mui/material/styles';
 import { ColorPartial } from '@mui/material/styles/createPalette';
 
 // In TypeScript, we need to use module augmentation for the theme to accept  aditional values:
@@ -14,30 +14,6 @@ declare module '@mui/material' {
     500_56: string;
     500_80: string;
   }
-}
-
-export interface PaletteColor {
-  lighter?: string;
-  light?: string;
-  main?: string;
-  dark?: string;
-  darker?: string;
-  contrastText?: string;
-}
-
-export interface BackgroundColor {
-  paper?: string;
-  default?: string;
-  neutral?: string;
-}
-
-export interface PalleteConfig {
-  primaryColors: PaletteColor;
-  primaryDarkColors: PaletteColor;
-  secondaryColors: PaletteColor;
-  secondaryDarkColors?: PaletteColor;
-  backgroundColors?: BackgroundColor;
-  backgroundDarkColors?: BackgroundColor;
 }
 
 declare module '@mui/material/styles' {
@@ -85,6 +61,21 @@ declare module '@mui/material/styles' {
       red: string[];
     };
   }
+}
+
+export interface BackgroundColor {
+  paper?: string;
+  default?: string;
+  neutral?: string;
+}
+
+export interface PalleteConfig {
+  primaryColors: Omit<PaletteColor, 'contrastText'>;
+  primaryDarkColors: Omit<PaletteColor, 'contrastText'>;
+  secondaryColors: Omit<PaletteColor, 'contrastText'>;
+  secondaryDarkColors?: Omit<PaletteColor, 'contrastText'>;
+  backgroundColors?: BackgroundColor;
+  backgroundDarkColors?: BackgroundColor;
 }
 
 // ----------------------------------------------------------------------
@@ -211,7 +202,7 @@ const CHART_COLORS = {
 };
 
 export const paletteLight: (config?: PalleteConfig) => PaletteOptions = (
-  config?: PalleteConfig
+  config?: PalleteConfig,
 ) => {
   const primaryGradient =
     config?.primaryColors.light && config?.primaryColors.main
@@ -257,13 +248,13 @@ export const paletteLight: (config?: PalleteConfig) => PaletteOptions = (
 };
 
 export const paletteDark: (config?: PalleteConfig) => PaletteOptions = (
-  config?: PalleteConfig
+  config?: PalleteConfig,
 ) => {
   const primaryGradient =
     config?.primaryDarkColors.light && config?.primaryDarkColors.main
       ? createGradient(
           config.primaryDarkColors.light,
-          config.primaryDarkColors.main
+          config.primaryDarkColors.main,
         )
       : GRADIENTS.primary;
 
@@ -307,7 +298,7 @@ export const paletteDark: (config?: PalleteConfig) => PaletteOptions = (
 
 const createPalette: (
   mode: 'light' | 'dark',
-  config?: PalleteConfig
+  config?: PalleteConfig,
 ) => PaletteOptions = (mode, config) => {
   return mode === 'light' ? paletteLight(config) : paletteDark(config);
 };

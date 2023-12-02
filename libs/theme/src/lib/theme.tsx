@@ -20,9 +20,13 @@ import {
   CssBaseline,
   ThemeOptions,
   useMediaQuery,
+  LinkProps,
 } from '@mui/material';
-import type { LinkProps } from '@mui/material/Link';
-import { ptBR } from '@mui/material/locale';
+
+// Current supported languages
+import { Localization, enUS, ptBR } from '@mui/material/locale';
+
+import i18next from 'i18next';
 
 import componentsOverride from './overrides';
 import createPalette, { PalleteConfig } from './palette';
@@ -76,6 +80,7 @@ export interface ThemeConfig {
   fontConfig?: FontConfig;
   palleteConfig?: PalleteConfig;
   initialMode?: 'system' | 'light' | 'dark';
+  lang?: Localization;
 }
 interface ThemeProviderProps extends PropsWithChildren {
   config?: ThemeConfig;
@@ -85,7 +90,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
   config,
   children,
 }) => {
-  const { fontConfig, palleteConfig, initialMode } = config || {};
+  const { fontConfig, palleteConfig, initialMode, lang } = config || {};
 
   const systemMode = useMediaQuery('(prefers-color-scheme: dark)')
     ? 'dark'
@@ -150,7 +155,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
 
   const theme = createTheme(
     themeOptions,
-    ptBR, // TODO: dynamically define locale
+    lang || (i18next.language === 'pt-BR' ? ptBR : enUS),
   );
   theme.components = { ...componentsOverride(theme), ...theme.components };
 
