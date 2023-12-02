@@ -1,7 +1,7 @@
 import { doc, getDoc, setDoc } from 'firebase/firestore/lite';
 
-import { db } from '../db';
 import { User } from '@criaty/model-types';
+import { db } from '../db';
 
 export const getUser = async (userId: string) => {
   const docRef = doc(db.users(), userId);

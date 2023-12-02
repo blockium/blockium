@@ -8,8 +8,8 @@ import {
   addDoc,
 } from 'firebase/firestore/lite';
 
-import { db } from '../db';
 import { Post } from '@criaty/model-types';
+import { db } from '../db';
 
 export const getPosts = async (
   userId: string,

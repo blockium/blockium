@@ -1,6 +1,17 @@
 {
   "name": "@criaty/model",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "type": "module",
-  "sideEffects": false
+  "sideEffects": false,
+  "dependencies": {
+    "date-fns": "^2.30.0",
+    "react-use": "^17.4.0",
+    "@blockium/firebase": "^0.0.1",
+    "@criaty/model-types": "^0.0.1"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-router-dom": "^6.18.0",
+    "firebase": "^10.5.2"
+  }
 }
