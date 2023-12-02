@@ -4,7 +4,7 @@ import { defineConfig } from 'vite';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import dts from 'vite-plugin-dts';
 import { join } from 'path';
-import { externalizeDeps } from 'vite-plugin-externalize-deps';
+// import { externalizeDeps } from 'vite-plugin-externalize-deps';
 import getSrcInputs from '../vite.config.utils';
 // @ts-expect-error: untyped.
 import postprocess from '@stadtlandnetz/rollup-plugin-postprocess';
@@ -20,7 +20,7 @@ export default defineConfig({
     }),
 
     // Remove external dependencies from the bundle.
-    externalizeDeps(),
+    // externalizeDeps(),
 
     // Remove import for external dependencies at the index files only.
     // In the postprocess pluging, the index.ts files start with "export...",
@@ -65,8 +65,7 @@ export default defineConfig({
         entryFileNames: '[name].js',
       },
       // External packages that should not be bundled into your library.
-      // Not necessary due to externalizeDeps plugin.
-      // external: [],
+      external: [],
     },
   },
 
