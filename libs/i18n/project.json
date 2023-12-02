@@ -17,8 +17,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/libs/i18n",
-        "generatePackageJson": true
+        "outputPath": "dist/libs/i18n"
       },
       "configurations": {
         "development": {
