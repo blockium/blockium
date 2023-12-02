@@ -36,6 +36,11 @@ interface AppBaseProps {
   loginMethods: LoginMethod[];
   loginLeftImageSrc: string;
   loginTopImageSrc?: string;
+  newWhatsAppSessionApi?: string;
+  loginWhatsAppPhone?: string;
+  afterWhatsAppLoginApi?: string;
+  afterEmailLoginApi?: string;
+  afterPhoneLoginApi?: string;
 }
 
 interface AppLayoutProps {
@@ -106,6 +111,11 @@ export const AppBase: React.FC<AppBaseProps> = ({
   loginMethods,
   loginLeftImageSrc,
   loginTopImageSrc,
+  newWhatsAppSessionApi,
+  loginWhatsAppPhone,
+  afterWhatsAppLoginApi,
+  afterEmailLoginApi,
+  afterPhoneLoginApi,
 }) => {
   // 1. Initialize Firebase
   initFirebase(firebaseConfig);
@@ -154,6 +164,9 @@ export const AppBase: React.FC<AppBaseProps> = ({
                 loginMethods={loginMethods}
                 leftImageSrc={loginLeftImageSrc}
                 topImageSrc={loginTopImageSrc || loginLeftImageSrc}
+                newWhatsAppSessionApi={newWhatsAppSessionApi}
+                loginWhatsAppPhone={loginWhatsAppPhone}
+                afterEmailLoginApi={afterEmailLoginApi}
               />
             }
           />
@@ -164,6 +177,7 @@ export const AppBase: React.FC<AppBaseProps> = ({
               <LoginPhone
                 leftImageSrc={loginLeftImageSrc}
                 topImageSrc={loginTopImageSrc || loginLeftImageSrc}
+                afterLoginApi={afterPhoneLoginApi}
               />
             }
           />
@@ -173,6 +187,8 @@ export const AppBase: React.FC<AppBaseProps> = ({
               <LoginWhatsApp
                 leftImageSrc={loginLeftImageSrc}
                 topImageSrc={loginTopImageSrc || loginLeftImageSrc}
+                afterLoginApi={afterWhatsAppLoginApi}
+                loginWhatsAppPhone={loginWhatsAppPhone}
               />
             }
           />

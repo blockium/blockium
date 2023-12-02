@@ -18,7 +18,11 @@ import { PhoneInput, CTAButton } from '@blockium/ui-common';
 
 import { afterLoginPhone } from '../apiRequests';
 
-export const PhoneForm: React.FC = () => {
+type PhoneFormProps = {
+  afterLoginApi?: string;
+};
+
+export const PhoneForm: React.FC<PhoneFormProps> = ({ afterLoginApi }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [loading, setLoading] = useState(false);
   const [confirmationResult, setConfirmationResult] =
@@ -119,7 +123,7 @@ export const PhoneForm: React.FC = () => {
 
     let answer;
     try {
-      answer = await afterLoginPhone(auth.currentUser.uid);
+      answer = await afterLoginPhone(auth.currentUser.uid, afterLoginApi);
     } catch (error: any) {
       console.log(error.message);
       setErrorMessage(t('firebase:error.auth.afterLoginPhone'));

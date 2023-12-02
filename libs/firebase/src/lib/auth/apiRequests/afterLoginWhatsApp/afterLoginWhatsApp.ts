@@ -1,9 +1,12 @@
 import axios from 'axios';
 import { t } from 'i18next';
 
-// Obtain user from VITE_AFTER_LOGIN_WHATSAPP_URL using axios
-export const afterLoginWhatsApp = async (sessionId: string, authId: string) => {
-  if (!import.meta.env['VITE_AFTER_LOGIN_WHATSAPP_URL']) {
+export const afterLoginWhatsApp = async (
+  sessionId: string,
+  authId: string,
+  afterLoginApi?: string,
+) => {
+  if (!afterLoginApi) {
     console.log(t('firebase:log.afterLoginWhatsApp.undefined'));
     return {
       status: 400,
@@ -13,7 +16,7 @@ export const afterLoginWhatsApp = async (sessionId: string, authId: string) => {
 
   return await axios({
     method: 'post',
-    url: import.meta.env['VITE_AFTER_LOGIN_WHATSAPP_URL'],
+    url: afterLoginApi,
     data: {
       sessionId,
       authId,

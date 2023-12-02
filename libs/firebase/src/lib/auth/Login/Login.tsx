@@ -23,6 +23,9 @@ type LoginProps = {
   loginMethods: ('phone' | 'whatsapp' | 'email' | 'google')[];
   leftImageSrc: string;
   topImageSrc?: string;
+  newWhatsAppSessionApi?: string;
+  loginWhatsAppPhone?: string;
+  afterEmailLoginApi?: string;
 };
 
 // No priority:
@@ -32,6 +35,9 @@ export const Login: React.FC<LoginProps> = ({
   loginMethods,
   leftImageSrc,
   topImageSrc,
+  newWhatsAppSessionApi,
+  loginWhatsAppPhone,
+  afterEmailLoginApi,
 }) => {
   const [loadingWhatsApp, setLoadingWhatsApp] = useState(false);
   const [loadingGoogle, setLoadingGoogle] = useState(false);
@@ -43,7 +49,7 @@ export const Login: React.FC<LoginProps> = ({
     setLoadingWhatsApp(true);
 
     try {
-      const answer = await newSession();
+      const answer = await newSession(newWhatsAppSessionApi);
 
       if (answer.status === 201) {
         // Save the session id in the session storage
@@ -51,7 +57,7 @@ export const Login: React.FC<LoginProps> = ({
         sessionStorage.setItem('sessionId', sessionId);
 
         // Open WhatsApp with the session id
-        const phone = import.meta.env['VITE_CRIATY_PHONE'];
+        const phone = loginWhatsAppPhone;
         const message = `LOGIN:${sessionId}`;
         const url = `https://wa.me/${phone}?text=${encodeURIComponent(
           message,
@@ -93,7 +99,7 @@ export const Login: React.FC<LoginProps> = ({
   const finishLoginWithEmail = async (authUser: AuthUser) => {
     let answer;
     try {
-      answer = await afterLoginEmail(authUser.uid);
+      answer = await afterLoginEmail(authUser.uid, afterEmailLoginApi);
     } catch (error: any) {
       console.log(error.message);
       setError(t('firebase:error.auth.afterLoginEmail'));

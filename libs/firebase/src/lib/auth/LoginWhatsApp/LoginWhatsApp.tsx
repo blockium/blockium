@@ -13,6 +13,8 @@ import { afterLoginWhatsApp } from '../apiRequests';
 type LoginProps = {
   leftImageSrc: string;
   topImageSrc?: string;
+  afterLoginApi?: string;
+  loginWhatsAppPhone?: string;
 };
 
 // TODO: !!! After login, if there is no user email, shows the t "Você ainda não tem um email associado. O mesmo é necessário para podermos recuperar seu acesso se você necessitar, e também associar sua conta aos seus dados de pagamento. Isso é necessário apenas uma vez. Clique no botão abaixo para cadastrar o email"
@@ -21,6 +23,8 @@ type LoginProps = {
 export const LoginWhatsApp: React.FC<LoginProps> = ({
   leftImageSrc,
   topImageSrc,
+  afterLoginApi,
+  loginWhatsAppPhone,
 }) => {
   const [loadingWhatsApp, setLoadingWhatsApp] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -36,7 +40,11 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
       // Create an anonymous user on Firebase
       const credential = await signInAnonymously(getAuth());
 
-      const answer = await afterLoginWhatsApp(sessionId, credential.user.uid);
+      const answer = await afterLoginWhatsApp(
+        sessionId,
+        credential.user.uid,
+        afterLoginApi,
+      );
 
       if (answer.status === 200) {
         // Save the user data in the session storage
@@ -66,7 +74,7 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
   // };
 
   const getWhatsAppLink = () => {
-    const phone = import.meta.env['VITE_CRIATY_PHONE'];
+    const phone = loginWhatsAppPhone;
     const message = `LOGIN:${sessionId}`;
     return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
   };

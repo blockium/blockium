@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { t } from '@blockium/i18n';
+import { t } from 'i18next';
 import { PhoneForm } from './PhoneForm';
 
 describe('PhoneForm', async () => {

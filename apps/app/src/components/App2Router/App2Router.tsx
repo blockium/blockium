@@ -82,6 +82,9 @@ export const App2Router = () => {
               loginMethods={['whatsapp', 'phone', 'google']}
               leftImageSrc="/images/login_768_1064.webp"
               topImageSrc="/images/login_1064_768.webp"
+              newWhatsAppSessionApi={import.meta.env.VITE_NEW_SESSION_URL}
+              loginWhatsAppPhone={import.meta.env.VITE_CRIATY_PHONE}
+              afterEmailLoginApi={import.meta.env.VITE_AFTER_LOGIN_EMAIL_URL}
             />
           }
         />
@@ -92,6 +95,7 @@ export const App2Router = () => {
             <LoginPhone
               leftImageSrc="/images/login_768_1064.webp"
               topImageSrc="/images/login_1064_768.webp"
+              afterLoginApi={import.meta.env.VITE_AFTER_LOGIN_PHONE_URL}
             />
           }
         />
@@ -101,6 +105,8 @@ export const App2Router = () => {
             <LoginWhatsApp
               leftImageSrc="/images/login_768_1064.webp"
               topImageSrc="/images/login_1064_768.webp"
+              afterLoginApi={import.meta.env.VITE_AFTER_LOGIN_WHATSAPP_URL}
+              loginWhatsAppPhone={import.meta.env.VITE_CRIATY_PHONE}
             />
           }
         />
