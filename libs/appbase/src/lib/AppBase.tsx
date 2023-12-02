@@ -19,7 +19,7 @@ import { DashboardLayout, LayoutConfig } from '@blockium/ui-mininal-tmpl';
 
 type RouteElement = {
   path: string;
-  element: ReactElement;
+  element: ReactElement | (() => ReactElement);
 };
 
 type LoginMethod = 'phone' | 'whatsapp' | 'email' | 'google';
@@ -82,7 +82,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({
 // 11. Create open routes
 //
 // Functionalities:
-// - Customizable Login Methods: phone, whatsapp, email and google.
+// - Customizable Login Methods: phone, whatsapp, google and email (soon).
 // - Customizable Routes
 // - User Authorization Control for private routes
 // - Internationalization
@@ -92,7 +92,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({
 // - Light and Dark Mode
 // - High Level New UI Components (Heros, Dialogs, Forms, Tables, Charts, etc.)
 // - Low Level New UI Components (Buttons, Inputs, etc.)
-// - Simplified Rich Forms
+// - Simplified Rich Forms (soon)
 //
 export const AppBase: React.FC<AppBaseProps> = ({
   firebaseConfig,
@@ -137,8 +137,12 @@ export const AppBase: React.FC<AppBaseProps> = ({
             }
           >
             {/* 7. Create private routes whose components will be within App */}
-            {routeElements.map((routeElement, index) => (
-              <Route {...routeElement} key={index} />
+            {routeElements.map(({ path, element }, index) => (
+              <Route
+                path={path}
+                element={typeof element === 'function' ? element() : element}
+                key={index}
+              />
             ))}
           </Route>
           {/* 8. Create the login route */}
@@ -173,8 +177,12 @@ export const AppBase: React.FC<AppBaseProps> = ({
             }
           />
           {/* 11. Create open routes without layouts */}
-          {openRouteElements?.map((routeElement, index) => (
-            <Route {...routeElement} key={index} />
+          {openRouteElements?.map(({ path, element }, index) => (
+            <Route
+              path={path}
+              element={typeof element === 'function' ? element() : element}
+              key={index}
+            />
           ))}
         </Routes>
       </BrowserRouter>

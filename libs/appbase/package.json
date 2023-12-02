@@ -1,6 +1,17 @@
 {
   "name": "@blockium/appbase",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "type": "module",
-  "sideEffects": false
+  "sideEffects": false,
+  "dependencies": {
+    "@blockium/firebase": "^0.0.1",
+    "@blockium/theme": "^0.0.1",
+    "@blockium/ui-common": "^0.0.1",
+    "@blockium/ui-mininal-tmpl": "^0.0.1"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-router-dom": "^6.18.0",
+    "@mui/material": "^5.14.17"
+  }
 }

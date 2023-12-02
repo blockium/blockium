@@ -17,8 +17,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/libs/appbase",
-        "generatePackageJson": true
+        "outputPath": "dist/libs/appbase"
       },
       "configurations": {
         "development": {
