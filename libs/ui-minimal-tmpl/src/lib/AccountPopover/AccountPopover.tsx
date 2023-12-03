@@ -12,7 +12,7 @@ import {
   Link,
   ListItemIcon,
 } from '@mui/material';
-import LogoutIcon from '@mui/icons-material/Logout';
+import { Logout as LogoutIcon } from '@mui/icons-material';
 
 import { DarkModeSwitch } from '@blockium/theme';
 import { useTranslation } from 'react-i18next';

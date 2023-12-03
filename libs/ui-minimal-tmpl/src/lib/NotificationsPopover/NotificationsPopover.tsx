@@ -20,9 +20,9 @@ import {
   ListItemAvatar,
   ListItemButton,
 } from '@mui/material';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import DoneAllIcon from '@mui/icons-material/DoneAll';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import { Notifications as NotificationsIcon } from '@mui/icons-material';
+import { DoneAll as DoneAllIcon } from '@mui/icons-material';
+import { AccessTime as AccessTimeIcon } from '@mui/icons-material';
 // utils
 import { fToNow } from '@blockium/utils';
 // components

@@ -2,5 +2,22 @@
   "name": "@blockium/ui-mininal-tmpl",
   "version": "0.0.1",
   "type": "module",
-  "sideEffects": false
+  "sideEffects": false,
+  "dependencies": {
+    "@faker-js/faker": "^8.2.0",
+    "change-case": "^5.1.2",
+    "date-fns": "^2.30.0",
+    "react-i18next": "^13.3.1",
+    "react-use": "^17.4.0",
+    "simplebar-react": "^3.2.4",
+    "@blockium/i18n": "^0.0.1",
+    "@blockium/theme": "^0.0.1",
+    "@blockium/utils": "^0.0.1"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-router-dom": "^6.18.0",
+    "@mui/material": "^5.14.17",
+    "@mui/icons-material": "^5.14.16"
+  }
 }

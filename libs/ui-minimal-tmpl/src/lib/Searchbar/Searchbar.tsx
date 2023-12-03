@@ -10,7 +10,7 @@ import {
   InputAdornment,
   ClickAwayListener,
 } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
+import { Search as SearchIcon } from '@mui/icons-material';
 
 // ----------------------------------------------------------------------
 

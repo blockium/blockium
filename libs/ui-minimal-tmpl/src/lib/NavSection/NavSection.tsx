@@ -12,8 +12,8 @@ import {
   ListItemButton,
   useTheme,
 } from '@mui/material';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { KeyboardArrowDown as KeyboardArrowDownIcon } from '@mui/icons-material';
+import { ChevronRight as ChevronRightIcon } from '@mui/icons-material';
 
 import { MenuOption } from '../DashboardLayout';
 //
@@ -74,7 +74,7 @@ function NavMenu({ item, active }: NavMenuProps) {
     fontWeight: 'fontWeightMedium',
     bgcolor: alpha(
       theme.palette.primary.main,
-      theme.palette.action.selectedOpacity
+      theme.palette.action.selectedOpacity,
     ),
   };
 
