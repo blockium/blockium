@@ -6,8 +6,6 @@ import { GlobalStyles } from '@mui/material';
 import { ApexOptions } from 'apexcharts';
 // import ptBR from 'apexcharts/dist/locales/pt-br.json';
 
-// import '../../../../../dist/libs/theme/lib/theme.d.ts';
-
 // ----------------------------------------------------------------------
 
 export function BaseOptionChartStyle() {
