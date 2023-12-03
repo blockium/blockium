@@ -17,8 +17,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/libs/ui-calendar",
-        "generatePackageJson": true
+        "outputPath": "dist/libs/ui-calendar"
       },
       "configurations": {
         "development": {
