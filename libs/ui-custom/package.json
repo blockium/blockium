@@ -2,5 +2,9 @@
   "name": "@criaty/ui-custom",
   "version": "0.0.1",
   "type": "module",
-  "sideEffects": false
+  "sideEffects": false,
+  "dependencies": {
+    "@blockium/ui-common": "^0.0.1"
+  },
+  "peerDependencies": {}
 }
