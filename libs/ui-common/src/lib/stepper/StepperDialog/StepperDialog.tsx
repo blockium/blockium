@@ -1,12 +1,11 @@
 // import { ReactElement, Ref, forwardRef } from 'react';
-import Dialog from '@mui/material/Dialog';
+import { useNavigate } from 'react-router-dom';
+import { Dialog, IconButton } from '@mui/material';
 // import { TransitionProps } from '@mui/material/transitions';
 // import Slide from '@mui/material/Slide';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
+import { Close as CloseIcon } from '@mui/icons-material';
 
 import StepperSection from '../StepperSection/StepperSection';
-import { useNavigate } from 'react-router-dom';
 
 // const Transition = forwardRef(function Transition(
 //   props: TransitionProps & {

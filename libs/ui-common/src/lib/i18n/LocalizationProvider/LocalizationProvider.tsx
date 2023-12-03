@@ -2,13 +2,12 @@ import { PropsWithChildren } from 'react';
 import { useTranslation } from 'react-i18next';
 
 // Date configurarion for MUI Date Picker
-import { LocalizationProvider as MuiLocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { LocalizationProvider as MuiLocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { enUS as enUSMui, ptBR as ptBRMui } from '@mui/x-date-pickers/locales';
+import { enUS as enUSMui, ptBR as ptBRMui } from '@mui/x-date-pickers';
 
-import enUS from 'date-fns/locale/en-US';
-import ptBR from 'date-fns/locale/pt-BR';
 import { Locale } from 'date-fns';
+import { enUS, ptBR } from 'date-fns/locale';
 
 const dateFnsLocales: { [key: string]: Locale } = {
   'en-US': enUS,

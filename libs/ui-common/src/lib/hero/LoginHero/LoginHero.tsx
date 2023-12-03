@@ -1,6 +1,4 @@
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
+import { Box, Container, Grid } from '@mui/material';
 
 interface LoginHeroProps {
   leftImageSrc: string;

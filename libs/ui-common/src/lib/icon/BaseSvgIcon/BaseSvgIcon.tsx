@@ -1,5 +1,5 @@
 import { styled } from '@mui/material/styles';
-import { SvgIconProps } from '@mui/material/SvgIcon';
+import { SvgIconProps } from '@mui/material';
 
 const IconRoot = styled('svg')(({ theme }) => ({
   // fill: theme.palette.secondary.main,

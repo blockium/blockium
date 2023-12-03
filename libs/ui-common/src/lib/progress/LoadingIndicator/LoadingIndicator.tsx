@@ -1,8 +1,6 @@
 import { ReactNode } from 'react';
 // mui
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import CircularProgress from '@mui/material/CircularProgress';
+import { Box, CircularProgress, Typography } from '@mui/material';
 
 type LoadingIndicatorProps = {
   children?: ReactNode;

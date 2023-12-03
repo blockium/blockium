@@ -1,6 +1,6 @@
 import { createGlobalState } from 'react-use';
 // mui
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import { DesktopDatePicker } from '@mui/x-date-pickers';
 
 export const useCurrentDate = createGlobalState<Date>(new Date());
 

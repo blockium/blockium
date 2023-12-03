@@ -17,8 +17,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/libs/ui-common",
-        "generatePackageJson": true
+        "outputPath": "dist/libs/ui-common"
       },
       "configurations": {
         "development": {

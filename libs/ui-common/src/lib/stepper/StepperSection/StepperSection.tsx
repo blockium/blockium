@@ -7,8 +7,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
+import { Container, Grid } from '@mui/material';
 import { SxProps } from '@mui/material/styles';
 
 // TODO: evaluate other swipe libs:
