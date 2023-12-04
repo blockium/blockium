@@ -7,7 +7,7 @@ import {
   LoginPhone,
   LoginWhatsApp,
 } from '@blockium/firebase';
-import { LoadingPage } from '@blockium/ui-common';
+import { LoadingPage } from '@blockium/ui';
 import { CriatyLogo } from '@criaty/ui-custom';
 
 import { App2 } from '../App2';

@@ -10,7 +10,7 @@ await i18next.use(initReactI18next).init({
   lng: 'en',
   resources: {
     en: {
-      'ui-common': en,
+      ui: en,
     },
   },
 });

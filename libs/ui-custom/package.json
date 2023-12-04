@@ -4,7 +4,7 @@
   "type": "module",
   "sideEffects": false,
   "dependencies": {
-    "@blockium/ui-common": "^0.0.1"
+    "@blockium/ui": "^0.0.1"
   },
   "peerDependencies": {}
 }

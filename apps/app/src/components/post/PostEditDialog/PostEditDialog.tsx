@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 
 import { Post } from '@criaty/model-types';
-import { CTAButton } from '@blockium/ui-common';
+import { CTAButton } from '@blockium/ui';
 
 import { useUpdatePost } from '../../../hooks';
 

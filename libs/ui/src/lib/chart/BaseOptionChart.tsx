@@ -76,7 +76,7 @@ export function BaseOptionChart() {
 
   const LABEL_TOTAL = {
     show: true,
-    label: t('ui-common:chart.total'),
+    label: t('ui:chart.total'),
     color: theme.palette.text.secondary,
     ...theme.typography.subtitle2,
   };

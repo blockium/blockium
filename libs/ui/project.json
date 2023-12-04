@@ -1,7 +1,7 @@
 {
-  "name": "ui-common",
+  "name": "ui",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/ui-common/src",
+  "sourceRoot": "libs/ui/src",
   "projectType": "library",
   "tags": [],
   "targets": {
@@ -9,7 +9,7 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/ui-common/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["libs/ui/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "build": {
@@ -17,7 +17,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/libs/ui-common"
+        "outputPath": "dist/libs/ui"
       },
       "configurations": {
         "development": {
@@ -30,10 +30,10 @@
     },
     "test": {
       "executor": "@nx/vite:test",
-      "outputs": ["{workspaceRoot}/coverage/libs/ui-common"],
+      "outputs": ["{workspaceRoot}/coverage/libs/ui"],
       "options": {
         "passWithNoTests": true,
-        "reportsDirectory": "../../coverage/libs/ui-common"
+        "reportsDirectory": "../../coverage/libs/ui"
       }
     }
   }

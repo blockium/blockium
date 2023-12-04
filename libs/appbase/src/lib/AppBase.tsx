@@ -14,7 +14,7 @@ import {
   LoginWhatsApp,
 } from '@blockium/firebase';
 import { ThemeConfig, ThemeProvider } from '@blockium/theme';
-import { LoadingPage, LocalizationProvider } from '@blockium/ui-common';
+import { LoadingPage, LocalizationProvider } from '@blockium/ui';
 import { DashboardLayout, LayoutConfig } from '@blockium/ui-mininal-tmpl';
 
 type RouteElement = {

@@ -56,7 +56,7 @@ export const Stepper: React.FC<SectionStepperProps> = (
           onClick={handleNext}
           disabled={!hasNextLast && activeStep === maxSteps - 1}
         >
-          {nextLabel || t('ui-common:stepper.next')}
+          {nextLabel || t('ui:stepper.next')}
           {theme.direction === 'rtl' ? (
             <KeyboardArrowLeft />
           ) : (
@@ -76,7 +76,7 @@ export const Stepper: React.FC<SectionStepperProps> = (
           ) : (
             <KeyboardArrowLeft />
           )}
-          {backLabel || t('ui-common:stepper.previous')}
+          {backLabel || t('ui:stepper.previous')}
         </StepperButton>
       }
     />

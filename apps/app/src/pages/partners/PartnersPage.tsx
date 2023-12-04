@@ -16,7 +16,7 @@ import HandshakeIcon from '@mui/icons-material/Handshake';
 
 import { useUser } from '@criaty/model';
 import { Partner } from '@criaty/model-types';
-import { Alert, CTAButton } from '@blockium/ui-common';
+import { Alert, CTAButton } from '@blockium/ui';
 
 import { PartnerView } from './PartnerView';
 

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 
-import { MonthYearPicker, useCurrentDate } from '@blockium/ui-common';
+import { MonthYearPicker, useCurrentDate } from '@blockium/ui';
 import {
   DRAWER_WIDTH,
   useNavbarExtraLine,

@@ -14,7 +14,7 @@ import {
   CTAButton,
   Alert,
   LoginHero,
-} from '@blockium/ui-common';
+} from '@blockium/ui';
 
 import { afterLoginEmail, newSession } from '../apiRequests';
 import { signIn } from '../loginUtils';

@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { signInAnonymously } from 'firebase/auth';
 import { getAuth } from '../../firebase';
 
-import { CTAButton, LoginHero, Alert } from '@blockium/ui-common';
+import { CTAButton, LoginHero, Alert } from '@blockium/ui';
 import { afterLoginWhatsApp } from '../apiRequests';
 
 type LoginProps = {

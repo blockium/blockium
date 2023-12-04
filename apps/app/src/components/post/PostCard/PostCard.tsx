@@ -17,7 +17,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import { Post, PostStatus } from '@criaty/model-types';
 import { savePost, useUser } from '@criaty/model';
-import { ConfirmDialog } from '@blockium/ui-common';
+import { ConfirmDialog } from '@blockium/ui';
 
 import { PostCardPopover } from './PostCardPopover';
 import { useAddPost, useDeletePost } from '../../../hooks';

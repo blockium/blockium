@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Stack, Typography } from '@mui/material';
 
-import { CTAButton } from '@blockium/ui-common';
+import { CTAButton } from '@blockium/ui';
 
 export const NoBusinessPage: React.FC = (props) => {
   const navigate = useNavigate();

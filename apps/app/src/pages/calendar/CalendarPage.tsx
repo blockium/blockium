@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { endOfMonth } from 'date-fns';
 import { Stack, Typography } from '@mui/material';
 
-import { BorderLinearProgress } from '@blockium/ui-common';
+import { BorderLinearProgress } from '@blockium/ui';
 import { CalendarView } from '@blockium/ui-calendar';
 import { getPosts } from '@criaty/model';
 import { Post, PostStatus } from '@criaty/model-types';

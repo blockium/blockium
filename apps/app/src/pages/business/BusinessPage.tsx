@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import StoreIcon from '@mui/icons-material/Store';
 
-import { Alert, CTAButton } from '@blockium/ui-common';
+import { Alert, CTAButton } from '@blockium/ui';
 import { isEmpty } from '@blockium/utils';
 import { saveUserBusiness, useUser } from '@criaty/model';
 

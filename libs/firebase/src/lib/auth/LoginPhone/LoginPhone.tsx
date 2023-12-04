@@ -1,6 +1,6 @@
 import { Stack } from '@mui/material';
 
-import { LoginHero } from '@blockium/ui-common';
+import { LoginHero } from '@blockium/ui';
 import { PhoneForm } from '../PhoneForm';
 
 type LoginProps = {

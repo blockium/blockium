@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 
-import { CTAButton } from '@blockium/ui-common';
+import { CTAButton } from '@blockium/ui';
 import {
   Post,
   PostFormat,

@@ -70,7 +70,7 @@ export default defineConfig({
         '@mui/material',
         '@blockium/firebase',
         '@blockium/theme',
-        '@blockium/ui-common',
+        '@blockium/ui',
         '@blockium/ui-mininal-tmpl',
       ],
     },

@@ -1,4 +1,4 @@
-import { BaseSvgIcon, BaseSvgIconProps } from '@blockium/ui-common';
+import { BaseSvgIcon, BaseSvgIconProps } from '@blockium/ui';
 
 type ColorScheme =
   | 'green-green-gray-white'

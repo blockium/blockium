@@ -66,12 +66,7 @@ export default defineConfig({
         entryFileNames: '[name].js',
       },
       // External packages that should not be bundled into your library.
-      external: [
-        'react',
-        'react-dom',
-        'react/jsx-runtime',
-        '@blockium/ui-common',
-      ],
+      external: ['react', 'react-dom', 'react/jsx-runtime', '@blockium/ui'],
     },
   },
 

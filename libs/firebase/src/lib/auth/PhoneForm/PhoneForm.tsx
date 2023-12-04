@@ -14,7 +14,7 @@ import {
 } from 'firebase/auth';
 import { getAuth } from '../../firebase';
 
-import { PhoneInput, CTAButton } from '@blockium/ui-common';
+import { PhoneInput, CTAButton } from '@blockium/ui';
 
 import { afterLoginPhone } from '../apiRequests';
 

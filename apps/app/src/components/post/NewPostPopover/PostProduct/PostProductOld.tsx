@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { IconButton, Stack, TextField } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 
-import { CTAButton } from '@blockium/ui-common';
+import { CTAButton } from '@blockium/ui';
 import { Post, PostFormat, PostType } from '@criaty/model-types';
 import { addPost as addPostDb } from '@criaty/model';
 
