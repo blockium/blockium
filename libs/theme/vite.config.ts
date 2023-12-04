@@ -72,6 +72,7 @@ export default defineConfig({
         'react/jsx-runtime',
         'react-router-dom',
         '@mui/material',
+        '@mui/material/styles',
         'i18next',
         'i18next-browser-languagedetector',
         'i18next-http-backend',

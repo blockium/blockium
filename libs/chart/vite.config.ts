@@ -10,7 +10,7 @@ import getSrcInputs from '../vite.config.utils';
 import postprocess from '@stadtlandnetz/rollup-plugin-postprocess';
 
 export default defineConfig({
-  cacheDir: '../../node_modules/.vite/ui',
+  cacheDir: '../../node_modules/.vite/chart',
 
   plugins: [
     react(),
@@ -51,7 +51,7 @@ export default defineConfig({
     lib: {
       // Could also be a dictionary or array of multiple entry points.
       entry: 'src/index.ts',
-      name: 'ui',
+      name: 'chart',
       fileName: 'index',
       // Change this to the formats you want to support.
       // Don't forgot to update your package.json as well.
@@ -70,20 +70,12 @@ export default defineConfig({
         'react',
         'react-dom',
         'react/jsx-runtime',
-        'react-router-dom',
         '@mui/material',
         '@mui/material/styles',
-        '@mui/material/LinearProgress',
-        '@mui/icons-material',
-        '@mui/x-date-pickers',
-        '@mui/x-date-pickers/AdapterDateFns',
-        'date-fns',
-        'date-fns/locale',
+        'apexcharts',
+        'react-apexcharts',
+        'lodash',
         'react-i18next',
-        'react-imask',
-        'react-use',
-        'swiper',
-        'swiper/react',
         '@blockium/i18n',
         '@blockium/theme',
         '@blockium/utils',

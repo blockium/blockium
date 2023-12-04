@@ -1,0 +1,8 @@
+{
+  "name": "@blockium/table",
+  "version": "0.0.1",
+  "type": "module",
+  "sideEffects": false,
+  "dependencies": {},
+  "peerDependencies": {}
+}

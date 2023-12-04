@@ -1,0 +1,19 @@
+{
+  "name": "@blockium/chart",
+  "version": "0.0.1",
+  "type": "module",
+  "sideEffects": false,
+  "dependencies": {
+    "apexcharts": "^3.44.0",
+    "lodash-es": "^4.17.21",
+    "react-apexcharts": "^1.4.1",
+    "react-i18next": "^13.3.1",
+    "@blockium/i18n": "^0.0.1",
+    "@blockium/theme": "^0.0.1",
+    "@blockium/utils": "^0.0.1"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "@mui/material": "^5.14.17"
+  }
+}
