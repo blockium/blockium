@@ -70,7 +70,7 @@ export const AccountPopover: React.FC<AccountPopoverProps> = ({
           }),
         }}
       >
-        <Avatar src={userPhotoUrl} alt={t('ui-minimal-tmpl:alt.user-photo')} />
+        <Avatar src={userPhotoUrl} alt={t('layout:alt.user-photo')} />
       </IconButton>
 
       <MenuPopover
@@ -130,7 +130,7 @@ export const AccountPopover: React.FC<AccountPopoverProps> = ({
               <ListItemIcon>
                 <LogoutIcon />
               </ListItemIcon>
-              {t('ui-minimal-tmpl:menu-item.sign-out')}
+              {t('layout:menu-item.sign-out')}
             </Stack>
           </MenuItem>
         )}

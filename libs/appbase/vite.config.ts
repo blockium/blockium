@@ -71,7 +71,7 @@ export default defineConfig({
         '@blockium/firebase',
         '@blockium/theme',
         '@blockium/ui',
-        '@blockium/ui-mininal-tmpl',
+        '@blockium/layout',
       ],
     },
   },

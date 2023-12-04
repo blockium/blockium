@@ -15,7 +15,7 @@ import {
 } from '@blockium/firebase';
 import { ThemeConfig, ThemeProvider } from '@blockium/theme';
 import { LoadingPage, LocalizationProvider } from '@blockium/ui';
-import { DashboardLayout, LayoutConfig } from '@blockium/ui-mininal-tmpl';
+import { DashboardLayout, LayoutConfig } from '@blockium/layout';
 
 type RouteElement = {
   path: string;

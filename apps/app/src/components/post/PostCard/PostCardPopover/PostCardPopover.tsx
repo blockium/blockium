@@ -6,7 +6,7 @@ import MoveDownIcon from '@mui/icons-material/MoveDown';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import { MenuPopover } from '@blockium/ui-mininal-tmpl';
+import { MenuPopover } from '@blockium/layout';
 
 interface IPostCardPopoverProps {
   anchorEl: HTMLElement | null;

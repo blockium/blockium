@@ -8,7 +8,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import { AppBase } from '@blockium/appbase';
 import { ThemeConfig } from '@blockium/theme';
 import { CriatyLogo } from '@criaty/ui-custom';
-import { LayoutConfig } from '@blockium/ui-mininal-tmpl';
+import { LayoutConfig } from '@blockium/layout';
 
 // 1. Dynamically import pages in order to optimize request time
 const BusinessPage = loadable(() =>

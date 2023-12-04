@@ -33,8 +33,8 @@
     "unlink-lib-ui-calendar": "npm uninstall @blockium/ui-calendar -g",
     "link-lib-ui": "cd dist/libs/ui && npm link && cd ../../..",
     "unlink-lib-ui": "npm uninstall @blockium/ui -g",
-    "link-lib-ui-mininal-tmpl": "cd dist/libs/ui-mininal-tmpl && npm link && cd ../../..",
-    "unlink-lib-ui-mininal-tmpl": "npm uninstall @blockium/ui-minimal-tmpl -g",
+    "link-lib-layout": "cd dist/libs/layout && npm link && cd ../../..",
+    "unlink-lib-layout": "npm uninstall @blockium/layout -g",
     "link-lib-utils": "cd dist/libs/utils && npm link && cd ../../..",
     "unlink-lib-utils": "npm uninstall @blockium/utils -g",
     "test-lib": "nx test --coverage"

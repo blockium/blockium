@@ -9,7 +9,7 @@
     "react-use": "^17.4.0",
     "@blockium/i18n": "^0.0.1",
     "@blockium/ui": "^0.0.1",
-    "@blockium/ui-mininal-tmpl": "^0.0.1",
+    "@blockium/layout": "^0.0.1",
     "@blockium/utils": "^0.0.1"
   },
   "peerDependencies": {

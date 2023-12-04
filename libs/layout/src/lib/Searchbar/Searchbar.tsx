@@ -66,7 +66,7 @@ export const Searchbar: React.FC = () => {
               autoFocus
               fullWidth
               disableUnderline
-              placeholder={t('ui-minimal-tmpl:searchbar.button.search') + '...'}
+              placeholder={t('layout:searchbar.button.search') + '...'}
               startAdornment={
                 <InputAdornment position="start">
                   <SearchIcon
@@ -79,7 +79,7 @@ export const Searchbar: React.FC = () => {
               sx={{ mr: 1, fontWeight: 'fontWeightBold' }}
             />
             <Button variant="contained" onClick={handleClose}>
-              {t('ui-minimal-tmpl:searchbar.button.search')}
+              {t('layout:searchbar.button.search')}
             </Button>
           </SearchbarStyle>
         </Slide>

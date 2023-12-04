@@ -1,7 +1,7 @@
 {
-  "name": "ui-minimal-tmpl",
+  "name": "layout",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/ui-minimal-tmpl/src",
+  "sourceRoot": "libs/layout/src",
   "projectType": "library",
   "tags": [],
   "targets": {
@@ -9,7 +9,7 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/ui-minimal-tmpl/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["libs/layout/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "build": {
@@ -17,7 +17,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/libs/ui-minimal-tmpl"
+        "outputPath": "dist/libs/layout"
       },
       "configurations": {
         "development": {
@@ -30,10 +30,10 @@
     },
     "test": {
       "executor": "@nx/vite:test",
-      "outputs": ["{workspaceRoot}/coverage/libs/ui-minimal-tmpl"],
+      "outputs": ["{workspaceRoot}/coverage/libs/layout"],
       "options": {
         "passWithNoTests": true,
-        "reportsDirectory": "../../coverage/libs/ui-minimal-tmpl"
+        "reportsDirectory": "../../coverage/libs/layout"
       }
     }
   }

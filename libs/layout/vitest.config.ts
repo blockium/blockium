@@ -10,7 +10,7 @@ await i18next.use(initReactI18next).init({
   lng: 'en',
   resources: {
     en: {
-      'ui-minimal-tmpl': en,
+      layout: en,
     },
   },
 });

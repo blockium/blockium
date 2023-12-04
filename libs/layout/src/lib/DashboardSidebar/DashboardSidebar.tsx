@@ -95,10 +95,7 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
         <Box sx={{ mb: 5, mx: 2.5 }}>
           <Link underline="none" href="#">
             <AccountStyle>
-              <Avatar
-                src={tenantPhotoUrl}
-                alt={t('ui-minimal-tmpl:alt.user-photo')}
-              />
+              <Avatar src={tenantPhotoUrl} alt={t('layout:alt.user-photo')} />
               <Box sx={{ ml: 2 }}>
                 <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
                   {tenantName}

@@ -1,6 +1,6 @@
 import { useTheme } from '@mui/material';
 
-import { LayoutConfig } from '@blockium/ui-mininal-tmpl';
+import { LayoutConfig } from '@blockium/layout';
 import { formatPhoneNumber } from '@blockium/utils';
 
 import { useAuth, useSignOut } from '../firebase';

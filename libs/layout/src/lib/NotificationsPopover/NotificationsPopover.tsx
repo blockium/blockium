@@ -131,17 +131,16 @@ export const NotificationsPopover: React.FC = () => {
         <Box sx={{ display: 'flex', alignItems: 'center', py: 2, px: 2.5 }}>
           <Box sx={{ flexGrow: 1 }}>
             <Typography variant="subtitle1">
-              {t('ui-minimal-tmpl:notifications.title')}
+              {t('layout:notifications.title')}
             </Typography>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              {t('ui-minimal-tmpl:notifications.unread-info-part1')}{' '}
-              {totalUnRead}
-              {t('ui-minimal-tmpl:notifications.unread-info-part2')}
+              {t('layout:notifications.unread-info-part1')} {totalUnRead}
+              {t('layout:notifications.unread-info-part2')}
             </Typography>
           </Box>
 
           {totalUnRead > 0 && (
-            <Tooltip title={t('ui-minimal-tmpl:notifications.tooltip.alt')}>
+            <Tooltip title={t('layout:notifications.tooltip.alt')}>
               <IconButton color="primary" onClick={handleMarkAllAsRead}>
                 <DoneAllIcon width={20} height={20} />
               </IconButton>
@@ -159,7 +158,7 @@ export const NotificationsPopover: React.FC = () => {
                 disableSticky
                 sx={{ py: 1, px: 2.5, typography: 'overline' }}
               >
-                {t('ui-minimal-tmpl:notifications.section.new')}
+                {t('layout:notifications.section.new')}
               </ListSubheader>
             }
           >
@@ -178,7 +177,7 @@ export const NotificationsPopover: React.FC = () => {
                 disableSticky
                 sx={{ py: 1, px: 2.5, typography: 'overline' }}
               >
-                {t('ui-minimal-tmpl:notifications.section.old')}
+                {t('layout:notifications.section.old')}
               </ListSubheader>
             }
           >
@@ -195,7 +194,7 @@ export const NotificationsPopover: React.FC = () => {
 
         <Box sx={{ p: 1 }}>
           <Button fullWidth disableRipple>
-            {t('ui-minimal-tmpl:notifications.button.view-all')}
+            {t('layout:notifications.button.view-all')}
           </Button>
         </Box>
       </MenuPopover>

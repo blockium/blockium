@@ -76,7 +76,7 @@ export default defineConfig({
         'react-use',
         '@blockium/i18n',
         '@blockium/ui',
-        '@blockium/ui-mininal-tmpl',
+        '@blockium/layout',
         '@blockium/utils',
       ],
     },

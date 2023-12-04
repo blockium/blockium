@@ -6,7 +6,7 @@ import {
   DRAWER_WIDTH,
   useNavbarExtraLine,
   useToolbarExtra,
-} from '@blockium/ui-mininal-tmpl';
+} from '@blockium/layout';
 import { useTranslation } from 'react-i18next';
 
 export const useExtendNavbar = () => {

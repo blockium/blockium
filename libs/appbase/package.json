@@ -7,7 +7,7 @@
     "@blockium/firebase": "^0.0.1",
     "@blockium/theme": "^0.0.1",
     "@blockium/ui": "^0.0.1",
-    "@blockium/ui-mininal-tmpl": "^0.0.1"
+    "@blockium/layout": "^0.0.1"
   },
   "peerDependencies": {
     "react": "^18.2.0",
