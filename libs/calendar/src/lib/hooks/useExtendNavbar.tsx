@@ -25,13 +25,13 @@ export const useExtendNavbar = () => {
           marginRight: (theme) => theme.spacing(2),
         }}
       >
-        <MonthYearPicker label={t('ui-calendar:filter.date')} />
+        <MonthYearPicker label={t('calendar:filter.date')} />
         <Button
           variant="contained"
           color="primary"
           onClick={() => setCurrentDate(new Date())}
         >
-          {t('ui-calendar:button.today')}
+          {t('calendar:button.today')}
         </Button>
       </Box>
     );
@@ -61,13 +61,13 @@ export const useExtendNavbar = () => {
         }}
       >
         {[
-          t('ui-calendar:monday-short'),
-          t('ui-calendar:tuesday-short'),
-          t('ui-calendar:wednesday-short'),
-          t('ui-calendar:thursday-short'),
-          t('ui-calendar:friday-short'),
-          t('ui-calendar:saturday-short'),
-          t('ui-calendar:sunday-short'),
+          t('calendar:monday-short'),
+          t('calendar:tuesday-short'),
+          t('calendar:wednesday-short'),
+          t('calendar:thursday-short'),
+          t('calendar:friday-short'),
+          t('calendar:saturday-short'),
+          t('calendar:sunday-short'),
         ].map((day, index) => (
           <Typography
             color={(theme) =>

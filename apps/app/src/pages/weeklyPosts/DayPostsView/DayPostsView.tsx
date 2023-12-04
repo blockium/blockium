@@ -8,7 +8,7 @@ import { Post, PostParams } from '@criaty/model-types';
 import { fDateCalendar } from '@blockium/utils';
 import { Alert, LoadingIndicator } from '@blockium/ui';
 import { CriatyLogo } from '@criaty/ui-custom';
-import { useCalendarCache } from '@blockium/ui-calendar';
+import { useCalendarCache } from '@blockium/calendar';
 
 import { NewPostPopover, PostCard } from '../../../components';
 

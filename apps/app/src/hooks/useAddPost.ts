@@ -3,7 +3,7 @@ import { startOfMonth } from 'date-fns';
 
 import { addPost as addPostDb } from '@criaty/model';
 import { Post } from '@criaty/model-types';
-import { useCalendarCache } from '@blockium/ui-calendar';
+import { useCalendarCache } from '@blockium/calendar';
 
 export const useAddPost = () => {
   const [calendarCache, setCalendarCache] = useCalendarCache();

@@ -10,7 +10,7 @@ import getSrcInputs from '../vite.config.utils';
 import postprocess from '@stadtlandnetz/rollup-plugin-postprocess';
 
 export default defineConfig({
-  cacheDir: '../../node_modules/.vite/ui-calendar',
+  cacheDir: '../../node_modules/.vite/calendar',
 
   plugins: [
     react(),
@@ -51,7 +51,7 @@ export default defineConfig({
     lib: {
       // Could also be a dictionary or array of multiple entry points.
       entry: 'src/index.ts',
-      name: 'ui-calendar',
+      name: 'calendar',
       fileName: 'index',
       // Change this to the formats you want to support.
       // Don't forget to update your package.json as well.

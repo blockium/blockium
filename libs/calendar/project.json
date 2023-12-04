@@ -1,7 +1,7 @@
 {
-  "name": "ui-calendar",
+  "name": "calendar",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/ui-calendar/src",
+  "sourceRoot": "libs/calendar/src",
   "projectType": "library",
   "tags": [],
   "targets": {
@@ -9,7 +9,7 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/ui-calendar/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["libs/calendar/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "build": {
@@ -17,7 +17,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/libs/ui-calendar"
+        "outputPath": "dist/libs/calendar"
       },
       "configurations": {
         "development": {
@@ -30,10 +30,10 @@
     },
     "test": {
       "executor": "@nx/vite:test",
-      "outputs": ["{workspaceRoot}/coverage/libs/ui-calendar"],
+      "outputs": ["{workspaceRoot}/coverage/libs/calendar"],
       "options": {
         "passWithNoTests": true,
-        "reportsDirectory": "../../coverage/libs/ui-calendar"
+        "reportsDirectory": "../../coverage/libs/calendar"
       }
     }
   }

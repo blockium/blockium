@@ -2,7 +2,7 @@ import { startOfMonth } from 'date-fns';
 
 import { savePost, useUser } from '@criaty/model';
 import { Post } from '@criaty/model-types';
-import { useCalendarCache } from '@blockium/ui-calendar';
+import { useCalendarCache } from '@blockium/calendar';
 
 export const useDeletePost = () => {
   const [calendarCache, setCalendarCache] = useCalendarCache();

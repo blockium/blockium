@@ -7,7 +7,7 @@ import { Stack } from '@mui/material';
 import { DayPostsView } from './DayPostsView';
 import { useExtendNavbar } from './useExtendNavbar';
 
-// TODO: *** Create a useExtendNavbar, similar to useExtendNavbar in libs/ui-calendar/src/lib/hooks/useExtendNavbar.ts, to add the week days to the navbar. When user clicks on a day, scroll to that day in the page (using the browser scroll behavior to an #id in every DayPostView)
+// TODO: *** Create a useExtendNavbar, similar to useExtendNavbar in libs/calendar/src/lib/hooks/useExtendNavbar.ts, to add the week days to the navbar. When user clicks on a day, scroll to that day in the page (using the browser scroll behavior to an #id in every DayPostView)
 export const WeeklyPostsPage: React.FC = (props) => {
   useExtendNavbar();
 
