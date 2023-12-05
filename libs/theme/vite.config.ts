@@ -41,7 +41,7 @@ export default defineConfig({
   // },
 
   esbuild: {
-    minifyIdentifiers: true,
+    minifyIdentifiers: false,
   },
 
   // Configuration for building your library.
@@ -74,9 +74,8 @@ export default defineConfig({
         '@mui/material',
         '@mui/material/styles',
         'i18next',
-        'i18next-browser-languagedetector',
-        'i18next-http-backend',
         'react-i18next',
+        '@blockium/i18n',
       ],
     },
   },

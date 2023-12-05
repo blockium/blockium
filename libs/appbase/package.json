@@ -1,10 +1,10 @@
 {
   "name": "@blockium/appbase",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "sideEffects": false,
   "dependencies": {
-    "@blockium/firebase": "^0.0.1",
+    "@blockium/firebase": "^0.0.2",
     "@blockium/theme": "^0.0.1",
     "@blockium/ui": "^0.0.1",
     "@blockium/layout": "^0.0.1"

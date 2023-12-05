@@ -40,7 +40,7 @@ export default defineConfig({
   // },
 
   esbuild: {
-    minifyIdentifiers: true,
+    minifyIdentifiers: false,
   },
 
   // Configuration for building your library.

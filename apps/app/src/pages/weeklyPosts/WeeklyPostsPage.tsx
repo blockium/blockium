@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useParams } from 'react-router-dom';
 import { addDays, startOfWeek } from 'date-fns';
 import { Stack } from '@mui/material';
 

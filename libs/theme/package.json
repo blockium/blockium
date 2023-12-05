@@ -5,9 +5,8 @@
   "sideEffects": false,
   "dependencies": {
     "i18next": "^23.6.0",
-    "i18next-browser-languagedetector": "^7.1.0",
-    "i18next-http-backend": "^2.3.1",
-    "react-i18next": "^13.3.1"
+    "react-i18next": "^13.3.1",
+    "@blockium/i18n": "^0.0.1"
   },
   "peerDependencies": {
     "react": "^18.2.0",
