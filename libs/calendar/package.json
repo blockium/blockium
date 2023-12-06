@@ -1,6 +1,6 @@
 {
   "name": "@blockium/calendar",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "type": "module",
   "sideEffects": false,
   "scripts": {},
@@ -15,6 +15,7 @@
   },
   "peerDependencies": {
     "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.14.17"
