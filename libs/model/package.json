@@ -3,11 +3,12 @@
   "version": "0.0.1",
   "type": "module",
   "sideEffects": false,
+  "scripts": {},
   "dependencies": {
     "date-fns": "^2.30.0",
     "react-use": "^17.4.0",
-    "@blockium/firebase": "^0.0.1",
-    "@criaty/model-types": "^0.0.1"
+    "@blockium/firebase": "latest",
+    "@criaty/model-types": "latest"
   },
   "peerDependencies": {
     "react": "^18.2.0",

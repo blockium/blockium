@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Stack } from '@mui/material';
-import PhoneIcon from '@mui/icons-material/Phone';
+import { Phone as PhoneIcon } from '@mui/icons-material';
 
 import { useTranslation } from 'react-i18next';
 

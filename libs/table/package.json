@@ -1,8 +1,14 @@
 {
   "name": "@blockium/table",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "type": "module",
   "sideEffects": false,
+  "scripts": {},
   "dependencies": {},
-  "peerDependencies": {}
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.14.17"
+  }
 }

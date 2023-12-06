@@ -1,16 +1,19 @@
 {
   "name": "@blockium/theme",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "type": "module",
   "sideEffects": false,
+  "scripts": {},
   "dependencies": {
     "i18next": "^23.6.0",
     "react-i18next": "^13.3.1",
-    "@blockium/i18n": "^0.0.1"
+    "@blockium/i18n": "latest"
   },
   "peerDependencies": {
     "react": "^18.2.0",
     "react-router-dom": "^6.18.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.14.17"
   }
 }

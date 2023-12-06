@@ -72,7 +72,7 @@ export default defineConfig({
         'react/jsx-runtime',
         'react-router-dom',
         '@mui/material',
-        '@mui/icons-material/Phone',
+        '@mui/icons-material',
         'firebase',
         'firebase/app',
         'firebase/analytics',

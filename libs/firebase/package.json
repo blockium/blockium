@@ -1,21 +1,24 @@
 {
   "name": "@blockium/firebase",
-  "version": "0.0.2",
+  "version": "0.0.14",
   "type": "module",
   "sideEffects": false,
+  "scripts": {},
   "dependencies": {
     "axios": "^1.6.0",
     "i18next": "^23.6.0",
     "react-i18next": "^13.3.1",
     "react-use": "^17.4.0",
-    "@blockium/i18n": "^0.0.1",
-    "@blockium/ui": "^0.0.1",
-    "@blockium/layout": "^0.0.1",
-    "@blockium/utils": "^0.0.1"
+    "@blockium/i18n": "latest",
+    "@blockium/ui": "latest",
+    "@blockium/layout": "latest",
+    "@blockium/utils": "latest"
   },
   "peerDependencies": {
     "react": "^18.2.0",
     "react-router-dom": "^6.18.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.14.17",
     "@mui/icons-material": "^5.14.16",
     "firebase": "^10.5.2"

@@ -1,17 +1,20 @@
 {
   "name": "@blockium/appbase",
-  "version": "0.0.2",
+  "version": "0.0.10",
   "type": "module",
   "sideEffects": false,
+  "scripts": {},
   "dependencies": {
-    "@blockium/firebase": "^0.0.2",
-    "@blockium/theme": "^0.0.1",
-    "@blockium/ui": "^0.0.1",
-    "@blockium/layout": "^0.0.1"
+    "@blockium/firebase": "latest",
+    "@blockium/theme": "latest",
+    "@blockium/ui": "latest",
+    "@blockium/layout": "latest"
   },
   "peerDependencies": {
     "react": "^18.2.0",
     "react-router-dom": "^6.18.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.14.17"
   }
 }

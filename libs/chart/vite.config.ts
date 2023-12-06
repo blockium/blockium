@@ -73,7 +73,11 @@ export default defineConfig({
         '@mui/material',
         '@mui/material/styles',
         'apexcharts',
-        'react-apexcharts',
+        // Not external due to default export = Chart, that cause the bug:
+        // Element type is invalid: expected a string (for built-in components)
+        // or a class/function (for composite components) but got: object.
+        // 'react-apexcharts',
+        'prop-types', // Added because it is a react-apexcharts dependency
         'lodash',
         'react-i18next',
         '@blockium/i18n',

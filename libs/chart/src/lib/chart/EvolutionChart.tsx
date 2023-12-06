@@ -1,5 +1,5 @@
 import { merge } from 'lodash';
-import ReactApexChart from 'react-apexcharts';
+import Chart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 // @mui
 import { Card, CardHeader, Box } from '@mui/material';
@@ -62,7 +62,7 @@ export const EvolutionChart: React.FC<EvolutionChartProps> = ({
       <CardHeader title={title} subheader={subheader} />
 
       <Box sx={{ p: 3, pb: 1 }} dir="ltr">
-        <ReactApexChart
+        <Chart
           type="line"
           series={chartData}
           options={chartOptions}
