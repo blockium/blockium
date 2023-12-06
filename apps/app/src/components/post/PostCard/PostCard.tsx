@@ -13,7 +13,7 @@ import {
   Stepper,
   Typography,
 } from '@mui/material';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { MoreVert as MoreVertIcon } from '@mui/icons-material';
 
 import { Post, PostStatus } from '@criaty/model-types';
 import { savePost, useUser } from '@criaty/model';

@@ -12,7 +12,7 @@ import {
   Select,
   TextField,
 } from '@mui/material';
-import HandshakeIcon from '@mui/icons-material/Handshake';
+import { Handshake as HandshakeIcon } from '@mui/icons-material';
 
 import { CTAButton } from '@blockium/ui';
 import { Partner, PartnerPermission } from '@criaty/model-types';

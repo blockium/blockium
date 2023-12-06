@@ -2,8 +2,8 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import loadable from '@loadable/component';
 
-import WhatsAppIcon from '@mui/icons-material/WhatsApp';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import { WhatsApp as WhatsAppIcon } from '@mui/icons-material';
+import { CalendarMonth as CalendarMonthIcon } from '@mui/icons-material';
 
 import { AppBase } from '@blockium/appbase';
 import { ThemeConfig } from '@blockium/theme';

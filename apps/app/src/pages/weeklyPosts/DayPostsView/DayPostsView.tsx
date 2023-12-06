@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getDay, startOfMonth } from 'date-fns';
 import { Box, Grid, IconButton } from '@mui/material';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { AddCircleOutline as AddCircleOutlineIcon } from '@mui/icons-material';
 
 import { Post, PostParams } from '@criaty/model-types';
 import { fDateCalendar } from '@blockium/utils';

@@ -1,10 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import { Badge, Link, ListItemIcon, MenuItem, Stack } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import RefreshIcon from '@mui/icons-material/Refresh';
-import MoveDownIcon from '@mui/icons-material/MoveDown';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { Edit as EditIcon } from '@mui/icons-material';
+import { Refresh as RefreshIcon } from '@mui/icons-material';
+import { MoveDown as MoveDownIcon } from '@mui/icons-material';
+import { ContentCopy as ContentCopyIcon } from '@mui/icons-material';
+import { Delete as DeleteIcon } from '@mui/icons-material';
 
 import { MenuPopover } from '@blockium/layout';
 

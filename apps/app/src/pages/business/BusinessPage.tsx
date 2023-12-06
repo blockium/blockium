@@ -8,7 +8,7 @@ import {
   CardHeader,
   TextField,
 } from '@mui/material';
-import StoreIcon from '@mui/icons-material/Store';
+import { Store as StoreIcon } from '@mui/icons-material';
 
 import { Alert, CTAButton } from '@blockium/ui';
 import { isEmpty } from '@blockium/utils';

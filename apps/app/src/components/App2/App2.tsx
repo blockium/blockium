@@ -2,8 +2,8 @@ import { useTranslation } from 'react-i18next';
 import { Outlet } from 'react-router-dom';
 import { Container, Stack } from '@mui/material';
 
-import WhatsAppIcon from '@mui/icons-material/WhatsApp';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import { WhatsApp as WhatsAppIcon } from '@mui/icons-material';
+import { CalendarMonth as CalendarMonthIcon } from '@mui/icons-material';
 
 // import styles from './App2.module.scss';
 
