@@ -1,1 +1,1 @@
-export const temp = 1;
+export * from './Table';
