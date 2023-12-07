@@ -65,7 +65,14 @@ export default defineConfig({
         entryFileNames: '[name].js',
       },
       // External packages that should not be bundled into your library.
-      external: ['date-fns', 'date-fns/locale', 'numeral', '@blockium/i18n'],
+      external: [
+        'date-fns',
+        'date-fns/locale',
+        'i18next',
+        'numeral',
+        'numeral/locales/pt-br',
+        '@blockium/i18n',
+      ],
     },
   },
 

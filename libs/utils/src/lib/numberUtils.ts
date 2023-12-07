@@ -1,6 +1,13 @@
 import numeral from 'numeral';
-// import 'numeral/locales/pt-br';
-// numeral.locale('pt-br');
+import i18next from 'i18next';
+import 'numeral/locales/pt-br';
+
+// Add to the end of queue in order to have i18next language set
+setTimeout(() => {
+  if (i18next.language === 'pt-BR') {
+    numeral.locale('pt-br');
+  } // defaults to en
+}, 0);
 
 // ----------------------------------------------------------------------
 
