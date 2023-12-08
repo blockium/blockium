@@ -6,7 +6,7 @@ import { PieChart as PieChartIcon } from '@mui/icons-material';
 
 import { AppBase } from '@blockium/appbase';
 import { ThemeConfig } from '@blockium/theme';
-import { CriatyLogo as AppLogo } from '@criaty/ui-custom';
+import { AppLogo } from './AppLogo';
 import { LayoutConfig } from '@blockium/layout';
 
 // 1. Dynamically import pages in order to optimize request time
@@ -63,10 +63,6 @@ export const App: React.FC = (props) => {
         dark: '#fba7cc',
         darker: '#f97cb2',
       },
-      // backgroundColors: {
-      //   paper: '#FFF',
-      //   default: '#F9FAFB',
-      // },
       backgroundDarkColors: {
         paper: '#212B36', // '#424242',
         default: '#171C23', // '#303030',

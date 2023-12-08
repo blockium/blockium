@@ -1,4 +1,4 @@
-import { Container, Grid, Typography } from '@mui/material';
+import { Container, Grid, Stack, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { Paid as PaidIcon } from '@mui/icons-material';
 import { ThumbUp as ThumbUpIcon } from '@mui/icons-material';
@@ -7,8 +7,9 @@ import { Favorite as FavoriteIcon } from '@mui/icons-material';
 import { People as PeopleIcon } from '@mui/icons-material';
 
 // import { useAuth } from '@blockium/firebase';
-import { EvolutionChart } from '@blockium/chart';
 import { SummaryWidget } from '@blockium/ui';
+import { Revenue } from '../table/revenue/Revenue';
+import { FinanceEvolution } from '../chart/finance/evolution/FinanceEvolution';
 
 export interface IFinanceDashboardProps {
   children?: React.ReactNode;
@@ -33,46 +34,27 @@ export const Home: React.FC<IFinanceDashboardProps> = (props) => {
       </Typography>
 
       <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <EvolutionChart
-            title="Evolução"
-            // subheader="(+43%) than last year"
-            chartColors={[
-              theme.palette.chart.green[0],
-              theme.palette.chart.red[0],
-            ]}
-            chartLabels={[
-              // "01/01/2022",
-              // "02/01/2022",
-              // "03/01/2022",
-              // "04/01/2022",
-              // "05/01/2022",
-              '06/01/2022',
-              '07/01/2022',
-              '08/01/2022',
-              '09/01/2022',
-              '10/01/2022',
-              '11/01/2022',
-            ]}
-            chartData={[
-              {
-                name: 'Receita',
-                type: 'area',
-                fill: 'gradient',
-                // data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43],
-                data: [350, 500, 550, 590, 650, 800],
-              },
-              {
-                name: 'Despesas',
-                type: 'line',
-                fill: 'solid',
-                // data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39],
-                data: [430, 450, 440, 560, 560, 540],
-              },
-            ]}
-          />
+        <Grid item xs={12} md={6} lg={8}>
+          <Revenue />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid item xs={12} md={6} lg={4}>
+          <Stack gap={3}>
+            <FinanceEvolution />
+            <SummaryWidget
+              title="Receita no Mês"
+              total={customerServiceSum}
+              color="success"
+              icon={<PaidIcon />}
+            />
+            <SummaryWidget
+              title="Resultado no Mês"
+              total={monthBalance}
+              color={monthBalance < 0 ? 'error' : 'success'}
+              icon={monthBalance < 0 ? <ThumbDownIcon /> : <ThumbUpIcon />}
+            />
+          </Stack>
+        </Grid>
+        {/* <Grid item xs={12} sm={6} md={3}>
           <SummaryWidget
             title="Receita no Mês"
             total={customerServiceSum}
@@ -103,7 +85,7 @@ export const Home: React.FC<IFinanceDashboardProps> = (props) => {
             color="primary"
             icon={<PeopleIcon />}
           />
-        </Grid>
+        </Grid> */}
         {/* <Grid item xs={12}>
           <ProgressWidget />
         </Grid> */}
