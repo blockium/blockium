@@ -3,7 +3,7 @@ import { createGlobalState } from 'react-use';
 // material
 import { alpha, styled } from '@mui/material/styles';
 import { Box, Stack, AppBar, Toolbar, IconButton } from '@mui/material';
-import { Menu as MenuIcon } from '@mui/icons-material';
+import { ViewQuilt as ViewQuiltIcon } from '@mui/icons-material';
 //
 // import { Searchbar } from '../Searchbar';
 import { AccountPopover, AccountPopoverConfig } from '../AccountPopover';
@@ -63,9 +63,16 @@ export const DashboardNavbar: React.FC<DashboardNavbarProps> = ({
           <Stack direction="row">
             <IconButton
               onClick={onOpenSidebar}
-              sx={{ mr: 1, color: 'text.primary', display: { lg: 'none' } }}
+              sx={{
+                mr: 1,
+                color: (theme) =>
+                  theme.palette.grey[
+                    theme.palette.mode === 'light' ? 600 : 500
+                  ],
+                display: { lg: 'none' },
+              }}
             >
-              <MenuIcon />
+              <ViewQuiltIcon />
             </IconButton>
 
             {/* <Searchbar /> */}

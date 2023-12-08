@@ -64,7 +64,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({
 
   return (
     <DashboardLayout layoutConfig={layoutConfigExtended}>
-      <Container maxWidth="lg" sx={{ margin: '0 auto' }}>
+      <Container maxWidth={false} sx={{ margin: '0 auto' }}>
         <Stack alignItems="center" gap="4rem"></Stack>
         {/* 6. Add the react-router-dom Outlet */}
         <Outlet />

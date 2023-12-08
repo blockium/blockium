@@ -20,11 +20,11 @@ const MainStyle = styled('div')(({ theme }) => ({
   flexGrow: 1,
   overflow: 'auto',
   minHeight: '100%',
-  paddingTop: APP_BAR_MOBILE + 24,
+  paddingTop: APP_BAR_MOBILE,
   paddingBottom: theme.spacing(10), // ORIGINAL FROM MINIMAL UI
   // paddingBottom: theme.spacing(0),
   [theme.breakpoints.up('lg')]: {
-    paddingTop: APP_BAR_DESKTOP + 24,
+    paddingTop: APP_BAR_DESKTOP,
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
   },
