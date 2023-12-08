@@ -1,6 +1,8 @@
 /* eslint-disable react/jsx-pascal-case */
+import { ReactNode } from 'react';
 import { Table } from '@blockium/table';
-import { Box, Stack } from '@mui/material';
+import { Box, Button, Stack, Typography } from '@mui/material';
+import { Add as AddIcon } from '@mui/icons-material';
 import {
   MRT_ColumnDef,
   MRT_GlobalFilterTextField,
@@ -36,7 +38,7 @@ interface IRevenue {
 
 export const Revenue: React.FC = () => {
   const data: IRevenue[] = [];
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 22; i++) {
     const record: IRevenue = {
       id: `record_${i}`,
       creationTime: new Date().toJSON(),
@@ -80,12 +82,15 @@ export const Revenue: React.FC = () => {
     },
   ];
 
+  const globalActions: ReactNode[] = [];
+  const onAddClick = () => void 0;
+
   return (
     <Table
       data={data}
       columns={columns}
       title="Faturamento"
-      // addTitle="Novo Atendimento"
+      // height={500}
       // onAddClick={onAddClick}
       // onEditClick={onEditClick}
       // onDeleteClick={onDeleteClick}
@@ -97,6 +102,28 @@ export const Revenue: React.FC = () => {
       renderTopToolbar={({ table }: { table: MRT_TableInstance<IRevenue> }) => {
         return (
           <Stack>
+            <Stack
+              direction="row"
+              alignItems="center"
+              justifyContent="space-between"
+              // mb={{ xs: 4, sm: 4 }}
+              p={2}
+            >
+              <Typography variant="h5" gutterBottom>
+                Faturamento
+              </Typography>
+              <Stack direction="row" gap={2}>
+                {globalActions?.map((action) => action)}
+                <Button
+                  variant="contained"
+                  startIcon={<AddIcon />}
+                  onClick={(e: React.MouseEvent) => onAddClick()}
+                >
+                  {/* TODO: i18n */}
+                  Novo
+                </Button>
+              </Stack>
+            </Stack>
             {/* <CalendarHeaderDate onCalendarDateChange={onCalendarDateChange} /> */}
             <Stack
               direction="row"
