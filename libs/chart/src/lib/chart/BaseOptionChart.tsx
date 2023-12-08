@@ -4,6 +4,8 @@ import { alpha, useTheme } from '@mui/material/styles';
 import { GlobalStyles } from '@mui/material';
 // chart
 import { ApexOptions } from 'apexcharts';
+import { useColorMode } from '@blockium/theme';
+// TODO: i18n
 // import ptBR from 'apexcharts/dist/locales/pt-br.json';
 
 // ----------------------------------------------------------------------
@@ -72,6 +74,7 @@ export function BaseOptionChartStyle() {
 
 export function BaseOptionChart() {
   const theme = useTheme();
+  const colorMode = useColorMode();
   const { t } = useTranslation();
 
   const LABEL_TOTAL = {
@@ -88,6 +91,10 @@ export function BaseOptionChart() {
   };
 
   const options: ApexOptions = {
+    theme: {
+      mode: colorMode.mode,
+    },
+
     // Colors
     colors: [
       theme.palette.primary.main,
@@ -105,6 +112,8 @@ export function BaseOptionChart() {
       // animations: { enabled: false },
       foreColor: theme.palette.text.disabled,
       fontFamily: theme.typography.fontFamily,
+      background: theme.palette.background.paper,
+      // TODO: i18n
       // localization
       // locales: [ptBR],
       // defaultLocale: 'pt-br',

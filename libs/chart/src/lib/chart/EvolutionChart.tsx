@@ -39,9 +39,11 @@ export const EvolutionChart: React.FC<EvolutionChartProps> = ({
     xaxis: {
       type: 'datetime',
       labels: {
+        // TODO: i18n
         format: 'd/M',
       },
     },
+    // TODO: i18n
     yaxis: [{ title: { text: 'R$' } }],
     tooltip: {
       shared: true,
@@ -49,6 +51,7 @@ export const EvolutionChart: React.FC<EvolutionChartProps> = ({
       y: {
         formatter: (y: number) => {
           if (typeof y !== 'undefined') {
+            // TODO: i18n
             return `R$ ${y.toFixed(0)}`;
           }
           return y;

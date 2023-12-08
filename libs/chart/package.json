@@ -1,11 +1,11 @@
 {
   "name": "@blockium/chart",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "type": "module",
   "sideEffects": false,
   "scripts": {},
   "dependencies": {
-    "apexcharts": "^3.44.0",
+    "apexcharts": "^3.44.2",
     "lodash-es": "^4.17.21",
     "prop-types": "^15.8.1",
     "react-i18next": "^13.3.1",
