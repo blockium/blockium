@@ -27,7 +27,7 @@ type SummaryWidgetProps = {
   sx?: SxProps;
 };
 
-const SummaryWidget: React.FC<SummaryWidgetProps> = ({
+export const SummaryWidget: React.FC<SummaryWidgetProps> = ({
   title,
   total,
   icon,
