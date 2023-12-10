@@ -21,6 +21,7 @@ type EvolutionChartProps = {
   chartColors?: string[];
   chartData: ChartDataItem[];
   chartLabels: string[];
+  height?: number | string;
 };
 
 export const EvolutionChart: React.FC<EvolutionChartProps> = ({
@@ -29,6 +30,7 @@ export const EvolutionChart: React.FC<EvolutionChartProps> = ({
   chartColors,
   chartLabels,
   chartData,
+  height,
   ...other
 }) => {
   const chartOptions: ApexOptions = merge(BaseOptionChart(), {
@@ -61,15 +63,15 @@ export const EvolutionChart: React.FC<EvolutionChartProps> = ({
   });
 
   return (
-    <Card {...other}>
-      <CardHeader title={title} subheader={subheader} />
+    <Card sx={{ height: height || '100%' }} {...other}>
+      <CardHeader title={title} subheader={subheader} sx={{ height: '20%' }} />
 
-      <Box sx={{ p: 3, pb: 1 }} dir="ltr">
+      <Box sx={{ p: 3, mb: 3 }} dir="ltr" height="80%">
         <Chart
           type="line"
           series={chartData}
           options={chartOptions}
-          height={364}
+          height={height ? '100%' : 364}
         />
       </Box>
     </Card>
