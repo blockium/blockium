@@ -1,4 +1,4 @@
-import { Container, Grid, Stack, Typography } from '@mui/material';
+import { Container, Grid, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { Paid as PaidIcon } from '@mui/icons-material';
 import { ThumbUp as ThumbUpIcon } from '@mui/icons-material';
@@ -7,7 +7,7 @@ import { Favorite as FavoriteIcon } from '@mui/icons-material';
 import { People as PeopleIcon } from '@mui/icons-material';
 
 // import { useAuth } from '@blockium/firebase';
-import { SummaryWidget } from '@blockium/ui';
+import { HeroWidget, SummaryWidget } from '@blockium/ui';
 import { Revenue } from '../table/revenue/Revenue';
 import { FinanceEvolution } from '../chart/finance/evolution/FinanceEvolution';
 
@@ -35,26 +35,33 @@ export const Home: React.FC<IFinanceDashboardProps> = (props) => {
 
       <Grid container spacing={3}>
         <Grid item xs={12} md={6} lg={8}>
-          <Revenue />
+          <HeroWidget
+            height={{ xs: 550, md: 320 }}
+            title="Welcome back 👋 Jaydon Frankie"
+            message="If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything."
+            imageSrc="/images/photo0.webp"
+            // imageFullHeight={false}
+            xsImageHeight={200}
+            actions={[
+              {
+                label: 'Go Now',
+                onClick: () => {
+                  console.log('Clicked');
+                },
+              },
+              // {
+              //   label: 'Return',
+              //   onClick: () => {
+              //     console.log('Clicked');
+              //   },
+              // },
+            ]}
+          />
         </Grid>
         <Grid item xs={12} md={6} lg={4}>
-          <Stack gap={3}>
-            <FinanceEvolution />
-            <SummaryWidget
-              title="Receita no Mês"
-              total={customerServiceSum}
-              color="success"
-              icon={<PaidIcon />}
-            />
-            <SummaryWidget
-              title="Resultado no Mês"
-              total={monthBalance}
-              color={monthBalance < 0 ? 'error' : 'success'}
-              icon={monthBalance < 0 ? <ThumbDownIcon /> : <ThumbUpIcon />}
-            />
-          </Stack>
+          <FinanceEvolution />
         </Grid>
-        {/* <Grid item xs={12} sm={6} md={3}>
+        <Grid item xs={12} sm={6} md={3}>
           <SummaryWidget
             title="Receita no Mês"
             total={customerServiceSum}
@@ -85,7 +92,10 @@ export const Home: React.FC<IFinanceDashboardProps> = (props) => {
             color="primary"
             icon={<PeopleIcon />}
           />
-        </Grid> */}
+        </Grid>
+        <Grid item xs={12} md={6} lg={8}>
+          <Revenue />
+        </Grid>
         {/* <Grid item xs={12}>
           <ProgressWidget />
         </Grid> */}
