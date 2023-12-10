@@ -1,1 +1,2 @@
-export { default as SummaryWidget } from './SummaryWidget';
+export * from './HeroWidget';
+export * from './SummaryWidget';
