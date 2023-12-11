@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Container, Grid, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { Paid as PaidIcon } from '@mui/icons-material';
@@ -7,7 +8,8 @@ import { Favorite as FavoriteIcon } from '@mui/icons-material';
 import { People as PeopleIcon } from '@mui/icons-material';
 
 // import { useAuth } from '@blockium/firebase';
-import { HeroWidget, SummaryWidget } from '@blockium/ui';
+import { ChatWidget, IChatMessage, SummaryWidget } from '@blockium/ui';
+
 import { Revenue } from '../table/revenue/Revenue';
 import { FinanceEvolution } from '../chart/finance/evolution/FinanceEvolution';
 
@@ -24,6 +26,41 @@ export const Home: React.FC<IFinanceDashboardProps> = (props) => {
   const monthBalance = -4500;
   const customerCount = 45;
 
+  const [chatMessages, setChatMessages] = useState<IChatMessage[]>([
+    {
+      avatar: '',
+      messages: [
+        'Hi Jenny, How r u today?',
+        'Did you train yesterday',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Volutpat lacus laoreet non curabitur gravida.',
+      ],
+    },
+    {
+      side: 'right',
+      messages: [
+        "Great! What's about you?",
+        'Of course I did. Speaking of which check this out',
+      ],
+    },
+    { avatar: '', messages: ['Im good.', 'See u later.'] },
+  ]);
+
+  const onSendMessage = async (message: string) => {
+    const lastMessages = chatMessages[chatMessages.length - 1];
+    if (lastMessages.side === 'right') {
+      lastMessages.messages?.push(message);
+      setChatMessages([...chatMessages]);
+    } else {
+      setChatMessages([
+        ...chatMessages,
+        {
+          side: 'right',
+          messages: [message],
+        },
+      ]);
+    }
+  };
+
   return (
     <Container maxWidth="xl" sx={{ paddingBottom: theme.spacing(10) }}>
       {/* <Typography variant="h4" sx={{ mb: 5 }}>
@@ -35,7 +72,12 @@ export const Home: React.FC<IFinanceDashboardProps> = (props) => {
 
       <Grid container spacing={3}>
         <Grid item xs={12} md={6} lg={8}>
-          <HeroWidget
+          <ChatWidget
+            messages={chatMessages}
+            height={{ xs: 320, md: 300 }}
+            onSendMessage={onSendMessage}
+          />
+          {/* <HeroWidget
             height={{ xs: 550, md: 320 }}
             title="Welcome back 👋 Jaydon Frankie"
             message="If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything."
@@ -56,7 +98,7 @@ export const Home: React.FC<IFinanceDashboardProps> = (props) => {
               //   },
               // },
             ]}
-          />
+          /> */}
         </Grid>
         <Grid item xs={12} md={6} lg={4}>
           <FinanceEvolution />

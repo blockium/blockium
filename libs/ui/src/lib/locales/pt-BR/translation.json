@@ -1,4 +1,6 @@
 {
+  "chat.msg.label": "Digite sua mensagem",
+  "chat.msg.button.send": "Enviar",
   "stepper.next": "Próximo",
   "stepper.previous": "Anterior",
   "chart.total": "Total"
