@@ -21,7 +21,7 @@ type EvolutionChartProps = {
   chartColors?: string[];
   chartData: ChartDataItem[];
   chartLabels: string[];
-  height?: number | string;
+  height?: number | string | object;
 };
 
 export const EvolutionChart: React.FC<EvolutionChartProps> = ({

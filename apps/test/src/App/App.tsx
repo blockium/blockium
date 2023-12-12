@@ -10,7 +10,9 @@ import { AppLogo } from './AppLogo';
 import { LayoutConfig } from '@blockium/layout';
 
 // 1. Dynamically import pages in order to optimize request time
-const Home = loadable(() => import('../pages').then(({ Home }) => Home));
+const FinanceDashboard = loadable(() =>
+  import('../pages').then(({ FinanceDashboard }) => FinanceDashboard),
+);
 
 export const App: React.FC = (props) => {
   // 1. Configure Firebase
@@ -91,7 +93,7 @@ export const App: React.FC = (props) => {
   };
 
   // 4. Define the routes
-  const routeElements = [{ path: '/', element: <Home /> }];
+  const routeElements = [{ path: '/', element: <FinanceDashboard /> }];
 
   return (
     <AppBase

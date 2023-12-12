@@ -2,21 +2,21 @@
 import { MRT_TableInstance } from 'material-react-table';
 import { DefaultTopToolbar } from '@blockium/table';
 
-import { ICustomerService } from '../../types';
+import { ICost } from '../../types';
 
-interface RevenueTopToolbarProps {
-  table: MRT_TableInstance<ICustomerService>;
+interface CostTopToolbarProps {
+  table: MRT_TableInstance<ICost>;
   onAddClick: () => void;
 }
 
-export const RevenueTopToolbar: React.FC<RevenueTopToolbarProps> = ({
+export const CostTopToolbar: React.FC<CostTopToolbarProps> = ({
   table,
   onAddClick,
 }) => {
   return (
     <DefaultTopToolbar
       table={table}
-      title={'Receita no Mês'}
+      title={'Despesas do Mês'}
       onAddClick={onAddClick}
     />
   );
