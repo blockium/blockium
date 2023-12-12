@@ -35,12 +35,12 @@ const locale = () => {
 // ----------------------------------------------------------------------
 
 export function fDate(date: string | number | Date): string {
-  return format(new Date(date), 'dd/MM/yyyy', { locale: locale() });
+  return format(new Date(date), 'P', { locale: locale() });
   // return format(new Date(date), "dd MMMM yyyy");
 }
 
 export function fDateCalendar(date: string | number | Date): string {
-  return format(new Date(date), 'dd MMM yyyy', { locale: locale() });
+  return format(new Date(date), 'PP', { locale: locale() });
 }
 
 export function fDateCalendarShort(date: string | number | Date): string {
@@ -48,20 +48,16 @@ export function fDateCalendarShort(date: string | number | Date): string {
 }
 
 export function fTime(date: string | number | Date): string {
-  return format(new Date(date), 'HH:mm', { locale: locale() });
+  return format(new Date(date), 'p', { locale: locale() });
   // return format(new Date(date), "dd MMMM yyyy");
 }
 
 export function fDateTime(date: string | number | Date) {
-  return format(new Date(date), 'dd MMM yyyy HH:mm', { locale: locale() });
+  return format(new Date(date), 'PPp', { locale: locale() });
 }
 
 export function fDateTime2(date: string | number | Date) {
-  return format(new Date(date), 'dd/MM/yyyy HH:mm', { locale: locale() });
-}
-
-export function fDateTimeSuffix(date: string | number | Date) {
-  return format(new Date(date), 'dd/MM/yyyy hh:mm p', { locale: locale() });
+  return format(new Date(date), 'Pp', { locale: locale() });
 }
 
 export function fToNow(date: string | number | Date) {
