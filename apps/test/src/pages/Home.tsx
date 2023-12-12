@@ -75,7 +75,7 @@ export const Home: React.FC<IFinanceDashboardProps> = (props) => {
         <Grid item xs={12} md={6} lg={8}>
           <ChatWidget
             messages={chatMessages}
-            height={{ xs: 320, md: 300 }}
+            height={{ xs: 400, md: 320 }}
             onSendMessage={onSendMessage}
           />
           {/* <HeroWidget

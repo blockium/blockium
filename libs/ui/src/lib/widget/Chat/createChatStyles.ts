@@ -4,13 +4,13 @@ export const createChatStyles = (theme: Theme) => {
   const { palette, spacing } = theme;
 
   const radius = spacing(2.5);
-  const size = spacing(4);
+  // const size = spacing(4);
   const rightBgColor = palette.primary.main;
   // if you want the same as facebook messenger, use this color '#09f'
   return {
     avatar: {
-      width: size,
-      height: size,
+      // width: size,
+      // height: size,
     },
     leftRow: {
       textAlign: 'left',
