@@ -1,6 +1,6 @@
 import { Avatar, Box, Grid, Typography, useTheme } from '@mui/material';
 
-import { createStyles } from './createStyles';
+import { createChatStyles } from './createChatStyles';
 
 export interface IChatMessage {
   avatar?: string;
@@ -24,7 +24,7 @@ export const ChatMessage: React.FC<IChatMessage> = ({
   getTypographyProps,
 }) => {
   const theme = useTheme();
-  const styles = createStyles(theme);
+  const styles = createChatStyles(theme);
 
   const msgStyle = (index: number) => {
     if (index === 0) {

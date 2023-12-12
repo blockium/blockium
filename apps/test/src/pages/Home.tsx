@@ -26,9 +26,10 @@ export const Home: React.FC<IFinanceDashboardProps> = (props) => {
   const monthBalance = -4500;
   const customerCount = 45;
 
+  const avatar = 'avatar/face2.webp';
   const [chatMessages, setChatMessages] = useState<IChatMessage[]>([
     {
-      avatar: '',
+      avatar,
       messages: [
         'Hi Jenny, How r u today?',
         'Did you train yesterday',
@@ -42,7 +43,7 @@ export const Home: React.FC<IFinanceDashboardProps> = (props) => {
         'Of course I did. Speaking of which check this out',
       ],
     },
-    { avatar: '', messages: ['Im good.', 'See u later.'] },
+    { avatar: avatar, messages: ['Im good.', 'See u later.'] },
   ]);
 
   const onSendMessage = async (message: string) => {

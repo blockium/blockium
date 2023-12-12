@@ -12,6 +12,7 @@ import {
 import { Send as SendIcon } from '@mui/icons-material';
 
 import ChatMessage, { IChatMessage } from './ChatMessage';
+import { ChatTyping } from './ChatTyping';
 
 type ChatWidgetProps = {
   messages: IChatMessage[];
@@ -43,9 +44,14 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
     if (!message.trim()) return;
 
     setIsMessaging(true);
-    await onSendMessage(message);
     setMessage('');
-    setIsMessaging(false);
+    await onSendMessage(message);
+
+    // TODO: Remove setTimeout
+    // Simulates network communication
+    setTimeout(() => {
+      setIsMessaging(false);
+    }, 5000);
   };
 
   return (
@@ -60,12 +66,13 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
         ref={messageEnd}
         sx={{
           height: 'calc(100% - 100px)',
-          overflow: 'auto',
+          overflowY: 'auto',
         }}
       >
         {messages.map((chatMessage, i) => (
           <ChatMessage key={i} {...chatMessage} />
         ))}
+        {isMessaging && <ChatTyping />}
       </CardContent>
       {/* New message input */}
       <Stack

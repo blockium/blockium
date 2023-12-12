@@ -1,6 +1,6 @@
 import { Theme } from '@mui/material';
 
-export const createStyles = (theme: Theme) => {
+export const createChatStyles = (theme: Theme) => {
   const { palette, spacing } = theme;
 
   const radius = spacing(2.5);
@@ -30,6 +30,7 @@ export const createStyles = (theme: Theme) => {
       borderTopLeftRadius: 0,
       borderBottomLeftRadius: 0,
       backgroundColor: palette.grey[100],
+      color: palette.grey[800],
     },
     right: {
       borderTopRightRadius: 0,
