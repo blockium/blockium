@@ -44,7 +44,7 @@ export const DefaultTable = <T extends MRT_RowData>(
       onDeleteClick={onDeleteClick}
       // enableColumnPinning
       // enableRowPinning
-      initialState={initialState}
+      initialState={{ pagination: { pageSize: 5 }, ...initialState }}
       renderTopToolbar={renderTopToolbar}
       // manualFiltering // To be used on server searching
       onGlobalFilterChange={onGlobalFilterChange}

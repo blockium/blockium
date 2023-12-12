@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import { useState } from 'react';
 import { useWindowSize } from 'react-use';
 import i18next from 'i18next';
 // material-react-table
@@ -12,10 +12,8 @@ import { Delete as DeleteIcon } from '@mui/icons-material';
 type TableProps<T extends object> = {
   data: T[];
   columns: MRT_ColumnDef<T>[];
-  addBtnLabel?: string;
   onEditClick?: (rowIndex: number) => void;
   onDeleteClick?: (rowIndex: number) => void;
-  globalActions?: ReactNode[];
   bottomGap?: number;
   height?: number | string;
   [other: string]: unknown;
@@ -25,10 +23,8 @@ export const Table = <T extends object>(props: TableProps<T>) => {
   const {
     data,
     columns,
-    addBtnLabel,
     onEditClick,
     onDeleteClick,
-    globalActions,
     bottomGap,
     height,
     ...other
@@ -219,6 +215,7 @@ export const Table = <T extends object>(props: TableProps<T>) => {
         // PAGINATION OPTIONS: (bottom toolbar should be enabled)
         // enablePagination={false} // default = true
         // positionPagination="top" // top toolbar should be enabled
+
         //
         // OTHER CONFIGS:
         onIsFullScreenChange={(
