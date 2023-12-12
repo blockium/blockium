@@ -15,6 +15,7 @@
     "build-serve-app": "nx reset && npm run build-app && npx serve dist/apps/app",
     "build-firebase": "nx build firebase-criaty",
     "build-firebase-functions": "nx build firebase-criaty-functions",
+    "build-test": "nx build test --configuration production",
     "build-zap": "nx build zapgateway --configuration production",
     "build-zap-docker": "nx docker-build zapgateway",
     "deploy": "nx deploy firebase-criaty",
