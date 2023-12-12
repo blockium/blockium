@@ -17,7 +17,7 @@ type TableProps<T extends object> = {
   onDeleteClick?: (rowIndex: number) => void;
   globalActions?: ReactNode[];
   bottomGap?: number;
-  height?: number;
+  height?: number | string;
   [other: string]: unknown;
 };
 
@@ -72,8 +72,12 @@ export const Table = <T extends object>(props: TableProps<T>) => {
               display: 'none' /* for Chrome, Safari, and Opera */,
             },
             maxHeight: {
-              xs: height ? height - 153 : windowHeight - 240 - (bottomGap || 0),
-              sm: height ? height - 153 : windowHeight - 260 - (bottomGap || 0),
+              xs: height
+                ? `calc(${height} - 153px)`
+                : windowHeight - 240 - (bottomGap || 0),
+              sm: height
+                ? `calc(${height} - 153px)`
+                : windowHeight - 260 - (bottomGap || 0),
             }, // gap for space above and bellow table
             p: 0,
             m: 0,
