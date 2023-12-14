@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import loadable from '@loadable/component';
 
 import { PieChart as PieChartIcon } from '@mui/icons-material';
+import { AdsClick as AdsClickIcon } from '@mui/icons-material';
 
 import { AppBase } from '@blockium/appbase';
 import { ThemeConfig } from '@blockium/theme';
@@ -12,6 +13,9 @@ import { LayoutConfig } from '@blockium/layout';
 // 1. Dynamically import pages in order to optimize request time
 const FinanceDashboard = loadable(() =>
   import('../pages').then(({ FinanceDashboard }) => FinanceDashboard),
+);
+const MarketingDashboard = loadable(() =>
+  import('../pages').then(({ MarketingDashboard }) => MarketingDashboard),
 );
 
 export const App: React.FC = (props) => {
@@ -84,16 +88,24 @@ export const App: React.FC = (props) => {
       // tenantName: sessionStorage.getItem('name') || '',
       sideMenu: [
         {
-          label: t('side-menu.home'),
+          label: t('side-menu.finance'),
           href: '/',
           icon: <PieChartIcon />,
+        },
+        {
+          label: t('side-menu.marketing'),
+          href: '/marketing',
+          icon: <AdsClickIcon />,
         },
       ],
     },
   };
 
   // 4. Define the routes
-  const routeElements = [{ path: '/', element: <FinanceDashboard /> }];
+  const routeElements = [
+    { path: '/', element: <FinanceDashboard /> },
+    { path: '/marketing', element: <MarketingDashboard /> },
+  ];
 
   return (
     <AppBase

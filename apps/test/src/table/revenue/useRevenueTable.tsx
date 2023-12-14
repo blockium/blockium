@@ -102,6 +102,8 @@ export const useRevenueTable = () => {
       accessorKey: 'serviceDate',
       header: 'Data',
       Cell: ({ cell }) => <span>{fDateTime(cell.getValue<string>())}</span>,
+      muiTableBodyCellProps: { align: 'right' },
+      muiTableHeadCellProps: { align: 'right' },
     },
   ];
 

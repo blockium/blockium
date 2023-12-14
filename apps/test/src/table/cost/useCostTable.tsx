@@ -69,6 +69,7 @@ export const useCostTable = () => {
           </Grid>
         </Grid>
       ),
+      muiTableHeadCellProps: { align: 'right' },
     },
   ];
 
