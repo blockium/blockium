@@ -1,15 +1,16 @@
 /* eslint-disable react/jsx-pascal-case */
 import { useMemo, useState } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
-import { MRT_ColumnDef, MRT_TableInstance } from 'material-react-table';
+import { MRT_ColumnDef } from 'material-react-table';
 
 import { fDecimal, localeContains } from '@blockium/utils';
 
 import { ICost } from '../../types';
-import { CostTopToolbar } from './CostTopToolbar';
 import jsonData from './costs.json';
 
 export const useCostTable = () => {
+  const title = 'Despesas do Mês';
+
   const rawData: ICost[] = jsonData;
   const [searchValue, setSearchValue] = useState('');
 
@@ -30,10 +31,6 @@ export const useCostTable = () => {
 
   const onGlobalFilterChange = (searchValue: string) => {
     setSearchValue(searchValue || '');
-  };
-
-  const renderTopToolbar = ({ table }: { table: MRT_TableInstance<ICost> }) => {
-    return <CostTopToolbar table={table} onAddClick={onAddClick} />;
   };
 
   // TODO: i18n
@@ -83,10 +80,11 @@ export const useCostTable = () => {
   const onDeleteClick = () => void 0;
 
   return {
+    title,
     data,
     columns,
-    renderTopToolbar,
     onGlobalFilterChange,
+    onAddClick,
     onEditClick,
     onDeleteClick,
     initialState: {},

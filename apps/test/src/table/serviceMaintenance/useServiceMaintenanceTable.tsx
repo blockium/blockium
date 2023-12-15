@@ -1,14 +1,15 @@
 /* eslint-disable react/jsx-pascal-case */
 import { useMemo, useState } from 'react';
-import { MRT_ColumnDef, MRT_TableInstance } from 'material-react-table';
+import { MRT_ColumnDef } from 'material-react-table';
 
 import { fDateTime, localeContains } from '@blockium/utils';
 
-import { ServiceMaintenanceTopToolbar } from './ServiceMaintenanceTopToolbar';
 import jsonData from './customerServices.json';
 import { ICustomerService } from '../../types';
 
 export const useServiceMaintenanceTable = () => {
+  const title = 'Manutenção de Serviço';
+
   const rawData: ICustomerService[] = jsonData;
   const [searchValue, setSearchValue] = useState('');
 
@@ -25,14 +26,6 @@ export const useServiceMaintenanceTable = () => {
 
   const onGlobalFilterChange = (searchValue: string) => {
     setSearchValue(searchValue || '');
-  };
-
-  const renderTopToolbar = ({
-    table,
-  }: {
-    table: MRT_TableInstance<ICustomerService>;
-  }) => {
-    return <ServiceMaintenanceTopToolbar table={table} />;
   };
 
   const columns: MRT_ColumnDef<ICustomerService>[] = [
@@ -54,9 +47,9 @@ export const useServiceMaintenanceTable = () => {
   ];
 
   return {
+    title,
     data,
     columns,
-    renderTopToolbar,
     onGlobalFilterChange,
     initialState: {},
   };

@@ -1,15 +1,16 @@
 /* eslint-disable react/jsx-pascal-case */
 import { useMemo, useState } from 'react';
-import { MRT_ColumnDef, MRT_TableInstance } from 'material-react-table';
+import { MRT_ColumnDef } from 'material-react-table';
 import { Box, Grid, Stack, Typography } from '@mui/material';
 
 import { fDateTime, fDecimal, localeContains } from '@blockium/utils';
 
-import { RevenueTopToolbar } from './RevenueTopToolbar';
 import jsonData from './customerServices.json';
 import { ICustomerService } from '../../types';
 
 export const useRevenueTable = () => {
+  const title = 'Receita no Mês';
+
   const rawData: ICustomerService[] = jsonData;
   const [searchValue, setSearchValue] = useState('');
 
@@ -36,14 +37,6 @@ export const useRevenueTable = () => {
 
   const onGlobalFilterChange = (searchValue: string) => {
     setSearchValue(searchValue || '');
-  };
-
-  const renderTopToolbar = ({
-    table,
-  }: {
-    table: MRT_TableInstance<ICustomerService>;
-  }) => {
-    return <RevenueTopToolbar table={table} onAddClick={onAddClick} />;
   };
 
   const columns: MRT_ColumnDef<ICustomerService>[] = [
@@ -117,10 +110,11 @@ export const useRevenueTable = () => {
   const onDeleteClick = () => void 0;
 
   return {
+    title,
     data,
     columns,
-    renderTopToolbar,
     onGlobalFilterChange,
+    onAddClick,
     onEditClick,
     onDeleteClick,
     initialState: {},

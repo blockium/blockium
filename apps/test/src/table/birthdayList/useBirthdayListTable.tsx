@@ -1,14 +1,15 @@
 /* eslint-disable react/jsx-pascal-case */
 import { useMemo, useState } from 'react';
-import { MRT_ColumnDef, MRT_TableInstance } from 'material-react-table';
+import { MRT_ColumnDef } from 'material-react-table';
 
 import { fToNow, localeContains } from '@blockium/utils';
 
-import { BirthdayListTopToolbar } from './BirthdayListTopToolbar';
 import jsonData from './customerServices.json';
 import { ICustomerService } from '../../types';
 
 export const useBirthdayListTable = () => {
+  const title = 'Aniversariantes';
+
   const rawData: ICustomerService[] = jsonData;
   const [searchValue, setSearchValue] = useState('');
 
@@ -27,14 +28,6 @@ export const useBirthdayListTable = () => {
     setSearchValue(searchValue || '');
   };
 
-  const renderTopToolbar = ({
-    table,
-  }: {
-    table: MRT_TableInstance<ICustomerService>;
-  }) => {
-    return <BirthdayListTopToolbar table={table} />;
-  };
-
   const columns: MRT_ColumnDef<ICustomerService>[] = [
     {
       accessorKey: 'customerName',
@@ -50,9 +43,9 @@ export const useBirthdayListTable = () => {
   ];
 
   return {
+    title,
     data,
     columns,
-    renderTopToolbar,
     onGlobalFilterChange,
     initialState: {},
   };

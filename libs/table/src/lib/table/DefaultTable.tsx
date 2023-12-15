@@ -1,20 +1,19 @@
-import { ReactElement } from 'react';
+import { ReactNode } from 'react';
 import {
   MRT_ColumnDef,
   MRT_RowData,
   MRT_TableInstance,
 } from 'material-react-table';
 import { Table } from './Table';
-
-type ToolbarProps<T extends MRT_RowData> = {
-  table: MRT_TableInstance<T>;
-};
+import DefaultTopToolbar from './DefaultTopToolbar';
 
 type DefaultTableProps<T extends MRT_RowData> = {
   data: T[];
   columns: MRT_ColumnDef<T>[];
-  renderTopToolbar?: (props: ToolbarProps<T>) => ReactElement;
+  title?: string;
+  globalActions?: ReactNode[];
   onGlobalFilterChange?: (searchValue: string) => void;
+  onAddClick?: () => void;
   onEditClick?: () => void;
   onDeleteClick?: () => void;
   initialState?: object;
@@ -27,13 +26,30 @@ export const DefaultTable = <T extends MRT_RowData>(
   const {
     data,
     columns,
-    renderTopToolbar,
+    title,
+    globalActions,
     onGlobalFilterChange,
+    onAddClick,
     onEditClick,
     onDeleteClick,
     initialState,
     height,
   } = props;
+
+  const renderTopToolbar = ({
+    table,
+  }: {
+    table: MRT_TableInstance<MRT_RowData>;
+  }) => {
+    return (
+      <DefaultTopToolbar
+        table={table}
+        title={title}
+        onAddClick={onAddClick}
+        globalActions={globalActions}
+      />
+    );
+  };
 
   return (
     <Table
