@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-pascal-case */
 import { useMemo, useState } from 'react';
+import { Cake as CakeIcon } from '@mui/icons-material';
 import { MRT_ColumnDef } from 'material-react-table';
 
 import { fToNow, localeContains } from '@blockium/utils';
@@ -44,6 +45,7 @@ export const useBirthdayListTable = () => {
 
   return {
     title,
+    icon: <CakeIcon />,
     data,
     columns,
     onGlobalFilterChange,

@@ -33,22 +33,34 @@ export const MarketingDashboard = () => {
         <Grid item xs={12} md={6} lg={8}>
           <BirthdayListTable />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <SummaryWidget
-            title="Atendimentos no Mês"
-            total={customerServiceCount}
-            color="info"
-            icon={<FavoriteIcon />}
-          />
+        <Grid item xs={12} md={6} lg={4}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={6} md={12}>
+              <SummaryWidget
+                title="Atendimentos no Mês"
+                total={customerServiceCount}
+                color="info"
+                icon={<FavoriteIcon />}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} md={12}>
+              <SummaryWidget
+                title="Clientes"
+                total={customerCount}
+                color="primary"
+                icon={<PeopleIcon />}
+              />
+            </Grid>
+          </Grid>
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        {/* <Grid item xs={12} sm={6} md={3}>
           <SummaryWidget
             title="Clientes"
             total={customerCount}
             color="primary"
             icon={<PeopleIcon />}
           />
-        </Grid>
+        </Grid> */}
         {/* <Grid item xs={12}>
           <ProgressWidget />
         </Grid> */}

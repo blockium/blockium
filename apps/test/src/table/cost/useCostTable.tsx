@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-pascal-case */
 import { useMemo, useState } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
+import { MoneyOff as MoneyOffIcon } from '@mui/icons-material';
 import { MRT_ColumnDef } from 'material-react-table';
 
 import { fDecimal, localeContains } from '@blockium/utils';
@@ -81,6 +82,7 @@ export const useCostTable = () => {
 
   return {
     title,
+    icon: <MoneyOffIcon />,
     data,
     columns,
     onGlobalFilterChange,

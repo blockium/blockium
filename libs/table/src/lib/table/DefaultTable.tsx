@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactElement, ReactNode } from 'react';
 import {
   MRT_ColumnDef,
   MRT_RowData,
@@ -11,6 +11,7 @@ type DefaultTableProps<T extends MRT_RowData> = {
   data: T[];
   columns: MRT_ColumnDef<T>[];
   title?: string;
+  icon?: ReactElement;
   globalActions?: ReactNode[];
   onGlobalFilterChange?: (searchValue: string) => void;
   onAddClick?: () => void;
@@ -27,6 +28,7 @@ export const DefaultTable = <T extends MRT_RowData>(
     data,
     columns,
     title,
+    icon,
     globalActions,
     onGlobalFilterChange,
     onAddClick,
@@ -45,6 +47,7 @@ export const DefaultTable = <T extends MRT_RowData>(
       <DefaultTopToolbar
         table={table}
         title={title}
+        icon={icon}
         onAddClick={onAddClick}
         globalActions={globalActions}
       />

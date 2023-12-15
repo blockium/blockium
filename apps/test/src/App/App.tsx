@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import loadable from '@loadable/component';
 
-import { PieChart as PieChartIcon } from '@mui/icons-material';
+import { Payment as PaymentIcon } from '@mui/icons-material';
 import { AdsClick as AdsClickIcon } from '@mui/icons-material';
 
 import { AppBase } from '@blockium/appbase';
@@ -90,7 +90,7 @@ export const App: React.FC = (props) => {
         {
           label: t('side-menu.finance'),
           href: '/',
-          icon: <PieChartIcon />,
+          icon: <PaymentIcon />,
         },
         {
           label: t('side-menu.marketing'),

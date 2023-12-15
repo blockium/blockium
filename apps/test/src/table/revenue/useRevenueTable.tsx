@@ -2,6 +2,7 @@
 import { useMemo, useState } from 'react';
 import { MRT_ColumnDef } from 'material-react-table';
 import { Box, Grid, Stack, Typography } from '@mui/material';
+import { ShowChart as ShowChartIcon } from '@mui/icons-material';
 
 import { fDateTime, fDecimal, localeContains } from '@blockium/utils';
 
@@ -111,6 +112,7 @@ export const useRevenueTable = () => {
 
   return {
     title,
+    icon: <ShowChartIcon />,
     data,
     columns,
     onGlobalFilterChange,

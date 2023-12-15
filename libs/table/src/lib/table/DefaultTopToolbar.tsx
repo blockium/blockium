@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-pascal-case */
-import { ReactNode } from 'react';
+import { ReactElement, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Box, Button, Stack, Typography } from '@mui/material';
 import { Add as AddIcon } from '@mui/icons-material';
@@ -17,6 +17,7 @@ import {
 interface DefaultToolbarProps<T extends MRT_RowData> {
   table: MRT_TableInstance<T>;
   title?: string;
+  icon?: ReactElement;
   onAddClick?: () => void;
   globalActions?: ReactNode[];
 }
@@ -24,7 +25,7 @@ interface DefaultToolbarProps<T extends MRT_RowData> {
 export const DefaultTopToolbar = <T extends MRT_RowData>(
   props: DefaultToolbarProps<T>,
 ) => {
-  const { table, title, onAddClick, globalActions } = props;
+  const { table, title, icon, onAddClick, globalActions } = props;
   const { t } = useTranslation();
 
   const hasFirstBar = title || onAddClick || globalActions;
@@ -39,9 +40,12 @@ export const DefaultTopToolbar = <T extends MRT_RowData>(
           px={2}
           pt={3}
         >
-          <Typography variant="h6" gutterBottom>
-            {title}
-          </Typography>
+          <Stack direction="row" gap={1}>
+            {icon}
+            <Typography variant="h6" gutterBottom>
+              {title}
+            </Typography>
+          </Stack>
           <Stack direction="row" gap={2}>
             {globalActions?.map((action) => action)}
             {onAddClick && (

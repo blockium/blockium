@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-pascal-case */
 import { useMemo, useState } from 'react';
+import { HomeRepairService as HomeRepairServiceIcon } from '@mui/icons-material';
 import { MRT_ColumnDef } from 'material-react-table';
 
 import { fDateTime, localeContains } from '@blockium/utils';
@@ -48,6 +49,7 @@ export const useServiceMaintenanceTable = () => {
 
   return {
     title,
+    icon: <HomeRepairServiceIcon />,
     data,
     columns,
     onGlobalFilterChange,
