@@ -9,7 +9,6 @@
     "react-i18next": "^13.3.1",
     "react-use": "^17.4.0",
     "@blockium/i18n": "latest",
-    "@blockium/ui": "latest",
     "@blockium/layout": "latest",
     "@blockium/utils": "latest"
   },

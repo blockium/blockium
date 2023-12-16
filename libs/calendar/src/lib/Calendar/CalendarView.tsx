@@ -10,11 +10,10 @@ import { useIntersection } from 'react-use';
 import { addMonths, startOfMonth } from 'date-fns';
 import { Box } from '@mui/material';
 
-import { useCurrentDate } from '@blockium/ui';
-
 import CalendarMonth from './CalendarMonth'; // Import the MonthView component
-import { useCalendarCache, CalendarCache } from '../hooks/useCalendarCache';
-import { useExtendNavbar } from '../hooks';
+import { useCurrentDate } from '../hooks';
+import { useExtendNavbar } from './useExtendNavbar';
+import { useCalendarCache, CalendarCache } from './useCalendarCache';
 
 const MONTHS_TO_ADD = 12;
 

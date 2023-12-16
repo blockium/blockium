@@ -1,8 +1,6 @@
-import { createGlobalState } from 'react-use';
 // mui
 import { DesktopDatePicker } from '@mui/x-date-pickers';
-
-export const useCurrentDate = createGlobalState<Date>(new Date());
+import { useCurrentDate } from '../hooks';
 
 interface MonthYearPickerProps {
   [key: string]: unknown;

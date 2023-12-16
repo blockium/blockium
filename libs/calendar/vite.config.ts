@@ -75,7 +75,6 @@ export default defineConfig({
         'react-i18next',
         'react-use',
         '@blockium/i18n',
-        '@blockium/ui',
         '@blockium/layout',
         '@blockium/utils',
       ],

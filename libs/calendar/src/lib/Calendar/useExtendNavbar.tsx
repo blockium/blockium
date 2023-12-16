@@ -1,13 +1,15 @@
 import { useEffect } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 
-import { MonthYearPicker, useCurrentDate } from '@blockium/ui';
 import {
   DRAWER_WIDTH,
   useNavbarExtraLine,
   useToolbarExtra,
 } from '@blockium/layout';
 import { useTranslation } from 'react-i18next';
+
+import { MonthYearPicker } from '../MonthYearPicker';
+import { useCurrentDate } from '../hooks/useCurrentDate';
 
 export const useExtendNavbar = () => {
   const [, setCurrentDate] = useCurrentDate();
