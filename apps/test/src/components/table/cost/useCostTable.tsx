@@ -6,7 +6,7 @@ import { MRT_ColumnDef } from 'material-react-table';
 
 import { fDecimal, localeContains } from '@blockium/utils';
 
-import { ICost } from '../../types';
+import { ICost } from '../../../types';
 import jsonData from './costs.json';
 
 export const useCostTable = () => {

@@ -7,7 +7,7 @@ import { ShowChart as ShowChartIcon } from '@mui/icons-material';
 import { fDateTime, fDecimal, localeContains } from '@blockium/utils';
 
 import jsonData from './customerServices.json';
-import { ICustomerService } from '../../types';
+import { ICustomerService } from '../../../types';
 
 export const useRevenueTable = () => {
   const title = 'Receita no Mês';

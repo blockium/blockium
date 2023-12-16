@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import loadable from '@loadable/component';
 
+import { CalendarMonth as CalendarMonthIcon } from '@mui/icons-material';
 import { Payment as PaymentIcon } from '@mui/icons-material';
 import { AdsClick as AdsClickIcon } from '@mui/icons-material';
 
@@ -11,11 +12,14 @@ import { AppLogo } from './AppLogo';
 import { LayoutConfig } from '@blockium/layout';
 
 // 1. Dynamically import pages in order to optimize request time
+const Schedule = loadable(() =>
+  import('../../pages').then(({ Schedule }) => Schedule),
+);
 const FinanceDashboard = loadable(() =>
-  import('../pages').then(({ FinanceDashboard }) => FinanceDashboard),
+  import('../../pages').then(({ FinanceDashboard }) => FinanceDashboard),
 );
 const MarketingDashboard = loadable(() =>
-  import('../pages').then(({ MarketingDashboard }) => MarketingDashboard),
+  import('../../pages').then(({ MarketingDashboard }) => MarketingDashboard),
 );
 
 export const App: React.FC = (props) => {
@@ -88,8 +92,13 @@ export const App: React.FC = (props) => {
       // tenantName: sessionStorage.getItem('name') || '',
       sideMenu: [
         {
-          label: t('side-menu.finance'),
+          label: t('side-menu.schedule'),
           href: '/',
+          icon: <CalendarMonthIcon />,
+        },
+        {
+          label: t('side-menu.finance'),
+          href: '/finance',
           icon: <PaymentIcon />,
         },
         {
@@ -103,7 +112,8 @@ export const App: React.FC = (props) => {
 
   // 4. Define the routes
   const routeElements = [
-    { path: '/', element: <FinanceDashboard /> },
+    { path: '/', element: <Schedule /> },
+    { path: '/finance', element: <FinanceDashboard /> },
     { path: '/marketing', element: <MarketingDashboard /> },
   ];
 

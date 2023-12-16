@@ -6,9 +6,9 @@ import { People as PeopleIcon } from '@mui/icons-material';
 // import { useAuth } from '@blockium/firebase';
 import { SummaryWidget } from '@blockium/ui';
 
-import { ServiceMaintenanceTable } from '../../table/serviceMaintenance/ServiceMaintenanceTable';
+import { ServiceMaintenanceTable } from '../../components/table/serviceMaintenance/ServiceMaintenanceTable';
 import { MarketingChat } from './MarketingChat';
-import { BirthdayListTable } from '../../table/birthdayList/BirthdayListTable';
+import { BirthdayListTable } from '../../components/table/birthdayList/BirthdayListTable';
 
 export const MarketingDashboard = () => {
   const theme = useTheme();

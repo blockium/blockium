@@ -7,10 +7,10 @@ import { ThumbDown as ThumbDownIcon } from '@mui/icons-material';
 // import { useAuth } from '@blockium/firebase';
 import { SummaryWidget } from '@blockium/ui';
 
-import { RevenueTable } from '../../table/revenue/RevenueTable';
+import { RevenueTable } from '../../components/table/revenue/RevenueTable';
 import { FinanceEvolution } from './FinanceEvolution';
 import { FinanceChat } from './FinanceChat';
-import { CostTable } from '../../table/cost/CostTable';
+import { CostTable } from '../../components/table/cost/CostTable';
 // import FinanceHero from './FinanceHero';
 
 export const FinanceDashboard = () => {

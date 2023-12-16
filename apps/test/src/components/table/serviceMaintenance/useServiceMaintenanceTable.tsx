@@ -6,7 +6,7 @@ import { MRT_ColumnDef } from 'material-react-table';
 import { fDateTime, localeContains } from '@blockium/utils';
 
 import jsonData from './customerServices.json';
-import { ICustomerService } from '../../types';
+import { ICustomerService } from '../../../types';
 
 export const useServiceMaintenanceTable = () => {
   const title = 'Manutenção de Serviço';
