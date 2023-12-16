@@ -44,7 +44,7 @@ export function fDateCalendar(date: string | number | Date): string {
 }
 
 export function fDateCalendarShort(date: string | number | Date): string {
-  return format(new Date(date), 'd.MM', { locale: locale() });
+  return format(new Date(date), 'LLL yyyy', { locale: locale() });
 }
 
 export function fTime(date: string | number | Date): string {

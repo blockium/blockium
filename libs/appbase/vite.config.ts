@@ -72,6 +72,7 @@ export default defineConfig({
         '@blockium/theme',
         '@blockium/ui',
         '@blockium/layout',
+        '@blockium/calendar',
       ],
     },
   },

@@ -72,7 +72,6 @@ export default defineConfig({
         'react/jsx-runtime',
         '@mui/material',
         '@mui/icons-material',
-        // '@mui/x-date-pickers',
         'i18next',
         'material-react-table',
         'material-react-table/locales/pt-BR',

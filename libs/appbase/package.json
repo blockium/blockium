@@ -1,6 +1,6 @@
 {
   "name": "@blockium/appbase",
-  "version": "0.0.11",
+  "version": "0.0.14",
   "type": "module",
   "sideEffects": false,
   "scripts": {},
@@ -8,7 +8,8 @@
     "@blockium/firebase": "latest",
     "@blockium/theme": "latest",
     "@blockium/ui": "latest",
-    "@blockium/layout": "latest"
+    "@blockium/layout": "latest",
+    "@blockium/calendar": "latest"
   },
   "peerDependencies": {
     "react": "^18.2.0",

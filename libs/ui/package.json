@@ -1,6 +1,6 @@
 {
   "name": "@blockium/ui",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "type": "module",
   "sideEffects": false,
   "scripts": {},
@@ -21,7 +21,6 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.14.17",
-    "@mui/icons-material": "^5.14.16",
-    "@mui/x-date-pickers": "^6.18.0"
+    "@mui/icons-material": "^5.14.16"
   }
 }

@@ -1,10 +1,16 @@
 {
   "name": "@blockium/calendar",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "type": "module",
   "sideEffects": false,
   "scripts": {},
   "dependencies": {
+    "@fullcalendar/core": "^6.1.10",
+    "@fullcalendar/daygrid": "^6.1.10",
+    "@fullcalendar/interaction": "^6.1.10",
+    "@fullcalendar/list": "^6.1.10",
+    "@fullcalendar/react": "^6.1.10",
+    "@fullcalendar/timegrid": "^6.1.10",
     "date-fns": "^2.30.0",
     "react-i18next": "^13.3.1",
     "react-use": "^17.4.0",
@@ -17,6 +23,8 @@
     "react-dom": "^18.2.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@mui/material": "^5.14.17"
+    "@mui/material": "^5.14.17",
+    "@mui/icons-material": "^5.14.16",
+    "@mui/x-date-pickers": "^6.18.0"
   }
 }
