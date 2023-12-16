@@ -2,34 +2,20 @@ import { useState } from 'react';
 
 import { ChatWidget, IChatMessage } from '@blockium/ui';
 
-const answer = `
-Uma ação possível para aumentar sua receita de forma imediata é a seguinte:
-
-Realize uma campanha de marketing com foco nos agendamentos pendentes:
-
-- Crie uma oferta especial, como um desconto exclusivo, para os próximos agendamentos.
-- Promova essa oferta em suas redes sociais, no seu site e por e-mail para sua lista de contatos.
-- Use gatilhos de urgência, como "oferta por tempo limitado", para incentivar ação imediata.
-- Acompanhe de perto os resultados da campanha e faça ajustes conforme necessário.
-
-Essa ação pode ajudar a atrair mais clientes rapidamente, aumentando sua receita e reduzindo o prejuízo estimado. Não se esqueça de prestar um excelente serviço aos novos clientes para incentivá-los a retornar e se tornarem clientes regulares.`;
-
 export const MarketingChat: React.FC = () => {
   const avatar = 'avatar/face2.webp';
   const [chatMessages, setChatMessages] = useState<IChatMessage[]>([
     {
       avatar,
       messages: [
-        'Olá! 😊 Com base nas informações atuais, é importante focar em aumentar a quantidade de agendamentos pendentes para aproveitar a potencial receita adicional. Você pode considerar estratégias de marketing para atrair mais clientes e prestar um excelente serviço para incentivar a fidelização. Além disso, avalie as despesas para identificar oportunidades de redução e otimização. Estou à disposição para ajudar a elaborar um plano detalhado e trabalhar juntos na busca por resultados positivos! 💰🚀',
+        `
+Olá! Eu sou Belea, sua assistente virtual, e estou aqui para ajudar a criar um texto promocional incrível para o seu negócio de beleza e bem-estar. Primeiro, vamos definir alguns detalhes importantes.
+
+1. É para qual período (Natal, Carnaval, Dia das Mães, etc)?
+
+Agora, por favor, me diga qual período específico você gostaria de destacar nesta promoção.
+      `,
       ],
-    },
-    {
-      side: 'right',
-      messages: ['Mostre uma ação possível'],
-    },
-    {
-      avatar,
-      messages: [answer],
     },
   ]);
 
@@ -48,13 +34,7 @@ export const MarketingChat: React.FC = () => {
         },
       ];
     }
-    setChatMessages([
-      ...newChatMessages,
-      {
-        avatar: avatar,
-        messages: [answer],
-      },
-    ]);
+    setChatMessages([...newChatMessages]);
   };
 
   return (
