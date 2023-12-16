@@ -7,7 +7,7 @@ import { CalendarMonth as CalendarMonthIcon } from '@mui/icons-material';
 
 // import styles from './App2.module.scss';
 
-import { LocalizationProvider } from '@blockium/ui';
+import { LocalizationProvider } from '@blockium/calendar';
 import { DashboardLayout, LayoutConfig } from '@blockium/layout';
 import { useLayoutConfig } from '@blockium/firebase';
 
