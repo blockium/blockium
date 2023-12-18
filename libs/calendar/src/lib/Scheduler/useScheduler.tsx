@@ -1,63 +1,23 @@
 import { useEffect, useRef, useState } from 'react';
-
-// mui
-import { Box } from '@mui/material';
-
-// full calendar
+// Full Calendar
 import FullCalendar from '@fullcalendar/react';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import listPlugin from '@fullcalendar/list';
-import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
-import { EventInput, EventClickArg, DatesSetArg } from '@fullcalendar/core';
-import './fullcalendar.css';
-
-// TODO: I18N
-import ptBRLocale from '@fullcalendar/core/locales/pt-br';
-
+import { DateClickArg } from '@fullcalendar/interaction';
+import { EventClickArg, DatesSetArg } from '@fullcalendar/core';
 // utils
 import { addDays } from 'date-fns';
 // other
-import { ScheduleHeader, ScheduleView } from './ScheduleHeader';
-// import { renderEventContent } from './renderEventContent';
+import { SchedulerType } from './Scheduler';
 import { useCurrentDate } from '../hooks';
 
-// const COLORS = [
-//   "rgb(0, 171, 85)",
-//   "rgb(24, 144, 255)",
-//   "rgb(84, 214, 44)",
-//   "rgb(255, 193, 7)",
-//   "rgb(255, 72, 66)",
-//   "rgb(4, 41, 122)",
-//   "rgb(122, 12, 46)",
-// ];
-
-// const COLORS = [
-//   '#00ab55', // green
-//   '#188fff', // blue
-//   '#54d62c', // lime
-//   '#ffc107', // orange
-//   '#ff4842', // red
-//   '#04297a', // dark blue
-//   '#7a0c2f', // dark red
-// ];
-
-type ScheduleViewerProps = {
-  events: EventInput[];
+type SchedulerProps = {
   onDateClick?: (date: Date) => void;
   onEventClick?: (id: string) => void;
-  height?: number | string | object;
 };
 
-export const ScheduleViewer: React.FC<ScheduleViewerProps> = ({
-  events,
-  onDateClick,
-  onEventClick,
-  height,
-}) => {
+export const useScheduler = ({ onDateClick, onEventClick }: SchedulerProps) => {
   const calendarRef = useRef<FullCalendar>(null);
   const [dateState, setDateState] = useCurrentDate();
-  const [calendarDate, setCalendarDate] = useState<Date>(
+  const [schedulerDate, setSchedulerDate] = useState<Date>(
     new Date(dateState.getFullYear(), dateState.getMonth(), 1),
   );
   // changedDateState is true when dateState is changed from calendar
@@ -102,7 +62,7 @@ export const ScheduleViewer: React.FC<ScheduleViewerProps> = ({
     changedDateState.current = false;
   }, [dateState]);
 
-  const [currentView, setCurrentView] = useState<ScheduleView>('month');
+  const [currentView, setCurrentView] = useState<SchedulerType>('month');
 
   const handleDateClick = (clickInfo: DateClickArg) => {
     // If it is on month view, then goes to day view on selected date
@@ -138,12 +98,12 @@ export const ScheduleViewer: React.FC<ScheduleViewerProps> = ({
       const newYear = date.getFullYear();
       const newMonth = date.getMonth();
       await changeMonthYear(newYear, newMonth);
-      setCalendarDate(new Date(newYear, newMonth, 1));
+      setSchedulerDate(new Date(newYear, newMonth, 1));
     } else {
       const newYear = start.getFullYear();
       const newMonth = start.getMonth();
       await changeMonthYear(newYear, newMonth);
-      setCalendarDate(start);
+      setSchedulerDate(start);
     }
   };
 
@@ -182,56 +142,20 @@ export const ScheduleViewer: React.FC<ScheduleViewerProps> = ({
     calendarApi?.changeView('listWeek');
   };
 
-  return (
-    <Box sx={{ height: height || '100%', overflowY: 'auto' }}>
-      <ScheduleHeader
-        view={currentView}
-        setView={setCurrentView}
-        currentDate={calendarDate}
-        onPrevClick={onPrevClick}
-        onNextClick={onNextClick}
-        onTodayClick={onTodayClick}
-        onMonthClick={onMonthClick}
-        onWeekClick={onWeekClick}
-        onDayClick={onDayClick}
-        onListClick={onListClick}
-      />
-      {/* <Box sx={{ minHeight: "720px", height: "80vh" }}> */}
-      <Box sx={{ minHeight: '920px', height: '80vh' }}>
-        <FullCalendar
-          ref={calendarRef}
-          locale={ptBRLocale}
-          height="100%"
-          nowIndicator
-          dayMaxEvents={true}
-          weekends={true} // TODO: Allow to show/hide weekends
-          allDaySlot={false}
-          // displayEventTime={false}
-          headerToolbar={false}
-          // headerToolbar={{
-          //   left: "prev,next today",
-          //   center: "title",
-          //   right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek",
-          // }}
-          plugins={[
-            dayGridPlugin,
-            timeGridPlugin,
-            interactionPlugin,
-            listPlugin,
-          ]}
-          initialDate={calendarDate}
-          initialView="dayGridMonth"
-          slotMinTime={'06:00:00'}
-          slotMaxTime={'23:00:00'}
-          events={events}
-          dateClick={handleDateClick}
-          eventClick={handleEventClick}
-          datesSet={onDatesSet}
-          // eventContent={renderEventContent}
-        />
-      </Box>
-    </Box>
-  );
+  return {
+    calendarRef,
+    currentView,
+    setCurrentView,
+    schedulerDate,
+    onPrevClick,
+    onNextClick,
+    onTodayClick,
+    onMonthClick,
+    onWeekClick,
+    onDayClick,
+    onListClick,
+    handleDateClick,
+    handleEventClick,
+    onDatesSet,
+  };
 };
-
-export default ScheduleViewer;

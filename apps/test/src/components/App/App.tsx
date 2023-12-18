@@ -12,8 +12,8 @@ import { AppLogo } from './AppLogo';
 import { LayoutConfig } from '@blockium/layout';
 
 // 1. Dynamically import pages in order to optimize request time
-const Schedule = loadable(() =>
-  import('../../pages').then(({ Schedule }) => Schedule),
+const Scheduler = loadable(() =>
+  import('../../pages').then(({ Scheduler }) => Scheduler),
 );
 const FinanceDashboard = loadable(() =>
   import('../../pages').then(({ FinanceDashboard }) => FinanceDashboard),
@@ -92,7 +92,7 @@ export const App: React.FC = (props) => {
       // tenantName: sessionStorage.getItem('name') || '',
       sideMenu: [
         {
-          label: t('side-menu.schedule'),
+          label: t('side-menu.scheduler'),
           href: '/',
           icon: <CalendarMonthIcon />,
         },
@@ -112,7 +112,7 @@ export const App: React.FC = (props) => {
 
   // 4. Define the routes
   const routeElements = [
-    { path: '/', element: <Schedule /> },
+    { path: '/', element: <Scheduler /> },
     { path: '/finance', element: <FinanceDashboard /> },
     { path: '/marketing', element: <MarketingDashboard /> },
   ];

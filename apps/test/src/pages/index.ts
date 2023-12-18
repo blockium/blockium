@@ -1,3 +1,3 @@
 export * from './finance';
 export * from './marketing';
-export * from './schedule';
+export * from './scheduler';

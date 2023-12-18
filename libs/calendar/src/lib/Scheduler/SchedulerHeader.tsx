@@ -24,13 +24,13 @@ import { fDateCalendar, fDateCalendarShort } from '@blockium/utils';
 import { TooltipToggleButton } from './TooltipToggleButton';
 import { useIsMobile } from '../hooks';
 
+import { SchedulerType } from './Scheduler';
+
 // TODO i18n
 
-export type ScheduleView = 'month' | 'week' | 'day' | 'list';
-
-type ScheduleHeaderProps = {
-  view: ScheduleView;
-  setView: (view: ScheduleView) => void;
+type SchedulerHeaderProps = {
+  view: SchedulerType;
+  setView: (view: SchedulerType) => void;
   currentDate?: Date;
   onPrevClick: () => void;
   onNextClick: () => void;
@@ -41,7 +41,7 @@ type ScheduleHeaderProps = {
   onListClick?: () => void;
 };
 
-export const ScheduleHeader: React.FC<ScheduleHeaderProps> = ({
+export const SchedulerHeader: React.FC<SchedulerHeaderProps> = ({
   view,
   setView,
   currentDate,
@@ -59,7 +59,7 @@ export const ScheduleHeader: React.FC<ScheduleHeaderProps> = ({
 
   const onViewChange = (
     event: React.MouseEvent<HTMLElement>,
-    newView: ScheduleView,
+    newView: SchedulerType,
   ) => {
     setView(newView);
   };
@@ -94,17 +94,21 @@ export const ScheduleHeader: React.FC<ScheduleHeaderProps> = ({
             </IconButton>
           </Tooltip>
         </Stack>
-        <Stack sx={{ display: { xs: 'block', sm: 'none' } }}>
+        <Stack
+          sx={{
+            display: { xs: 'block', sm: 'none' },
+          }}
+        >
           <Typography
             variant="h6"
             color="text.secondary"
             sx={{ textTransform: 'capitalize' }}
           >
+            {view === 'week' || view === 'list' ? 'Início: ' : ''}
             {currentDate &&
               (view === 'month'
                 ? fDateCalendarShort(currentDate)
                 : fDateCalendar(currentDate))}
-            {view === 'week' || view === 'list' ? ' (semana)' : ''}
           </Typography>
         </Stack>
         <Button
@@ -149,11 +153,11 @@ export const ScheduleHeader: React.FC<ScheduleHeaderProps> = ({
           sx={{ textTransform: 'capitalize' }}
           textAlign="center"
         >
+          {view === 'week' || view === 'list' ? 'Início: ' : ''}
           {currentDate &&
             (view === 'month'
               ? fDateCalendarShort(currentDate)
               : fDateCalendar(currentDate))}
-          {view === 'week' || view === 'list' ? ' (semana)' : ''}
         </Typography>
       </Grid>
       {(!isMobile || !compact) && (
@@ -219,4 +223,4 @@ export const ScheduleHeader: React.FC<ScheduleHeaderProps> = ({
   );
 };
 
-export default ScheduleHeader;
+export default SchedulerHeader;

@@ -9,6 +9,6 @@ addResourceBundles([
 
 export * from './lib/Calendar';
 export * from './lib/MonthYearPicker';
-export * from './lib/Schedule';
+export * from './lib/Scheduler';
 export * from './lib/i18n';
 export * from './lib/hooks';
