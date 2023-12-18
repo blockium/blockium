@@ -7,5 +7,14 @@
   "thursday-short": "Thu",
   "friday-short": "Fri",
   "saturday-short": "Sat",
-  "sunday-short": "Sun"
+  "sunday-short": "Sun",
+  "previous": "Previous",
+  "next": "Next",
+  "start": "Start:",
+  "expand": "Expand",
+  "compact": "Compact",
+  "month": "Month",
+  "week": "Week",
+  "day": "Day",
+  "list": "List"
 }

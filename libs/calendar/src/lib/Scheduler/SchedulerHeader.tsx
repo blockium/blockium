@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 // mui
 import {
   Button,
@@ -56,6 +57,7 @@ export const SchedulerHeader: React.FC<SchedulerHeaderProps> = ({
   const theme = useTheme();
   const [compact, setCompact] = useState(true);
   const isMobile = useIsMobile();
+  const { t } = useTranslation();
 
   const onViewChange = (
     event: React.MouseEvent<HTMLElement>,
@@ -66,27 +68,20 @@ export const SchedulerHeader: React.FC<SchedulerHeaderProps> = ({
 
   return (
     <Grid container spacing={2} p={2}>
-      <Grid
-        item
-        container
-        xs={10}
-        sm={4}
-        justifyContent={{ xs: 'space-between', sm: 'flex-start' }}
-        alignItems="center"
-      >
+      <Grid item container xs={3} sm={4}>
         <Stack direction="row" spacing={0}>
-          <Tooltip title="Anterior">
+          <Tooltip title={t('calendar:previous')}>
             <IconButton
-              aria-label="Anterior"
+              aria-label={t('calendar:previous')}
               onClick={onPrevClick}
               sx={{ color: theme.palette.text.secondary }}
             >
               <NavigateBeforeIcon />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Próximo">
+          <Tooltip title={t('calendar:next')}>
             <IconButton
-              aria-label="Próximo"
+              aria-label={t('calendar:next')}
               onClick={onNextClick}
               sx={{ color: theme.palette.text.secondary }}
             >
@@ -94,71 +89,52 @@ export const SchedulerHeader: React.FC<SchedulerHeaderProps> = ({
             </IconButton>
           </Tooltip>
         </Stack>
-        <Stack
-          sx={{
-            display: { xs: 'block', sm: 'none' },
-          }}
-        >
-          <Typography
-            variant="h6"
-            color="text.secondary"
-            sx={{ textTransform: 'capitalize' }}
-          >
-            {view === 'week' || view === 'list' ? 'Início: ' : ''}
-            {currentDate &&
-              (view === 'month'
-                ? fDateCalendarShort(currentDate)
-                : fDateCalendar(currentDate))}
-          </Typography>
-        </Stack>
         <Button
           variant="contained"
           color="primary"
           onClick={onTodayClick}
           sx={{ ml: 1 }}
         >
-          Hoje
+          {t('calendar:button.today')}
         </Button>
       </Grid>
       <Grid
         item
         container
-        xs={2}
+        xs={8}
+        sm={4}
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Typography
+          variant="h5"
+          sx={{ textTransform: 'capitalize' }}
+          textAlign="center"
+        >
+          {view === 'week' || view === 'list' ? `${t('calendar:start')} ` : ''}
+          {currentDate &&
+            (view === 'month'
+              ? fDateCalendarShort(currentDate)
+              : fDateCalendar(currentDate))}
+        </Typography>
+      </Grid>
+      <Grid
+        item
+        container
+        xs={1}
         justifyContent={{ xs: 'flex-end' }}
         alignItems="center"
         sx={{ display: { xs: 'flex', sm: 'none' } }}
       >
-        <Tooltip title={compact ? 'Expandir' : 'Compactar'}>
+        <Tooltip title={compact ? t('calendar:expand') : t('calendar:compact')}>
           <IconButton
-            aria-label={compact ? 'Expandir' : 'Compactar'}
+            aria-label={compact ? t('calendar:expand') : t('calendar:compact')}
             onClick={() => setCompact(!compact)}
             sx={{ color: theme.palette.text.secondary }}
           >
             {compact ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
           </IconButton>
         </Tooltip>
-      </Grid>
-      <Grid
-        item
-        container
-        xs={12}
-        sm={4}
-        justifyContent="center"
-        alignItems="center"
-        sx={{ display: { xs: 'none', sm: 'flex' } }}
-      >
-        <Typography
-          variant="h5"
-          // color="initial"
-          sx={{ textTransform: 'capitalize' }}
-          textAlign="center"
-        >
-          {view === 'week' || view === 'list' ? 'Início: ' : ''}
-          {currentDate &&
-            (view === 'month'
-              ? fDateCalendarShort(currentDate)
-              : fDateCalendar(currentDate))}
-        </Typography>
       </Grid>
       {(!isMobile || !compact) && (
         <Grid
@@ -175,9 +151,9 @@ export const SchedulerHeader: React.FC<SchedulerHeaderProps> = ({
             aria-label="view"
           >
             <TooltipToggleButton
-              TooltipProps={{ title: 'Mês' }}
+              TooltipProps={{ title: t('calendar:month') }}
               value="month"
-              aria-label="Mês"
+              aria-label={t('calendar:month')}
               size="medium"
               onClick={onMonthClick}
               sx={{ color: theme.palette.text.secondary }}
@@ -185,9 +161,9 @@ export const SchedulerHeader: React.FC<SchedulerHeaderProps> = ({
               <ViewModuleIcon width={24} height={24} />
             </TooltipToggleButton>
             <TooltipToggleButton
-              TooltipProps={{ title: 'Semana' }}
+              TooltipProps={{ title: t('calendar:week') }}
               value="week"
-              aria-label="Semana"
+              aria-label={t('calendar:week')}
               size="medium"
               onClick={onWeekClick}
               sx={{ color: theme.palette.text.secondary }}
@@ -195,9 +171,9 @@ export const SchedulerHeader: React.FC<SchedulerHeaderProps> = ({
               <ViewWeekIcon width={24} height={24} />
             </TooltipToggleButton>
             <TooltipToggleButton
-              TooltipProps={{ title: 'Dia' }}
+              TooltipProps={{ title: t('calendar:day') }}
               value="day"
-              aria-label="Dia"
+              aria-label={t('calendar:day')}
               size="medium"
               onClick={onDayClick}
               sx={{ color: theme.palette.text.secondary }}
@@ -206,9 +182,9 @@ export const SchedulerHeader: React.FC<SchedulerHeaderProps> = ({
             </TooltipToggleButton>
             {onListClick && (
               <TooltipToggleButton
-                TooltipProps={{ title: 'Lista' }}
+                TooltipProps={{ title: t('calendar:list') }}
                 value="list"
-                aria-label="Lista"
+                aria-label={t('calendar:list')}
                 size="medium"
                 onClick={onListClick}
                 sx={{ color: theme.palette.text.secondary }}

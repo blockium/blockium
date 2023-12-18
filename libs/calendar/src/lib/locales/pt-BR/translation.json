@@ -7,5 +7,14 @@
   "thursday-short": "Qui",
   "friday-short": "Sex",
   "saturday-short": "Sáb",
-  "sunday-short": "Dom"
+  "sunday-short": "Dom",
+  "previous": "Anterior",
+  "next": "Próximo",
+  "start": "Início:",
+  "expand": "Expandir",
+  "compact": "Compactar",
+  "month": "Mês",
+  "week": "Semana",
+  "day": "Dia",
+  "list": "Lista"
 }
