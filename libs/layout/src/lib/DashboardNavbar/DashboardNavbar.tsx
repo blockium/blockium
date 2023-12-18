@@ -3,7 +3,7 @@ import { createGlobalState } from 'react-use';
 // material
 import { alpha, styled } from '@mui/material/styles';
 import { Box, Stack, AppBar, Toolbar, IconButton } from '@mui/material';
-import { ViewQuilt as ViewQuiltIcon } from '@mui/icons-material';
+import { Menu as MenuIcon } from '@mui/icons-material';
 //
 // import { Searchbar } from '../Searchbar';
 import { AccountPopover, AccountPopoverConfig } from '../AccountPopover';
@@ -72,7 +72,7 @@ export const DashboardNavbar: React.FC<DashboardNavbarProps> = ({
                 display: { lg: 'none' },
               }}
             >
-              <ViewQuiltIcon />
+              <MenuIcon />
             </IconButton>
 
             {/* <Searchbar /> */}
