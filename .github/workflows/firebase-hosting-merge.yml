@@ -30,3 +30,4 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_POST_GPT }}'
           channelId: live
           projectId: post-gpt
+          target: app
