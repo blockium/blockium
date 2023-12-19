@@ -59,7 +59,8 @@ type NavMenuProps = {
 function NavMenu({ item, active }: NavMenuProps) {
   const theme = useTheme();
 
-  const isActiveRoot = active(item.href);
+  const isActiveRoot =
+    active(item.href) || item.children?.some((child) => active(child.href));
 
   const { label, href, icon, info, children } = item;
 
@@ -71,7 +72,7 @@ function NavMenu({ item, active }: NavMenuProps) {
 
   const activeRootStyle = {
     color: 'primary.main',
-    fontWeight: 'fontWeightMedium',
+    fontWeight: 'fontWeightBold',
     bgcolor: alpha(
       theme.palette.primary.main,
       theme.palette.action.selectedOpacity,
@@ -79,12 +80,8 @@ function NavMenu({ item, active }: NavMenuProps) {
   };
 
   const activeSubStyle = {
-    color: 'primary.main',
-    fontWeight: 'fontWeightMedium',
-    bgcolor: alpha(
-      theme.palette.primary.main,
-      theme.palette.action.selectedOpacity,
-    ),
+    color: 'primary.text',
+    fontWeight: 'fontWeightBold',
   };
 
   if (children) {
@@ -130,11 +127,11 @@ function NavMenu({ item, active }: NavMenuProps) {
                   }}
                 >
                   <ListItemIconStyle sx={{ ml: 2.5 }}>
-                    {/* <Box
+                    <Box
                       component="span"
                       sx={{
-                        width: 3,
-                        height: 3,
+                        width: 4,
+                        height: 4,
                         display: 'flex',
                         borderRadius: '50%',
                         alignItems: 'center',
@@ -143,11 +140,11 @@ function NavMenu({ item, active }: NavMenuProps) {
                         transition: (theme) =>
                           theme.transitions.create('transform'),
                         ...(isActiveSub && {
-                          transform: 'scale(2)',
+                          transform: 'scale(2.5)',
                           bgcolor: 'primary.main',
                         }),
                       }}
-                    /> */}
+                    />
                     {icon && icon}
                   </ListItemIconStyle>
                   <ListItemText disableTypography primary={label} />
