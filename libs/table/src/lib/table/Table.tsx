@@ -3,7 +3,7 @@ import { useWindowSize } from 'react-use';
 // material-react-table
 import { MaterialReactTable, MRT_ColumnDef } from 'material-react-table';
 // @mui
-import { Box, IconButton, Tooltip, useTheme } from '@mui/material';
+import { Card, IconButton, Tooltip, useTheme } from '@mui/material';
 import { Edit as EditIcon } from '@mui/icons-material';
 import { Delete as DeleteIcon } from '@mui/icons-material';
 
@@ -54,7 +54,7 @@ export const Table = <T extends object>(props: TableProps<T>) => {
   const locale = locales[i18n.language as LocaleKey];
 
   return (
-    <Box
+    <Card
       sx={{
         height,
         position: 'relative',
@@ -84,12 +84,17 @@ export const Table = <T extends object>(props: TableProps<T>) => {
                 ? `calc(${height} - 153px)`
                 : windowHeight - 260 - (bottomGap || 0),
             }, // gap for space above and bellow table
-            p: 0,
-            m: 0,
           },
         }}
-        // muiTableProps={{ sx: { tableLayout: 'fixed' } }}
-        muiTablePaperProps={{ sx: { bgcolor: theme.palette.background.paper } }}
+        // muiTableProps={{
+        //   sx: { tableLayout: 'fixed' },
+        // }}
+        muiTablePaperProps={{
+          sx: {
+            bgcolor: theme.palette.background.paper,
+            boxShadow: 'none',
+          },
+        }}
         // muiTableBodyProps={{ sx: {} }}
         //
         // TOP TOOLBAR OPTIONS (if not using renderTopToolbar())
@@ -105,13 +110,20 @@ export const Table = <T extends object>(props: TableProps<T>) => {
         //
         // HEADER OPTIONS:
         enableStickyHeader // fix the header
+        muiTopToolbarProps={{
+          sx: { p: 2, bgcolor: theme.palette.background.paper },
+        }}
+        // muiTableHeadProps={{ sx: {} }}
         muiTableHeadCellProps={{
           sx: {
             color:
               mode === 'light'
                 ? theme.palette.grey[600]
                 : theme.palette.grey[500],
-            bgcolor: mode === 'light' ? theme.palette.grey[200] : '#313944',
+            bgcolor:
+              theme.palette.background[
+                mode === 'light' ? 'neutral' : 'default'
+              ],
             pt: theme.spacing(3),
             pb: theme.spacing(2),
           },
@@ -133,10 +145,10 @@ export const Table = <T extends object>(props: TableProps<T>) => {
             // console.info(row.id, row.index);
             onEditClick?.(row.index);
           },
-        })}
-        muiTableBodyCellProps={{
           sx: { cursor: 'pointer', bgcolor: theme.palette.background.paper },
-        }}
+        })}
+        // muiTableBodyCellProps={{
+        // }}
         // Add edit and/or delete row actions:
         enableRowActions={Boolean(onEditClick) || Boolean(onDeleteClick)}
         positionActionsColumn="last"
@@ -205,18 +217,22 @@ export const Table = <T extends object>(props: TableProps<T>) => {
         // FOOTER OPTIONS:
         enableStickyFooter
         // Avoids the footer to be hidden by pinning columns
-        muiTableFooterProps={{
+        // muiTableFooterProps={{ sx: { zIndex: 10 } }}
+        muiTableFooterRowProps={{
           sx: {
-            zIndex: 10,
+            bgcolor:
+              theme.palette.background[
+                mode === 'light' ? 'neutral' : 'default'
+              ],
           },
         }}
+        // muiTableFooterCellProps={{ sx: {} }}
         //
         // BOTTOM TOOLBAR OPTIONS:
         // enableBottomToolbar={false}  // default = true
         muiBottomToolbarProps={{
           sx: {
-            pt: theme.spacing(3),
-            pb: theme.spacing(3),
+            minHeight: theme.spacing(6),
             bgcolor: theme.palette.background.paper,
           },
         }}
@@ -241,11 +257,10 @@ export const Table = <T extends object>(props: TableProps<T>) => {
         }}
         initialState={{
           showGlobalFilter: true,
-          density: 'spacious',
           ...(other.initialState as object),
         }}
       />
-    </Box>
+    </Card>
   );
 };
 

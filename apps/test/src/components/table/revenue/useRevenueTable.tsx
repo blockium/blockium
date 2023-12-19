@@ -1,8 +1,7 @@
 /* eslint-disable react/jsx-pascal-case */
 import { useMemo, useState } from 'react';
-import { MRT_ColumnDef } from 'material-react-table';
 import { Box, Grid, Stack, Typography } from '@mui/material';
-import { ShowChart as ShowChartIcon } from '@mui/icons-material';
+import { MRT_ColumnDef } from 'material-react-table';
 
 import { fDateTime, fDecimal, localeContains } from '@blockium/utils';
 
@@ -10,8 +9,6 @@ import jsonData from './customerServices.json';
 import { ICustomerService } from '../../../types';
 
 export const useRevenueTable = () => {
-  const title = 'Receita no Mês';
-
   const rawData: ICustomerService[] = jsonData;
   const [searchValue, setSearchValue] = useState('');
 
@@ -63,7 +60,7 @@ export const useRevenueTable = () => {
           <Grid item xs={6} textAlign="right">
             <Typography
               variant="subtitle1"
-              color={(theme) => theme.palette.success.dark}
+              color={(theme) => theme.palette.text.primary}
             >
               {fDecimal(servicePriceSum)}
             </Typography>
@@ -110,9 +107,10 @@ export const useRevenueTable = () => {
   // TODO: Implement onDeleteClick
   const onDeleteClick = () => void 0;
 
+  const title = () => <Typography variant="h3">Receita no Mês</Typography>;
+
   return {
     title,
-    icon: <ShowChartIcon />,
     data,
     columns,
     onGlobalFilterChange,

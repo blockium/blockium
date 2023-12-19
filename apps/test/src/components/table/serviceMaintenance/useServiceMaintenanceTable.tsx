@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-pascal-case */
 import { useMemo, useState } from 'react';
-import { HomeRepairService as HomeRepairServiceIcon } from '@mui/icons-material';
+import { Typography } from '@mui/material';
 import { MRT_ColumnDef } from 'material-react-table';
 
 import { fDateTime, localeContains } from '@blockium/utils';
@@ -9,8 +9,6 @@ import jsonData from './customerServices.json';
 import { ICustomerService } from '../../../types';
 
 export const useServiceMaintenanceTable = () => {
-  const title = 'Manutenção de Serviço';
-
   const rawData: ICustomerService[] = jsonData;
   const [searchValue, setSearchValue] = useState('');
 
@@ -47,9 +45,12 @@ export const useServiceMaintenanceTable = () => {
     },
   ];
 
+  const title = () => (
+    <Typography variant="h3">Manutenção de Serviço</Typography>
+  );
+
   return {
     title,
-    icon: <HomeRepairServiceIcon />,
     data,
     columns,
     onGlobalFilterChange,

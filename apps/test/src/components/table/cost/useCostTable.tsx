@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-pascal-case */
 import { useMemo, useState } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
-import { MoneyOff as MoneyOffIcon } from '@mui/icons-material';
 import { MRT_ColumnDef } from 'material-react-table';
 
 import { fDecimal, localeContains } from '@blockium/utils';
@@ -10,8 +9,6 @@ import { ICost } from '../../../types';
 import jsonData from './costs.json';
 
 export const useCostTable = () => {
-  const title = 'Despesas do Mês';
-
   const rawData: ICost[] = jsonData;
   const [searchValue, setSearchValue] = useState('');
 
@@ -60,7 +57,7 @@ export const useCostTable = () => {
           <Grid item xs={6} textAlign="right">
             <Typography
               variant="subtitle1"
-              color={(theme) => theme.palette.success.dark}
+              color={(theme) => theme.palette.text.primary}
             >
               {fDecimal(costSum)}
             </Typography>
@@ -80,9 +77,10 @@ export const useCostTable = () => {
   // TODO: Implement onDeleteClick
   const onDeleteClick = () => void 0;
 
+  const title = () => <Typography variant="h3">Despesas no Mês</Typography>;
+
   return {
     title,
-    icon: <MoneyOffIcon />,
     data,
     columns,
     onGlobalFilterChange,

@@ -1,3 +1,3 @@
 export * from './DefaultTable';
-export * from './DefaultTopToolbar';
+export * from './DefaultToolbarActions';
 export * from './Table';

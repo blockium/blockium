@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-pascal-case */
 import { useMemo, useState } from 'react';
-import { Cake as CakeIcon } from '@mui/icons-material';
+import { Typography } from '@mui/material';
 import { MRT_ColumnDef } from 'material-react-table';
 
 import { fToNow, localeContains } from '@blockium/utils';
@@ -8,9 +8,7 @@ import { fToNow, localeContains } from '@blockium/utils';
 import jsonData from './customerServices.json';
 import { ICustomerService } from '../../../types';
 
-export const useBirthdayListTable = () => {
-  const title = 'Aniversariantes';
-
+export const useBirthListTable = () => {
   const rawData: ICustomerService[] = jsonData;
   const [searchValue, setSearchValue] = useState('');
 
@@ -43,9 +41,10 @@ export const useBirthdayListTable = () => {
     },
   ];
 
+  const title = () => <Typography variant="h3">Aniversariantes</Typography>;
+
   return {
     title,
-    icon: <CakeIcon />,
     data,
     columns,
     onGlobalFilterChange,

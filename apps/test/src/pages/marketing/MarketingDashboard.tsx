@@ -8,7 +8,7 @@ import { SummaryWidget } from '@blockium/ui';
 
 import { ServiceMaintenanceTable } from '../../components/table/serviceMaintenance/ServiceMaintenanceTable';
 import { MarketingChat } from './MarketingChat';
-import { BirthdayListTable } from '../../components/table/birthdayList/BirthdayListTable';
+import { BirthdayListTable } from '../../components/table/birthList/BirthListTable';
 
 export const MarketingDashboard = () => {
   const theme = useTheme();

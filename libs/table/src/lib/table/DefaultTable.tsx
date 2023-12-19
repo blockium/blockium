@@ -1,17 +1,19 @@
-import { ReactElement, ReactNode } from 'react';
+/* eslint-disable react/jsx-pascal-case */
+import { ReactNode } from 'react';
+
 import {
   MRT_ColumnDef,
   MRT_RowData,
   MRT_TableInstance,
 } from 'material-react-table';
+
 import { Table } from './Table';
-import DefaultTopToolbar from './DefaultTopToolbar';
+import { DefaultToolbarActions } from './DefaultToolbarActions';
 
 type DefaultTableProps<T extends MRT_RowData> = {
   data: T[];
   columns: MRT_ColumnDef<T>[];
-  title?: string;
-  icon?: ReactElement;
+  title?: () => ReactNode;
   globalActions?: ReactNode[];
   onGlobalFilterChange?: (searchValue: string) => void;
   onAddClick?: () => void;
@@ -28,7 +30,6 @@ export const DefaultTable = <T extends MRT_RowData>(
     data,
     columns,
     title,
-    icon,
     globalActions,
     onGlobalFilterChange,
     onAddClick,
@@ -38,16 +39,14 @@ export const DefaultTable = <T extends MRT_RowData>(
     height,
   } = props;
 
-  const renderTopToolbar = ({
+  const renderToolbarInternalActions = ({
     table,
   }: {
     table: MRT_TableInstance<MRT_RowData>;
   }) => {
     return (
-      <DefaultTopToolbar
+      <DefaultToolbarActions
         table={table}
-        title={title}
-        icon={icon}
         onAddClick={onAddClick}
         globalActions={globalActions}
       />
@@ -63,8 +62,13 @@ export const DefaultTable = <T extends MRT_RowData>(
       onDeleteClick={onDeleteClick}
       // enableColumnPinning
       // enableRowPinning
-      initialState={{ pagination: { pageSize: 5 }, ...initialState }}
-      renderTopToolbar={renderTopToolbar}
+      initialState={{
+        pagination: { pageSize: 5 },
+        // density: 'spacious',
+        ...initialState,
+      }}
+      renderTopToolbarCustomActions={title}
+      renderToolbarInternalActions={renderToolbarInternalActions}
       // manualFiltering // To be used on server searching
       onGlobalFilterChange={onGlobalFilterChange}
       // filterFns={{

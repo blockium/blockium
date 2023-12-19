@@ -79,8 +79,12 @@ function NavMenu({ item, active }: NavMenuProps) {
   };
 
   const activeSubStyle = {
-    color: 'text.primary',
+    color: 'primary.main',
     fontWeight: 'fontWeightMedium',
+    bgcolor: alpha(
+      theme.palette.primary.main,
+      theme.palette.action.selectedOpacity,
+    ),
   };
 
   if (children) {

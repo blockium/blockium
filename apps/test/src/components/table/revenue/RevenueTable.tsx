@@ -1,3 +1,4 @@
+import { Container } from '@mui/material';
 import { DefaultTable } from '@blockium/table';
 import { useRevenueTable } from './useRevenueTable';
 
@@ -7,5 +8,12 @@ type RevenueTableProps = {
 
 export const RevenueTable: React.FC<RevenueTableProps> = ({ height }) => {
   const tableConfig = useRevenueTable();
-  return <DefaultTable {...tableConfig} height={height} />;
+  return (
+    <Container
+      maxWidth="xl"
+      sx={{ paddingBottom: (theme) => theme.spacing(10) }}
+    >
+      <DefaultTable {...tableConfig} height={height} />
+    </Container>
+  );
 };

@@ -5,11 +5,20 @@ import loadable from '@loadable/component';
 import { CalendarMonth as CalendarMonthIcon } from '@mui/icons-material';
 import { Payment as PaymentIcon } from '@mui/icons-material';
 import { AdsClick as AdsClickIcon } from '@mui/icons-material';
+import { PieChart as PieChartIcon } from '@mui/icons-material';
+import { ShowChart as ShowChartIcon } from '@mui/icons-material';
+import { MoneyOff as MoneyOffIcon } from '@mui/icons-material';
+import { HomeRepairService as HomeRepairServiceIcon } from '@mui/icons-material';
+import { Cake as CakeIcon } from '@mui/icons-material';
 
 import { AppBase } from '@blockium/appbase';
 import { ThemeConfig } from '@blockium/theme';
 import { AppLogo } from './AppLogo';
 import { LayoutConfig } from '@blockium/layout';
+import { RevenueTable } from '../table/revenue/RevenueTable';
+import { CostTable } from '../table/cost/CostTable';
+import { ServiceMaintenanceTable } from '../table/serviceMaintenance/ServiceMaintenanceTable';
+import { BirthListTable } from '../table/birthList/BirthListTable';
 
 // 1. Dynamically import pages in order to optimize request time
 const Scheduler = loadable(() =>
@@ -100,11 +109,45 @@ export const App: React.FC = (props) => {
           label: t('side-menu.finance'),
           href: '/finance',
           icon: <PaymentIcon />,
+          children: [
+            {
+              label: 'Painel',
+              href: '/finance/panel',
+              icon: <PieChartIcon />,
+            },
+            {
+              label: 'Receitas',
+              href: '/finance/revenue',
+              icon: <ShowChartIcon />,
+            },
+            {
+              label: 'Despesas',
+              href: '/finance/cost',
+              icon: <MoneyOffIcon />,
+            },
+          ],
         },
         {
           label: t('side-menu.marketing'),
           href: '/marketing',
           icon: <AdsClickIcon />,
+          children: [
+            {
+              label: 'Painel',
+              href: '/marketing/panel',
+              icon: <PieChartIcon />,
+            },
+            {
+              label: 'Manutenção',
+              href: '/marketing/maintenance',
+              icon: <HomeRepairServiceIcon />,
+            },
+            {
+              label: 'Aniversariantes',
+              href: '/marketing/birthlist',
+              icon: <CakeIcon />,
+            },
+          ],
         },
       ],
     },
@@ -113,8 +156,12 @@ export const App: React.FC = (props) => {
   // 4. Define the routes
   const routeElements = [
     { path: '/', element: <Scheduler /> },
-    { path: '/finance', element: <FinanceDashboard /> },
-    { path: '/marketing', element: <MarketingDashboard /> },
+    { path: '/finance/panel', element: <FinanceDashboard /> },
+    { path: '/finance/revenue', element: <RevenueTable /> },
+    { path: '/finance/cost', element: <CostTable /> },
+    { path: '/marketing/panel', element: <MarketingDashboard /> },
+    { path: '/marketing/maintenance', element: <ServiceMaintenanceTable /> },
+    { path: '/marketing/birthlist', element: <BirthListTable /> },
   ];
 
   // Test i18n change
