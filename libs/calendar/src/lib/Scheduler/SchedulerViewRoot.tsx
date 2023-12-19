@@ -46,11 +46,11 @@ export const SchedulerViewRoot = styled('div')(({ theme }) => ({
     '.fc-event-time': {
       fontSize: 8,
       minWidth: '16px',
-      // marginRight: 0,
+      marginRight: 0,
       // flexShrink: 0 /* Sets width to text length */,
-      '&:after': {
-        content: '"h"',
-      },
+      // '&:after': {
+      //   content: '"h"',
+      // },
     },
 
     '.fc-event-main:hover': {

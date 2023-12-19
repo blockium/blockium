@@ -9,14 +9,20 @@ import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
 import { EventInput } from '@fullcalendar/core';
 
-// TODO: I18N
-import ptBRLocale from '@fullcalendar/core/locales/pt-br';
-
 // other
 import { useScheduler } from './useScheduler';
 import { SchedulerHeader } from './SchedulerHeader';
 import { SchedulerViewRoot } from './SchedulerViewRoot';
 import { useIsMobile } from '../hooks';
+import { useTranslation } from 'react-i18next';
+
+import ptBRLocale from '@fullcalendar/core/locales/pt-br';
+const locales = {
+  'pt-BR': ptBRLocale,
+  // Add new locales here, using the i18next.language as the key
+};
+type LocaleKey = keyof typeof locales;
+
 // import { renderEventContent } from './renderEventContent';
 
 type SchedulerViewProps = {
@@ -49,6 +55,8 @@ export const SchedulerView: React.FC<SchedulerViewProps> = ({
     onDatesSet,
   } = useScheduler({ onDateClick, onEventClick });
   const isMobile = useIsMobile();
+  const { i18n } = useTranslation();
+  const locale = locales[i18n.language as LocaleKey];
 
   return (
     <SchedulerViewRoot>
@@ -69,7 +77,7 @@ export const SchedulerView: React.FC<SchedulerViewProps> = ({
         <Box sx={{ height: '80vh' }}>
           <FullCalendar
             ref={calendarRef}
-            locale={ptBRLocale}
+            locale={locale}
             height="100%"
             nowIndicator
             dayMaxEvents={true}

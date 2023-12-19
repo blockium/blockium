@@ -27,8 +27,6 @@ import { useIsMobile } from '../hooks';
 
 import { SchedulerType } from './Scheduler';
 
-// TODO i18n
-
 type SchedulerHeaderProps = {
   view: SchedulerType;
   setView: (view: SchedulerType) => void;
