@@ -11,7 +11,7 @@ export const RevenueTable: React.FC<RevenueTableProps> = ({ height }) => {
   return (
     <Container
       maxWidth="xl"
-      sx={{ paddingBottom: (theme) => theme.spacing(10) }}
+      // sx={{ paddingBottom: (theme) => theme.spacing(10) }}
     >
       <DefaultTable {...tableConfig} height={height} />
     </Container>

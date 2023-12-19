@@ -1,3 +1,4 @@
+import { Container } from '@mui/material';
 import { DefaultTable } from '@blockium/table';
 import { useServiceMaintenanceTable } from './useServiceMaintenanceTable';
 
@@ -9,5 +10,12 @@ export const ServiceMaintenanceTable: React.FC<
   ServiceMaintenanceTableProps
 > = ({ height }) => {
   const tableConfig = useServiceMaintenanceTable();
-  return <DefaultTable {...tableConfig} height={height} />;
+  return (
+    <Container
+      maxWidth="xl"
+      // sx={{ paddingBottom: (theme) => theme.spacing(10) }}
+    >
+      <DefaultTable {...tableConfig} height={height} />
+    </Container>
+  );
 };

@@ -3,6 +3,7 @@ import { useMemo, useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import { MRT_ColumnDef } from 'material-react-table';
 
+import { useIsMobile } from '@blockium/ui';
 import { fDateTime, localeContains } from '@blockium/utils';
 
 import jsonData from './customerServices.json';
@@ -45,9 +46,12 @@ export const useServiceMaintenanceTable = () => {
     },
   ];
 
+  const isMobile = useIsMobile();
   const title = () => (
     <Box maxWidth="50%">
-      <Typography variant="h3">Manutenção de Serviço</Typography>
+      <Typography variant="h3">
+        {isMobile ? 'Manutenção' : 'Manutenção de Serviço'}
+      </Typography>
     </Box>
   );
 
