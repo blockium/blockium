@@ -7,13 +7,22 @@ import {
   getDay,
   getDaysInMonth,
 } from 'date-fns';
-import { enUS, ptBR } from 'date-fns/locale';
 
-import { t, currentLanguage } from '@blockium/i18n';
+// I18n
+import i18next from 'i18next';
+import { t } from '@blockium/i18n';
+import { enUS, ptBR } from 'date-fns/locale';
+const locales = {
+  'pt-BR': ptBR,
+  en: enUS,
+  // Add new locales here, using the i18next.language as the key
+};
+type LocaleKey = keyof typeof locales;
 
 let localeCache: Locale;
+let language: string;
 const locale = () => {
-  if (localeCache) return localeCache;
+  if (language === i18next.language && localeCache) return localeCache;
 
   const formatRelativeLocale: object = {
     lastWeek: t('utils:date-format.last-week'),
@@ -25,7 +34,7 @@ const locale = () => {
   };
 
   localeCache = {
-    ...(currentLanguage() === 'pt-BR' ? ptBR : enUS),
+    ...locales[i18next.language as LocaleKey],
     formatRelative: (token: keyof typeof formatRelativeLocale) =>
       formatRelativeLocale[token],
   };

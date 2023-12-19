@@ -117,6 +117,12 @@ export const App: React.FC = (props) => {
     { path: '/marketing', element: <MarketingDashboard /> },
   ];
 
+  // Test i18n change
+  // setTimeout(() => {
+  //   i18next.changeLanguage('pt-BR');
+  //   // i18next.changeLanguage('en');
+  // }, 5000);
+
   return (
     <AppBase
       firebaseConfig={firebaseConfig}

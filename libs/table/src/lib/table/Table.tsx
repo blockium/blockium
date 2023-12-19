@@ -1,13 +1,20 @@
 import { useState } from 'react';
 import { useWindowSize } from 'react-use';
-import i18next from 'i18next';
 // material-react-table
 import { MaterialReactTable, MRT_ColumnDef } from 'material-react-table';
-import { MRT_Localization_PT_BR } from 'material-react-table/locales/pt-BR';
 // @mui
 import { Box, IconButton, Tooltip, useTheme } from '@mui/material';
 import { Edit as EditIcon } from '@mui/icons-material';
 import { Delete as DeleteIcon } from '@mui/icons-material';
+
+// I18n
+import { useTranslation } from 'react-i18next';
+import { MRT_Localization_PT_BR } from 'material-react-table/locales/pt-BR';
+const locales = {
+  'pt-BR': MRT_Localization_PT_BR,
+  // Add new locales here, using the i18next.language as the key
+};
+type LocaleKey = keyof typeof locales;
 
 type TableProps<T extends object> = {
   data: T[];
@@ -42,6 +49,10 @@ export const Table = <T extends object>(props: TableProps<T>) => {
 
   const [isFullScreen, setIsFullScreen] = useState(false);
 
+  // I18n
+  const { i18n } = useTranslation();
+  const locale = locales[i18n.language as LocaleKey];
+
   return (
     <Box
       sx={{
@@ -53,9 +64,7 @@ export const Table = <T extends object>(props: TableProps<T>) => {
       <MaterialReactTable
         data={data}
         columns={columns}
-        localization={
-          i18next.language === 'pt-BR' ? MRT_Localization_PT_BR : undefined
-        }
+        localization={locale}
         // GENERAL OPTIONS:
         // layoutMode="grid-no-grow"
 

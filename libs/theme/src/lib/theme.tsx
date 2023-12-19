@@ -23,15 +23,19 @@ import {
   LinkProps,
 } from '@mui/material';
 
-// Current supported languages
-import { Localization, enUS, ptBR } from '@mui/material/locale';
-
-import i18next from 'i18next';
-
 import componentsOverride from './overrides';
 import createPalette, { PalleteConfig } from './palette';
 import createTypography, { FontConfig } from './typography';
 import createShadows, { CustomShadows, createCustomShadows } from './shadows';
+
+// Current supported languages
+import { useTranslation } from 'react-i18next';
+import { ptBR } from '@mui/material/locale';
+const locales = {
+  'pt-BR': ptBR,
+  // Add new locales here, using the i18next.language as the key
+};
+type LocaleKey = keyof typeof locales;
 
 declare module '@mui/material/styles' {
   interface Theme {
@@ -80,7 +84,6 @@ export interface ThemeConfig {
   fontConfig?: FontConfig;
   palleteConfig?: PalleteConfig;
   initialMode?: 'system' | 'light' | 'dark';
-  lang?: Localization;
 }
 interface ThemeProviderProps extends PropsWithChildren {
   config?: ThemeConfig;
@@ -90,7 +93,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
   config,
   children,
 }) => {
-  const { fontConfig, palleteConfig, initialMode, lang } = config || {};
+  const { fontConfig, palleteConfig, initialMode } = config || {};
 
   const systemMode = useMediaQuery('(prefers-color-scheme: dark)')
     ? 'dark'
@@ -153,10 +156,11 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
     };
   }, [fontConfig, mode, palleteConfig]);
 
-  const theme = createTheme(
-    themeOptions,
-    lang || (i18next.language === 'pt-BR' ? ptBR : enUS),
-  );
+  // I18n
+  const { i18n } = useTranslation();
+  const locale = locales[i18n.language as LocaleKey];
+
+  const theme = createTheme(themeOptions, locale);
   theme.components = { ...componentsOverride(theme), ...theme.components };
 
   return (

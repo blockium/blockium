@@ -14,8 +14,9 @@ import { useScheduler } from './useScheduler';
 import { SchedulerHeader } from './SchedulerHeader';
 import { SchedulerViewRoot } from './SchedulerViewRoot';
 import { useIsMobile } from '../hooks';
-import { useTranslation } from 'react-i18next';
 
+// I18n
+import { useTranslation } from 'react-i18next';
 import ptBRLocale from '@fullcalendar/core/locales/pt-br';
 const locales = {
   'pt-BR': ptBRLocale,
@@ -55,6 +56,8 @@ export const SchedulerView: React.FC<SchedulerViewProps> = ({
     onDatesSet,
   } = useScheduler({ onDateClick, onEventClick });
   const isMobile = useIsMobile();
+
+  // I18n
   const { i18n } = useTranslation();
   const locale = locales[i18n.language as LocaleKey];
 
