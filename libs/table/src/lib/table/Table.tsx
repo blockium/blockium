@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useWindowSize } from 'react-use';
+// import { useWindowSize } from 'react-use';
 // material-react-table
 import { MaterialReactTable, MRT_ColumnDef } from 'material-react-table';
 // @mui
@@ -38,7 +38,7 @@ export const Table = <T extends object>(props: TableProps<T>) => {
   } = props;
 
   // Adjust the table height according to the window height
-  const { height: windowHeight } = useWindowSize();
+  // const { height: windowHeight } = useWindowSize();
 
   // Adjust the table background color to white
   const theme = useTheme();
@@ -76,14 +76,15 @@ export const Table = <T extends object>(props: TableProps<T>) => {
             '&::-webkit-scrollbar': {
               display: 'none' /* for Chrome, Safari, and Opera */,
             },
-            maxHeight: {
-              xs: height
-                ? `calc(${height} - 153px)`
-                : windowHeight - 240 - (bottomGap || 0),
-              sm: height
-                ? `calc(${height} - 153px)`
-                : windowHeight - 260 - (bottomGap || 0),
-            }, // gap for space above and bellow table
+            // maxHeight: {
+            //   xs: height
+            //     ? `calc(${height} - 153px)`
+            //     : windowHeight - 240 - (bottomGap || 0),
+            //   sm: height
+            //     ? `calc(${height} - 153px)`
+            //     : windowHeight - 260 - (bottomGap || 0),
+            // }, // gap for space above and bellow table
+            maxHeight: height,
           },
         }}
         // muiTableProps={{

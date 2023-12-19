@@ -3,13 +3,13 @@ import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { IconButton, Stack, Tooltip } from '@mui/material';
 import { Add as AddIcon } from '@mui/icons-material';
-import { Print as PrintIcon } from '@mui/icons-material';
+// import { Print as PrintIcon } from '@mui/icons-material';
 
 import {
   MRT_RowData,
   // MRT_ShowHideColumnsButton,
   MRT_TableInstance,
-  MRT_ToggleDensePaddingButton,
+  // MRT_ToggleDensePaddingButton,
   MRT_ToggleFullScreenButton,
 } from 'material-react-table';
 
@@ -36,7 +36,7 @@ export const DefaultToolbarActions = <T extends MRT_RowData>(
         </Tooltip>
       )}
       {/* add custom button to print table  */}
-      <Tooltip title={t('table:button-print')}>
+      {/* <Tooltip title={t('table:button-print')}>
         <IconButton
           onClick={() => {
             window.print();
@@ -44,9 +44,9 @@ export const DefaultToolbarActions = <T extends MRT_RowData>(
         >
           <PrintIcon />
         </IconButton>
-      </Tooltip>
+      </Tooltip> */}
       {/* <MRT_ShowHideColumnsButton table={table} /> */}
-      <MRT_ToggleDensePaddingButton table={table} />
+      {/* <MRT_ToggleDensePaddingButton table={table} /> */}
       <MRT_ToggleFullScreenButton table={table} />
     </Stack>
   );
