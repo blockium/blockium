@@ -8,7 +8,7 @@ import { SummaryWidget } from '@blockium/ui';
 
 import { ServiceMaintenanceTable } from '../../components/table/serviceMaintenance/ServiceMaintenanceTable';
 import { MarketingChat } from './MarketingChat';
-import { BirthdayListTable } from '../../components/table/birthList/BirthListTable';
+import { BirthListTable } from '../../components/table/birthList/BirthListTable';
 
 export const MarketingDashboard = () => {
   const theme = useTheme();
@@ -31,7 +31,7 @@ export const MarketingDashboard = () => {
           <MarketingChat />
         </Grid>
         <Grid item xs={12} md={6} lg={8}>
-          <BirthdayListTable />
+          <BirthListTable />
         </Grid>
         <Grid item xs={12} md={6} lg={4}>
           <Grid container spacing={3}>
