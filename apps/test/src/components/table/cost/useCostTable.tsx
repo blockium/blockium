@@ -77,7 +77,11 @@ export const useCostTable = () => {
   // TODO: Implement onDeleteClick
   const onDeleteClick = () => void 0;
 
-  const title = () => <Typography variant="h3">Despesas no Mês</Typography>;
+  const title = () => (
+    <Box maxWidth="40%">
+      <Typography variant="h3">Despesas no Mês</Typography>
+    </Box>
+  );
 
   return {
     title,

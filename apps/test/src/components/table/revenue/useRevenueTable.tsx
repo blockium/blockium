@@ -107,7 +107,11 @@ export const useRevenueTable = () => {
   // TODO: Implement onDeleteClick
   const onDeleteClick = () => void 0;
 
-  const title = () => <Typography variant="h3">Receita no Mês</Typography>;
+  const title = () => (
+    <Box maxWidth="40%">
+      <Typography variant="h3">Receita no Mês</Typography>
+    </Box>
+  );
 
   return {
     title,

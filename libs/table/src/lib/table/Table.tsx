@@ -106,7 +106,7 @@ export const Table = <T extends object>(props: TableProps<T>) => {
         muiSearchTextFieldProps={{
           variant: 'standard',
           size: 'small',
-          sx: { pt: '0.2em', pl: 1 },
+          sx: { pt: '0.2em', pl: 1, display: 'inline' },
         }}
         //
         // HEADER OPTIONS:

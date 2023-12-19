@@ -63,7 +63,7 @@ export const DefaultTable = <T extends MRT_RowData>(
       // enableColumnPinning
       // enableRowPinning
       initialState={{
-        pagination: { pageSize: 5 },
+        // pagination: { pageSize: 5 },
         // density: 'spacious',
         ...initialState,
       }}
