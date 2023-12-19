@@ -5,11 +5,6 @@ import loadable from '@loadable/component';
 import { CalendarMonth as CalendarMonthIcon } from '@mui/icons-material';
 import { Payment as PaymentIcon } from '@mui/icons-material';
 import { AdsClick as AdsClickIcon } from '@mui/icons-material';
-import { PieChart as PieChartIcon } from '@mui/icons-material';
-import { ShowChart as ShowChartIcon } from '@mui/icons-material';
-import { MoneyOff as MoneyOffIcon } from '@mui/icons-material';
-import { HomeRepairService as HomeRepairServiceIcon } from '@mui/icons-material';
-import { Cake as CakeIcon } from '@mui/icons-material';
 
 import { AppBase } from '@blockium/appbase';
 import { ThemeConfig } from '@blockium/theme';
@@ -113,17 +108,14 @@ export const App: React.FC = (props) => {
             {
               label: 'Painel',
               href: '/finance/panel',
-              icon: <PieChartIcon />,
             },
             {
               label: 'Receitas',
               href: '/finance/revenue',
-              icon: <ShowChartIcon />,
             },
             {
               label: 'Despesas',
               href: '/finance/cost',
-              icon: <MoneyOffIcon />,
             },
           ],
         },
@@ -135,17 +127,14 @@ export const App: React.FC = (props) => {
             {
               label: 'Painel',
               href: '/marketing/panel',
-              icon: <PieChartIcon />,
             },
             {
               label: 'Manutenção',
               href: '/marketing/maintenance',
-              icon: <HomeRepairServiceIcon />,
             },
             {
               label: 'Aniversariantes',
               href: '/marketing/birthlist',
-              icon: <CakeIcon />,
             },
           ],
         },

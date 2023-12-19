@@ -7,11 +7,8 @@ import { ThumbDown as ThumbDownIcon } from '@mui/icons-material';
 // import { useAuth } from '@blockium/firebase';
 import { SummaryWidget } from '@blockium/ui';
 
-import { RevenueTable } from '../../components/table/revenue/RevenueTable';
 import { FinanceEvolution } from './FinanceEvolution';
-import { FinanceChat } from './FinanceChat';
-import { CostTable } from '../../components/table/cost/CostTable';
-// import FinanceHero from './FinanceHero';
+import FinanceHero from './FinanceHero';
 
 export const FinanceDashboard = () => {
   const theme = useTheme();
@@ -30,14 +27,11 @@ export const FinanceDashboard = () => {
       </Typography>
 
       <Grid container spacing={3}>
-        <Grid item xs={12} md={6} lg={8}>
-          <RevenueTable />
+        <Grid item xs={12} md={7} lg={8}>
+          {/* <FinanceChat /> */}
+          <FinanceHero />
         </Grid>
-        <Grid item xs={12} md={6} lg={4}>
-          <FinanceChat />
-          {/* <FinanceHero /> */}
-        </Grid>
-        <Grid item xs={12} md={6} lg={6}>
+        <Grid item xs={12} md={5} lg={4}>
           <FinanceEvolution />
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
@@ -74,9 +68,6 @@ export const FinanceDashboard = () => {
             />
           </Grid>
         )} */}
-        <Grid item xs={12} md={6} lg={8}>
-          <CostTable />
-        </Grid>
       </Grid>
     </Container>
   );

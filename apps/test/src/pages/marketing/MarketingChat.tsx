@@ -9,7 +9,7 @@ export const MarketingChat: React.FC = () => {
       avatar,
       messages: [
         `
-Olá! Eu sou Belea, sua assistente virtual, e estou aqui para ajudar a criar um texto promocional incrível para o seu negócio de beleza e bem-estar. Primeiro, vamos definir alguns detalhes importantes.
+Olá! Eu sou Bele, sua assistente virtual, e estou aqui para ajudar a criar um texto promocional incrível para o seu negócio de beleza e bem-estar. Primeiro, vamos definir alguns detalhes importantes.
 
 1. É para qual período (Natal, Carnaval, Dia das Mães, etc)?
 

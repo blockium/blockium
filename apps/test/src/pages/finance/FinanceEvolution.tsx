@@ -8,7 +8,7 @@ export const FinanceEvolution: React.FC = () => {
     <EvolutionChart
       title="Evolução"
       subheader="(+43%) than last year"
-      height={{ xs: 320, sm: '100%' }}
+      height={{ xs: 320, sm: 320 }}
       chartColors={[theme.palette.chart.green[0], theme.palette.chart.red[0]]}
       chartLabels={[
         // "01/01/2022",

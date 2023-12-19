@@ -6,9 +6,7 @@ import { People as PeopleIcon } from '@mui/icons-material';
 // import { useAuth } from '@blockium/firebase';
 import { SummaryWidget } from '@blockium/ui';
 
-import { ServiceMaintenanceTable } from '../../components/table/serviceMaintenance/ServiceMaintenanceTable';
-import { MarketingChat } from './MarketingChat';
-import { BirthListTable } from '../../components/table/birthList/BirthListTable';
+import MarketingHero from './MarketingHero';
 
 export const MarketingDashboard = () => {
   const theme = useTheme();
@@ -24,16 +22,11 @@ export const MarketingDashboard = () => {
       </Typography>
 
       <Grid container spacing={3}>
-        <Grid item xs={12} md={6} lg={8}>
-          <ServiceMaintenanceTable />
+        <Grid item xs={12} md={7} lg={8}>
+          {/* <MarketingChat /> */}
+          <MarketingHero />
         </Grid>
-        <Grid item xs={12} md={6} lg={4}>
-          <MarketingChat />
-        </Grid>
-        <Grid item xs={12} md={6} lg={8}>
-          <BirthListTable />
-        </Grid>
-        <Grid item xs={12} md={6} lg={4}>
+        <Grid item xs={12} md={5} lg={4}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6} md={12}>
               <SummaryWidget
@@ -53,17 +46,7 @@ export const MarketingDashboard = () => {
             </Grid>
           </Grid>
         </Grid>
-        {/* <Grid item xs={12} sm={6} md={3}>
-          <SummaryWidget
-            title="Clientes"
-            total={customerCount}
-            color="primary"
-            icon={<PeopleIcon />}
-          />
-        </Grid> */}
-        {/* <Grid item xs={12}>
-          <ProgressWidget />
-        </Grid> */}
+
         {/* {customerServicesCount.length > 0 && (
           <Grid item xs={12} md={6} lg={4}>
             <PieChart

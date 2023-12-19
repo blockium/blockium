@@ -7,6 +7,7 @@ import {
   CardMedia,
   Grid,
   Stack,
+  alpha,
   useTheme,
 } from '@mui/material';
 
@@ -42,7 +43,10 @@ export const HeroWidget: React.FC<HeroWidgetProps> = ({
 
   return (
     <Card
-      sx={{ bgcolor: theme.palette.primary.lighter, height: height || '100%' }}
+      sx={{
+        bgcolor: alpha(theme.palette.primary.main, 0.2),
+        height: height || '100%',
+      }}
     >
       <Grid container height="100%">
         <Grid
