@@ -1,27 +1,13 @@
-/* eslint-disable react/jsx-pascal-case */
-import { useMemo, useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import { MRT_ColumnDef } from 'material-react-table';
 
-import { fToNow, localeContains } from '@blockium/utils';
+import { fToNow } from '@blockium/utils';
 
-import jsonData from './customerServices.json';
 import { ICustomerService } from '../../../types';
+import { useCustomerServices } from '../../../data/useCustomerServices';
 
 export const useBirthListTable = () => {
-  const rawData: ICustomerService[] = jsonData;
-  const [searchValue, setSearchValue] = useState('');
-
-  const data = useMemo(() => {
-    return rawData.filter((data) => {
-      const { payTypeName, serviceName, customerName } = data;
-      return (
-        (payTypeName && localeContains(payTypeName, searchValue)) ||
-        (serviceName && localeContains(serviceName, searchValue)) ||
-        (customerName && localeContains(customerName, searchValue))
-      );
-    });
-  }, [rawData, searchValue]);
+  const { data, setSearchValue } = useCustomerServices();
 
   const onGlobalFilterChange = (searchValue: string) => {
     setSearchValue(searchValue || '');

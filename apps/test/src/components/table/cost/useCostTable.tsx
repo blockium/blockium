@@ -1,31 +1,18 @@
-/* eslint-disable react/jsx-pascal-case */
-import { useMemo, useState } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
 import { MRT_ColumnDef } from 'material-react-table';
 
-import { fDecimal, localeContains } from '@blockium/utils';
+import { fDecimal } from '@blockium/utils';
 
 import { ICost } from '../../../types';
-import jsonData from './costs.json';
+import { useCosts } from '../../../data/useCosts';
 
 export const useCostTable = () => {
-  const rawData: ICost[] = jsonData;
-  const [searchValue, setSearchValue] = useState('');
+  const { data, setSearchValue } = useCosts();
 
   let costSum = 0;
-  for (const obj of rawData) {
+  for (const obj of data) {
     costSum += obj.value;
   }
-
-  const data = useMemo(() => {
-    return rawData.filter((data) => {
-      const { name, value } = data;
-      return (
-        (name && localeContains(name, searchValue)) ||
-        (value && localeContains(value + '', searchValue))
-      );
-    });
-  }, [rawData, searchValue]);
 
   const onGlobalFilterChange = (searchValue: string) => {
     setSearchValue(searchValue || '');

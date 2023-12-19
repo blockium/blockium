@@ -1,37 +1,23 @@
-/* eslint-disable react/jsx-pascal-case */
-import { useMemo, useState } from 'react';
 import { Box, Grid, Stack, Typography } from '@mui/material';
 import { MRT_ColumnDef } from 'material-react-table';
 
-import { fDateTime, fDecimal, localeContains } from '@blockium/utils';
+import { fDateTime, fDecimal } from '@blockium/utils';
 
-import jsonData from './customerServices.json';
 import { ICustomerService } from '../../../types';
+import { useCustomerServices } from '../../../data/useCustomerServices';
 
 export const useRevenueTable = () => {
-  const rawData: ICustomerService[] = jsonData;
-  const [searchValue, setSearchValue] = useState('');
+  const { data, setSearchValue } = useCustomerServices();
 
   let servicePriceSum = 0;
   let servicePriceSumOpen = 0;
-  for (const obj of rawData) {
+  for (const obj of data) {
     if (obj.serviceDone) {
       servicePriceSum += obj.servicePrice || 0;
     } else {
       servicePriceSumOpen += obj.servicePrice || 0;
     }
   }
-
-  const data = useMemo(() => {
-    return rawData.filter((data) => {
-      const { payTypeName, serviceName, customerName } = data;
-      return (
-        (payTypeName && localeContains(payTypeName, searchValue)) ||
-        (serviceName && localeContains(serviceName, searchValue)) ||
-        (customerName && localeContains(customerName, searchValue))
-      );
-    });
-  }, [rawData, searchValue]);
 
   const onGlobalFilterChange = (searchValue: string) => {
     setSearchValue(searchValue || '');
