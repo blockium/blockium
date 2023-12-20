@@ -72,7 +72,11 @@ export const Scheduler: React.FC<IScheduleProps> = (props) => {
   });
 
   return (
-    <Container maxWidth="xl" sx={{ paddingBottom: theme.spacing(10) }}>
+    <Container
+      maxWidth="xl"
+      disableGutters
+      sx={{ paddingBottom: theme.spacing(10) }}
+    >
       <Card>
         <SchedulerView events={events} />
       </Card>

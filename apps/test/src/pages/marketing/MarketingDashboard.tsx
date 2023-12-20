@@ -16,7 +16,11 @@ export const MarketingDashboard = () => {
   const customerCount = 45;
 
   return (
-    <Container maxWidth="xl" sx={{ paddingBottom: theme.spacing(10) }}>
+    <Container
+      maxWidth="xl"
+      disableGutters
+      sx={{ paddingBottom: theme.spacing(10) }}
+    >
       <Typography variant="h3" sx={{ mb: 5 }}>
         Painel de Marketing
       </Typography>
