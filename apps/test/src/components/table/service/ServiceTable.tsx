@@ -1,19 +1,24 @@
-import { Container } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import { DefaultTable } from '@blockium/table';
 import { useServiceTable } from './useServiceTable';
 
-type ServiceTableProps = {
-  height?: number | string;
-};
-
-export const ServiceTable: React.FC<ServiceTableProps> = ({ height }) => {
+export const ServiceTable = () => {
   const tableConfig = useServiceTable();
   return (
-    <Container
-      maxWidth="xl"
-      // sx={{ paddingBottom: (theme) => theme.spacing(10) }}
-    >
-      <DefaultTable {...tableConfig} height={height} />
-    </Container>
+    <>
+      {/* <Alert message={'Teste'} setMessage={() => void 0} /> */}
+      <Container disableGutters maxWidth="xl">
+        <Box>
+          <Typography variant="h3" gutterBottom>
+            Serviços
+          </Typography>
+        </Box>
+        <DefaultTable
+          {...tableConfig}
+          enablePagination={false}
+          enableBottomToolbar={false} // default = true
+        />
+      </Container>
+    </>
   );
 };

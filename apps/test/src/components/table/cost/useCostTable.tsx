@@ -23,14 +23,14 @@ export const useCostTable = () => {
     {
       accessorKey: 'name',
       header: 'Custo',
-      maxSize: 130,
+      maxSize: 150,
     },
     {
       accessorKey: 'value',
       header: 'Valor',
       maxSize: 150,
       Cell: ({ cell }) => (
-        <Box sx={{ textAlign: 'right' }}>
+        <Box sx={{ textAlign: 'right', width: '100%' }}>
           {fDecimal(cell.getValue<number>())}
         </Box>
       ),
@@ -64,14 +64,7 @@ export const useCostTable = () => {
   // TODO: Implement onDeleteClick
   const onDeleteClick = () => void 0;
 
-  const title = () => (
-    <Box maxWidth="40%">
-      <Typography variant="h3">Despesas no Mês</Typography>
-    </Box>
-  );
-
   return {
-    title,
     data,
     columns,
     onGlobalFilterChange,

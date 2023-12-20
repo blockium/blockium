@@ -1,4 +1,3 @@
-import { Box, Typography } from '@mui/material';
 import { MRT_ColumnDef } from 'material-react-table';
 
 import { fToNow } from '@blockium/utils';
@@ -17,24 +16,19 @@ export const useBirthListTable = () => {
     {
       accessorKey: 'customerName',
       header: 'Cliente',
+      maxSize: 150,
     },
     {
       accessorKey: 'serviceDate',
       header: 'Aniversário',
-      maxSize: 80,
+      maxSize: 150,
       Cell: ({ cell }) => <span>{fToNow(cell.getValue<string>())}</span>,
       muiTableBodyCellProps: { align: 'right' },
       muiTableHeadCellProps: { align: 'right' },
     },
   ];
 
-  const title = () => (
-    <Box maxWidth="40%">
-      <Typography variant="h3">Aniversariantes</Typography>
-    </Box>
-  );
   return {
-    title,
     data,
     columns,
     onGlobalFilterChange,

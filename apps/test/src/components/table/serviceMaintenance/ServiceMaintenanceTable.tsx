@@ -1,21 +1,17 @@
-import { Container } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import { DefaultTable } from '@blockium/table';
 import { useServiceMaintenanceTable } from './useServiceMaintenanceTable';
 
-type ServiceMaintenanceTableProps = {
-  height?: number | string;
-};
-
-export const ServiceMaintenanceTable: React.FC<
-  ServiceMaintenanceTableProps
-> = ({ height }) => {
+export const ServiceMaintenanceTable = () => {
   const tableConfig = useServiceMaintenanceTable();
   return (
-    <Container
-      maxWidth="xl"
-      // sx={{ paddingBottom: (theme) => theme.spacing(10) }}
-    >
-      <DefaultTable {...tableConfig} height={height} />
+    <Container disableGutters maxWidth="xl">
+      <Box>
+        <Typography variant="h3" gutterBottom>
+          Manutenção de Serviço
+        </Typography>
+      </Box>
+      <DefaultTable {...tableConfig} />
     </Container>
   );
 };

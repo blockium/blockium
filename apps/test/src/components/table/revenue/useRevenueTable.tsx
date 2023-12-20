@@ -30,7 +30,12 @@ export const useRevenueTable = () => {
       Cell: ({ cell, row }) => {
         const { payTypeName, servicePrice } = row.original;
         return (
-          <Stack direction="row" justifyContent="space-between" gap={2}>
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            gap={2}
+            width="100%"
+          >
             <Box>{payTypeName}</Box>
             <Box>{servicePrice && fDecimal(servicePrice)}</Box>
           </Stack>
@@ -93,14 +98,7 @@ export const useRevenueTable = () => {
   // TODO: Implement onDeleteClick
   const onDeleteClick = () => void 0;
 
-  const title = () => (
-    <Box maxWidth="40%">
-      <Typography variant="h3">Receita no Mês</Typography>
-    </Box>
-  );
-
   return {
-    title,
     data,
     columns,
     onGlobalFilterChange,

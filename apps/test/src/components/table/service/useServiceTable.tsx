@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { MRT_ColumnDef } from 'material-react-table';
 
 import { fDecimal } from '@blockium/utils';
@@ -18,14 +18,14 @@ export const useServiceTable = () => {
     {
       accessorKey: 'name',
       header: 'Serviço',
-      maxSize: 130,
+      maxSize: 150,
     },
     {
       accessorKey: 'price',
       header: 'Valor',
-      maxSize: 150,
+      maxSize: 100,
       Cell: ({ cell }) => (
-        <Box sx={{ textAlign: 'right' }}>
+        <Box sx={{ textAlign: 'right', width: '100%' }}>
           {fDecimal(cell.getValue<number>())}
         </Box>
       ),
@@ -34,9 +34,11 @@ export const useServiceTable = () => {
     {
       accessorKey: 'dayInterval',
       header: 'Manutenção (dias)',
-      maxSize: 150,
+      maxSize: 100,
       Cell: ({ cell }) => (
-        <Box sx={{ textAlign: 'right' }}>{cell.getValue<number>()}</Box>
+        <Box sx={{ textAlign: 'right', width: '100%' }}>
+          {cell.getValue<number>()}
+        </Box>
       ),
       muiTableHeadCellProps: { align: 'right' },
     },
@@ -51,14 +53,7 @@ export const useServiceTable = () => {
   // TODO: Implement onDeleteClick
   const onDeleteClick = () => void 0;
 
-  const title = () => (
-    <Box maxWidth="40%">
-      <Typography variant="h3">Serviços</Typography>
-    </Box>
-  );
-
   return {
-    title,
     data,
     columns,
     onGlobalFilterChange,

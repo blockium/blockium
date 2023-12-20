@@ -1,7 +1,5 @@
-import { Box, Typography } from '@mui/material';
 import { MRT_ColumnDef } from 'material-react-table';
 
-import { useIsMobile } from '@blockium/ui';
 import { fDateTime } from '@blockium/utils';
 
 import { ICustomerService } from '../../../types';
@@ -32,17 +30,7 @@ export const useServiceMaintenanceTable = () => {
     },
   ];
 
-  const isMobile = useIsMobile();
-  const title = () => (
-    <Box maxWidth="50%">
-      <Typography variant="h3">
-        {isMobile ? 'Manutenção' : 'Manutenção de Serviço'}
-      </Typography>
-    </Box>
-  );
-
   return {
-    title,
     data,
     columns,
     onGlobalFilterChange,
