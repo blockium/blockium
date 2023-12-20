@@ -9,13 +9,14 @@ import { useIsMainOnTop } from '../hooks';
 
 // ----------------------------------------------------------------------
 
-const APP_BAR_MOBILE = 64 + 8;
-const APP_BAR_DESKTOP = 92 + 8;
+const APP_BAR_MOBILE = 64 + 16;
+const APP_BAR_DESKTOP = 92 + 24;
 
 const RootStyle = styled('div')({
   display: 'flex',
   minHeight: '100%',
   overflow: 'hidden',
+  position: 'relative', // IMPORTANT: allows z-index to properly work for children components on iOS
 });
 
 const MainStyle = styled(Box)(({ theme }) => ({

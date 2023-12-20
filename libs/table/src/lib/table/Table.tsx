@@ -1,4 +1,3 @@
-import { useWindowSize } from 'react-use';
 // material-react-table
 import { MaterialReactTable, MRT_ColumnDef } from 'material-react-table';
 // @mui
@@ -39,7 +38,7 @@ export const Table = <T extends object>(props: TableProps<T>) => {
   } = props;
 
   // Adjust the table height according to the window height
-  const { height: windowHeight } = useWindowSize();
+  // const { height: windowHeight } = useWindowSize();
 
   // Adjust the table background color to white
   const theme = useTheme();
@@ -56,31 +55,34 @@ export const Table = <T extends object>(props: TableProps<T>) => {
   const locale = locales[i18n.language as LocaleKey];
 
   return (
+    // Using overflow below does break the fullscreen
+    // <Card sx={{ height, overflowY: 'auto' }}>
     <Card sx={{ height }}>
       <MaterialReactTable
         data={data}
         columns={columns}
         localization={locale}
         // GENERAL OPTIONS:
-        // layoutMode="grid-no-grow"
-
+        layoutMode="grid" // Allows better size/maxSize definitions for columns
         // TABLE OPTIONS:
-        // Remove table scrollbar and auto-adjust table height
         muiTableContainerProps={{
           sx: {
-            scrollbarWidth: 'none' /* for Firefox */,
-            '&::-webkit-scrollbar': {
-              display: 'none' /* for Chrome, Safari, and Opera */,
-            },
-            maxHeight: {
-              xs: height
-                ? `calc(${height} - 153px)`
-                : windowHeight - 220 - (bottomGap || 0),
-              sm: height
-                ? `calc(${height} - 153px)`
-                : windowHeight - 260 - (bottomGap || 0),
-            },
-            // maxHeight: height,
+            //
+            // Remove table scrollbar:
+            // scrollbarWidth: 'none' /* for Firefox */,
+            // '&::-webkit-scrollbar': {
+            //   display: 'none' /* for Chrome, Safari, and Opera */,
+            // },
+            //
+            // Auto-adjust table height:
+            // maxHeight: {
+            //   xs: height
+            //     ? `calc(${height} - 153px)`
+            //     : windowHeight - 220 - (bottomGap || 0),
+            //   sm: height
+            //     ? `calc(${height} - 153px)`
+            //     : windowHeight - 260 - (bottomGap || 0),
+            // },
           },
         }}
         // muiTableProps={{
@@ -154,7 +156,7 @@ export const Table = <T extends object>(props: TableProps<T>) => {
             muiTableHeadCellProps: {
               align: 'right',
             },
-            maxSize: 100,
+            size: 140,
           },
         }}
         renderRowActions={({ row }) => (
