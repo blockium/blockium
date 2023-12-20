@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 import { BrowserRouter, Route, Routes, Outlet } from 'react-router-dom';
 import { Container, Stack } from '@mui/material';
+import './styles.scss';
 
 import {
   FirebaseConfig,

@@ -1,0 +1,9 @@
+body {
+  // Avoid the pull-to-refresh effect:
+  overscroll-behavior: contain;
+
+  // Avoid accidentally text copying
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  user-select: none;
+}
