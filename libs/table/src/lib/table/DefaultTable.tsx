@@ -21,6 +21,7 @@ type DefaultTableProps<T extends MRT_RowData> = {
   onDeleteClick?: () => void;
   initialState?: object;
   height?: number | string;
+  [other: string]: unknown;
 };
 
 export const DefaultTable = <T extends MRT_RowData>(
@@ -37,6 +38,7 @@ export const DefaultTable = <T extends MRT_RowData>(
     onDeleteClick,
     initialState,
     height,
+    ...other
   } = props;
 
   const renderToolbarInternalActions = ({
@@ -60,11 +62,12 @@ export const DefaultTable = <T extends MRT_RowData>(
       height={height}
       onEditClick={onEditClick}
       onDeleteClick={onDeleteClick}
+      {...other}
       // enableColumnPinning
       // enableRowPinning
       initialState={{
         // pagination: { pageSize: 5 },
-        // density: 'spacious',
+        // density: 'compact', // 'comfortable' | 'compact' | 'spacious'
         ...initialState,
       }}
       renderTopToolbarCustomActions={title}

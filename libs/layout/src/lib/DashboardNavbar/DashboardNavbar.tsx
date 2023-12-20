@@ -17,6 +17,7 @@ export const APPBAR_MOBILE = 64;
 export const APPBAR_DESKTOP = 92;
 
 const RootStyle = styled(AppBar)(({ theme }) => ({
+  zIndex: 1,
   boxShadow: 'none',
   backdropFilter: 'blur(6px)',
   WebkitBackdropFilter: 'blur(6px)', // Fix on Mobile
@@ -24,7 +25,6 @@ const RootStyle = styled(AppBar)(({ theme }) => ({
   [theme.breakpoints.up('lg')]: {
     width: `calc(100% - ${DRAWER_WIDTH + 1}px)`,
   },
-  zIndex: 1,
 }));
 
 const ToolbarStyle = styled(Toolbar)(({ theme }) => ({

@@ -26,6 +26,7 @@ import { MenuOption } from '../DashboardLayout';
 const DRAWER_WIDTH = 280;
 
 const RootStyle = styled('div')(({ theme }) => ({
+  zIndex: 1,
   [theme.breakpoints.up('lg')]: {
     flexShrink: 0,
     width: DRAWER_WIDTH,

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useWindowSize } from 'react-use';
 // material-react-table
 import { MaterialReactTable, MRT_ColumnDef } from 'material-react-table';
@@ -6,6 +5,8 @@ import { MaterialReactTable, MRT_ColumnDef } from 'material-react-table';
 import { Card, IconButton, Tooltip, useTheme } from '@mui/material';
 import { Edit as EditIcon } from '@mui/icons-material';
 import { Delete as DeleteIcon } from '@mui/icons-material';
+// @blockium
+import { useIsMainOnTop } from '@blockium/layout';
 
 // I18n
 import { useTranslation } from 'react-i18next';
@@ -47,20 +48,15 @@ export const Table = <T extends object>(props: TableProps<T>) => {
     theme.palette.background.default = '#fff';
   }
 
-  const [isFullScreen, setIsFullScreen] = useState(false);
+  // Used to show table in fullscreen in the layout
+  const [isMainOnTop, setIsMainOnTop] = useIsMainOnTop();
 
   // I18n
   const { i18n } = useTranslation();
   const locale = locales[i18n.language as LocaleKey];
 
   return (
-    <Card
-      sx={{
-        height,
-        position: 'relative',
-        zIndex: isFullScreen ? 1200 : 0,
-      }}
-    >
+    <Card sx={{ height }}>
       <MaterialReactTable
         data={data}
         columns={columns}
@@ -79,10 +75,10 @@ export const Table = <T extends object>(props: TableProps<T>) => {
             maxHeight: {
               xs: height
                 ? `calc(${height} - 153px)`
-                : windowHeight - 320 - (bottomGap || 0),
+                : windowHeight - 220 - (bottomGap || 0),
               sm: height
                 ? `calc(${height} - 153px)`
-                : windowHeight - 280 - (bottomGap || 0),
+                : windowHeight - 260 - (bottomGap || 0),
             },
             // maxHeight: height,
           },
@@ -102,11 +98,11 @@ export const Table = <T extends object>(props: TableProps<T>) => {
         // enableDensityToggle={false} // default = true
         // enableFullScreenToggle={false} // default = true
         // enableGlobalFilter={false}
-        // positionGlobalFilter="left"
+        positionGlobalFilter="left"
         muiSearchTextFieldProps={{
           variant: 'standard',
           size: 'small',
-          sx: { pt: '0.2em', pl: 1, display: 'inline' },
+          sx: { pt: '6px' },
         }}
         //
         // HEADER OPTIONS:
@@ -230,7 +226,7 @@ export const Table = <T extends object>(props: TableProps<T>) => {
         // muiTableFooterCellProps={{ sx: {} }}
         //
         // BOTTOM TOOLBAR OPTIONS:
-        // enableBottomToolbar={false}  // default = true
+        // enableBottomToolbar={false} // default = true
         muiBottomToolbarProps={{
           sx: {
             minHeight: theme.spacing(6),
@@ -241,19 +237,12 @@ export const Table = <T extends object>(props: TableProps<T>) => {
         // PAGINATION OPTIONS: (bottom toolbar should be enabled)
         // enablePagination={false} // default = true
         // positionPagination="top" // top toolbar should be enabled
-
         //
         // OTHER CONFIGS:
-        onIsFullScreenChange={(
-          isFullScreen: boolean | ((old: boolean) => boolean),
-        ) => {
-          if (typeof isFullScreen === 'boolean') {
-            setIsFullScreen(isFullScreen);
-          }
-        }}
+        onIsFullScreenChange={(isFullScreen) => setIsMainOnTop(!isMainOnTop)}
         {...other}
         state={{
-          isFullScreen,
+          isFullScreen: isMainOnTop,
           ...(other.state as object),
         }}
         initialState={{

@@ -1,14 +1,16 @@
 import { useState, PropsWithChildren, ReactElement } from 'react';
 // material
+import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 //
 import { DashboardNavbar, NavBarConfig } from '../DashboardNavbar';
 import { DashboardSidebar, SideBarConfig } from '../DashboardSidebar';
+import { useIsMainOnTop } from '../hooks';
 
 // ----------------------------------------------------------------------
 
-const APP_BAR_MOBILE = 64;
-const APP_BAR_DESKTOP = 92;
+const APP_BAR_MOBILE = 64 + 8;
+const APP_BAR_DESKTOP = 92 + 8;
 
 const RootStyle = styled('div')({
   display: 'flex',
@@ -16,7 +18,7 @@ const RootStyle = styled('div')({
   overflow: 'hidden',
 });
 
-const MainStyle = styled('div')(({ theme }) => ({
+const MainStyle = styled(Box)(({ theme }) => ({
   flexGrow: 1,
   overflow: 'auto',
   minHeight: '100%',
@@ -54,6 +56,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   children,
 }) => {
   const [open, setOpen] = useState(false);
+  const [isMainOnTop] = useIsMainOnTop();
 
   return (
     <RootStyle>
@@ -66,7 +69,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         onCloseSidebar={() => setOpen(false)}
         sideBarConfig={layoutConfig?.sideBar}
       />
-      <MainStyle>{children}</MainStyle>
+      <MainStyle sx={{ zIndex: isMainOnTop ? 1 : 0 }}>{children}</MainStyle>
     </RootStyle>
   );
 };
