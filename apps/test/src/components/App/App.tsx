@@ -5,15 +5,19 @@ import loadable from '@loadable/component';
 import { CalendarMonth as CalendarMonthIcon } from '@mui/icons-material';
 import { Payment as PaymentIcon } from '@mui/icons-material';
 import { AdsClick as AdsClickIcon } from '@mui/icons-material';
+import { MenuBook as MenuBookIcon } from '@mui/icons-material';
 
 import { AppBase } from '@blockium/appbase';
 import { ThemeConfig } from '@blockium/theme';
-import { AppLogo } from './AppLogo';
 import { LayoutConfig } from '@blockium/layout';
+
+import { AppLogo } from './AppLogo';
+
 import { RevenueTable } from '../table/revenue/RevenueTable';
 import { CostTable } from '../table/cost/CostTable';
 import { ServiceMaintenanceTable } from '../table/serviceMaintenance/ServiceMaintenanceTable';
 import { BirthListTable } from '../table/birthList/BirthListTable';
+import { ServiceTable } from '../table/service/ServiceTable';
 
 // 1. Dynamically import pages in order to optimize request time
 const Scheduler = loadable(() =>
@@ -138,6 +142,21 @@ export const App: React.FC = (props) => {
             },
           ],
         },
+        {
+          label: t('side-menu.catalog'),
+          href: '/catalog',
+          icon: <MenuBookIcon />,
+          children: [
+            {
+              label: 'Serviços',
+              href: '/catalog/service',
+            },
+            {
+              label: 'Produtos',
+              href: '/catalog/product',
+            },
+          ],
+        },
       ],
     },
   };
@@ -151,6 +170,7 @@ export const App: React.FC = (props) => {
     { path: '/marketing/panel', element: <MarketingDashboard /> },
     { path: '/marketing/maintenance', element: <ServiceMaintenanceTable /> },
     { path: '/marketing/birthlist', element: <BirthListTable /> },
+    { path: '/catalog/service', element: <ServiceTable /> },
   ];
 
   // Test i18n change
