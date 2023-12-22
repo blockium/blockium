@@ -1,5 +1,5 @@
 /* eslint-disable no-template-curly-in-string */
-import { ReactNode, useCallback, useRef, useState } from 'react';
+import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import { useEffectOnce } from 'react-use';
 import { setLocale, AnySchema } from 'yup';
 
@@ -26,6 +26,8 @@ declare module 'react' {
     render: (props: P, ref: React.Ref<T>) => React.ReactElement | null,
   ): (props: P & React.RefAttributes<T>) => React.ReactElement | null;
 }
+
+// TODO: I18N
 setLocale({
   mixed: {
     default: 'não é válido',
@@ -178,7 +180,8 @@ export const Form = <T extends object>(props: FormProps<T>) => {
       form.cancelSubmit();
     }
   }, [data, fields, form]);
-  useEffectOnce(validateAllFields);
+  // useEffectOnce(validateAllFields);
+  useEffect(validateAllFields, [validateAllFields]);
 
   // Validate a data field
   const validateValue = (
