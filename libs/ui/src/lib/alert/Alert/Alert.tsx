@@ -6,24 +6,22 @@ import {
 
 interface AlertProps extends MuiAlertProps {
   message: string | null;
-  setMessage: (message: string | null) => void;
 }
 
 export const Alert: React.FC<AlertProps> = ({
   severity = 'success',
   message,
-  setMessage,
+  onClose,
   children,
   ...rest
 }) => {
   const handleAlertClose = (
-    event?: React.SyntheticEvent | Event,
-    reason?: string
+    event: React.SyntheticEvent | Event,
+    reason?: string,
   ) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    setMessage(null);
+    if (reason === 'clickaway') return;
+    if (typeof event === typeof Event) return;
+    onClose?.(event as React.SyntheticEvent);
   };
 
   return (
