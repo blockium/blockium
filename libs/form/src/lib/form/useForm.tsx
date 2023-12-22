@@ -1,28 +1,42 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
+import { FormField } from '../field';
 
 export interface IForm {
-  isValidating: boolean;
   submit: (validate?: boolean) => void;
-  cancelSubmit: () => void;
+  errors: string[];
 }
 
-export const useForm: (onSubmit: () => void) => IForm = (onSubmit) => {
-  const [isValidating, setIsValidating] = useState(false);
+type FormParams<T> = {
+  data: T;
+  fields: FormField<T>[];
+  onSubmit: () => void;
+};
 
-  const submit = (validate = true) => {
-    if (validate) {
-      console.log('validating = true');
-      setIsValidating(true);
-    } else {
-      console.log('validating = false');
-      setIsValidating(false);
-      onSubmit();
-    }
+export const useForm: <T>(params: FormParams<T>) => IForm = (params) => {
+  const { data, fields, onSubmit } = params;
+  const [errors, setErrors] = useState<string[]>([]);
+
+  const validateAllFields = useCallback(() => {
+    const newErrors: string[] = [];
+    // eslint-disable-next-line array-callback-return
+    fields.map((field, index) => {
+      const value = data[field.key];
+      try {
+        field.validation?.validateSync(value);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
+        newErrors[index] = error.message;
+      }
+    });
+    setErrors(newErrors);
+
+    const hasSomeError = newErrors.some((error) => !!error);
+    return !hasSomeError;
+  }, [data, fields]);
+
+  const submit = () => {
+    validateAllFields() && onSubmit();
   };
 
-  const cancelSubmit = () => {
-    setIsValidating(false);
-  };
-
-  return { isValidating, submit, cancelSubmit };
+  return { submit, errors };
 };

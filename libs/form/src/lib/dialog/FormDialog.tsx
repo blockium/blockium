@@ -12,13 +12,11 @@ import {
 } from '@mui/material';
 
 // custom hooks
-// import { useFillHeight } from '../../hooks/useFillHeight';
-// import { useIsKeyboardOpen } from '../../hooks/useIsKeyboardOpen';
 import { useIsMobile } from '../hooks/useIsMobile';
 
 import { Form } from '../form/Form';
 import { IForm, useForm } from '../form/useForm';
-import { FormField } from '../field/FormField';
+import { FormField } from '../field';
 
 export type FormDialogAction = (form: IForm) => ReactNode;
 
@@ -30,13 +28,14 @@ type FormDialogProps<T> = {
   data: T;
   fields: FormField<T>[];
   gridProps?: object;
-  onConfirm: () => void;
-  onConfirmDuplicate?: () => void;
+  onSubmit: () => void;
   onClose: () => void;
   leftActions?: FormDialogAction[];
   middleActions?: FormDialogAction[];
   rightActions?: FormDialogAction[];
 };
+
+// TODO: I18N
 
 // A form dialog that creates the components from fields metadata
 export const FormDialog = <T extends object>(props: FormDialogProps<T>) => {
@@ -49,7 +48,7 @@ export const FormDialog = <T extends object>(props: FormDialogProps<T>) => {
     data,
     fields,
     gridProps,
-    onConfirm,
+    onSubmit,
     onClose,
     leftActions,
     middleActions,
@@ -57,11 +56,10 @@ export const FormDialog = <T extends object>(props: FormDialogProps<T>) => {
   } = props;
 
   const isMobile = useIsMobile();
-  const form = useForm(onConfirm);
+  const form = useForm({ data, fields, onSubmit });
 
   return (
     <Dialog
-      // ref={ref}
       fullScreen={isMobile}
       fullWidth
       maxWidth="sm"

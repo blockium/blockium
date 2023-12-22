@@ -62,7 +62,6 @@ export const Form = <T extends object>(props: FormProps<T>) => {
   console.log('Form');
 
   const { data, form, fields, gridProps } = props;
-
   const [errors, setErrors] = useState<string[]>([]);
 
   // Focus on first field (only on desktop)
@@ -77,34 +76,10 @@ export const Form = <T extends object>(props: FormProps<T>) => {
   }, [isMobile]);
   useEffectOnce(focusFirstField);
 
-  // Validate all fields
-  const validateAllFields = useCallback(() => {
-    console.log('validateAllFields called');
-    if (!form.isValidating) return;
-
-    console.log('validateAllFields running');
-
-    const newErrors: string[] = [];
-    // eslint-disable-next-line array-callback-return
-    fields.map((field, index) => {
-      const value = data[field.key];
-      try {
-        field.validation?.validateSync(value);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (error: any) {
-        newErrors[index] = error.message;
-      }
-    });
-    setErrors(newErrors);
-
-    const hasError = newErrors.some((error) => !!error);
-    if (!hasError) {
-      form.submit(false);
-    } else {
-      form.cancelSubmit();
-    }
-  }, [data, fields, form]);
-  useEffect(validateAllFields, [validateAllFields]);
+  // Show errors found during form validation
+  useEffect(() => {
+    setErrors(form.errors);
+  }, [form.errors]);
 
   // Validate a data field
   const validateValue = (
@@ -121,6 +96,7 @@ export const Form = <T extends object>(props: FormProps<T>) => {
     }
   };
 
+  // Used to register new errors during typing
   const newErrors = [...errors];
 
   return (
@@ -164,16 +140,6 @@ export const Form = <T extends object>(props: FormProps<T>) => {
           key: index,
           data,
         };
-
-        // const palette = {
-        //   green: '#00ab55', // green
-        //   blue: '#188fff', // blue
-        //   lime: '#54d62c', // lime
-        //   orange: '#ffc107', // orange
-        //   red: '#ff4842', // red
-        //   darkblue: '#04297a', // dark blue
-        //   darkred: '#7a0c2f', // dark red
-        // };
 
         switch (field.formType) {
           case 'text':

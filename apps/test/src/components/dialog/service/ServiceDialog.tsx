@@ -141,7 +141,7 @@ const ServiceDialog: React.FC<ServiceDialogProps> = (props) => {
         data={currentService}
         fields={fields}
         onClose={onClose}
-        onConfirm={isNew ? addData : changeData}
+        onSubmit={isNew ? addData : changeData}
       />
       <Alert
         onClose={closeAlert}
