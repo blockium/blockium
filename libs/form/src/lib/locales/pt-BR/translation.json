@@ -1,1 +1,12 @@
-{}
+{
+  "button.cancel": "Cancelar",
+  "button.save": "Salvar",
+  "yup.mixed.default": "não é válido",
+  "yup.mixed.required": "campo obrigatório",
+  "yup.mixed.notType": "digite um valor válido",
+  "yup.number.min": "deve ser maior ou igual a ${min}",
+  "yup.number.max": "deve ser menor ou igual a ${max}",
+  "yup.number.positive": "deve ser um número positivo",
+  "yup.number.integer": "deve ser um número inteiro",
+  "yup.string.email": "deve ser um email válido"
+}

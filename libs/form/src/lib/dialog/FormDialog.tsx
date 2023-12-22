@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 
 // mui
 import {
@@ -35,8 +36,6 @@ type FormDialogProps<T> = {
   rightActions?: FormDialogAction[];
 };
 
-// TODO: I18N
-
 // A form dialog that creates the components from fields metadata
 export const FormDialog = <T extends object>(props: FormDialogProps<T>) => {
   console.log('FormDialog');
@@ -57,6 +56,8 @@ export const FormDialog = <T extends object>(props: FormDialogProps<T>) => {
 
   const isMobile = useIsMobile();
   const form = useForm({ data, fields, onSubmit });
+
+  const { t } = useTranslation();
 
   return (
     <Dialog
@@ -89,15 +90,14 @@ export const FormDialog = <T extends object>(props: FormDialogProps<T>) => {
       <DialogActions>
         {leftActions?.map((action) => action(form))}
         <Button variant="outlined" color="secondary" onClick={onClose}>
-          Cancelar
+          {t('form:button.cancel')}
         </Button>
         {middleActions?.map((action) => action(form))}
         <Button variant="contained" onClick={(e) => form.submit()}>
-          Salvar
+          {t('form:button.save')}
         </Button>
         {rightActions?.map((action) => action(form))}
       </DialogActions>
-      {/* )} */}
     </Dialog>
   );
 };

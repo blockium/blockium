@@ -1,7 +1,7 @@
 /* eslint-disable no-template-curly-in-string */
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useEffectOnce } from 'react-use';
-import { setLocale, AnySchema } from 'yup';
+import { AnySchema } from 'yup';
 
 import { Grid } from '@mui/material';
 
@@ -23,6 +23,7 @@ import { IForm } from '../form/useForm';
 import { FormField } from '../field/FormField';
 
 import { useIsMobile } from '../hooks/useIsMobile';
+import { useFormTranslation } from './useFormTranslation';
 
 // Redeclare forwardRef
 declare module 'react' {
@@ -30,24 +31,6 @@ declare module 'react' {
     render: (props: P, ref: React.Ref<T>) => React.ReactElement | null,
   ): (props: P & React.RefAttributes<T>) => React.ReactElement | null;
 }
-
-// TODO: I18N
-setLocale({
-  mixed: {
-    default: 'não é válido',
-    required: 'campo obrigatório',
-    notType: 'digite um valor válido',
-  },
-  number: {
-    min: 'deve ser maior ou igual a ${min}',
-    max: 'deve ser menor ou igual a ${max}',
-    positive: 'deve ser um número positivo',
-    integer: 'deve ser um número inteiro',
-  },
-  string: {
-    email: 'deve ser um email válido',
-  },
-});
 
 // Props for a form that creates the components from fields metadata
 type FormProps<T> = {
@@ -60,6 +43,7 @@ type FormProps<T> = {
 // A form that creates the components from fields metadata
 export const Form = <T extends object>(props: FormProps<T>) => {
   console.log('Form');
+  useFormTranslation();
 
   const { data, form, fields, gridProps } = props;
   const [errors, setErrors] = useState<string[]>([]);
