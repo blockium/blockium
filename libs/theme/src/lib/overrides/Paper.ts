@@ -12,6 +12,7 @@ export default function Paper(theme: Theme) {
       styleOverrides: {
         root: {
           backgroundImage: 'none',
+          boxShadow: theme.shadows[2],
         },
       },
     },
