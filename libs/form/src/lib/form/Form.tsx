@@ -42,7 +42,6 @@ type FormProps<T> = {
 
 // A form that creates the components from fields metadata
 export const Form = <T extends object>(props: FormProps<T>) => {
-  console.log('Form');
   useFormTranslation();
 
   const { data, form, fields, gridProps } = props;

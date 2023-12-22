@@ -12,8 +12,6 @@ import ServiceDialog from '../../dialog/service/ServiceDialog';
 import { IService } from '../../../types';
 
 export const ServiceTable = () => {
-  console.log('ServiceTable');
-
   const tableConfig = useServiceTable();
 
   const [current, setCurrent] = useState<IService>();

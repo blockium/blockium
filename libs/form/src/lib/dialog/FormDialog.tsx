@@ -38,8 +38,6 @@ type FormDialogProps<T> = {
 
 // A form dialog that creates the components from fields metadata
 export const FormDialog = <T extends object>(props: FormDialogProps<T>) => {
-  console.log('FormDialog');
-
   const {
     open,
     title,
