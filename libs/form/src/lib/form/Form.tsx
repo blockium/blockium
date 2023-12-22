@@ -5,23 +5,23 @@ import { setLocale, AnySchema } from 'yup';
 
 import { Grid } from '@mui/material';
 
-import { ITextField, TextField } from '../field/TextField';
-import { ISelectField, SelectField } from '../field/SelectField';
-import { SelectSearchField } from '../field/SelectSearchField';
-import { SelectSearchMultipleField } from '../field/SelectSearchMultipleField';
 import {
-  ISelectSearchAsyncField,
+  ColorField,
+  DateField,
+  DateTimeField,
+  NumberField,
+  SelectField,
   SelectSearchAsyncField,
-} from '../field/SelectSearchAsyncField';
-import { INumberField, NumberField } from '../field/NumberField';
-import { IDateTimeField, DateTimeField } from '../field/DateTimeField';
-import { DateField } from '../field/DateField';
-import { TimeField } from '../field/TimeField';
-import { ISwitchField, SwitchField } from '../field/SwitchField';
-import { IColorField, ColorField } from '../field/ColorField';
-import { ICustomField } from '../field/CustomField';
+  SelectSearchField,
+  SelectSearchMultipleField,
+  SwitchField,
+  TextField,
+  TimeField,
+} from '../field';
 
 import { IForm } from '../form/useForm';
+import { FormField } from '../field/FormField';
+
 import { useIsMobile } from '../hooks/useIsMobile';
 
 // Redeclare forwardRef
@@ -48,17 +48,6 @@ setLocale({
     email: 'deve ser um email válido',
   },
 });
-
-// Metadata to define a form data field
-export type FormField<T> =
-  | ITextField<T>
-  | ISelectField<T>
-  | ISelectSearchAsyncField<T>
-  | INumberField<T>
-  | IDateTimeField<T>
-  | ISwitchField<T>
-  | IColorField<T>
-  | ICustomField<T>;
 
 // Props for a form that creates the components from fields metadata
 type FormProps<T> = {

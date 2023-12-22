@@ -16,8 +16,9 @@ import {
 // import { useIsKeyboardOpen } from '../../hooks/useIsKeyboardOpen';
 import { useIsMobile } from '../hooks/useIsMobile';
 
-import { Form, FormField } from '../form/Form';
+import { Form } from '../form/Form';
 import { IForm, useForm } from '../form/useForm';
+import { FormField } from '../field/FormField';
 
 export type FormDialogAction = (form: IForm) => ReactNode;
 
