@@ -73,7 +73,11 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({
 
   return (
     <>
-      <Alert severity={severity} message={message} setMessage={setMessage} />
+      <Alert
+        severity={severity}
+        message={message}
+        onClose={() => setMessage(null)}
+      />
       <Card>
         {/* <CardHeader title={title} subheader={subheader} /> */}
         <CardHeader

@@ -74,7 +74,11 @@ export const PartnersPage: React.FC = () => {
 
   return (
     <>
-      <Alert severity={severity} message={message} setMessage={setMessage} />
+      <Alert
+        severity={severity}
+        message={message}
+        onClose={() => setMessage(null)}
+      />
       <Card>
         <CardHeader
           avatar={
