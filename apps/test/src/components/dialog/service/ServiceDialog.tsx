@@ -19,10 +19,10 @@ type ServiceDialogProps = {
 const ServiceDialog: React.FC<ServiceDialogProps> = (props) => {
   const { open, service, onClose, onAddCallback } = props;
 
+  const [currentService, setCurrentService] =
+    useState<IService>(DEFAULT_SERVICE);
+
   const isNew = !service?.id;
-  const [currentService, setCurrentService] = useState<IService>(
-    isNew ? DEFAULT_SERVICE : service,
-  );
 
   useEffect(() => {
     !service?.id

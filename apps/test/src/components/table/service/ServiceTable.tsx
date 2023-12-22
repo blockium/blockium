@@ -25,7 +25,7 @@ export const ServiceTable = () => {
 
   // TODO: Implement onEditClick
   const onEditClick = (row: IService, rowIndex: number) => {
-    setCurrent(row);
+    setCurrent({ ...row });
     setOpenEditDialog(true);
   };
 
