@@ -1,16 +1,19 @@
 import { forwardRef, useState } from 'react';
+import { CirclePicker } from 'react-color';
 
 // mui
 import { Box, Card, CardContent, Grid, Popover, Stack } from '@mui/material';
 
-import { CirclePicker } from 'react-color';
+import { IBaseDataField } from './BaseDataField';
 
-import { ColorField } from '../Form';
+export interface IColorField<T> extends IBaseDataField<T> {
+  formType: 'color';
+}
 
 // Props for a switch component
 type BooleanProps<T> = {
   data: T;
-  field: ColorField<T>;
+  field: IColorField<T>;
 };
 
 // A switch component
@@ -77,6 +80,4 @@ const ColorInner = <T extends object>(
   );
 };
 
-const ColorInput = forwardRef(ColorInner);
-
-export default ColorInput;
+export const ColorField = forwardRef(ColorInner);

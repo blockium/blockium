@@ -14,13 +14,12 @@ import {
 // custom hooks
 // import { useFillHeight } from '../../hooks/useFillHeight';
 // import { useIsKeyboardOpen } from '../../hooks/useIsKeyboardOpen';
-import { useIsMobile } from '../../hooks/useIsMobile';
+import { useIsMobile } from '../hooks/useIsMobile';
 
-import { Form, FormField } from '../Form';
-import { FormContextProps, useForm } from '../FormContext';
-import { FormContextProvider } from '../FormContextProvider';
+import { Form, FormField } from '../form/Form';
+import { IForm, useForm } from '../form/useForm';
 
-export type FormDialogAction = (form: FormContextProps) => ReactNode;
+export type FormDialogAction = (form: IForm) => ReactNode;
 
 // Props for a form dialog that creates the components from fields metadata
 type FormDialogProps<T> = {
@@ -39,7 +38,9 @@ type FormDialogProps<T> = {
 };
 
 // A form dialog that creates the components from fields metadata
-const FormDialogInner = <T extends object>(props: FormDialogProps<T>) => {
+export const FormDialog = <T extends object>(props: FormDialogProps<T>) => {
+  console.log('FormDialog');
+
   const {
     open,
     title,
@@ -47,18 +48,15 @@ const FormDialogInner = <T extends object>(props: FormDialogProps<T>) => {
     data,
     fields,
     gridProps,
+    onConfirm,
     onClose,
     leftActions,
     middleActions,
     rightActions,
   } = props;
 
-  // const [height, setHeight] = useState(0);
-  // const ref = useFillHeight(true, (height) => setHeight(height));
-  // const isKeyboardOpen = useIsKeyboardOpen(height);
-
   const isMobile = useIsMobile();
-  const form = useForm();
+  const form = useForm(onConfirm);
 
   return (
     <Dialog
@@ -86,10 +84,9 @@ const FormDialogInner = <T extends object>(props: FormDialogProps<T>) => {
               <br></br>
             </DialogContentText>
           )}
-          <Form data={data} fields={fields} gridProps={gridProps} />
+          <Form data={data} form={form} fields={fields} gridProps={gridProps} />
         </>
       </DialogContent>
-      {/* {!(isMobile && isKeyboardOpen) && ( */}
       <DialogActions>
         {leftActions?.map((action) => action(form))}
         <Button variant="outlined" color="secondary" onClick={onClose}>
@@ -103,15 +100,6 @@ const FormDialogInner = <T extends object>(props: FormDialogProps<T>) => {
       </DialogActions>
       {/* )} */}
     </Dialog>
-  );
-};
-
-// A form dialog that creates the components from fields metadata
-export const FormDialog = <T extends object>(props: FormDialogProps<T>) => {
-  return (
-    <FormContextProvider onSubmit={props.onConfirm}>
-      <FormDialogInner {...props} />
-    </FormContextProvider>
   );
 };
 

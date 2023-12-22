@@ -11,17 +11,31 @@ import {
 // TODO: implement own throttle and remove lodash dependency
 import throttle from 'lodash.throttle';
 
-import { getDataPromise, SelectSearchAsyncField } from '../Form';
+import { IBaseDataField, getDataPromise } from './BaseDataField';
+
+// Options for async selects - should be used in relationships with other entities
+export interface ISelectOptionsAsync<U> {
+  getData: getDataPromise<U>;
+  key: keyof U;
+  label: keyof U;
+}
+
+// A select form data field
+export interface ISelectSearchAsyncField<T> extends IBaseDataField<T> {
+  formType: 'select-search-async';
+  options: ISelectOptionsAsync<unknown>;
+  getFieldLabel: (optionKey: string) => string;
+}
 
 // Props for a select component that allows async searching
 type SelectSearchAsyncProps<T> = {
   data: T;
-  field: SelectSearchAsyncField<T>;
+  field: ISelectSearchAsyncField<T>;
 };
 
 const isDataChange = <T extends object>(
   data: T,
-  field: SelectSearchAsyncField<T>,
+  field: ISelectSearchAsyncField<T>,
   inputValue: string,
 ) => {
   return (
@@ -193,6 +207,4 @@ const SelectSearchAsyncInner = <T extends object>(
     </Grid>
   );
 };
-const SelectSearchAsyncInput = forwardRef(SelectSearchAsyncInner);
-
-export default SelectSearchAsyncInput;
+export const SelectSearchAsyncField = forwardRef(SelectSearchAsyncInner);

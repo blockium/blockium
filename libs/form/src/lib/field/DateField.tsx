@@ -4,15 +4,16 @@ import { Grid, IconButton } from '@mui/material';
 import { Clear as ClearIcon } from '@mui/icons-material';
 import { DatePicker } from '@mui/x-date-pickers';
 
-import { DateTimeField } from '../Form';
-import { useIsMobile } from '../../hooks/useIsMobile';
+import { IDateTimeField } from './DateTimeField';
+
+import { useIsMobile } from '../hooks/useIsMobile';
 
 // TODO: Add LocalizationProvider from @blockium/calendar to @blockium/form
 
 // Props for a date selection component
 type DateProps<T> = {
   data: T;
-  field: DateTimeField<T>;
+  field: IDateTimeField<T>;
 };
 
 // A date selection component
@@ -67,6 +68,4 @@ const DateInner = <T extends object>(
   );
 };
 
-const DateInput = forwardRef(DateInner);
-
-export default DateInput;
+export const DateField = forwardRef(DateInner);

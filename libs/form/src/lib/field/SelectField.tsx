@@ -1,12 +1,27 @@
 import { forwardRef, useEffect, useState } from 'react';
 import { Grid, InputAdornment, MenuItem, TextField } from '@mui/material';
+import { AnySchema } from 'yup';
 
-import { SelectField } from '../Form';
+import { IBaseDataField, getData } from './BaseDataField';
+
+// Options for selects - should be used in relationships with other entities
+export interface ISelectOptions<U> {
+  getData: getData<U>;
+  key: keyof U;
+  label: keyof U;
+}
+
+// A select form data field
+export interface ISelectField<T> extends IBaseDataField<T> {
+  formType: 'select' | 'select-search' | 'select-search-multiple';
+  options: ISelectOptions<unknown>;
+  validation?: AnySchema;
+}
 
 // Props for a simple select component
 type SelectProps<T> = {
   data: T;
-  field: SelectField<T>;
+  field: ISelectField<T>;
 };
 
 // A simple select component
@@ -65,6 +80,4 @@ const SelectInner = <T extends object>(
   );
 };
 
-const SelectInput = forwardRef(SelectInner);
-
-export default SelectInput;
+export const SelectField = forwardRef(SelectInner);

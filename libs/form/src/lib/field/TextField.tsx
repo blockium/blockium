@@ -4,12 +4,19 @@ import { Grid, InputAdornment, TextField as MuiTextField } from '@mui/material';
 
 import InputMask from 'react-input-mask';
 
-import { TextField } from '../Form';
+import { IBaseDataField } from './BaseDataField';
+
+// A text form data field
+export interface ITextField<T> extends IBaseDataField<T> {
+  formType: 'text';
+  textType: 'email' | 'password' | 'tel' | 'text' | 'url';
+  mask?: string;
+}
 
 // Props for a text component
 type TextProps<T> = {
   data: T;
-  field: TextField<T>;
+  field: ITextField<T>;
 };
 
 // A text component
@@ -82,6 +89,4 @@ const TextInner = <T extends object>(
   );
 };
 
-const TextInput = forwardRef(TextInner);
-
-export default TextInput;
+export const TextField = forwardRef(TextInner);

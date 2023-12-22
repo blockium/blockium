@@ -11,7 +11,7 @@ import {
 import { CheckBoxOutlineBlank as CheckBoxOutlineBlankIcon } from '@mui/icons-material';
 import { CheckBox as CheckBoxIcon } from '@mui/icons-material';
 
-import { SelectField } from '../Form';
+import { ISelectField } from './SelectField';
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -19,7 +19,7 @@ const checkedIcon = <CheckBoxIcon fontSize="small" />;
 // Props for a select component that allows searching
 type SelectSearchProps<T> = {
   data: T;
-  field: SelectField<T>;
+  field: ISelectField<T>;
 };
 
 // A select component that allows searching
@@ -148,6 +148,5 @@ const SelectSearchMultipleInner = <T extends object>(
     </Grid>
   );
 };
-const SelectSearchMultipleInput = forwardRef(SelectSearchMultipleInner);
 
-export default SelectSearchMultipleInput;
+export const SelectSearchMultipleField = forwardRef(SelectSearchMultipleInner);

@@ -10,4 +10,4 @@ addResourceBundles([
   { lng: 'pt-BR', ns: 'form', resources: pt_BR },
 ]);
 
-export * from './lib/form';
+export * from './lib';

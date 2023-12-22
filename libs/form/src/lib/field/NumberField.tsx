@@ -1,12 +1,18 @@
 import { forwardRef } from 'react';
 import { Grid, InputAdornment, TextField } from '@mui/material';
 
-import { NumberField } from '../Form';
+import { IBaseDataField } from './BaseDataField';
+
+// TODO: numberPrefix and numberSuffix
+// A number form data field
+export interface INumberField<T> extends IBaseDataField<T> {
+  formType: 'number';
+}
 
 // Props for a number component
 type NumberProps<T> = {
   data: T;
-  field: NumberField<T>;
+  field: INumberField<T>;
 };
 
 // A number component
@@ -42,6 +48,4 @@ const NumberInner = <T extends object>(
   );
 };
 
-const NumberInput = forwardRef(NumberInner);
-
-export default NumberInput;
+export const NumberField = forwardRef(NumberInner);

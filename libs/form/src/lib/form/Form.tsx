@@ -1,23 +1,27 @@
 /* eslint-disable no-template-curly-in-string */
-import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useEffectOnce } from 'react-use';
 import { setLocale, AnySchema } from 'yup';
 
 import { Grid } from '@mui/material';
 
-import Text from './input/TextInput';
-import Number from './input/NumberInput';
-import Switch from './input/SwitchInput';
-import Select from './input/SelectInput';
-import SelectSearch from './input/SelectSearchInput';
-import SelectSearchMultiple from './input/SelectSearchMultipleInput';
-import SelectSearchAsync from './input/SelectSearchAsyncInput';
-import Date from './input/DateInput';
-import Time from './input/TimeInput';
-import DateTime from './input/DateTimeInput';
-import Color from './input/ColorInput';
+import { ITextField, TextField } from '../field/TextField';
+import { ISelectField, SelectField } from '../field/SelectField';
+import { SelectSearchField } from '../field/SelectSearchField';
+import { SelectSearchMultipleField } from '../field/SelectSearchMultipleField';
+import {
+  ISelectSearchAsyncField,
+  SelectSearchAsyncField,
+} from '../field/SelectSearchAsyncField';
+import { INumberField, NumberField } from '../field/NumberField';
+import { IDateTimeField, DateTimeField } from '../field/DateTimeField';
+import { DateField } from '../field/DateField';
+import { TimeField } from '../field/TimeField';
+import { ISwitchField, SwitchField } from '../field/SwitchField';
+import { IColorField, ColorField } from '../field/ColorField';
+import { ICustomField } from '../field/CustomField';
 
-import { useForm } from './FormContext';
+import { IForm } from '../form/useForm';
 import { useIsMobile } from '../hooks/useIsMobile';
 
 // Redeclare forwardRef
@@ -45,104 +49,32 @@ setLocale({
   },
 });
 
-export type getData<U> = (searchText?: string) => U[];
-export type getDataPromise<U> = (searchText?: string) => Promise<U[]>;
-
-// Options for selects - should be used in relationships with other entities
-export type SelectOptions<U> = {
-  getData: getData<U>;
-  key: keyof U;
-  label: keyof U;
-};
-
-// Options for async selects - should be used in relationships with other entities
-export type SelectOptionsAsync<U> = {
-  getData: getDataPromise<U>;
-  key: keyof U;
-  label: keyof U;
-};
-
-// The base form data field
-type BaseDataField<T> = {
-  key: keyof T; // Field key
-  formLabel: string; // Field label on form
-  uiProps?: object;
-  gridProps?: object;
-  validation?: AnySchema;
-  prefix?: ReactNode; // e.g: $
-  suffix?: ReactNode; // e.g: Kg
-  onAddClick?: (value?: string) => void; // Function to add a new related entity
-  onChange?: (value: string | null) => void;
-};
-
-// A text form data field
-export type TextField<T> = {
-  formType: 'text';
-  textType: 'email' | 'password' | 'tel' | 'text' | 'url';
-  mask?: string;
-} & BaseDataField<T>;
-
-// A select form data field
-export type SelectField<T> = {
-  formType: 'select' | 'select-search' | 'select-search-multiple';
-  options: SelectOptions<unknown>;
-  validation?: AnySchema;
-} & BaseDataField<T>;
-
-// A select form data field
-export type SelectSearchAsyncField<T> = {
-  formType: 'select-search-async';
-  options: SelectOptionsAsync<unknown>;
-  getFieldLabel: (optionKey: string) => string;
-} & BaseDataField<T>;
-
-// TODO: numberPrefix and numberSuffix
-// A number form data field
-export type NumberField<T> = {
-  formType: 'number';
-} & BaseDataField<T>;
-
-// Other types of form data field
-export type DateTimeField<T> = {
-  formType: 'date' | 'time' | 'date-time';
-} & BaseDataField<T>;
-
-export type SwitchField<T> = {
-  formType: 'switch';
-} & BaseDataField<T>;
-
-export type ColorField<T> = {
-  formType: 'color';
-} & BaseDataField<T>;
-
-export type CustomField<T> = {
-  formType: 'custom';
-} & BaseDataField<T>;
-
 // Metadata to define a form data field
 export type FormField<T> =
-  | TextField<T>
-  | SelectField<T>
-  | SelectSearchAsyncField<T>
-  | NumberField<T>
-  | DateTimeField<T>
-  | SwitchField<T>
-  | ColorField<T>
-  | CustomField<T>;
+  | ITextField<T>
+  | ISelectField<T>
+  | ISelectSearchAsyncField<T>
+  | INumberField<T>
+  | IDateTimeField<T>
+  | ISwitchField<T>
+  | IColorField<T>
+  | ICustomField<T>;
 
 // Props for a form that creates the components from fields metadata
 type FormProps<T> = {
   data: T;
+  form: IForm;
   fields: FormField<T>[];
   gridProps?: object;
 };
 
 // A form that creates the components from fields metadata
 export const Form = <T extends object>(props: FormProps<T>) => {
-  const { data, fields, gridProps } = props;
+  console.log('Form');
+
+  const { data, form, fields, gridProps } = props;
 
   const [errors, setErrors] = useState<string[]>([]);
-  const form = useForm();
 
   // Focus on first field (only on desktop)
   const ref = useRef<HTMLInputElement>(null);
@@ -158,7 +90,10 @@ export const Form = <T extends object>(props: FormProps<T>) => {
 
   // Validate all fields
   const validateAllFields = useCallback(() => {
-    if (!form.validating) return;
+    console.log('validateAllFields called');
+    if (!form.isValidating) return;
+
+    console.log('validateAllFields running');
 
     const newErrors: string[] = [];
     // eslint-disable-next-line array-callback-return
@@ -180,7 +115,6 @@ export const Form = <T extends object>(props: FormProps<T>) => {
       form.cancelSubmit();
     }
   }, [data, fields, form]);
-  // useEffectOnce(validateAllFields);
   useEffect(validateAllFields, [validateAllFields]);
 
   // Validate a data field
@@ -254,27 +188,27 @@ export const Form = <T extends object>(props: FormProps<T>) => {
 
         switch (field.formType) {
           case 'text':
-            return <Text {...fieldProps} field={field} />;
+            return <TextField {...fieldProps} field={field} />;
           case 'number':
-            return <Number {...fieldProps} field={field} />;
+            return <NumberField {...fieldProps} field={field} />;
           case 'select':
-            return <Select {...fieldProps} field={field} />;
+            return <SelectField {...fieldProps} field={field} />;
           case 'select-search':
-            return <SelectSearch {...fieldProps} field={field} />;
+            return <SelectSearchField {...fieldProps} field={field} />;
           case 'select-search-multiple':
-            return <SelectSearchMultiple {...fieldProps} field={field} />;
+            return <SelectSearchMultipleField {...fieldProps} field={field} />;
           case 'select-search-async':
-            return <SelectSearchAsync {...fieldProps} field={field} />;
+            return <SelectSearchAsyncField {...fieldProps} field={field} />;
           case 'date':
-            return <Date {...fieldProps} field={field} />;
+            return <DateField {...fieldProps} field={field} />;
           case 'time':
-            return <Time {...fieldProps} field={field} />;
+            return <TimeField {...fieldProps} field={field} />;
           case 'date-time':
-            return <DateTime {...fieldProps} field={field} />;
+            return <DateTimeField {...fieldProps} field={field} />;
           case 'switch':
-            return <Switch {...fieldProps} field={field} />;
+            return <SwitchField {...fieldProps} field={field} />;
           case 'color':
-            return <Color {...fieldProps} field={field} />;
+            return <ColorField {...fieldProps} field={field} />;
           case 'custom':
             // TODO: Add Custom
             return <div></div>;

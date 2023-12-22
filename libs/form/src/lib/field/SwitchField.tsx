@@ -1,6 +1,5 @@
 import { forwardRef } from 'react';
 
-import { SwitchField } from '../Form';
 import {
   FormControl,
   FormControlLabel,
@@ -8,10 +7,16 @@ import {
   Switch as MuiSwitch,
 } from '@mui/material';
 
+import { IBaseDataField } from './BaseDataField';
+
+export interface ISwitchField<T> extends IBaseDataField<T> {
+  formType: 'switch';
+}
+
 // Props for a switch component
 type BooleanProps<T> = {
   data: T;
-  field: SwitchField<T>;
+  field: ISwitchField<T>;
 };
 
 // A switch component
@@ -40,6 +45,4 @@ const SwitchInner = <T extends object>(
   );
 };
 
-const SwitchInput = forwardRef(SwitchInner);
-
-export default SwitchInput;
+export const SwitchField = forwardRef(SwitchInner);

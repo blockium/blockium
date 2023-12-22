@@ -17,6 +17,8 @@ type ServiceDialogProps = {
 };
 
 const ServiceDialog: React.FC<ServiceDialogProps> = (props) => {
+  console.log('ServiceDialog');
+
   const { open, service, onClose, onAddCallback } = props;
 
   const [currentService, setCurrentService] =

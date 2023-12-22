@@ -9,12 +9,12 @@ import {
   TextField,
 } from '@mui/material';
 
-import { SelectField } from '../Form';
+import { ISelectField } from './SelectField';
 
 // Props for a select component that allows searching
 type SelectSearchProps<T> = {
   data: T;
-  field: SelectField<T>;
+  field: ISelectField<T>;
 };
 
 // A select component that allows searching
@@ -143,6 +143,4 @@ const SelectSearchInner = <T extends object>(
     </Grid>
   );
 };
-const SelectSearchInput = forwardRef(SelectSearchInner);
-
-export default SelectSearchInput;
+export const SelectSearchField = forwardRef(SelectSearchInner);

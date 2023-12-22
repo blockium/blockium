@@ -4,13 +4,17 @@ import { Grid, IconButton } from '@mui/material';
 import { Clear as ClearIcon } from '@mui/icons-material';
 import { DateTimePicker } from '@mui/x-date-pickers';
 
-import { DateTimeField } from '../Form';
-import { useIsMobile } from '../../hooks/useIsMobile';
+import { IBaseDataField } from './BaseDataField';
+import { useIsMobile } from '../hooks/useIsMobile';
+
+export interface IDateTimeField<T> extends IBaseDataField<T> {
+  formType: 'date' | 'time' | 'date-time';
+}
 
 // Props for a date and time selection component
 type DateTimeProps<T> = {
   data: T;
-  field: DateTimeField<T>;
+  field: IDateTimeField<T>;
 };
 
 // A date and time selection component
@@ -65,6 +69,4 @@ const DateTimeInner = <T extends object>(
     </Grid>
   );
 };
-const DateTimeInput = forwardRef(DateTimeInner);
-
-export default DateTimeInput;
+export const DateTimeField = forwardRef(DateTimeInner);
