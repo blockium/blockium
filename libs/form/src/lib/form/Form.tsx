@@ -3,19 +3,19 @@ import { ReactNode, useCallback, useRef, useState } from 'react';
 import { useEffectOnce } from 'react-use';
 import { setLocale, AnySchema } from 'yup';
 
-import { Grid } from '@mui/material'; // Grid version 2
+import { Grid } from '@mui/material';
 
-import Text from './input/Text';
-import Number from './input/Number';
-import Switch from './input/Switch';
-import Select from './input/Select';
-import SelectSearch from './input/SelectSearch';
-import SelectSearchMultiple from './input/SelectSearchMultiple';
-import SelectSearchAsync from './input/SelectSearchAsync';
-import Date from './input/Date';
-import Time from './input/Time';
-import DateTime from './input/DateTime';
-import Color from './input/Color';
+import Text from './input/TextInput';
+import Number from './input/NumberInput';
+import Switch from './input/SwitchInput';
+import Select from './input/SelectInput';
+import SelectSearch from './input/SelectSearchInput';
+import SelectSearchMultiple from './input/SelectSearchMultipleInput';
+import SelectSearchAsync from './input/SelectSearchAsyncInput';
+import Date from './input/DateInput';
+import Time from './input/TimeInput';
+import DateTime from './input/DateTimeInput';
+import Color from './input/ColorInput';
 
 import { useForm } from './FormContext';
 import { useIsMobile } from '../hooks/useIsMobile';

@@ -48,7 +48,7 @@ const SelectSearchInner = <T extends object>(
   };
 
   return (
-    <Grid xs={12} {...field.gridProps}>
+    <Grid item xs={12} {...field.gridProps}>
       <Autocomplete
         // freeSolo
         id={field.key as string}
@@ -143,6 +143,6 @@ const SelectSearchInner = <T extends object>(
     </Grid>
   );
 };
-const SelectSearch = forwardRef(SelectSearchInner);
+const SelectSearchInput = forwardRef(SelectSearchInner);
 
-export default SelectSearch;
+export default SelectSearchInput;

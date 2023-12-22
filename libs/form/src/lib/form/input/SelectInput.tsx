@@ -30,7 +30,7 @@ const SelectInner = <T extends object>(
   }, [field.options]);
 
   return (
-    <Grid xs={12} {...field.gridProps}>
+    <Grid item xs={12} {...field.gridProps}>
       <TextField
         inputRef={ref}
         select
@@ -65,6 +65,6 @@ const SelectInner = <T extends object>(
   );
 };
 
-const Select = forwardRef(SelectInner);
+const SelectInput = forwardRef(SelectInner);
 
-export default Select;
+export default SelectInput;

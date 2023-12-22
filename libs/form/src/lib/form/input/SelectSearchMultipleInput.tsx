@@ -56,7 +56,7 @@ const SelectSearchMultipleInner = <T extends object>(
   };
 
   return (
-    <Grid xs={12} {...field.gridProps}>
+    <Grid item xs={12} {...field.gridProps}>
       <Autocomplete
         multiple
         freeSolo // This is necessary if using the custom filterOptions
@@ -148,6 +148,6 @@ const SelectSearchMultipleInner = <T extends object>(
     </Grid>
   );
 };
-const SelectSearchMultiple = forwardRef(SelectSearchMultipleInner);
+const SelectSearchMultipleInput = forwardRef(SelectSearchMultipleInner);
 
-export default SelectSearchMultiple;
+export default SelectSearchMultipleInput;

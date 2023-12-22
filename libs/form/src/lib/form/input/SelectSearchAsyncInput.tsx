@@ -95,7 +95,7 @@ const SelectSearchAsyncInner = <T extends object>(
     return option?.[field.options.label];
   };
   return (
-    <Grid xs={12} {...field.gridProps}>
+    <Grid item xs={12} {...field.gridProps}>
       <Autocomplete
         freeSolo
         id={field.key as string}
@@ -193,6 +193,6 @@ const SelectSearchAsyncInner = <T extends object>(
     </Grid>
   );
 };
-const SelectSearchAsync = forwardRef(SelectSearchAsyncInner);
+const SelectSearchAsyncInput = forwardRef(SelectSearchAsyncInner);
 
-export default SelectSearchAsync;
+export default SelectSearchAsyncInput;

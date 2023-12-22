@@ -22,7 +22,7 @@ const SwitchInner = <T extends object>(
   const { data, field } = props;
 
   return (
-    <Grid xs={12} {...field.gridProps}>
+    <Grid item xs={12} {...field.gridProps}>
       <FormControl ref={ref} sx={{ my: '8px', ml: '12px' }} {...field.uiProps}>
         <FormControlLabel
           id={field.key as string}
@@ -40,6 +40,6 @@ const SwitchInner = <T extends object>(
   );
 };
 
-const Switch = forwardRef(SwitchInner);
+const SwitchInput = forwardRef(SwitchInner);
 
-export default Switch;
+export default SwitchInput;

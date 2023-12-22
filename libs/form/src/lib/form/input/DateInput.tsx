@@ -24,12 +24,12 @@ const DateInner = <T extends object>(
   const isMobile = useIsMobile();
 
   return (
-    <Grid xs={12} {...field.gridProps}>
+    <Grid item xs={12} {...field.gridProps}>
       <DatePicker
         label={field.formLabel}
         value={
           data[field.key] !== null && data[field.key] !== undefined
-            ? (data[field.key] as Date)
+            ? new Date(data[field.key] as string)
             : null
         }
         onChange={(date: Date | null) =>
@@ -67,6 +67,6 @@ const DateInner = <T extends object>(
   );
 };
 
-const Date = forwardRef(DateInner);
+const DateInput = forwardRef(DateInner);
 
-export default Date;
+export default DateInput;

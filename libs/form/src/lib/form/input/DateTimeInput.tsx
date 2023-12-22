@@ -2,33 +2,33 @@ import { forwardRef } from 'react';
 
 import { Grid, IconButton } from '@mui/material';
 import { Clear as ClearIcon } from '@mui/icons-material';
-import { TimePicker } from '@mui/x-date-pickers';
+import { DateTimePicker } from '@mui/x-date-pickers';
 
 import { DateTimeField } from '../Form';
 import { useIsMobile } from '../../hooks/useIsMobile';
 
-// Props for a time selection component
-type TimeProps<T> = {
+// Props for a date and time selection component
+type DateTimeProps<T> = {
   data: T;
   field: DateTimeField<T>;
 };
 
-// A time selection component
-const TimeInner = <T extends object>(
-  props: TimeProps<T>,
+// A date and time selection component
+const DateTimeInner = <T extends object>(
+  props: DateTimeProps<T>,
   ref: React.ForwardedRef<HTMLInputElement>,
 ) => {
   const { data, field } = props;
   const isMobile = useIsMobile();
 
   return (
-    <Grid xs={12} {...field.gridProps}>
-      <TimePicker
+    <Grid item xs={12} {...field.gridProps}>
+      <DateTimePicker
         ampm={false}
         label={field.formLabel}
         value={
           data[field.key] !== null && data[field.key] !== undefined
-            ? (data[field.key] as Date)
+            ? new Date(data[field.key] as string)
             : null
         }
         onChange={(date: Date | null) =>
@@ -65,6 +65,6 @@ const TimeInner = <T extends object>(
     </Grid>
   );
 };
-const Time = forwardRef(TimeInner);
+const DateTimeInput = forwardRef(DateTimeInner);
 
-export default Time;
+export default DateTimeInput;

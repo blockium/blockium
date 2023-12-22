@@ -17,7 +17,7 @@ const NumberInner = <T extends object>(
   const { data, field } = props;
 
   return (
-    <Grid xs={12} {...field.gridProps}>
+    <Grid item xs={12} {...field.gridProps}>
       <TextField
         inputRef={ref}
         id={field.key as string}
@@ -42,6 +42,6 @@ const NumberInner = <T extends object>(
   );
 };
 
-const Number = forwardRef(NumberInner);
+const NumberInput = forwardRef(NumberInner);
 
-export default Number;
+export default NumberInput;

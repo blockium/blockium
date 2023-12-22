@@ -92,7 +92,7 @@ const FormDialogInner = <T extends object>(props: FormDialogProps<T>) => {
       {/* {!(isMobile && isKeyboardOpen) && ( */}
       <DialogActions>
         {leftActions?.map((action) => action(form))}
-        <Button variant="contained" color="error" onClick={onClose}>
+        <Button variant="outlined" color="secondary" onClick={onClose}>
           Cancelar
         </Button>
         {middleActions?.map((action) => action(form))}

@@ -20,7 +20,7 @@ const TextInner = <T extends object>(
   const { data, field } = props;
 
   return (
-    <Grid xs={12} {...field.gridProps}>
+    <Grid item xs={12} {...field.gridProps}>
       {field.mask || field.textType === 'tel' ? (
         <InputMask
           mask={field.mask || '(99) 99999-9999'}
@@ -82,6 +82,6 @@ const TextInner = <T extends object>(
   );
 };
 
-const Text = forwardRef(TextInner);
+const TextInput = forwardRef(TextInner);
 
-export default Text;
+export default TextInput;

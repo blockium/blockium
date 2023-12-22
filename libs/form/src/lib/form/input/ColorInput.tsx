@@ -33,7 +33,7 @@ const ColorInner = <T extends object>(
   const open = Boolean(anchorEl);
 
   return (
-    <Grid xs={12} {...field.gridProps}>
+    <Grid item xs={12} {...field.gridProps}>
       <Stack
         direction="row"
         gap={1}
@@ -77,6 +77,6 @@ const ColorInner = <T extends object>(
   );
 };
 
-const Color = forwardRef(ColorInner);
+const ColorInput = forwardRef(ColorInner);
 
-export default Color;
+export default ColorInput;
