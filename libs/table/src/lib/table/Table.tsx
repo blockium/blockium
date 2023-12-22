@@ -19,8 +19,8 @@ type LocaleKey = keyof typeof locales;
 type TableProps<T extends object> = {
   data: T[];
   columns: MRT_ColumnDef<T>[];
-  onEditClick?: (rowIndex: number) => void;
-  onDeleteClick?: (rowIndex: number) => void;
+  onEditClick?: (row: T, rowIndex: number) => void;
+  onDeleteClick?: (row: T, rowIndex: number) => void;
   bottomGap?: number;
   height?: number | string;
   [other: string]: unknown;
@@ -142,7 +142,7 @@ export const Table = <T extends object>(props: TableProps<T>) => {
         muiTableBodyRowProps={({ row }) => ({
           onClick: (event) => {
             // console.info(row.id, row.index);
-            onEditClick?.(row.index);
+            onEditClick?.(row.original, row.index);
           },
           sx: { cursor: 'pointer', bgcolor: theme.palette.background.paper },
         })}
@@ -173,7 +173,7 @@ export const Table = <T extends object>(props: TableProps<T>) => {
               <Tooltip title="Editar">
                 <IconButton
                   size="large"
-                  onClick={(e) => onEditClick(row.index)}
+                  onClick={(e) => onEditClick(row.original, row.index)}
                   // color="primary"
                 >
                   <EditIcon
@@ -191,7 +191,7 @@ export const Table = <T extends object>(props: TableProps<T>) => {
               <Tooltip title="Excluir">
                 <IconButton
                   size="large"
-                  onClick={(e) => onDeleteClick(row.index)}
+                  onClick={(e) => onDeleteClick(row.original, row.index)}
                 >
                   <DeleteIcon
                     sx={{

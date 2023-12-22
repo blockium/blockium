@@ -17,8 +17,8 @@ type DefaultTableProps<T extends MRT_RowData> = {
   globalActions?: ReactNode[];
   onGlobalFilterChange?: (searchValue: string) => void;
   onAddClick?: () => void;
-  onEditClick?: () => void;
-  onDeleteClick?: () => void;
+  onEditClick?: (row: T, rowIndex: number) => void;
+  onDeleteClick?: (row: T, rowIndex: number) => void;
   initialState?: object;
   height?: number | string;
   [other: string]: unknown;
