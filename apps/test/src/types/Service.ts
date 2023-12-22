@@ -8,3 +8,9 @@ export interface IService {
   dayInterval?: number; // days from a service date to another
   group?: string;
 }
+
+export const DEFAULT_SERVICE = {
+  name: '',
+  price: 1,
+  quantity: 1,
+};

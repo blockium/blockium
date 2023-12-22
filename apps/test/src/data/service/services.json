@@ -4,7 +4,7 @@
     "name": "Micropigmentação de Sobrancelhas",
     "price": 700,
     "quantity": 3,
-    "duration": "1970-01-01T06:00:00.000Z",
+    "duration": "1970-01-01T04:00:00.855Z",
     "total": 2100,
     "dayInterval": 60,
     "group": "Sobrancelhas"
@@ -14,7 +14,7 @@
     "name": "Corte de Cabelo Masculino",
     "price": 50,
     "quantity": 5,
-    "duration": "1970-01-01T00:30:00.000Z",
+    "duration": "1970-01-01T03:30:00.855Z",
     "total": 250,
     "dayInterval": 30,
     "group": "Cabelo"
@@ -24,7 +24,7 @@
     "name": "Manicure e Pedicure",
     "price": 120,
     "quantity": 2,
-    "duration": "1970-01-01T02:00:00.000Z",
+    "duration": "1970-01-01T05:00:00.855Z",
     "total": 240,
     "dayInterval": 15,
     "group": "Unhas"
@@ -34,7 +34,7 @@
     "name": "Massagem Relaxante",
     "price": 150,
     "quantity": 1,
-    "duration": "1970-01-01T01:30:00.000Z",
+    "duration": "1970-01-01T04:30:00.855Z",
     "total": 150,
     "dayInterval": 45,
     "group": "Massagem"
@@ -44,7 +44,7 @@
     "name": "Maquiagem para Eventos",
     "price": 200,
     "quantity": 4,
-    "duration": "1970-01-01T01:15:00.000Z",
+    "duration": "1970-01-01T04:15:00.855Z",
     "total": 800,
     "dayInterval": 90,
     "group": "Maquiagem"
@@ -54,7 +54,7 @@
     "name": "Depilação de Pernas",
     "price": 80,
     "quantity": 2,
-    "duration": "1970-01-01T01:00:00.000Z",
+    "duration": "1970-01-01T04:00:00.855Z",
     "total": 160,
     "dayInterval": 10,
     "group": "Depilação"
@@ -64,7 +64,7 @@
     "name": "Tratamento Facial",
     "price": 250,
     "quantity": 1,
-    "duration": "1970-01-01T01:45:00.000Z",
+    "duration": "1970-01-01T04:45:00.855Z",
     "total": 250,
     "dayInterval": 20,
     "group": "Rosto"
@@ -74,7 +74,7 @@
     "name": "Penteado para Casamento",
     "price": 180,
     "quantity": 1,
-    "duration": "1970-01-01T02:30:00.000Z",
+    "duration": "1970-01-01T05:30:00.855Z",
     "total": 180,
     "dayInterval": 60,
     "group": "Cabelo"
@@ -84,7 +84,7 @@
     "name": "Reflexologia",
     "price": 120,
     "quantity": 3,
-    "duration": "1970-01-01T01:15:00.000Z",
+    "duration": "1970-01-01T04:15:00.855Z",
     "total": 360,
     "dayInterval": 30,
     "group": "Massagem"
@@ -94,7 +94,7 @@
     "name": "Design de Sobrancelhas",
     "price": 40,
     "quantity": 5,
-    "duration": "1970-01-01T00:45:00.000Z",
+    "duration": "1970-01-01T03:45:00.855Z",
     "total": 200,
     "dayInterval": 15,
     "group": "Sobrancelhas"

@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { localeContains } from '@blockium/utils';
 
-import { IService } from '../types';
+import { IService } from '../../types';
 import jsonData from './services.json';
 
 export const useServices = () => {

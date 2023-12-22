@@ -4,7 +4,7 @@ import { MRT_ColumnDef } from 'material-react-table';
 import { fDecimal } from '@blockium/utils';
 
 import { IService } from '../../../types';
-import { useServices } from '../../../data/useServices';
+import { useServices } from '../../../data';
 
 export const useServiceTable = () => {
   const { data, setSearchValue } = useServices();
@@ -44,22 +44,10 @@ export const useServiceTable = () => {
     },
   ];
 
-  // TODO: Implement onAddClick
-  const onAddClick = () => void 0;
-
-  // TODO: Implement onEditClick
-  const onEditClick = () => void 0;
-
-  // TODO: Implement onDeleteClick
-  const onDeleteClick = () => void 0;
-
   return {
     data,
     columns,
     onGlobalFilterChange,
-    onAddClick,
-    onEditClick,
-    onDeleteClick,
     initialState: {},
   };
 };
