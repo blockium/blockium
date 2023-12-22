@@ -81,7 +81,7 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
 
   return (
     <>
-      <Alert severity="error" message={error} setMessage={setError} />
+      <Alert severity="error" message={error} onClose={() => setError(null)} />
       <LoginHero leftImageSrc={leftImageSrc} topImageSrc={topImageSrc}>
         <Stack alignItems="center" width="300px" margin="2rem 0.5rem">
           <Typography variant="h6">
