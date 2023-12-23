@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { enqueueSnackbar } from 'notistack';
 import {
   Box,
   Card,
@@ -33,13 +34,9 @@ const steps: PostStatus[] = [
 
 interface IPostStepperProps {
   post: Post;
-  setErrorMessage: (message: string | null) => void;
 }
 
-const PostStepper: React.FC<IPostStepperProps> = ({
-  post,
-  setErrorMessage,
-}) => {
+const PostStepper: React.FC<IPostStepperProps> = ({ post }) => {
   const [activeStep, setActiveStep] = useState(0);
   const user = useUser();
   const { t } = useTranslation();
@@ -68,7 +65,7 @@ const PostStepper: React.FC<IPostStepperProps> = ({
       //
     } catch (error) {
       console.error('error saving post', error);
-      setErrorMessage(t('error.savePost'));
+      enqueueSnackbar(t('error.savePost'), { variant: 'error' });
     }
 
     setActiveStep(newStepIndex);
@@ -93,8 +90,6 @@ const PostStepper: React.FC<IPostStepperProps> = ({
 
 interface IPostCardProps {
   post: Post;
-  setMessage: (message: string | null) => void;
-  setErrorMessage: (message: string | null) => void;
   onRegenerate: (element: HTMLElement, post: Post) => void;
 }
 
@@ -103,12 +98,7 @@ interface IPostCardProps {
 // TODO: ! Move the status stepper to the actions section
 
 // TODO: ! Add a "Mais"/"Menos" in actions section to show/hide the post content. Default to show only the description (no hashtags, no type, no type description)
-export const PostCard: React.FC<IPostCardProps> = ({
-  post,
-  setMessage,
-  setErrorMessage,
-  onRegenerate,
-}) => {
+export const PostCard: React.FC<IPostCardProps> = ({ post, onRegenerate }) => {
   const addPost = useAddPost();
   const deletePost = useDeletePost();
 
@@ -144,9 +134,9 @@ export const PostCard: React.FC<IPostCardProps> = ({
     const newPost = { ...post, createdAt: new Date() };
     const result = await addPost(newPost);
     if (typeof result === 'string') {
-      setErrorMessage(result);
+      enqueueSnackbar(result, { variant: 'error' });
     } else {
-      setMessage(t('success.post-duplicated'));
+      enqueueSnackbar(t('success.post-duplicated'));
     }
   };
 
@@ -161,28 +151,28 @@ export const PostCard: React.FC<IPostCardProps> = ({
     setOpenConfirmDelete(false);
     const deleted = await deletePost(post);
     if (!deleted) {
-      setErrorMessage(t('error.deletePost'));
+      enqueueSnackbar(t('error.deletePost'), { variant: 'error' });
     }
   };
 
   const handleCopyTitle = () => {
     navigator.clipboard.writeText(post.title);
-    setMessage(t('success.post-title-copied'));
+    enqueueSnackbar(t('success.post-title-copied'));
   };
 
   const handleCopyDescription = () => {
     navigator.clipboard.writeText(post.description);
-    setMessage(t('success.post-description-copied'));
+    enqueueSnackbar(t('success.post-description-copied'));
   };
 
   const handleCopyHashtags = () => {
     navigator.clipboard.writeText(post.hashtags);
-    setMessage(t('success.post-hashtags-copied'));
+    enqueueSnackbar(t('success.post-hashtags-copied'));
   };
 
   const handleCopyTypeDescription = () => {
     navigator.clipboard.writeText(post.typeDescription);
-    setMessage(t('success.post-type-description-copied'));
+    enqueueSnackbar(t('success.post-type-description-copied'));
   };
 
   return (
@@ -236,7 +226,7 @@ export const PostCard: React.FC<IPostCardProps> = ({
                 >
                   {post.typeDescription}
                 </Typography>
-                <PostStepper post={post} setErrorMessage={setErrorMessage} />
+                <PostStepper post={post} />
               </Stack>
             </Grid>
             {/* This is to add an image representation of the post in future.
@@ -269,8 +259,6 @@ export const PostCard: React.FC<IPostCardProps> = ({
       <PostEditDialog
         open={openEditDialog}
         post={post}
-        setMessage={setMessage}
-        setErrorMessage={setErrorMessage}
         onClose={() => setOpenEditDialog(false)}
       />
     </>

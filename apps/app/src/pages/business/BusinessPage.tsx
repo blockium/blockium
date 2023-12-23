@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { enqueueSnackbar } from 'notistack';
 import {
   Avatar,
   Card,
@@ -10,7 +11,7 @@ import {
 } from '@mui/material';
 import { Store as StoreIcon } from '@mui/icons-material';
 
-import { Alert, CTAButton } from '@blockium/ui';
+import { CTAButton } from '@blockium/ui';
 import { isEmpty } from '@blockium/utils';
 import { saveUserBusiness, useUser } from '@criaty/model';
 
@@ -32,8 +33,6 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({
   const [businessServices, setBusinessServices] = useState('');
 
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState<string | null>(null);
-  const [severity, setSeverity] = useState<'success' | 'error'>('success');
 
   // Load business data from the database.
   useEffect(() => {
@@ -58,13 +57,11 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({
           services: businessServices,
         },
       });
-      setMessage(t('page.business.saveSuccess'));
-      setSeverity('success');
+      enqueueSnackbar(t('page.business.saveSuccess'));
       //
     } catch (error) {
       console.error(error);
-      setMessage(t('page.business.saveError'));
-      setSeverity('error');
+      enqueueSnackbar(t('page.business.saveError'), { variant: 'error' });
       //
     } finally {
       setLoading(false);
@@ -72,68 +69,61 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({
   };
 
   return (
-    <>
-      <Alert
-        severity={severity}
-        message={message}
-        onClose={() => setMessage(null)}
+    <Card>
+      {/* <CardHeader title={title} subheader={subheader} /> */}
+      <CardHeader
+        avatar={
+          <Avatar aria-label="business">
+            <StoreIcon />
+          </Avatar>
+        }
+        title={t('page.business.title')}
+        subheader={t('page.business.subheader')}
       />
-      <Card>
-        {/* <CardHeader title={title} subheader={subheader} /> */}
-        <CardHeader
-          avatar={
-            <Avatar aria-label="business">
-              <StoreIcon />
-            </Avatar>
-          }
-          title={t('page.business.title')}
-          subheader={t('page.business.subheader')}
+      <CardContent>
+        {/* Business name Input */}
+        <TextField
+          type="text"
+          label={t('page.business.name')}
+          value={businessName}
+          onChange={(e) => setBusinessName(e.target.value)}
+          fullWidth
         />
-        <CardContent>
-          {/* Business name Input */}
-          <TextField
-            type="text"
-            label={t('page.business.name')}
-            value={businessName}
-            onChange={(e) => setBusinessName(e.target.value)}
-            fullWidth
-          />
-          {/* Business description Input */}
-          <TextField
-            type="text"
-            label={t('page.business.description')}
-            value={businessDescription}
-            onChange={(e) => setBusinessDescription(e.target.value)}
-            fullWidth
-            multiline
-            rows={4}
-          />
-          {/* Business services Input */}
-          <TextField
-            type="text"
-            label={t('page.business.services')}
-            value={businessServices}
-            onChange={(e) => setBusinessServices(e.target.value)}
-            fullWidth
-            multiline
-            rows={4}
-          />
-        </CardContent>
-        <CardActions>
-          <CTAButton
-            onClick={onSave}
-            loading={loading}
-            disabled={
-              isEmpty(businessName) ||
-              isEmpty(businessDescription) ||
-              isEmpty(businessServices)
-            }
-          >
-            {t('button.save')}
-          </CTAButton>
-        </CardActions>
-      </Card>
-    </>
+        {/* Business description Input */}
+        <TextField
+          type="text"
+          label={t('page.business.description')}
+          value={businessDescription}
+          onChange={(e) => setBusinessDescription(e.target.value)}
+          fullWidth
+          multiline
+          rows={4}
+        />
+        {/* Business services Input */}
+        <TextField
+          type="text"
+          label={t('page.business.services')}
+          value={businessServices}
+          onChange={(e) => setBusinessServices(e.target.value)}
+          fullWidth
+          multiline
+          rows={4}
+        />
+      </CardContent>
+      <CardActions>
+        <CTAButton
+          onClick={onSave}
+          loading={loading}
+          disabled={
+            isEmpty(businessName) ||
+            isEmpty(businessDescription) ||
+            isEmpty(businessServices)
+          }
+        >
+          {t('button.save')}
+        </CTAButton>
+      </CardActions>
+    </Card>
   );
 };
 

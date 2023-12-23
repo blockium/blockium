@@ -34,7 +34,6 @@ export const ServiceTable = () => {
 
   return (
     <>
-      {/* <Alert message={'Teste'} setMessage={() => void 0} /> */}
       <Container disableGutters maxWidth="xl">
         <Box>
           <Typography variant="h3" gutterBottom>

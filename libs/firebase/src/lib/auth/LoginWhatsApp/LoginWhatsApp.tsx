@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { enqueueSnackbar } from 'notistack';
 import { Link, Stack, Typography } from '@mui/material';
 
 import { useTranslation } from 'react-i18next';
@@ -7,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { signInAnonymously } from 'firebase/auth';
 import { getAuth } from '../../firebase';
 
-import { CTAButton, LoginHero, Alert } from '@blockium/ui';
+import { CTAButton, LoginHero } from '@blockium/ui';
 import { afterLoginWhatsApp } from '../apiRequests';
 
 type LoginProps = {
@@ -27,7 +28,6 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
   loginWhatsAppPhone,
 }) => {
   const [loadingWhatsApp, setLoadingWhatsApp] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -57,12 +57,14 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
         navigate('/');
         //
       } else {
-        setError(answer.data);
+        enqueueSnackbar(answer.data, { variant: 'error' });
       }
       //
     } catch (error) {
       console.error(error);
-      setError(t('firebase:error.afterLoginWhatsApp'));
+      enqueueSnackbar(t('firebase:error.afterLoginWhatsApp'), {
+        variant: 'error',
+      });
       //
     } finally {
       setLoadingWhatsApp(false);
@@ -80,35 +82,32 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
   };
 
   return (
-    <>
-      <Alert severity="error" message={error} onClose={() => setError(null)} />
-      <LoginHero leftImageSrc={leftImageSrc} topImageSrc={topImageSrc}>
-        <Stack alignItems="center" width="300px" margin="2rem 0.5rem">
-          <Typography variant="h6">
-            1. {t('firebase:login.whatsapp.msg1')}
-          </Typography>
-          {/* <Link onClick={copyToClipboard}>LOGIN:{sessionId}</Link> <br /> */}
-          <Link
-            href={getWhatsAppLink()}
-            target="_blank"
-            sx={{ marginTop: '2rem' }}
-          >
-            LOGIN:{sessionId}
-          </Link>
-          <Typography variant="h6" sx={{ marginTop: '6rem' }}>
-            2. {t('firebase:login.whatsapp.msg2')}
-          </Typography>
-          <CTAButton
-            onClick={finishLogin}
-            // variant="outlined"
-            loading={loadingWhatsApp}
-            sx={{ marginTop: '2rem' }}
-          >
-            {t('firebase:button.enter')}
-          </CTAButton>
-        </Stack>
-      </LoginHero>
-    </>
+    <LoginHero leftImageSrc={leftImageSrc} topImageSrc={topImageSrc}>
+      <Stack alignItems="center" width="300px" margin="2rem 0.5rem">
+        <Typography variant="h6">
+          1. {t('firebase:login.whatsapp.msg1')}
+        </Typography>
+        {/* <Link onClick={copyToClipboard}>LOGIN:{sessionId}</Link> <br /> */}
+        <Link
+          href={getWhatsAppLink()}
+          target="_blank"
+          sx={{ marginTop: '2rem' }}
+        >
+          LOGIN:{sessionId}
+        </Link>
+        <Typography variant="h6" sx={{ marginTop: '6rem' }}>
+          2. {t('firebase:login.whatsapp.msg2')}
+        </Typography>
+        <CTAButton
+          onClick={finishLogin}
+          // variant="outlined"
+          loading={loadingWhatsApp}
+          sx={{ marginTop: '2rem' }}
+        >
+          {t('firebase:button.enter')}
+        </CTAButton>
+      </Stack>
+    </LoginHero>
   );
 };
 

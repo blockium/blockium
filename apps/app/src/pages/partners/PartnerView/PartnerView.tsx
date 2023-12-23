@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { enqueueSnackbar } from 'notistack';
 import {
   Avatar,
   Card,
@@ -24,8 +25,6 @@ interface IPartnerViewProps {
   onGoBack: () => void;
   onPartnerAdded: (partner: Partner) => void;
   onPartnerDeleted: (partner: Partner) => void;
-  setMessage: (message: string | null) => void;
-  setSeverity: (severity: 'success' | 'error') => void;
 }
 
 export const PartnerView: React.FC<IPartnerViewProps> = ({
@@ -33,8 +32,6 @@ export const PartnerView: React.FC<IPartnerViewProps> = ({
   onGoBack,
   onPartnerAdded,
   onPartnerDeleted,
-  setMessage,
-  setSeverity,
 }) => {
   const { t } = useTranslation();
   const user = useUser();
@@ -70,13 +67,11 @@ export const PartnerView: React.FC<IPartnerViewProps> = ({
       partner.permission = permission;
       onPartnerAdded(partner);
 
-      setMessage(t('page.partner.saveSuccess'));
-      setSeverity('success');
+      enqueueSnackbar(t('page.partner.saveSuccess'));
       //
     } catch (error) {
       console.error(error);
-      setMessage(t('page.partner.saveError'));
-      setSeverity('error');
+      enqueueSnackbar(t('page.partner.saveError'), { variant: 'error' });
       //
     } finally {
       setLoading(false);
@@ -94,13 +89,11 @@ export const PartnerView: React.FC<IPartnerViewProps> = ({
 
       onPartnerDeleted(partner);
 
-      setMessage(t('page.partner.deleteSuccess'));
-      setSeverity('success');
+      enqueueSnackbar(t('page.partner.deleteSuccess'));
       //
     } catch (error) {
       console.error(error);
-      setMessage(t('page.partner.deleteError'));
-      setSeverity('error');
+      enqueueSnackbar(t('page.partner.deleteError'), { variant: 'error' });
       //
     } finally {
       setLoading(false);

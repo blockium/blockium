@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { enqueueSnackbar } from 'notistack';
 import {
   DialogTitle,
   DialogContent,
@@ -18,16 +19,12 @@ import { useUpdatePost } from '../../../hooks';
 interface PostEditDialogProps {
   open: boolean;
   post: Post;
-  setMessage: (message: string | null) => void;
-  setErrorMessage: (message: string | null) => void;
   onClose: () => void;
 }
 
 export const PostEditDialog: React.FC<PostEditDialogProps> = ({
   open,
   post,
-  setMessage,
-  setErrorMessage,
   onClose,
 }) => {
   const updatePost = useUpdatePost();
@@ -78,13 +75,13 @@ export const PostEditDialog: React.FC<PostEditDialogProps> = ({
     post.typeDescription = typeDescription;
     const updated = await updatePost(post);
     if (updated) {
-      setMessage(t('success.post-updated'));
+      enqueueSnackbar(t('success.post-updated'));
     } else {
       post.title = oldPost.title;
       post.description = oldPost.description;
       post.hashtags = oldPost.hashtags;
       post.typeDescription = oldPost.typeDescription;
-      setErrorMessage(t('error.updatePost'));
+      enqueueSnackbar(t('error.updatePost'), { variant: 'error' });
     }
   };
 

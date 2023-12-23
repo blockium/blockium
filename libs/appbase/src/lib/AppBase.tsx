@@ -65,14 +65,12 @@ const AppLayout: React.FC<AppLayoutProps> = ({
   });
 
   return (
-    <NotistackProvider>
-      <DashboardLayout layoutConfig={layoutConfigExtended}>
-        <Container maxWidth={false} sx={{ margin: '0 auto' }}>
-          {/* 6. Add the react-router-dom Outlet */}
-          <Outlet />
-        </Container>
-      </DashboardLayout>
-    </NotistackProvider>
+    <DashboardLayout layoutConfig={layoutConfigExtended}>
+      <Container maxWidth={false} sx={{ margin: '0 auto' }}>
+        {/* 6. Add the react-router-dom Outlet */}
+        <Outlet />
+      </Container>
+    </DashboardLayout>
   );
 };
 
@@ -126,85 +124,87 @@ export const AppBase: React.FC<AppBaseProps> = ({
   return (
     // 2. Customize theme
     <ThemeProvider config={themeConfig}>
-      <BrowserRouter>
-        <Routes>
-          {/* 3. Define the main route using PrivateRoute wrapping the App  */}
-          <Route
-            path="/"
-            element={
-              <PrivateRoute
-                loginPath="/login"
-                waitingAuth={<LoadingPage logo={loadingLogo} />} // Loading while waiting for auth
-              >
-                {/* 4. Wrap the App with the LocalizationProvider */}
-                <LocalizationProvider>
-                  {/* 5. In AppLayout, wrap the App with the DashboardLayout passing the layout config */}
-                  {/* 6. In AppLayout, add the react-router-dom Outlet */}
-                  <AppLayout
-                    layoutConfig={layoutConfig}
-                    appLogo={appLogo}
-                    appLogoDark={appLogoDark}
-                  />
-                </LocalizationProvider>
-              </PrivateRoute>
-            }
-          >
-            {/* 7. Create private routes whose components will be within App */}
-            {routeElements.map(({ path, element }, index) => (
+      <NotistackProvider>
+        <BrowserRouter>
+          <Routes>
+            {/* 3. Define the main route using PrivateRoute wrapping the App  */}
+            <Route
+              path="/"
+              element={
+                <PrivateRoute
+                  loginPath="/login"
+                  waitingAuth={<LoadingPage logo={loadingLogo} />} // Loading while waiting for auth
+                >
+                  {/* 4. Wrap the App with the LocalizationProvider */}
+                  <LocalizationProvider>
+                    {/* 5. In AppLayout, wrap the App with the DashboardLayout passing the layout config */}
+                    {/* 6. In AppLayout, add the react-router-dom Outlet */}
+                    <AppLayout
+                      layoutConfig={layoutConfig}
+                      appLogo={appLogo}
+                      appLogoDark={appLogoDark}
+                    />
+                  </LocalizationProvider>
+                </PrivateRoute>
+              }
+            >
+              {/* 7. Create private routes whose components will be within App */}
+              {routeElements.map(({ path, element }, index) => (
+                <Route
+                  path={path}
+                  element={typeof element === 'function' ? element() : element}
+                  key={index}
+                />
+              ))}
+            </Route>
+            {/* 8. Create the login route */}
+            <Route
+              path="/login"
+              element={
+                // 9. In the login component, define the login methods
+                <Login
+                  loginMethods={loginMethods}
+                  leftImageSrc={loginLeftImageSrc}
+                  topImageSrc={loginTopImageSrc || loginLeftImageSrc}
+                  newWhatsAppSessionApi={newWhatsAppSessionApi}
+                  loginWhatsAppPhone={loginWhatsAppPhone}
+                  afterEmailLoginApi={afterEmailLoginApi}
+                />
+              }
+            />
+            {/* 10. Create routes for each login method */}
+            <Route
+              path="/login-phone"
+              element={
+                <LoginPhone
+                  leftImageSrc={loginLeftImageSrc}
+                  topImageSrc={loginTopImageSrc || loginLeftImageSrc}
+                  afterLoginApi={afterPhoneLoginApi}
+                />
+              }
+            />
+            <Route
+              path="/login-whatsapp"
+              element={
+                <LoginWhatsApp
+                  leftImageSrc={loginLeftImageSrc}
+                  topImageSrc={loginTopImageSrc || loginLeftImageSrc}
+                  afterLoginApi={afterWhatsAppLoginApi}
+                  loginWhatsAppPhone={loginWhatsAppPhone}
+                />
+              }
+            />
+            {/* 11. Create open routes without layouts */}
+            {openRouteElements?.map(({ path, element }, index) => (
               <Route
                 path={path}
                 element={typeof element === 'function' ? element() : element}
                 key={index}
               />
             ))}
-          </Route>
-          {/* 8. Create the login route */}
-          <Route
-            path="/login"
-            element={
-              // 9. In the login component, define the login methods
-              <Login
-                loginMethods={loginMethods}
-                leftImageSrc={loginLeftImageSrc}
-                topImageSrc={loginTopImageSrc || loginLeftImageSrc}
-                newWhatsAppSessionApi={newWhatsAppSessionApi}
-                loginWhatsAppPhone={loginWhatsAppPhone}
-                afterEmailLoginApi={afterEmailLoginApi}
-              />
-            }
-          />
-          {/* 10. Create routes for each login method */}
-          <Route
-            path="/login-phone"
-            element={
-              <LoginPhone
-                leftImageSrc={loginLeftImageSrc}
-                topImageSrc={loginTopImageSrc || loginLeftImageSrc}
-                afterLoginApi={afterPhoneLoginApi}
-              />
-            }
-          />
-          <Route
-            path="/login-whatsapp"
-            element={
-              <LoginWhatsApp
-                leftImageSrc={loginLeftImageSrc}
-                topImageSrc={loginTopImageSrc || loginLeftImageSrc}
-                afterLoginApi={afterWhatsAppLoginApi}
-                loginWhatsAppPhone={loginWhatsAppPhone}
-              />
-            }
-          />
-          {/* 11. Create open routes without layouts */}
-          {openRouteElements?.map(({ path, element }, index) => (
-            <Route
-              path={path}
-              element={typeof element === 'function' ? element() : element}
-              key={index}
-            />
-          ))}
-        </Routes>
-      </BrowserRouter>
+          </Routes>
+        </BrowserRouter>
+      </NotistackProvider>
     </ThemeProvider>
   );
 };

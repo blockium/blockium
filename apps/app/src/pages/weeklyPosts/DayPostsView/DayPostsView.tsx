@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getDay, startOfMonth } from 'date-fns';
+import { enqueueSnackbar } from 'notistack';
 import { Box, Grid, IconButton } from '@mui/material';
 import { AddCircleOutline as AddCircleOutlineIcon } from '@mui/icons-material';
 
 import { Post, PostParams } from '@criaty/model-types';
 import { fDateCalendar } from '@blockium/utils';
-import { Alert, LoadingIndicator } from '@blockium/ui';
+import { LoadingIndicator } from '@blockium/ui';
 import { CriatyLogo } from '@criaty/ui-custom';
 import { useCalendarCache } from '@blockium/calendar';
 
@@ -48,8 +49,6 @@ export const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
   }, [calendarCache, date]);
 
   const [adding, setAdding] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [message, setMessage] = useState<string | null>(null);
   const [postParams, setPostParams] = useState<PostParams>();
   const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
 
@@ -73,8 +72,8 @@ export const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
 
       const result = await addPost(date);
       if (typeof result === 'string') {
-        // Show error in Alert when post creation fails
-        setErrorMessage(result);
+        // Show error when post creation fails
+        enqueueSnackbar(result, { variant: 'error' });
       }
 
       setAdding(false);
@@ -88,16 +87,6 @@ export const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
 
   return (
     <>
-      <Alert
-        severity="error"
-        message={errorMessage}
-        onClose={() => setErrorMessage(null)}
-      />
-      <Alert
-        severity="success"
-        message={message}
-        onClose={() => setMessage(null)}
-      />
       {/* The Box is the scroll point when user clicks on a day in navbar. From 1 (Monday) to 7 (Sunday) */}
       <Box height="120px" id={`day-${getDay(date) || 7}`}></Box>
       <Grid container spacing={4}>
@@ -115,12 +104,7 @@ export const DayPostsView: React.FC<IDayPostsViewProps> = ({ date }) => {
             md={6}
             key={index}
           >
-            <PostCard
-              post={post}
-              setMessage={setMessage}
-              setErrorMessage={setErrorMessage}
-              onRegenerate={onRegenerate}
-            />
+            <PostCard post={post} onRegenerate={onRegenerate} />
           </Grid>
         ))}
 

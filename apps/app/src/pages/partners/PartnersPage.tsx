@@ -16,7 +16,7 @@ import { Handshake as HandshakeIcon } from '@mui/icons-material';
 
 import { useUser } from '@criaty/model';
 import { Partner } from '@criaty/model-types';
-import { Alert, CTAButton } from '@blockium/ui';
+import { CTAButton } from '@blockium/ui';
 
 import { PartnerView } from './PartnerView';
 
@@ -26,8 +26,6 @@ export const PartnersPage: React.FC = () => {
   const user = useUser();
   const [partners, setPartners] = useState<Partner[]>([]);
   const [newPartner, setNewPartner] = useState<Partner | null>(null);
-  const [message, setMessage] = useState<string | null>(null);
-  const [severity, setSeverity] = useState<'success' | 'error'>('success');
 
   // Load partners data from the database.
   useEffect(() => {
@@ -66,57 +64,48 @@ export const PartnersPage: React.FC = () => {
         onGoBack={() => setNewPartner(null)}
         onPartnerAdded={onPartnerAdded}
         onPartnerDeleted={onPartnerDeleted}
-        setMessage={setMessage}
-        setSeverity={setSeverity}
       />
     );
   }
 
   return (
-    <>
-      <Alert
-        severity={severity}
-        message={message}
-        onClose={() => setMessage(null)}
+    <Card>
+      <CardHeader
+        avatar={
+          <Avatar aria-label="newPartner">
+            <HandshakeIcon />
+          </Avatar>
+        }
+        title={t('page.partners.title')}
+        subheader={t('page.partners.subheader')}
       />
-      <Card>
-        <CardHeader
-          avatar={
-            <Avatar aria-label="newPartner">
-              <HandshakeIcon />
-            </Avatar>
-          }
-          title={t('page.partners.title')}
-          subheader={t('page.partners.subheader')}
-        />
-        <CardContent>
-          <List
-            component="nav"
-            aria-labelledby="nested-list-subheader"
-            sx={{ overflow: 'auto' }}
-          >
-            {partners.map((partner) => {
-              return (
-                <ListItemButton
-                  key={partner.id}
-                  onClick={() => setNewPartner(partner)}
-                >
-                  <ListItemText primary={partner.name} />
-                </ListItemButton>
-              );
-            })}
-            {partners.length === 0 && (
-              <ListSubheader component="div" id="nested-list-subheader">
-                {t('page.partners.noPartners')}
-              </ListSubheader>
-            )}
-          </List>
-        </CardContent>
-        <CardActions>
-          <CTAButton onClick={onShowNewPartner}>{t('button.add')}</CTAButton>
-        </CardActions>
-      </Card>
-    </>
+      <CardContent>
+        <List
+          component="nav"
+          aria-labelledby="nested-list-subheader"
+          sx={{ overflow: 'auto' }}
+        >
+          {partners.map((partner) => {
+            return (
+              <ListItemButton
+                key={partner.id}
+                onClick={() => setNewPartner(partner)}
+              >
+                <ListItemText primary={partner.name} />
+              </ListItemButton>
+            );
+          })}
+          {partners.length === 0 && (
+            <ListSubheader component="div" id="nested-list-subheader">
+              {t('page.partners.noPartners')}
+            </ListSubheader>
+          )}
+        </List>
+      </CardContent>
+      <CardActions>
+        <CTAButton onClick={onShowNewPartner}>{t('button.add')}</CTAButton>
+      </CardActions>
+    </Card>
   );
 };
 

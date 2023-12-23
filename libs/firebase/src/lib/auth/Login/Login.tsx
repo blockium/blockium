@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { enqueueSnackbar } from 'notistack';
 import { Box, Stack } from '@mui/material';
 import { Phone as PhoneIcon } from '@mui/icons-material';
 
@@ -8,13 +9,7 @@ import { useTranslation } from 'react-i18next';
 
 import { User as AuthUser } from 'firebase/auth';
 
-import {
-  GoogleIcon,
-  WhatsAppIcon,
-  CTAButton,
-  Alert,
-  LoginHero,
-} from '@blockium/ui';
+import { GoogleIcon, WhatsAppIcon, CTAButton, LoginHero } from '@blockium/ui';
 
 import { afterLoginEmail, newSession } from '../apiRequests';
 import { signIn } from '../loginUtils';
@@ -41,7 +36,6 @@ export const Login: React.FC<LoginProps> = ({
 }) => {
   const [loadingWhatsApp, setLoadingWhatsApp] = useState(false);
   const [loadingGoogle, setLoadingGoogle] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -67,12 +61,12 @@ export const Login: React.FC<LoginProps> = ({
         navigate('/login-whatsapp');
         //
       } else {
-        setError(answer.data);
+        enqueueSnackbar(answer.data, { variant: 'error' });
       }
       //
     } catch (error) {
       console.error(error);
-      setError(t('firebase:error.newSession'));
+      enqueueSnackbar(t('firebase:error.newSession'), { variant: 'error' });
       //
     } finally {
       setLoadingWhatsApp(false);
@@ -90,7 +84,7 @@ export const Login: React.FC<LoginProps> = ({
       const authUser = await signIn('google');
       await finishLoginWithEmail(authUser);
     } catch (error: any) {
-      setError(error.message);
+      enqueueSnackbar(error.message, { variant: 'error' });
     } finally {
       setLoadingGoogle(false);
     }
@@ -102,7 +96,9 @@ export const Login: React.FC<LoginProps> = ({
       answer = await afterLoginEmail(authUser.uid, afterEmailLoginApi);
     } catch (error: any) {
       console.log(error.message);
-      setError(t('firebase:error.auth.afterLoginEmail'));
+      enqueueSnackbar(t('firebase:error.auth.afterLoginEmail'), {
+        variant: 'error',
+      });
       return;
     }
 
@@ -140,68 +136,65 @@ export const Login: React.FC<LoginProps> = ({
       navigate('/');
       //
     } else {
-      setError(answer.data);
+      enqueueSnackbar(answer.data, { variant: 'error' });
     }
   };
 
   return (
-    <>
-      <Alert severity="error" message={error} onClose={() => setError(null)} />
-      <LoginHero leftImageSrc={leftImageSrc} topImageSrc={topImageSrc}>
-        <Stack alignItems="center" width="300px" margin="2rem 0.5rem">
-          {loginMethods.map((loginMethod, index) => {
-            return loginMethod === 'whatsapp' ? (
-              // Box used instead of Stack gap due to support for old browsers
-              <Box key={index} sx={{ pb: '2rem', width: '100%' }}>
-                <CTAButton
-                  onClick={loginWithWhatsApp}
-                  startIcon={<WhatsAppIcon sx={{ marginRight: '0.5rem' }} />}
-                  fullWidth
-                  loading={loadingWhatsApp}
-                  disabled={loadingGoogle}
-                  sx={{ height: '5.5rem' }}
-                >
-                  {t('firebase:button.loginWithWhatsApp')}
-                </CTAButton>
-              </Box>
-            ) : loginMethod === 'phone' ? (
-              <Box key={index} sx={{ pb: '2rem', width: '100%' }}>
-                <CTAButton
-                  onClick={loginWithPhone}
-                  startIcon={<PhoneIcon sx={{ marginRight: '0.5rem' }} />}
-                  fullWidth
-                  variant="outlined"
-                  color="secondary"
-                  disabled={loadingWhatsApp || loadingGoogle}
-                  sx={{ height: '5.5rem' }}
-                >
-                  {t('firebase:button.loginWithPhone')}
-                </CTAButton>
-              </Box>
-            ) : loginMethod === 'google' ? (
-              <Box key={index} sx={{ pb: '2rem', width: '100%' }}>
-                <CTAButton
-                  onClick={loginWithGoogle}
-                  startIcon={<GoogleIcon sx={{ marginRight: '0.5rem' }} />}
-                  fullWidth
-                  variant="outlined"
-                  color="secondary"
-                  loading={loadingGoogle}
-                  disabled={loadingWhatsApp}
-                  sx={{ height: '5.5rem' }}
-                >
-                  {t('firebase:button.loginWithGoogle')}
-                </CTAButton>
-              </Box>
-            ) : (
-              <Box key={index} sx={{ pb: '2rem', width: '100%' }}>
-                <Box sx={{ height: '2rem' }}></Box>
-              </Box>
-            );
-          })}
-        </Stack>
-      </LoginHero>
-    </>
+    <LoginHero leftImageSrc={leftImageSrc} topImageSrc={topImageSrc}>
+      <Stack alignItems="center" width="300px" margin="2rem 0.5rem">
+        {loginMethods.map((loginMethod, index) => {
+          return loginMethod === 'whatsapp' ? (
+            // Box used instead of Stack gap due to support for old browsers
+            <Box key={index} sx={{ pb: '2rem', width: '100%' }}>
+              <CTAButton
+                onClick={loginWithWhatsApp}
+                startIcon={<WhatsAppIcon sx={{ marginRight: '0.5rem' }} />}
+                fullWidth
+                loading={loadingWhatsApp}
+                disabled={loadingGoogle}
+                sx={{ height: '5.5rem' }}
+              >
+                {t('firebase:button.loginWithWhatsApp')}
+              </CTAButton>
+            </Box>
+          ) : loginMethod === 'phone' ? (
+            <Box key={index} sx={{ pb: '2rem', width: '100%' }}>
+              <CTAButton
+                onClick={loginWithPhone}
+                startIcon={<PhoneIcon sx={{ marginRight: '0.5rem' }} />}
+                fullWidth
+                variant="outlined"
+                color="secondary"
+                disabled={loadingWhatsApp || loadingGoogle}
+                sx={{ height: '5.5rem' }}
+              >
+                {t('firebase:button.loginWithPhone')}
+              </CTAButton>
+            </Box>
+          ) : loginMethod === 'google' ? (
+            <Box key={index} sx={{ pb: '2rem', width: '100%' }}>
+              <CTAButton
+                onClick={loginWithGoogle}
+                startIcon={<GoogleIcon sx={{ marginRight: '0.5rem' }} />}
+                fullWidth
+                variant="outlined"
+                color="secondary"
+                loading={loadingGoogle}
+                disabled={loadingWhatsApp}
+                sx={{ height: '5.5rem' }}
+              >
+                {t('firebase:button.loginWithGoogle')}
+              </CTAButton>
+            </Box>
+          ) : (
+            <Box key={index} sx={{ pb: '2rem', width: '100%' }}>
+              <Box sx={{ height: '2rem' }}></Box>
+            </Box>
+          );
+        })}
+      </Stack>
+    </LoginHero>
   );
 };
 
