@@ -7,8 +7,8 @@ export const useUpdateService = () => {
 
   const updateService = (service: IService) => {
     // TODO
-    // return 'Não implementado';
-    return {};
+    return 'Não implementado';
+    // return {};
   };
 
   return { updateService };

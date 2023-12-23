@@ -45,7 +45,7 @@ const ServiceDialog: React.FC<ServiceDialogProps> = (props) => {
       enqueueSnackbar('Serviço adicionado com sucesso.');
     } else {
       console.log(result);
-      enqueueSnackbar(result);
+      enqueueSnackbar(result, { variant: 'error' });
     }
   };
 
@@ -58,7 +58,7 @@ const ServiceDialog: React.FC<ServiceDialogProps> = (props) => {
       enqueueSnackbar('Serviço adicionado com sucesso.');
     } else {
       console.log(result);
-      enqueueSnackbar(result);
+      enqueueSnackbar(result, { variant: 'error' });
     }
   };
 
