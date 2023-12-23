@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { date, number, string } from 'yup';
+import { useSnackbar } from 'notistack';
 
 // custom ui
-import { Alert, useAlert } from '@blockium/ui';
 import { FormDialog, FormField } from '@blockium/form';
 
 // model
@@ -33,7 +33,7 @@ const ServiceDialog: React.FC<ServiceDialogProps> = (props) => {
   const { addService } = useAddService();
   const { updateService } = useUpdateService();
 
-  const { alert, showAlert, closeAlert } = useAlert();
+  const { enqueueSnackbar } = useSnackbar();
 
   const addData = async () => {
     console.log('addData');
@@ -42,10 +42,10 @@ const ServiceDialog: React.FC<ServiceDialogProps> = (props) => {
       onAddCallback?.(result);
       setCurrentService(DEFAULT_SERVICE); // clear current data
       onClose();
-      showAlert('Serviço adicionado com sucesso.');
+      enqueueSnackbar('Serviço adicionado com sucesso.');
     } else {
       console.log(result);
-      showAlert(result, true);
+      enqueueSnackbar(result);
     }
   };
 
@@ -55,10 +55,10 @@ const ServiceDialog: React.FC<ServiceDialogProps> = (props) => {
     if (typeof result !== 'string') {
       setCurrentService(DEFAULT_SERVICE); // clear current data
       onClose();
-      showAlert('Serviço alterado com sucesso.');
+      enqueueSnackbar('Serviço adicionado com sucesso.');
     } else {
       console.log(result);
-      showAlert(result, true);
+      enqueueSnackbar(result);
     }
   };
 
@@ -132,21 +132,14 @@ const ServiceDialog: React.FC<ServiceDialogProps> = (props) => {
   ];
 
   return (
-    <>
-      <FormDialog
-        open={open}
-        title={isNew ? 'Novo Serviço' : 'Alterar Serviço'}
-        data={currentService}
-        fields={fields}
-        onClose={onClose}
-        onSubmit={isNew ? addData : changeData}
-      />
-      <Alert
-        onClose={closeAlert}
-        message={alert.message}
-        severity={alert.severity}
-      />
-    </>
+    <FormDialog
+      open={open}
+      title={isNew ? 'Novo Serviço' : 'Alterar Serviço'}
+      data={currentService}
+      fields={fields}
+      onClose={onClose}
+      onSubmit={isNew ? addData : changeData}
+    />
   );
 };
 

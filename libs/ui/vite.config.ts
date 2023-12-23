@@ -75,6 +75,7 @@ export default defineConfig({
         '@mui/material/styles',
         '@mui/material/LinearProgress',
         '@mui/icons-material',
+        'notistack',
         'react-i18next',
         'react-imask',
         'react-use',

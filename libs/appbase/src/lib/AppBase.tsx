@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 import { BrowserRouter, Route, Routes, Outlet } from 'react-router-dom';
-import { Container, Stack } from '@mui/material';
+import { Container } from '@mui/material';
 import './styles.scss';
 
 import {
@@ -15,7 +15,7 @@ import {
   LoginWhatsApp,
 } from '@blockium/firebase';
 import { ThemeConfig, ThemeProvider } from '@blockium/theme';
-import { LoadingPage } from '@blockium/ui';
+import { LoadingPage, NotistackProvider } from '@blockium/ui';
 import { LocalizationProvider } from '@blockium/calendar';
 import { DashboardLayout, LayoutConfig } from '@blockium/layout';
 
@@ -65,13 +65,14 @@ const AppLayout: React.FC<AppLayoutProps> = ({
   });
 
   return (
-    <DashboardLayout layoutConfig={layoutConfigExtended}>
-      <Container maxWidth={false} sx={{ margin: '0 auto' }}>
-        <Stack alignItems="center" gap="4rem"></Stack>
-        {/* 6. Add the react-router-dom Outlet */}
-        <Outlet />
-      </Container>
-    </DashboardLayout>
+    <NotistackProvider>
+      <DashboardLayout layoutConfig={layoutConfigExtended}>
+        <Container maxWidth={false} sx={{ margin: '0 auto' }}>
+          {/* 6. Add the react-router-dom Outlet */}
+          <Outlet />
+        </Container>
+      </DashboardLayout>
+    </NotistackProvider>
   );
 };
 
