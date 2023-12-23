@@ -9,7 +9,8 @@
     "@blockium/theme": "latest",
     "@blockium/ui": "latest",
     "@blockium/layout": "latest",
-    "@blockium/calendar": "latest"
+    "@blockium/calendar": "latest",
+    "@blockium/i18n": "latest"
   },
   "peerDependencies": {
     "react": "^18.2.0",

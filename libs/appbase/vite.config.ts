@@ -73,6 +73,7 @@ export default defineConfig({
         '@blockium/ui',
         '@blockium/layout',
         '@blockium/calendar',
+        '@blockium/i18n',
       ],
     },
   },
