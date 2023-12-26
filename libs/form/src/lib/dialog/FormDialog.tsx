@@ -69,9 +69,7 @@ export const FormDialog = <T extends object>(props: FormDialogProps<T>) => {
       PaperProps={{ sx: { p: '1em' } }}
     >
       <DialogTitle component="div" id="alert-dialog-title">
-        <Typography variant="h4" color="primary">
-          {title}
-        </Typography>
+        <Typography variant="h4">{title}</Typography>
       </DialogTitle>
       <DialogContent>
         <>
