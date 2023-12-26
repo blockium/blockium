@@ -37,7 +37,7 @@ export const SchedulerView: React.FC<SchedulerViewProps> = ({
   events,
   onDateClick,
   onEventClick,
-  height,
+  height = '100%',
 }) => {
   const {
     calendarRef,
@@ -51,6 +51,7 @@ export const SchedulerView: React.FC<SchedulerViewProps> = ({
     onWeekClick,
     onDayClick,
     onListClick,
+    handleNavLinkDayClick,
     handleDateClick,
     handleEventClick,
     onDatesSet,
@@ -63,7 +64,7 @@ export const SchedulerView: React.FC<SchedulerViewProps> = ({
 
   return (
     <SchedulerViewRoot>
-      <Box sx={{ height: height || '100%', overflowY: 'auto' }}>
+      <Box sx={{ height, overflowY: 'auto' }}>
         <SchedulerHeader
           view={currentView}
           setView={setCurrentView}
@@ -77,13 +78,13 @@ export const SchedulerView: React.FC<SchedulerViewProps> = ({
           onListClick={onListClick}
         />
         {/* <Box sx={{ minHeight: "720px", height: "80vh" }}> */}
-        <Box sx={{ height: '80vh' }}>
+        <Box sx={{ height: { xs: '90vh', sm: '70vh' } }}>
           <FullCalendar
             ref={calendarRef}
             locale={locale}
             height="100%"
             nowIndicator
-            dayMaxEvents={true}
+            dayMaxEvents={3}
             weekends={true} // TODO: Allow to show/hide weekends
             allDaySlot={false}
             displayEventTime={!isMobile}
@@ -104,6 +105,8 @@ export const SchedulerView: React.FC<SchedulerViewProps> = ({
             // slotMinTime={'06:00:00'}
             // slotMaxTime={'23:00:00'}
             events={events}
+            navLinks
+            navLinkDayClick={handleNavLinkDayClick}
             dateClick={handleDateClick}
             eventClick={handleEventClick}
             datesSet={onDatesSet}

@@ -64,13 +64,21 @@ export const useScheduler = ({ onDateClick, onEventClick }: SchedulerProps) => {
 
   const [currentView, setCurrentView] = useState<SchedulerType>('month');
 
+  const handleNavLinkDayClick = (date: Date, jsEvent: unknown) => {
+    const calendarApi = calendarRef.current?.getApi();
+    calendarApi?.gotoDate(date);
+    calendarApi?.changeView('timeGridDay');
+    setCurrentView('day');
+  };
+
   const handleDateClick = (clickInfo: DateClickArg) => {
     // If it is on month view, then goes to day view on selected date
     if (clickInfo.view.type === 'dayGridMonth') {
-      const calendarApi = calendarRef.current?.getApi();
-      calendarApi?.gotoDate(clickInfo.date);
-      calendarApi?.changeView('timeGridDay');
-      setCurrentView('day');
+      // To improve UX, this was moved to handleNavLinkDayClick:
+      // const calendarApi = calendarRef.current?.getApi();
+      // calendarApi?.gotoDate(clickInfo.date);
+      // calendarApi?.changeView('timeGridDay');
+      // setCurrentView('day');
     } else {
       // Otherwise calls the correspondig function
       onDateClick?.(clickInfo.date);
@@ -154,6 +162,7 @@ export const useScheduler = ({ onDateClick, onEventClick }: SchedulerProps) => {
     onWeekClick,
     onDayClick,
     onListClick,
+    handleNavLinkDayClick,
     handleDateClick,
     handleEventClick,
     onDatesSet,

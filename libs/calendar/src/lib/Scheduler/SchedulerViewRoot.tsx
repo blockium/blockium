@@ -65,5 +65,8 @@ export const SchedulerViewRoot = styled('div')(({ theme }) => ({
         fontSize: '1rem',
       },
     },
+    '& .fc-h-event .fc-event-title': {
+      fontSize: '11px',
+    },
   },
 }));

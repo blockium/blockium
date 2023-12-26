@@ -1,7 +1,8 @@
 import { Card, Container, useTheme } from '@mui/material';
-import { EventInput } from '@fullcalendar/core';
 import { addHours, addMinutes } from 'date-fns';
+import { enqueueSnackbar } from 'notistack';
 
+import { EventInput } from '@fullcalendar/core';
 import { SchedulerView } from '@blockium/calendar';
 
 import jsonData from './customerServices.json';
@@ -71,6 +72,16 @@ export const Scheduler: React.FC<IScheduleProps> = (props) => {
     return event;
   });
 
+  // TODO: Add an event onDateClick
+  const onDateClick = (date: Date) => {
+    enqueueSnackbar('Add an event onDateClick');
+  };
+
+  // TODO: Edit an event onEventClick
+  const onEventClick = (id: string) => {
+    enqueueSnackbar('Edit an event onEventClick: ' + id);
+  };
+
   return (
     <Container
       maxWidth="xl"
@@ -78,7 +89,11 @@ export const Scheduler: React.FC<IScheduleProps> = (props) => {
       sx={{ paddingBottom: theme.spacing(10) }}
     >
       <Card>
-        <SchedulerView events={events} />
+        <SchedulerView
+          events={events}
+          onDateClick={onDateClick}
+          onEventClick={onEventClick}
+        />
       </Card>
     </Container>
   );

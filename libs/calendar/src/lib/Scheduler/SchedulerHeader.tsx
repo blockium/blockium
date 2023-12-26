@@ -53,7 +53,7 @@ export const SchedulerHeader: React.FC<SchedulerHeaderProps> = ({
   onListClick,
 }) => {
   const theme = useTheme();
-  const [compact, setCompact] = useState(true);
+  const [compact, setCompact] = useState(false);
   const isMobile = useIsMobile();
   const { t } = useTranslation();
 
