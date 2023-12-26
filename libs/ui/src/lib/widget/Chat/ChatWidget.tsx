@@ -46,12 +46,7 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
     setIsMessaging(true);
     setMessage('');
     await onSendMessage(message);
-
-    // TODO: Remove setTimeout
-    // Simulates network communication
-    setTimeout(() => {
-      setIsMessaging(false);
-    }, 5000);
+    setIsMessaging(false);
   };
 
   return (

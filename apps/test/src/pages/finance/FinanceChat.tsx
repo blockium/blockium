@@ -53,10 +53,10 @@ export const FinanceChat: React.FC = () => {
     }
     setChatMessages([
       ...newChatMessages,
-      {
-        avatar: avatar,
-        messages: [answer],
-      },
+      // {
+      //   avatar: avatar,
+      //   messages: [answer],
+      // },
     ]);
   };
 
@@ -68,6 +68,7 @@ export const FinanceChat: React.FC = () => {
     // />
     <ChatFab
       avatar="avatar/face2.webp"
+      tooltip="Assistente Virtual"
       messages={chatMessages}
       onSendMessage={onSendMessage}
       hasNewMessage={hasNewMessage}

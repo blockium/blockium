@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Avatar, Badge, Fab, styled } from '@mui/material';
+import { Avatar, Badge, Fab, Tooltip, styled } from '@mui/material';
 
 import { ChatPopover } from './ChatPopover';
 import { IChatMessage } from './ChatMessage';
@@ -35,6 +35,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
 type ChatFabProps = {
   avatar: string;
+  tooltip?: string;
   position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
   height?: number | string | object;
   messages: IChatMessage[];
@@ -46,6 +47,7 @@ type ChatFabProps = {
 
 export const ChatFab: React.FC<ChatFabProps> = ({
   avatar,
+  tooltip,
   position = 'bottom-right',
   height,
   messages,
@@ -75,25 +77,27 @@ export const ChatFab: React.FC<ChatFabProps> = ({
 
   return (
     <>
-      <Fab
-        color="primary"
-        aria-label="add"
-        sx={{ position: 'fixed', ...sxPos[position] }}
-        onClick={handleOpen}
-      >
-        <StyledBadge
-          overlap="circular"
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-          variant="dot"
-          invisible={!hasNewMessage || !!openPopover}
+      <Tooltip title={tooltip}>
+        <Fab
+          color="primary"
+          aria-label="add"
+          sx={{ position: 'fixed', ...sxPos[position] }}
+          onClick={handleOpen}
         >
-          <Avatar
-            alt="Chat Assistant"
-            src={avatar}
-            sx={{ width: 52, height: 52, bgcolor: 'transparent' }}
-          />
-        </StyledBadge>
-      </Fab>
+          <StyledBadge
+            overlap="circular"
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+            variant="dot"
+            invisible={!hasNewMessage || !!openPopover}
+          >
+            <Avatar
+              alt="Chat Assistant"
+              src={avatar}
+              sx={{ width: 52, height: 52, bgcolor: 'transparent' }}
+            />
+          </StyledBadge>
+        </Fab>
+      </Tooltip>
       <ChatPopover
         anchorEl={openPopover}
         messages={messages}
