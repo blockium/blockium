@@ -7,8 +7,9 @@ import { ThumbDown as ThumbDownIcon } from '@mui/icons-material';
 // import { useAuth } from '@blockium/firebase';
 import { SummaryWidget } from '@blockium/ui';
 
+import { FinanceChat } from './FinanceChat';
 import { FinanceEvolution } from './FinanceEvolution';
-import FinanceHero from './FinanceHero';
+import { FinanceHero } from './FinanceHero';
 
 export const FinanceDashboard = () => {
   const theme = useTheme();
@@ -23,6 +24,8 @@ export const FinanceDashboard = () => {
       disableGutters
       sx={{ paddingBottom: theme.spacing(10) }}
     >
+      <FinanceChat />
+
       {/* <Typography variant="h4" sx={{ mb: 5 }}>
         Olá, {authUser?.displayName}!
       </Typography> */}

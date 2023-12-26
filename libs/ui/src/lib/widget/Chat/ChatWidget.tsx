@@ -23,7 +23,7 @@ type ChatWidgetProps = {
 export const ChatWidget: React.FC<ChatWidgetProps> = ({
   messages,
   onSendMessage,
-  height,
+  height = '100%',
 }) => {
   const theme = useTheme();
   const [message, setMessage] = useState('');
@@ -58,7 +58,8 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
     <Card
       sx={{
         bgcolor: theme.palette.primary.lighter,
-        height: height || '100%',
+        height,
+        pt: '2px',
       }}
     >
       {/* Messages */}

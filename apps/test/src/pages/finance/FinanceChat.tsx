@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { ChatWidget, IChatMessage } from '@blockium/ui';
+import { ChatFab, IChatMessage } from '@blockium/ui';
 
 const answer = `
 Uma ação possível para aumentar sua receita de forma imediata é a seguinte:
@@ -15,7 +15,10 @@ Realize uma campanha de marketing com foco nos agendamentos pendentes:
 Essa ação pode ajudar a atrair mais clientes rapidamente, aumentando sua receita e reduzindo o prejuízo estimado. Não se esqueça de prestar um excelente serviço aos novos clientes para incentivá-los a retornar e se tornarem clientes regulares.`;
 
 export const FinanceChat: React.FC = () => {
-  const avatar = 'avatar/face2.webp';
+  const [hasNewMessage, setHasNewMessage] = useState(true);
+
+  // const avatar = 'avatar/face2.webp';
+  const avatar = '';
   const [chatMessages, setChatMessages] = useState<IChatMessage[]>([
     {
       avatar,
@@ -58,10 +61,17 @@ export const FinanceChat: React.FC = () => {
   };
 
   return (
-    <ChatWidget
+    // <ChatWidget
+    //   messages={chatMessages}
+    //   height={{ xs: 400, md: 700 }}
+    //   onSendMessage={onSendMessage}
+    // />
+    <ChatFab
+      avatar="avatar/face2.webp"
       messages={chatMessages}
-      height={{ xs: 400, md: 700 }}
       onSendMessage={onSendMessage}
+      hasNewMessage={hasNewMessage}
+      onOpen={() => setHasNewMessage(false)}
     />
   );
 };

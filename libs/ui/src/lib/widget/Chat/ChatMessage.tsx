@@ -43,12 +43,12 @@ export const ChatMessage: React.FC<IChatMessage> = ({
       justifyContent={side === 'right' ? 'flex-end' : 'flex-start'}
       {...GridContainerProps}
     >
-      {side === 'left' && (
-        <Grid item {...AvatarGridProps}>
+      {side === 'left' && avatar !== '' && (
+        <Grid item xs={2} {...AvatarGridProps}>
           <Avatar src={avatar} {...AvatarProps} sx={{ ...styles.avatar }} />
         </Grid>
       )}
-      <Grid item xs={8}>
+      <Grid item xs={10}>
         {messages.map((msg, i) => {
           return (
             <Box key={i} sx={{ ...styles[`${side}Row`] }}>
