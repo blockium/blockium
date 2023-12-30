@@ -4,7 +4,7 @@ import { ApexOptions } from 'apexcharts';
 // @mui
 import { Card, CardHeader, Box } from '@mui/material';
 // components
-import { BaseOptionChart } from '.';
+import { BaseChartOptions } from './BaseChartOptions';
 
 // ----------------------------------------------------------------------
 
@@ -33,7 +33,7 @@ export const EvolutionChart: React.FC<EvolutionChartProps> = ({
   height,
   ...other
 }) => {
-  const chartOptions: ApexOptions = merge(BaseOptionChart(), {
+  const chartOptions: ApexOptions = merge(BaseChartOptions(), {
     colors: chartColors,
     plotOptions: { bar: { columnWidth: '16%' } },
     fill: { type: chartData.map((i) => i.fill) },

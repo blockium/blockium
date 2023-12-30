@@ -1,4 +1,4 @@
-export * from './BaseOptionChart';
+export * from './ChartWidget';
 export * from './EvolutionChart';
 export * from './PieChart';
-export * from './ProgressChart';
+export * from './RadialBarChart';

@@ -1,78 +1,16 @@
 import { useTranslation } from 'react-i18next';
 // material
-import { alpha, useTheme } from '@mui/material/styles';
-import { GlobalStyles } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 // chart
 import { ApexOptions } from 'apexcharts';
+// blockium
 import { useColorMode } from '@blockium/theme';
+import { fDecimal, fNumber } from '@blockium/utils';
+
 // TODO: i18n
-// import ptBR from 'apexcharts/dist/locales/pt-br.json';
+import ptBR from 'apexcharts/dist/locales/pt-br.json';
 
-// ----------------------------------------------------------------------
-
-export function BaseOptionChartStyle() {
-  const theme = useTheme();
-
-  const background = {
-    backdropFilter: 'blur(6px)',
-    WebkitBackdropFilter: 'blur(6px)', // Fix on Mobile
-    backgroundColor: alpha(theme.palette.background.default, 0.72),
-  };
-
-  return (
-    <GlobalStyles
-      styles={{
-        '&.apexcharts-canvas': {
-          // Tooltip
-          '.apexcharts-xaxistooltip': {
-            ...background,
-            border: 0,
-            boxShadow: theme.customShadows.z24,
-            color: theme.palette.text.primary,
-            borderRadius: Number(theme.shape.borderRadius) * 1.5,
-            '&:before': { borderBottomColor: 'transparent' },
-            '&:after': {
-              borderBottomColor: alpha(theme.palette.background.default, 0.72),
-            },
-          },
-          '.apexcharts-tooltip.apexcharts-theme-light': {
-            ...background,
-            border: 0,
-            boxShadow: theme.customShadows.z24,
-            borderRadius: Number(theme.shape.borderRadius) * 1.5,
-            '& .apexcharts-tooltip-title': {
-              border: 0,
-              textAlign: 'center',
-              fontWeight: theme.typography.fontWeightBold,
-              backgroundColor: theme.palette.grey[500_16],
-              color:
-                theme.palette.text[
-                  theme.palette.mode === 'light' ? 'secondary' : 'primary'
-                ],
-            },
-          },
-          // Legend
-          '.apexcharts-legend': {
-            padding: 0,
-          },
-          '.apexcharts-legend-series': {
-            display: 'flex !important',
-            alignItems: 'center',
-          },
-          '.apexcharts-legend-marker': {
-            marginRight: 8,
-          },
-          '.apexcharts-legend-text': {
-            lineHeight: '18px',
-            textTransform: 'capitalize',
-          },
-        },
-      }}
-    />
-  );
-}
-
-export function BaseOptionChart() {
+export const BaseChartOptions = () => {
   const theme = useTheme();
   const colorMode = useColorMode();
   const { t } = useTranslation();
@@ -80,14 +18,25 @@ export function BaseOptionChart() {
   const LABEL_TOTAL = {
     show: true,
     label: t('ui:chart.total'),
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.primary,
     ...theme.typography.subtitle2,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    formatter: (w: any) => {
+      const total = w.globals.seriesTotals.reduce((a: number, b: number) => {
+        return a + b;
+      }, 0);
+      return fDecimal(total / w.globals.series.length, 1) + '%';
+    },
   };
 
   const LABEL_VALUE = {
     offsetY: 8,
     color: theme.palette.text.primary,
     ...theme.typography.h3,
+    formatter: (value: string | number) => {
+      const val = typeof value === 'string' ? Number.parseFloat(value) : value;
+      return fNumber(val) + '%';
+    },
   };
 
   const options: ApexOptions = {
@@ -115,8 +64,8 @@ export function BaseOptionChart() {
       background: theme.palette.background.paper,
       // TODO: i18n
       // localization
-      // locales: [ptBR],
-      // defaultLocale: 'pt-br',
+      locales: [ptBR],
+      defaultLocale: 'pt-br',
     },
 
     // States
@@ -148,7 +97,7 @@ export function BaseOptionChart() {
     },
 
     // Datalabels
-    dataLabels: { enabled: false },
+    dataLabels: LABEL_VALUE,
 
     // Stroke
     stroke: {
@@ -185,9 +134,10 @@ export function BaseOptionChart() {
     // Legend
     legend: {
       show: true,
+      // floating: true,
       fontSize: '13',
-      position: 'top',
-      horizontalAlign: 'right',
+      position: 'bottom',
+      horizontalAlign: 'center',
       markers: {
         radius: 12,
       },
@@ -223,7 +173,7 @@ export function BaseOptionChart() {
         },
         dataLabels: {
           value: LABEL_VALUE,
-          // total: LABEL_TOTAL,
+          total: LABEL_TOTAL,
         },
       },
       // Radar
@@ -265,6 +215,4 @@ export function BaseOptionChart() {
   };
 
   return options;
-}
-
-export default BaseOptionChart;
+};
