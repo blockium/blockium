@@ -8,7 +8,7 @@ export const FinanceEvolution: React.FC = () => {
   return (
     <ChartWidget title="Title" subheader="(+43%) than last year">
       <EvolutionChart
-        // showCurrency
+        showCurrency
         // height={500}
         width="100%"
         legend="top"

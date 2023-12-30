@@ -7,13 +7,23 @@ import { ApexOptions } from 'apexcharts';
 import { useColorMode } from '@blockium/theme';
 import { fDecimal, fNumber } from '@blockium/utils';
 
-// TODO: i18n
+// i18n
+// Current supported languages
+import en from 'apexcharts/dist/locales/en.json';
 import ptBR from 'apexcharts/dist/locales/pt-br.json';
+const locales = {
+  en: 'en',
+  'pt-BR': 'pt-br',
+  // Add new locales here, using the i18next.language as the key
+};
+type LocaleKey = keyof typeof locales;
 
 export const BaseChartOptions = () => {
   const theme = useTheme();
   const colorMode = useColorMode();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  // I18n
+  const locale = locales[i18n.language as LocaleKey];
 
   const LABEL_TOTAL = {
     show: true,
@@ -62,10 +72,9 @@ export const BaseChartOptions = () => {
       foreColor: theme.palette.text.disabled,
       fontFamily: theme.typography.fontFamily,
       background: theme.palette.background.paper,
-      // TODO: i18n
       // localization
-      locales: [ptBR],
-      defaultLocale: 'pt-br',
+      locales: [en, ptBR],
+      defaultLocale: locale,
     },
 
     // States
