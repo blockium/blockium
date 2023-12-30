@@ -1,23 +1,23 @@
 import { merge } from 'lodash';
 import ReactApexChart from 'react-apexcharts';
 
-import { BaseChartOptions } from './BaseChartOptions';
 import { IChart } from './Chart';
+import { BaseChartOptions } from './BaseChartOptions';
 import { baseChartStyle } from './BaseChartStyle';
 
 export const RadialBarChart: React.FC<IChart> = ({
-  chartData,
+  chartLabels,
+  chartColors,
+  chartSeries,
   height = 380,
   width = 380,
   legend = 'bottom',
   customOptions,
 }) => {
-  const chartLabels = chartData.map((i) => i.label);
-  const chartValues = chartData.map((i) => i.value);
-  const chartColors = chartData.map((i) => i.color);
-
   const chartOptions = merge(
     merge(BaseChartOptions(), {
+      colors: chartColors,
+      labels: chartLabels,
       legend: {
         show: legend !== 'none',
         position: legend !== 'none' ? legend : undefined,
@@ -48,12 +48,8 @@ export const RadialBarChart: React.FC<IChart> = ({
       {baseChartStyle}
       <ReactApexChart
         type="radialBar"
-        series={chartValues}
-        options={{
-          ...chartOptions,
-          colors: chartColors,
-          labels: chartLabels,
-        }}
+        series={chartSeries}
+        options={chartOptions}
         height={height}
         width={width}
       />

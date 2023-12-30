@@ -26,6 +26,11 @@ export function fCurrency(number: number | string) {
   return numeral(number).format(Number.isInteger(number) ? '$0,0' : '$0,0.00');
 }
 
+export function currencySymbol() {
+  const value = fCurrency(0);
+  return value.substring(0, value.length - 1);
+}
+
 export function fPercent(number: number | string) {
   locale();
   return Number.isNaN(number)

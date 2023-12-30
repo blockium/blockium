@@ -1,80 +1,68 @@
 import { merge } from 'lodash';
-import Chart from 'react-apexcharts';
-import { ApexOptions } from 'apexcharts';
-// @mui
-import { Card, CardHeader, Box } from '@mui/material';
-// components
+import ReactApexChart from 'react-apexcharts';
+
+import { IChart } from './Chart';
 import { BaseChartOptions } from './BaseChartOptions';
+import { baseChartStyle } from './BaseChartStyle';
+import { currencySymbol, fCurrency } from '@blockium/utils';
 
-// ----------------------------------------------------------------------
-
-type ChartDataItem = {
-  name: string;
-  type: string;
-  fill: string;
-  data: number[];
-};
-
-type EvolutionChartProps = {
-  title: string;
-  subheader?: string;
-  chartColors?: string[];
-  chartData: ChartDataItem[];
-  chartLabels: string[];
-  height?: number | string | object;
-};
-
-export const EvolutionChart: React.FC<EvolutionChartProps> = ({
-  title,
-  subheader,
-  chartColors,
+export const EvolutionChart: React.FC<IChart & { showCurrency?: boolean }> = ({
   chartLabels,
-  chartData,
-  height,
-  ...other
+  chartColors,
+  chartSeries,
+  height = 380,
+  width = 380,
+  legend = 'bottom',
+  customOptions,
+  showCurrency = false,
 }) => {
-  const chartOptions: ApexOptions = merge(BaseChartOptions(), {
-    colors: chartColors,
-    plotOptions: { bar: { columnWidth: '16%' } },
-    fill: { type: chartData.map((i) => i.fill) },
-    labels: chartLabels,
-    xaxis: {
-      type: 'datetime',
-      labels: {
-        // TODO: i18n
-        format: 'd/M',
+  const chartOptions = merge(
+    merge(BaseChartOptions(), {
+      colors: chartColors,
+      labels: chartLabels,
+      legend: {
+        show: legend !== 'none',
+        position: legend !== 'none' ? legend : undefined,
       },
-    },
-    // TODO: i18n
-    yaxis: [{ title: { text: 'R$' } }],
-    tooltip: {
-      shared: true,
-      intersect: false,
-      y: {
-        formatter: (y: number) => {
-          if (typeof y !== 'undefined') {
-            // TODO: i18n
-            return `R$ ${y.toFixed(0)}`;
-          }
-          return y;
+      plotOptions: { bar: { columnWidth: '16%' } },
+      // fill: { type: chartData.map((i) => i.fill) },
+      xaxis: {
+        type: 'datetime',
+        labels: {
+          // format: 'd/M',
         },
       },
-    },
-  });
+      yaxis: [
+        {
+          title: {
+            text: `${showCurrency ? currencySymbol() : ''}`,
+          },
+        },
+      ],
+      tooltip: {
+        shared: true,
+        intersect: false,
+        y: {
+          formatter: (y: number) => {
+            return y && showCurrency ? `${fCurrency(y)}` : y;
+          },
+        },
+      },
+    }),
+    customOptions,
+  );
 
   return (
-    <Card sx={{ height: height || '100%' }} {...other}>
-      <CardHeader title={title} subheader={subheader} sx={{ height: '20%' }} />
-
-      <Box sx={{ p: 3, mb: 3 }} dir="ltr" height="80%">
-        <Chart
-          type="line"
-          series={chartData}
-          options={chartOptions}
-          height={height ? '100%' : 364}
-        />
-      </Box>
-    </Card>
+    <>
+      {baseChartStyle}
+      <ReactApexChart
+        type="line"
+        series={chartSeries}
+        options={chartOptions}
+        height={height}
+        width={width}
+      />
+    </>
   );
 };
 

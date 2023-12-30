@@ -1,13 +1,9 @@
 import { ApexOptions } from 'apexcharts';
 
-export interface IChartData {
-  label: string;
-  value: number;
-  color: string;
-}
-
 export interface IChart {
-  chartData: IChartData[];
+  chartLabels: string[];
+  chartColors: string[];
+  chartSeries: ApexAxisChartSeries | ApexNonAxisChartSeries;
   height?: string | number;
   width?: string | number;
   legend?: 'none' | 'top' | 'right' | 'bottom' | 'left';

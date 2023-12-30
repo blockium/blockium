@@ -4,7 +4,7 @@ import { ChartWidget, PieChart, RadialBarChart } from '@blockium/chart';
 
 import { fDecimal, toNumber } from '@blockium/utils';
 
-export const ProgressChart: React.FC = () => {
+export const FinanceProgress: React.FC = () => {
   const theme = useTheme();
 
   const formatValue = (value: number) => {
@@ -17,22 +17,16 @@ export const ProgressChart: React.FC = () => {
         // height={500}
         // width={500}
         legend="none"
-        chartData={[
-          {
-            label: 'mês',
-            value: formatValue(24.723),
-            color: theme.palette.primary.main,
-          },
-          {
-            label: 'semana',
-            value: formatValue(59),
-            color: theme.palette.chart.blue[0],
-          },
-          {
-            label: 'dia',
-            value: formatValue(92.456),
-            color: theme.palette.chart.violet[0],
-          },
+        chartLabels={['mês', 'semana', 'dia']}
+        chartColors={[
+          theme.palette.primary.main,
+          theme.palette.chart.blue[0],
+          theme.palette.chart.violet[0],
+        ]}
+        chartSeries={[
+          formatValue(24.723),
+          formatValue(59),
+          formatValue(92.456),
         ]}
         customOptions={{
           plotOptions: {
@@ -56,22 +50,16 @@ export const ProgressChart: React.FC = () => {
         // height={500}
         // width={500}
         legend="right"
-        chartData={[
-          {
-            label: 'mês',
-            value: formatValue(24.723),
-            color: theme.palette.primary.main,
-          },
-          {
-            label: 'semana',
-            value: formatValue(59),
-            color: theme.palette.chart.blue[0],
-          },
-          {
-            label: 'dia',
-            value: formatValue(92.456),
-            color: theme.palette.chart.violet[0],
-          },
+        chartLabels={['mês', 'semana', 'dia']}
+        chartColors={[
+          theme.palette.primary.main,
+          theme.palette.chart.blue[0],
+          theme.palette.chart.violet[0],
+        ]}
+        chartSeries={[
+          formatValue(24.723),
+          formatValue(59),
+          formatValue(92.456),
         ]}
       />
     </ChartWidget>

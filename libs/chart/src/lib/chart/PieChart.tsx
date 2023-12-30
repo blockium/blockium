@@ -11,17 +11,15 @@ import { baseChartStyle } from './BaseChartStyle';
 
 export const PieChart: React.FC<IChart & { type?: 'pie' | 'donut' }> = ({
   type = 'pie',
-  chartData,
+  chartLabels,
+  chartColors,
+  chartSeries,
   height = 380,
   width = 380,
   legend = 'bottom',
   customOptions,
 }) => {
   const theme = useTheme();
-
-  const chartLabels = chartData.map((i) => i.label);
-  const chartValues = chartData.map((i) => i.value);
-  const chartColors = chartData.map((i) => i.color);
 
   const chartOptions = merge(
     merge(BaseChartOptions(), {
@@ -54,8 +52,7 @@ export const PieChart: React.FC<IChart & { type?: 'pie' | 'donut' }> = ({
       {baseChartStyle}
       <ReactApexChart
         type={type}
-        series={chartValues}
-        colors={chartColors}
+        series={chartSeries}
         options={chartOptions}
         height={height}
         width={width}

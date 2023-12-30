@@ -10,7 +10,8 @@ import { SummaryWidget } from '@blockium/ui';
 import { FinanceChat } from './FinanceChat';
 import { FinanceEvolution } from './FinanceEvolution';
 import { FinanceHero } from './FinanceHero';
-import { ProgressChart } from './ProgressChart';
+import { FinanceProgress } from './FinanceProgress';
+// import { FinanceProgress } from './FinanceProgress';
 
 export const FinanceDashboard = () => {
   const theme = useTheme();
@@ -36,7 +37,7 @@ export const FinanceDashboard = () => {
 
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <ProgressChart />
+          <FinanceProgress />
         </Grid>
         <Grid item xs={12} md={7} lg={8}>
           {/* <FinanceChat /> */}
