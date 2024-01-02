@@ -8,4 +8,4 @@ addResourceBundles([
 ]);
 
 export * from './lib/theme';
-export * from './lib/switch';
+export * from './lib/ui';

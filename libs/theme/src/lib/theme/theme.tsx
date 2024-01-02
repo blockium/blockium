@@ -1,9 +1,7 @@
 import {
   PropsWithChildren,
-  createContext,
   forwardRef,
   useCallback,
-  useContext,
   useEffect,
   useMemo,
   useRef,
@@ -23,10 +21,15 @@ import {
   LinkProps,
 } from '@mui/material';
 
-import componentsOverride from './overrides';
-import createPalette, { PalleteConfig } from './palette';
-import createTypography, { FontConfig } from './typography';
-import createShadows, { CustomShadows, createCustomShadows } from './shadows';
+import componentsOverride from '../overrides';
+import createPalette, { PalleteConfig } from '../palette/palette';
+import createTypography, { FontConfig } from '../typography/typography';
+import createShadows, {
+  CustomShadows,
+  createCustomShadows,
+} from '../shadows/shadows';
+
+import { ColorModeContext, Mode } from './ColorModeContext';
 
 // Current supported languages
 import { useTranslation } from 'react-i18next';
@@ -63,22 +66,6 @@ const LinkBehavior = forwardRef<
   // Map href (MUI) -> to (react-router)
   return <RouterLink ref={ref} to={href} {...other} />;
 });
-
-// Dark vs Light mode
-type Mode = 'light' | 'dark';
-
-type ColorModeContextProps = {
-  mode: Mode;
-  toggleColorMode: () => void;
-};
-const ColorModeContext = createContext<ColorModeContextProps>({
-  mode: 'light',
-  toggleColorMode: () => {
-    void 0;
-  },
-});
-
-export const useColorMode = () => useContext(ColorModeContext);
 
 export interface ThemeConfig {
   fontConfig?: FontConfig;
