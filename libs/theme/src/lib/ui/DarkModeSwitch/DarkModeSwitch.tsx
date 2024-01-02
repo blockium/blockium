@@ -56,21 +56,21 @@ export const DarkModeSwitch: React.FC<{
   direction?: 'row' | 'column' | 'row-reverse' | 'column-reverse';
   [key: string]: unknown;
 }> = ({ showLabel, direction, ...other }) => {
-  const colorMode = useColorMode();
+  const { colorMode, toggleColorMode } = useColorMode();
   const { t } = useTranslation();
 
   return (
     <Stack direction={direction || 'row'} alignItems="center" {...other}>
       {showLabel && (
         <Typography variant="body2">
-          {colorMode.mode === 'dark'
+          {colorMode === 'dark'
             ? t('theme:dark-mode-switch.label.dark')
             : t('theme:dark-mode-switch.label.light')}
         </Typography>
       )}
       <MaterialUISwitch
-        checked={colorMode.mode === 'dark'}
-        onChange={colorMode.toggleColorMode}
+        checked={colorMode === 'dark'}
+        onChange={toggleColorMode}
       />
     </Stack>
   );

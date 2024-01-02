@@ -1,12 +1,4 @@
-import {
-  PropsWithChildren,
-  forwardRef,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { PropsWithChildren, forwardRef, useMemo } from 'react';
 import {
   Link as RouterLink,
   LinkProps as RouterLinkProps,
@@ -17,7 +9,6 @@ import {
   ThemeProvider as BaseThemeProvider,
   CssBaseline,
   ThemeOptions,
-  useMediaQuery,
   LinkProps,
 } from '@mui/material';
 
@@ -29,7 +20,7 @@ import createShadows, {
   createCustomShadows,
 } from '../shadows/shadows';
 
-import { ColorModeContext, Mode } from './ColorModeContext';
+import { useColorMode } from './useColorMode';
 
 // Current supported languages
 import { useTranslation } from 'react-i18next';
@@ -82,32 +73,10 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
 }) => {
   const { fontConfig, palleteConfig, initialMode } = config || {};
 
-  const systemMode = useMediaQuery('(prefers-color-scheme: dark)')
-    ? 'dark'
-    : 'light';
-  const startMode =
-    !initialMode || initialMode === 'system' ? systemMode : initialMode;
-
-  const started = useRef<boolean>(false);
-  const [mode, setMode] = useState<Mode>(startMode);
-  const toggleColorMode = useCallback(() => {
-    setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
-  }, []);
-
-  useEffect(() => {
-    const storedMode = localStorage.getItem('color-mode') as Mode;
-
-    !storedMode || started.current
-      ? // Mode not stored or it just changed, save it
-        localStorage.setItem('color-mode', mode)
-      : // Otherwise, restore it
-        setMode(storedMode);
-
-    started.current = true;
-  }, [mode]);
+  const { colorMode } = useColorMode(initialMode);
 
   const themeOptions: ThemeOptions = useMemo(() => {
-    const palette = createPalette(mode, palleteConfig);
+    const palette = createPalette(colorMode, palleteConfig);
     const typography = createTypography(fontConfig);
     const shadows = createShadows(palette);
     const customShadows: CustomShadows = createCustomShadows(palette);
@@ -141,7 +110,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
         },
       },
     };
-  }, [fontConfig, mode, palleteConfig]);
+  }, [colorMode, fontConfig, palleteConfig]);
 
   // I18n
   const { i18n } = useTranslation();
@@ -151,12 +120,10 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
   theme.components = { ...componentsOverride(theme), ...theme.components };
 
   return (
-    <ColorModeContext.Provider value={{ mode, toggleColorMode }}>
-      <BaseThemeProvider theme={theme}>
-        <CssBaseline />
-        {children}
-      </BaseThemeProvider>
-    </ColorModeContext.Provider>
+    <BaseThemeProvider theme={theme}>
+      <CssBaseline />
+      {children}
+    </BaseThemeProvider>
   );
 };
 
