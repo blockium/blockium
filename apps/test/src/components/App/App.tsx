@@ -48,11 +48,6 @@ export const App: React.FC = (props) => {
 
   // TODO: 2. Customize theme
   const themeConfig: ThemeConfig = {
-    initialMode: 'light',
-    fontConfig: {
-      primaryFonts: ['"Public Sans"', 'sans-serif'],
-      headerFonts: ['"Public Sans"', 'Poppins', 'sans-serif'],
-    },
     palleteConfig: {
       primaryColors: {
         lighter: '#fde3ed',

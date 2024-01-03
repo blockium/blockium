@@ -1,6 +1,7 @@
 // ----------------------------------------------------------------------
 
 import { Typography } from '@mui/material/styles/createTypography';
+import './styles.scss';
 
 type FontType = {
   fontFamily: string;
@@ -23,9 +24,9 @@ declare module '@mui/material/styles/createTypography' {
 }
 
 export interface FontConfig {
-  primaryFonts: string[];
-  headerFonts: string[];
-  headerWeights?: {
+  primary?: string[];
+  header?: string[];
+  weights?: {
     h1: number;
     h2: number;
     h3: number;
@@ -67,21 +68,14 @@ function responsiveFontSizes({
   };
 }
 
-const FONT_PRIMARY = [
-  '"Work Sans"',
-  'Roboto',
-  '"Helvetica Neue"',
-  '-apple-system',
-  'sans-serif',
-].join(',');
-
+const FONT_PRIMARY = 'Nunito Sans, sans-serif';
 const FONT_HEADERS = 'Poppins, sans-serif';
 
 const typography: (config?: FontConfig) => Typography = (
-  config?: FontConfig
+  config?: FontConfig,
 ) => {
-  const headerFonts = config?.headerFonts.join(',');
-  const headerWeights = config?.headerWeights || {
+  const header = config?.header?.join(',');
+  const weights = config?.weights || {
     h1: 600,
     h2: 600,
     h3: 600,
@@ -92,62 +86,62 @@ const typography: (config?: FontConfig) => Typography = (
     subtitle2: 600,
   };
   return {
-    fontFamily: config?.primaryFonts.join(',') || FONT_PRIMARY,
+    fontFamily: config?.primary?.join(',') || FONT_PRIMARY,
     fontWeightLight: 300,
     fontWeightRegular: 400,
     fontWeightMedium: 500,
     fontWeightBold: 600,
     h1: {
-      fontFamily: headerFonts || FONT_HEADERS,
-      fontWeight: headerWeights.h1,
+      fontFamily: header || FONT_HEADERS,
+      fontWeight: weights.h1,
       lineHeight: 80 / 64,
       fontSize: pxToRem(40),
       ...responsiveFontSizes({ sm: 52, md: 58, lg: 64 }),
     },
     h2: {
-      fontFamily: headerFonts || FONT_HEADERS,
-      fontWeight: headerWeights.h2,
+      fontFamily: header || FONT_HEADERS,
+      fontWeight: weights.h2,
       lineHeight: 64 / 48,
       fontSize: pxToRem(32),
       ...responsiveFontSizes({ sm: 40, md: 44, lg: 48 }),
     },
     h3: {
-      fontFamily: headerFonts || FONT_HEADERS,
-      fontWeight: headerWeights.h3,
+      fontFamily: header || FONT_HEADERS,
+      fontWeight: weights.h3,
       lineHeight: 1.5,
       fontSize: pxToRem(24),
       ...responsiveFontSizes({ sm: 26, md: 30, lg: 32 }),
     },
     h4: {
-      fontFamily: headerFonts || FONT_HEADERS,
-      fontWeight: headerWeights.h4,
+      fontFamily: header || FONT_HEADERS,
+      fontWeight: weights.h4,
       lineHeight: 1.5,
       fontSize: pxToRem(20),
       ...responsiveFontSizes({ sm: 20, md: 24, lg: 24 }),
     },
     h5: {
-      fontFamily: headerFonts || FONT_HEADERS,
-      fontWeight: headerWeights.h5,
+      fontFamily: header || FONT_HEADERS,
+      fontWeight: weights.h5,
       lineHeight: 1.5,
       fontSize: pxToRem(18),
       ...responsiveFontSizes({ sm: 19, md: 20, lg: 20 }),
     },
     h6: {
-      fontFamily: headerFonts || FONT_HEADERS,
-      fontWeight: headerWeights.h6,
+      fontFamily: header || FONT_HEADERS,
+      fontWeight: weights.h6,
       lineHeight: 28 / 18,
       fontSize: pxToRem(17),
       ...responsiveFontSizes({ sm: 18, md: 18, lg: 18 }),
     },
     subtitle1: {
-      fontFamily: headerFonts || FONT_HEADERS,
-      fontWeight: headerWeights.subtitle1,
+      fontFamily: header || FONT_HEADERS,
+      fontWeight: weights.subtitle1,
       lineHeight: 1.5,
       fontSize: pxToRem(16),
     },
     subtitle2: {
-      fontFamily: headerFonts || FONT_HEADERS,
-      fontWeight: headerWeights.subtitle2,
+      fontFamily: header || FONT_HEADERS,
+      fontWeight: weights.subtitle2,
       lineHeight: 22 / 14,
       fontSize: pxToRem(14),
     },
