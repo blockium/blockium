@@ -70,12 +70,16 @@ export interface BackgroundColor {
 }
 
 export interface PalleteConfig {
-  primaryColors: Omit<PaletteColor, 'contrastText'>;
-  primaryDarkColors: Omit<PaletteColor, 'contrastText'>;
-  secondaryColors: Omit<PaletteColor, 'contrastText'>;
-  secondaryDarkColors?: Omit<PaletteColor, 'contrastText'>;
-  backgroundColors?: BackgroundColor;
-  backgroundDarkColors?: BackgroundColor;
+  light?: {
+    primary?: Omit<PaletteColor, 'contrastText'>;
+    secondary?: Omit<PaletteColor, 'contrastText'>;
+    background?: BackgroundColor;
+  };
+  dark?: {
+    primary?: Omit<PaletteColor, 'contrastText'>;
+    secondary?: Omit<PaletteColor, 'contrastText'>;
+    background?: BackgroundColor;
+  };
 }
 
 // ----------------------------------------------------------------------
@@ -201,25 +205,34 @@ const CHART_COLORS = {
   red: ['#FF6C40', '#FF8F6D', '#FFBD98', '#FFF2D4'],
 };
 
+const LIGHT_BACKGROUND: BackgroundColor = {
+  paper: '#fff',
+  default: GREY[100],
+  neutral: GREY[200],
+};
+
+const DARK_BACKGROUND: BackgroundColor = {
+  paper: '#212B36',
+  default: '#171C23',
+  neutral: GREY[800],
+};
+
 export const paletteLight: (config?: PalleteConfig) => PaletteOptions = (
   config?: PalleteConfig,
 ) => {
   const primaryGradient =
-    config?.primaryColors.light && config?.primaryColors.main
-      ? createGradient(config.primaryColors.light, config.primaryColors.main)
+    config?.light?.primary?.light && config?.light?.primary?.main
+      ? createGradient(
+          config.light?.primary?.light,
+          config.light?.primary?.main,
+        )
       : GRADIENTS.primary;
-
-  const {
-    paper: paperColor,
-    default: defaultColor,
-    neutral: neutralColor,
-  } = config?.backgroundColors || {};
 
   return {
     mode: 'light',
     common: { black: '#000', white: '#fff' },
-    primary: { ...PRIMARY, ...config?.primaryColors },
-    secondary: { ...SECONDARY, ...config?.secondaryColors },
+    primary: { ...PRIMARY, ...config?.light?.primary },
+    secondary: { ...SECONDARY, ...config?.light?.secondary },
     info: { ...INFO },
     success: { ...SUCCESS },
     warning: { ...WARNING },
@@ -229,11 +242,7 @@ export const paletteLight: (config?: PalleteConfig) => PaletteOptions = (
     chart: CHART_COLORS,
     divider: GREY[500_24],
     text: { primary: GREY[800], secondary: GREY[600], disabled: GREY[500] },
-    background: {
-      paper: paperColor ?? '#fff',
-      default: defaultColor ?? GREY[100],
-      neutral: neutralColor ?? GREY[200],
-    },
+    background: config?.light?.background || LIGHT_BACKGROUND,
     action: {
       active: GREY[600],
       hover: GREY[500_8],
@@ -251,24 +260,15 @@ export const paletteDark: (config?: PalleteConfig) => PaletteOptions = (
   config?: PalleteConfig,
 ) => {
   const primaryGradient =
-    config?.primaryDarkColors.light && config?.primaryDarkColors.main
-      ? createGradient(
-          config.primaryDarkColors.light,
-          config.primaryDarkColors.main,
-        )
+    config?.dark?.primary?.light && config?.dark?.primary?.main
+      ? createGradient(config.dark?.primary?.light, config.dark?.primary?.main)
       : GRADIENTS.primary;
-
-  const {
-    paper: paperColor,
-    default: defaultColor,
-    neutral: neutralColor,
-  } = config?.backgroundDarkColors || {};
 
   return {
     mode: 'dark',
     common: { black: '#000', white: '#fff' },
-    primary: { ...PRIMARY_DARK, ...config?.primaryDarkColors },
-    secondary: { ...SECONDARY_DARK, ...config?.secondaryDarkColors },
+    primary: { ...PRIMARY_DARK, ...config?.dark?.primary },
+    secondary: { ...SECONDARY_DARK, ...config?.dark?.secondary },
     info: { ...INFO },
     success: { ...SUCCESS },
     warning: { ...WARNING },
@@ -278,11 +278,7 @@ export const paletteDark: (config?: PalleteConfig) => PaletteOptions = (
     chart: CHART_COLORS,
     divider: alpha('#FFF', 0.24),
     text: { primary: GREY[0], secondary: GREY[100], disabled: GREY[300] },
-    background: {
-      paper: paperColor ?? '#424242',
-      default: defaultColor ?? '#303030',
-      neutral: neutralColor ?? GREY[800],
-    },
+    background: config?.dark?.background || DARK_BACKGROUND,
     action: {
       active: GREY[600],
       hover: GREY[500_8],

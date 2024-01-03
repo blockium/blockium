@@ -49,37 +49,37 @@ export const App: React.FC = (props) => {
   // TODO: 2. Customize theme
   const themeConfig: ThemeConfig = {
     palleteConfig: {
-      primaryColors: {
-        lighter: '#fde3ed',
-        light: '#f889b5',
-        main: '#f5247f',
-        dark: '#cc005f',
-        darker: '#910055',
+      light: {
+        primary: {
+          lighter: '#fde3ed',
+          light: '#f889b5',
+          main: '#f5247f',
+          dark: '#cc005f',
+          darker: '#910055',
+        },
+        secondary: {
+          lighter: '#eb79aa',
+          light: '#e44d8e',
+          main: '#dd2072',
+          dark: '#b11a5b',
+          darker: '#851344',
+        },
       },
-      primaryDarkColors: {
-        lighter: '#f889b5',
-        light: '#f5247f',
-        main: '#cc005f',
-        dark: '#910055',
-        darker: '#910055',
-      },
-      secondaryColors: {
-        lighter: '#eb79aa',
-        light: '#e44d8e',
-        main: '#dd2072',
-        dark: '#b11a5b',
-        darker: '#851344',
-      },
-      secondaryDarkColors: {
-        lighter: '#ffffff',
-        light: '#fee9f2',
-        main: '#fdd3e5',
-        dark: '#fba7cc',
-        darker: '#f97cb2',
-      },
-      backgroundDarkColors: {
-        paper: '#212B36', // '#424242',
-        default: '#171C23', // '#303030',
+      dark: {
+        primary: {
+          lighter: '#f889b5',
+          light: '#f5247f',
+          main: '#cc005f',
+          dark: '#910055',
+          darker: '#910055',
+        },
+        secondary: {
+          lighter: '#ffffff',
+          light: '#fee9f2',
+          main: '#fdd3e5',
+          dark: '#fba7cc',
+          darker: '#f97cb2',
+        },
       },
     },
   };
