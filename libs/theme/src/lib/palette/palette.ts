@@ -1,4 +1,4 @@
-import { alpha, PaletteColor, PaletteOptions } from '@mui/material/styles';
+import { alpha, PaletteOptions } from '@mui/material/styles';
 import { ColorPartial } from '@mui/material/styles/createPalette';
 
 // In TypeScript, we need to use module augmentation for the theme to accept  aditional values:
@@ -68,16 +68,23 @@ export interface BackgroundColor {
   default?: string;
   neutral?: string;
 }
+interface PaletteConfigColor {
+  lighter?: string;
+  light?: string;
+  main: string;
+  dark?: string;
+  darker?: string;
+}
 
 export interface PalleteConfig {
   light?: {
-    primary?: Omit<PaletteColor, 'contrastText'>;
-    secondary?: Omit<PaletteColor, 'contrastText'>;
+    primary?: PaletteConfigColor;
+    secondary?: PaletteConfigColor;
     background?: BackgroundColor;
   };
   dark?: {
-    primary?: Omit<PaletteColor, 'contrastText'>;
-    secondary?: Omit<PaletteColor, 'contrastText'>;
+    primary?: PaletteConfigColor;
+    secondary?: PaletteConfigColor;
     background?: BackgroundColor;
   };
 }
@@ -292,11 +299,19 @@ export const paletteDark: (config?: PalleteConfig) => PaletteOptions = (
   };
 };
 
+// Create light and dark tones if necessary
+const createTones = (config?: PalleteConfig) => {
+  // TODO
+  return config;
+};
+
 const createPalette: (
   mode: 'light' | 'dark',
   config?: PalleteConfig,
 ) => PaletteOptions = (mode, config) => {
-  return mode === 'light' ? paletteLight(config) : paletteDark(config);
+  return mode === 'light'
+    ? paletteLight(createTones(config))
+    : paletteDark(createTones(config));
 };
 
 export default createPalette;

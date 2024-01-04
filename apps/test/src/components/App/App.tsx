@@ -20,6 +20,8 @@ import { ServiceMaintenanceTable } from '../table/serviceMaintenance/ServiceMain
 import { BirthListTable } from '../table/birthList/BirthListTable';
 import { ServiceTable } from '../table/service/ServiceTable';
 
+import './styles.scss';
+
 // 1. Dynamically import pages in order to optimize request time
 const Scheduler = loadable(() =>
   import('../../pages').then(({ Scheduler }) => Scheduler),
@@ -48,37 +50,40 @@ export const App: React.FC = (props) => {
 
   // TODO: 2. Customize theme
   const themeConfig: ThemeConfig = {
+    fontConfig: {
+      // primary: ['Public Sans', 'sans-serif'],
+    },
     palleteConfig: {
       light: {
         primary: {
-          lighter: '#fde3ed',
-          light: '#f889b5',
+          // lighter: '#fde3ed',
+          // light: '#f889b5',
           main: '#f5247f',
-          dark: '#cc005f',
-          darker: '#910055',
+          // dark: '#cc005f',
+          // darker: '#910055',
         },
         secondary: {
-          lighter: '#eb79aa',
-          light: '#e44d8e',
+          // lighter: '#eb79aa',
+          // light: '#e44d8e',
           main: '#dd2072',
-          dark: '#b11a5b',
-          darker: '#851344',
+          // dark: '#b11a5b',
+          // darker: '#851344',
         },
       },
       dark: {
         primary: {
-          lighter: '#f889b5',
-          light: '#f5247f',
+          // lighter: '#f889b5',
+          // light: '#f5247f',
           main: '#cc005f',
-          dark: '#910055',
-          darker: '#910055',
+          // dark: '#910055',
+          // darker: '#910055',
         },
         secondary: {
-          lighter: '#ffffff',
-          light: '#fee9f2',
+          // lighter: '#ffffff',
+          // light: '#fee9f2',
           main: '#fdd3e5',
-          dark: '#fba7cc',
-          darker: '#f97cb2',
+          // dark: '#fba7cc',
+          // darker: '#f97cb2',
         },
       },
     },
