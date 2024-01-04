@@ -56,16 +56,16 @@ export const App: React.FC = (props) => {
     palleteConfig: {
       light: {
         // primary: { main: '#f5247f' }, // Old pink
+        // secondary: { main: '#dd2072' }, // Old pink
         // primary: { main: '#C78904' }, // lighter option
         primary: { main: '#B38014' },
-        // secondary: { main: '#dd2072' }, // Old pink
         secondary: { main: '#293C5E' },
       },
       dark: {
         // primary: { main: '#cc005f' }, // Old pink
+        // secondary: { main: '#fdd3e5' }, // Old lighter pink
         // primary: { main: '#C78904' }, // lighter option
         primary: { main: '#B38014' },
-        // secondary: { main: '#fdd3e5' }, // Old lighter pink
         secondary: { main: '#F3D491' },
       },
     },
