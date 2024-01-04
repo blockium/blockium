@@ -15,12 +15,16 @@ export const AppLogo: React.FC<AppLogoProps> = ({ full = true, ...props }) => {
     >
       <defs>
         <linearGradient x1="0%" y1="0%" x2="100%" y2="0%" id="linearGradient-2">
-          <stop stopColor="#EE2A7B" offset="0%"></stop>
-          <stop stopColor="#FF7DB8" offset="100%"></stop>
+          <stop stopColor="#B38014" offset="0%"></stop>
+          <stop stopColor="#E6A71E" offset="100%"></stop>
+          {/* <stop stopColor="#EE2A7B" offset="0%"></stop>
+          <stop stopColor="#FF7DB8" offset="100%"></stop> */}
         </linearGradient>
         <linearGradient x1="0%" y1="0%" x2="100%" y2="0%" id="linearGradient-4">
-          <stop stopColor="#EE2A7B" offset="0%"></stop>
-          <stop stopColor="#FF7DB8" offset="100%"></stop>
+          <stop stopColor="#B38014" offset="0%"></stop>
+          <stop stopColor="#E6A71E" offset="100%"></stop>
+          {/* <stop stopColor="#EE2A7B" offset="0%"></stop>
+          <stop stopColor="#FF7DB8" offset="100%"></stop> */}
         </linearGradient>
       </defs>
       <g

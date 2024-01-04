@@ -231,9 +231,9 @@ const completeTones = (color?: PaletteConfigColor) => {
 
   const newColor = {
     // lighter: color.lighter || alpha(color.main, 0.2),
-    lighter: color.lighter || tinycolor(color.main).lighten(35).toString(),
+    lighter: color.lighter || tinycolor(color.main).lighten(40).toString(),
     // light: color.light || alpha(color.main, 0.5),
-    light: color.light || tinycolor(color.main).lighten(15).toString(),
+    light: color.light || tinycolor(color.main).lighten(20).toString(),
     main: color.main,
     dark: color.dark || tinycolor(color.main).darken(15).toString(),
     darker: color.darker || tinycolor(color.main).darken(30).toString(),
