@@ -55,36 +55,12 @@ export const App: React.FC = (props) => {
     },
     palleteConfig: {
       light: {
-        primary: {
-          // lighter: '#fde3ed',
-          // light: '#f889b5',
-          main: '#f5247f',
-          // dark: '#cc005f',
-          // darker: '#910055',
-        },
-        secondary: {
-          // lighter: '#eb79aa',
-          // light: '#e44d8e',
-          main: '#dd2072',
-          // dark: '#b11a5b',
-          // darker: '#851344',
-        },
+        primary: { main: '#f5247f' },
+        secondary: { main: '#dd2072' },
       },
       dark: {
-        primary: {
-          // lighter: '#f889b5',
-          // light: '#f5247f',
-          main: '#cc005f',
-          // dark: '#910055',
-          // darker: '#910055',
-        },
-        secondary: {
-          // lighter: '#ffffff',
-          // light: '#fee9f2',
-          main: '#fdd3e5',
-          // dark: '#fba7cc',
-          // darker: '#f97cb2',
-        },
+        primary: { main: '#cc005f' },
+        secondary: { main: '#fdd3e5' },
       },
     },
   };

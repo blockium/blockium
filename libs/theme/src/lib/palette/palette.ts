@@ -1,5 +1,6 @@
 import { alpha, PaletteOptions } from '@mui/material/styles';
 import { ColorPartial } from '@mui/material/styles/createPalette';
+import tinycolor from 'tinycolor2';
 
 // In TypeScript, we need to use module augmentation for the theme to accept  aditional values:
 declare module '@mui/material' {
@@ -224,6 +225,23 @@ const DARK_BACKGROUND: BackgroundColor = {
   neutral: GREY[800],
 };
 
+// Create light and dark tones if necessary
+const completeTones = (color?: PaletteConfigColor) => {
+  if (!color) return {};
+
+  const newColor = {
+    // lighter: color.lighter || alpha(color.main, 0.2),
+    lighter: color.lighter || tinycolor(color.main).lighten(35).toString(),
+    // light: color.light || alpha(color.main, 0.5),
+    light: color.light || tinycolor(color.main).lighten(15).toString(),
+    main: color.main,
+    dark: color.dark || tinycolor(color.main).darken(15).toString(),
+    darker: color.darker || tinycolor(color.main).darken(30).toString(),
+  };
+
+  return newColor;
+};
+
 export const paletteLight: (config?: PalleteConfig) => PaletteOptions = (
   config?: PalleteConfig,
 ) => {
@@ -238,8 +256,8 @@ export const paletteLight: (config?: PalleteConfig) => PaletteOptions = (
   return {
     mode: 'light',
     common: { black: '#000', white: '#fff' },
-    primary: { ...PRIMARY, ...config?.light?.primary },
-    secondary: { ...SECONDARY, ...config?.light?.secondary },
+    primary: { ...PRIMARY, ...completeTones(config?.light?.primary) },
+    secondary: { ...SECONDARY, ...completeTones(config?.light?.secondary) },
     info: { ...INFO },
     success: { ...SUCCESS },
     warning: { ...WARNING },
@@ -274,8 +292,8 @@ export const paletteDark: (config?: PalleteConfig) => PaletteOptions = (
   return {
     mode: 'dark',
     common: { black: '#000', white: '#fff' },
-    primary: { ...PRIMARY_DARK, ...config?.dark?.primary },
-    secondary: { ...SECONDARY_DARK, ...config?.dark?.secondary },
+    primary: { ...PRIMARY_DARK, ...completeTones(config?.dark?.primary) },
+    secondary: { ...SECONDARY_DARK, ...completeTones(config?.dark?.secondary) },
     info: { ...INFO },
     success: { ...SUCCESS },
     warning: { ...WARNING },
@@ -299,19 +317,11 @@ export const paletteDark: (config?: PalleteConfig) => PaletteOptions = (
   };
 };
 
-// Create light and dark tones if necessary
-const createTones = (config?: PalleteConfig) => {
-  // TODO
-  return config;
-};
-
 const createPalette: (
   mode: 'light' | 'dark',
   config?: PalleteConfig,
 ) => PaletteOptions = (mode, config) => {
-  return mode === 'light'
-    ? paletteLight(createTones(config))
-    : paletteDark(createTones(config));
+  return mode === 'light' ? paletteLight(config) : paletteDark(config);
 };
 
 export default createPalette;

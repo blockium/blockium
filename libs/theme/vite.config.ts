@@ -76,6 +76,7 @@ export default defineConfig({
         'i18next',
         'react-i18next',
         'react-use',
+        'tinycolor2',
         '@blockium/i18n',
       ],
     },

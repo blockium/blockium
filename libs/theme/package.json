@@ -8,6 +8,7 @@
     "i18next": "^23.6.0",
     "react-i18next": "^13.3.1",
     "react-use": "^17.4.0",
+    "tinycolor2": "^1.6.0",
     "@blockium/i18n": "latest"
   },
   "peerDependencies": {
@@ -17,5 +18,8 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.14.17"
+  },
+  "devDependencies": {
+    "@types/tinycolor2": "^1.4.6"
   }
 }

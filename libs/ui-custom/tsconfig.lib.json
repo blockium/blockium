@@ -6,7 +6,7 @@
   "files": [
     "../../node_modules/@nx/react/typings/cssmodule.d.ts",
     "../../node_modules/@nx/react/typings/image.d.ts",
-    "../../dist/libs/theme/lib/theme.d.ts"
+    "../../dist/libs/theme/lib/theme/theme.d.ts"
   ],
   "exclude": [
     "**/*.spec.ts",
