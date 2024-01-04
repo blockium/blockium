@@ -84,8 +84,9 @@ export const SchedulerView: React.FC<SchedulerViewProps> = ({
             locale={locale}
             height="100%"
             nowIndicator
-            dayMaxEvents={3}
-            weekends={true} // TODO: Allow to show/hide weekends
+            dayMaxEvents={true}
+            // dayMaxEvents={3}
+            weekends={true}
             allDaySlot={false}
             displayEventTime={!isMobile}
             headerToolbar={false}
