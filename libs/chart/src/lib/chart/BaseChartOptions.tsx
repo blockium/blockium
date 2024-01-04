@@ -20,7 +20,7 @@ type LocaleKey = keyof typeof locales;
 
 export const BaseChartOptions = () => {
   const theme = useTheme();
-  const colorMode = useColorMode();
+  const { colorMode } = useColorMode();
   const { t, i18n } = useTranslation();
   // I18n
   const locale = locales[i18n.language as LocaleKey];
@@ -51,7 +51,7 @@ export const BaseChartOptions = () => {
 
   const options: ApexOptions = {
     theme: {
-      mode: colorMode.mode,
+      mode: colorMode,
     },
 
     // Colors
