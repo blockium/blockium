@@ -82,13 +82,19 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
         <TextField
           label={t('ui:chat.msg.label')}
           type="text"
-          variant="standard"
+          variant="filled"
           fullWidth
           multiline
           maxRows={2}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           disabled={isMessaging}
+          inputProps={{ style: { color: theme.palette.primary.dark } }}
+          InputLabelProps={{
+            style: {
+              color: theme.palette.primary.main,
+            },
+          }}
         />
         <Tooltip title={t('ui:chat.msg.button.send')}>
           <IconButton
