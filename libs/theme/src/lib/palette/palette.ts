@@ -77,7 +77,7 @@ interface PaletteConfigColor {
   darker?: string;
 }
 
-export interface PalleteConfig {
+export interface PaletteConfig {
   light?: {
     primary?: PaletteConfigColor;
     secondary?: PaletteConfigColor;
@@ -242,8 +242,8 @@ const completeTones = (color?: PaletteConfigColor) => {
   return newColor;
 };
 
-export const paletteLight: (config?: PalleteConfig) => PaletteOptions = (
-  config?: PalleteConfig,
+export const paletteLight: (config?: PaletteConfig) => PaletteOptions = (
+  config?: PaletteConfig,
 ) => {
   const primaryGradient =
     config?.light?.primary?.light && config?.light?.primary?.main
@@ -281,8 +281,8 @@ export const paletteLight: (config?: PalleteConfig) => PaletteOptions = (
   };
 };
 
-export const paletteDark: (config?: PalleteConfig) => PaletteOptions = (
-  config?: PalleteConfig,
+export const paletteDark: (config?: PaletteConfig) => PaletteOptions = (
+  config?: PaletteConfig,
 ) => {
   const primaryGradient =
     config?.dark?.primary?.light && config?.dark?.primary?.main
@@ -319,7 +319,7 @@ export const paletteDark: (config?: PalleteConfig) => PaletteOptions = (
 
 const createPalette: (
   mode: 'light' | 'dark',
-  config?: PalleteConfig,
+  config?: PaletteConfig,
 ) => PaletteOptions = (mode, config) => {
   return mode === 'light' ? paletteLight(config) : paletteDark(config);
 };

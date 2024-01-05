@@ -7,5 +7,7 @@ addResourceBundles([
   { lng: 'pt-BR', ns: 'theme', resources: pt_BR },
 ]);
 
+export * from './lib/colors';
+export * from './lib/palette';
 export * from './lib/theme';
 export * from './lib/ui';

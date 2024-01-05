@@ -10,6 +10,7 @@ import { MenuBook as MenuBookIcon } from '@mui/icons-material';
 
 import { AppBase } from '@blockium/appbase';
 import { ThemeConfig } from '@blockium/theme';
+import { red as color, createPaletteConfig } from '@blockium/theme';
 import { LayoutConfig } from '@blockium/layout';
 
 import { AppLogo } from './AppLogo';
@@ -48,12 +49,17 @@ export const App: React.FC = (props) => {
     measurementId: import.meta.env['VITE_FIREBASE_MEASUREMENT_ID'],
   };
 
+  const golden = '#B38014';
+  const red = '#ef4444';
+  const goldenConfig = { paletteConfig: createPaletteConfig(golden) };
+  const redConfig = { paletteConfig: createPaletteConfig(red) };
+
   // TODO: 2. Customize theme
   const themeConfig: ThemeConfig = {
-    fontConfig: {
-      // primary: ['Public Sans', 'sans-serif'],
-    },
-    palleteConfig: {
+    // fontConfig: {
+    //   primary: ['Public Sans', 'sans-serif'],
+    // },
+    paletteConfig: {
       light: {
         // primary: { main: '#f5247f' }, // Old pink
         // secondary: { main: '#dd2072' }, // Old pink
@@ -165,7 +171,7 @@ export const App: React.FC = (props) => {
   return (
     <AppBase
       firebaseConfig={firebaseConfig}
-      themeConfig={themeConfig}
+      themeConfig={goldenConfig}
       layoutConfig={layoutConfig}
       routeElements={routeElements}
       appLogo={<AppLogo />}

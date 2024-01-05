@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 
 import componentsOverride from '../overrides';
-import createPalette, { PalleteConfig } from '../palette/palette';
+import createPalette, { PaletteConfig } from '../palette/palette';
 import createTypography, { FontConfig } from '../typography/typography';
 import createShadows, {
   CustomShadows,
@@ -60,7 +60,7 @@ const LinkBehavior = forwardRef<
 
 export interface ThemeConfig {
   fontConfig?: FontConfig;
-  palleteConfig?: PalleteConfig;
+  paletteConfig?: PaletteConfig;
   initialMode?: 'system' | 'light' | 'dark';
 }
 interface ThemeProviderProps extends PropsWithChildren {
@@ -71,12 +71,12 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
   config,
   children,
 }) => {
-  const { fontConfig, palleteConfig, initialMode } = config || {};
+  const { fontConfig, paletteConfig, initialMode } = config || {};
 
   const { colorMode } = useColorMode(initialMode);
 
   const themeOptions: ThemeOptions = useMemo(() => {
-    const palette = createPalette(colorMode, palleteConfig);
+    const palette = createPalette(colorMode, paletteConfig);
     const typography = createTypography(fontConfig);
     const shadows = createShadows(palette);
     const customShadows: CustomShadows = createCustomShadows(palette);
@@ -110,7 +110,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
         },
       },
     };
-  }, [colorMode, fontConfig, palleteConfig]);
+  }, [colorMode, fontConfig, paletteConfig]);
 
   // I18n
   const { i18n } = useTranslation();
