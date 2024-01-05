@@ -2,7 +2,7 @@ import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
 
 import { initFirebase } from '@blockium/firebase';
-import { ThemeConfig, ThemeProvider } from '@blockium/theme';
+import { ThemeProvider, createPaletteConfig, criaty } from '@blockium/theme';
 
 import { App2Router } from './components';
 
@@ -21,21 +21,22 @@ initFirebase({
 });
 
 // 2. Customize theme
-const themeConfig: ThemeConfig = {
-  fontConfig: {
-    // primary: ['Public Sans', 'sans-serif'],
-  },
-  paletteConfig: {
-    light: {
-      primary: { main: '#329273' },
-      secondary: { main: '#030B09' },
-    },
-    dark: {
-      primary: { main: '#329273' },
-      secondary: { main: '#ECF8F5' },
-    },
-  },
-};
+// const themeConfig: ThemeConfig = {
+//   fontConfig: {
+//     // primary: ['Public Sans', 'sans-serif'],
+//   },
+//   paletteConfig: {
+//     light: {
+//       primary: { main: '#329273' },
+//       secondary: { main: '#030B09' },
+//     },
+//     dark: {
+//       primary: { main: '#329273' },
+//       secondary: { main: '#ECF8F5' },
+//     },
+//   },
+// };
+const themeConfig = { paletteConfig: createPaletteConfig(criaty) };
 
 // 3. Render App
 const root = ReactDOM.createRoot(
