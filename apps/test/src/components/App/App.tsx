@@ -9,8 +9,13 @@ import { AdsClick as AdsClickIcon } from '@mui/icons-material';
 import { MenuBook as MenuBookIcon } from '@mui/icons-material';
 
 import { AppBase } from '@blockium/appbase';
-import { ThemeConfig } from '@blockium/theme';
-import { red as color, createPaletteConfig } from '@blockium/theme';
+import { createPaletteConfig, golden } from '@blockium/theme';
+// import { slate, gray, zinc, neutral, stone } from '@blockium/theme';
+// import { red, orange, amber, yellow, lime } from '@blockium/theme';
+// import { green, emerald, teal, cyan } from '@blockium/theme';
+// import { sky, blue, indigo, violet, purple } from '@blockium/theme';
+// import { fuchsia, pink, rose } from '@blockium/theme';
+// import { belefit, criaty, fidelizai } from '@blockium/theme';
 import { LayoutConfig } from '@blockium/layout';
 
 import { AppLogo } from './AppLogo';
@@ -49,33 +54,57 @@ export const App: React.FC = (props) => {
     measurementId: import.meta.env['VITE_FIREBASE_MEASUREMENT_ID'],
   };
 
-  const golden = '#C78904';
-  const red = '#ef4444';
-  const goldenConfig = { paletteConfig: createPaletteConfig(golden) };
-  const redConfig = { paletteConfig: createPaletteConfig(red) };
-
   // TODO: 2. Customize theme
-  const themeConfig: ThemeConfig = {
-    // fontConfig: {
-    //   primary: ['Public Sans', 'sans-serif'],
-    // },
-    paletteConfig: {
-      light: {
-        // primary: { main: '#f5247f' }, // Old pink
-        // secondary: { main: '#dd2072' }, // Old pink
-        // primary: { main: '#C78904' }, // lighter option
-        primary: { main: '#B38014' },
-        secondary: { main: '#293C5E' },
-      },
-      dark: {
-        // primary: { main: '#cc005f' }, // Old pink
-        // secondary: { main: '#fdd3e5' }, // Old lighter pink
-        // primary: { main: '#C78904' }, // lighter option
-        primary: { main: '#B38014' },
-        secondary: { main: '#F3D491' },
-      },
-    },
-  };
+  // const themeConfig: ThemeConfig = {
+  //   // fontConfig: {
+  //   //   primary: ['Public Sans', 'sans-serif'],
+  //   // },
+  //   paletteConfig: {
+  //     light: {
+  //       // primary: { main: '#f5247f' }, // Old pink
+  //       // secondary: { main: '#dd2072' }, // Old pink
+  //       // primary: { main: '#C78904' }, // lighter option
+  //       primary: { main: '#B38014' },
+  //       secondary: { main: '#293C5E' },
+  //     },
+  //     dark: {
+  //       // primary: { main: '#cc005f' }, // Old pink
+  //       // secondary: { main: '#fdd3e5' }, // Old lighter pink
+  //       // primary: { main: '#C78904' }, // lighter option
+  //       primary: { main: '#B38014' },
+  //       secondary: { main: '#F3D491' },
+  //     },
+  //   },
+  // };
+
+  // TODO: 2. Customize theme (new approach)
+  // const themeConfig = { paletteConfig: createPaletteConfig(slate) };
+  // const themeConfig = { paletteConfig: createPaletteConfig(gray) };
+  // const themeConfig = { paletteConfig: createPaletteConfig(zinc) };
+  // const themeConfig = { paletteConfig: createPaletteConfig(neutral) };
+  // const themeConfig = { paletteConfig: createPaletteConfig(stone) };
+  // const themeConfig = { paletteConfig: createPaletteConfig(red) };
+  // const themeConfig = { paletteConfig: createPaletteConfig(orange) };
+  // const themeConfig = { paletteConfig: createPaletteConfig(amber) };
+  // const themeConfig = { paletteConfig: createPaletteConfig(yellow) };
+  // const themeConfig = { paletteConfig: createPaletteConfig(lime) };
+  // const themeConfig = { paletteConfig: createPaletteConfig(green) };
+  // const themeConfig = { paletteConfig: createPaletteConfig(emerald) };
+  // const themeConfig = { paletteConfig: createPaletteConfig(teal) };
+  // const themeConfig = { paletteConfig: createPaletteConfig(cyan) };
+  // const themeConfig = { paletteConfig: createPaletteConfig(sky) };
+  // const themeConfig = { paletteConfig: createPaletteConfig(blue) };
+  // const themeConfig = { paletteConfig: createPaletteConfig(indigo) };
+  // const themeConfig = { paletteConfig: createPaletteConfig(violet) };
+  // const themeConfig = { paletteConfig: createPaletteConfig(purple) };
+  // const themeConfig = { paletteConfig: createPaletteConfig(fuchsia) };
+  // const themeConfig = { paletteConfig: createPaletteConfig(pink) };
+  // const themeConfig = { paletteConfig: createPaletteConfig(rose) };
+
+  const themeConfig = { paletteConfig: createPaletteConfig(golden) };
+  // const themeConfig = { paletteConfig: createPaletteConfig(belefit) };
+  // const themeConfig = { paletteConfig: createPaletteConfig(criaty) };
+  // const themeConfig = { paletteConfig: createPaletteConfig(fidelizai) };
 
   // 3. Define the layout configuration
   const { t } = useTranslation();
@@ -171,7 +200,7 @@ export const App: React.FC = (props) => {
   return (
     <AppBase
       firebaseConfig={firebaseConfig}
-      themeConfig={redConfig}
+      themeConfig={themeConfig}
       layoutConfig={layoutConfig}
       routeElements={routeElements}
       appLogo={<AppLogo />}
