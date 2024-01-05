@@ -49,7 +49,7 @@ export const App: React.FC = (props) => {
     measurementId: import.meta.env['VITE_FIREBASE_MEASUREMENT_ID'],
   };
 
-  const golden = '#B38014';
+  const golden = '#C78904';
   const red = '#ef4444';
   const goldenConfig = { paletteConfig: createPaletteConfig(golden) };
   const redConfig = { paletteConfig: createPaletteConfig(red) };
@@ -171,7 +171,7 @@ export const App: React.FC = (props) => {
   return (
     <AppBase
       firebaseConfig={firebaseConfig}
-      themeConfig={goldenConfig}
+      themeConfig={redConfig}
       layoutConfig={layoutConfig}
       routeElements={routeElements}
       appLogo={<AppLogo />}

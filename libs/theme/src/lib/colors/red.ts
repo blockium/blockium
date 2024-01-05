@@ -1,7 +1,7 @@
 import { ThemeConfig } from '../theme';
 
 export const red: ThemeConfig = {
-  palleteConfig: {
+  paletteConfig: {
     light: {
       primary: { main: '#ef4444' },
       secondary: { main: '#5F9B70' },

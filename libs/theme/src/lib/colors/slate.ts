@@ -1,7 +1,7 @@
 import { ThemeConfig } from '../theme';
 
 export const slate: ThemeConfig = {
-  palleteConfig: {
+  paletteConfig: {
     light: {
       primary: { main: '#64748b' },
       secondary: { main: '#373229' },

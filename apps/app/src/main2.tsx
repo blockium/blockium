@@ -25,7 +25,7 @@ const themeConfig: ThemeConfig = {
   fontConfig: {
     // primary: ['Public Sans', 'sans-serif'],
   },
-  palleteConfig: {
+  paletteConfig: {
     light: {
       primary: { main: '#329273' },
       secondary: { main: '#030B09' },
