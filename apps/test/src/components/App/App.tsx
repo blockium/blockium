@@ -197,6 +197,12 @@ export const App: React.FC = (props) => {
   //   // i18next.changeLanguage('en');
   // }, 5000);
 
+  // Test theme config change
+  // const [, setThemeConfig] = useThemeConfig();
+  // setTimeout(() => {
+  //   setThemeConfig({ paletteConfig: createPaletteConfig(belefit) });
+  // }, 2000);
+
   return (
     <AppBase
       firebaseConfig={firebaseConfig}

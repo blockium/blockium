@@ -31,7 +31,7 @@ type LoginMethod = 'phone' | 'whatsapp' | 'email' | 'google';
 
 interface AppBaseProps {
   firebaseConfig: FirebaseConfig;
-  themeConfig: ThemeConfig;
+  themeConfig?: ThemeConfig;
   layoutConfig: LayoutConfig;
   routeElements: RouteElement[];
   openRouteElements?: RouteElement[];

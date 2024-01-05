@@ -21,10 +21,12 @@ import createShadows, {
 } from '../shadows/shadows';
 
 import { useColorMode } from './useColorMode';
+import { useThemeConfig } from './useThemeConfig';
 
 // Current supported languages
 import { useTranslation } from 'react-i18next';
 import { ptBR } from '@mui/material/locale';
+import { useEffectOnce } from 'react-use';
 const locales = {
   'pt-BR': ptBR,
   // Add new locales here, using the i18next.language as the key
@@ -71,7 +73,15 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
   config,
   children,
 }) => {
-  const { fontConfig, paletteConfig, initialMode } = config || {};
+  const [themeConfig, setThemeConfig] = useThemeConfig();
+
+  useEffectOnce(() => {
+    if (config) {
+      setThemeConfig(config);
+    }
+  });
+
+  const { fontConfig, paletteConfig, initialMode } = config || themeConfig;
 
   const { colorMode } = useColorMode(initialMode);
 
