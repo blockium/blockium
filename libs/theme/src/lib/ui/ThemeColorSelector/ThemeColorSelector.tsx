@@ -12,6 +12,20 @@ import { CirclePicker } from 'react-color';
 
 import { useThemeConfig } from '../../theme';
 import { createPaletteConfig } from '../../palette';
+import {
+  amber,
+  belefit,
+  blue,
+  criaty,
+  fuchsia,
+  golden,
+  lime,
+  purple,
+  red,
+  slate,
+  stone,
+  violet,
+} from '../../colors';
 
 export const ThemeColorSelector = () => {
   const { t } = useTranslation();
@@ -74,6 +88,20 @@ export const ThemeColorSelector = () => {
           <CardContent>
             <CirclePicker
               color={currentColor || '#fff'}
+              colors={[
+                golden,
+                amber,
+                lime,
+                criaty,
+                blue,
+                violet,
+                purple,
+                fuchsia,
+                belefit,
+                red,
+                slate,
+                stone,
+              ]}
               onChangeComplete={(color: { hex: string }) =>
                 handleThemeChange(color.hex)
               }

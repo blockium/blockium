@@ -27,3 +27,5 @@ export const golden = '#C78904';
 export const belefit = '#f5247f';
 export const criaty = '#329273';
 export const fidelizai = '#d97706';
+export const black = '#000000';
+export const white = '#ffffff';
