@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 import { Logout as LogoutIcon } from '@mui/icons-material';
 
-import { DarkModeSwitch } from '@blockium/theme';
+import { DarkModeSwitch, ThemeColorSelector } from '@blockium/theme';
 import { useTranslation } from 'react-i18next';
 
 // components
@@ -123,6 +123,8 @@ export const AccountPopover: React.FC<AccountPopoverProps> = ({
           direction="row-reverse"
           justifyContent="start"
         />
+
+        <ThemeColorSelector />
 
         {handleSignOut && (
           <MenuItem component={Link} onClick={handleSignOut} sx={{ m: 1 }}>

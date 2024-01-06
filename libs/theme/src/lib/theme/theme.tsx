@@ -1,4 +1,5 @@
 import { PropsWithChildren, forwardRef, useMemo } from 'react';
+import { useEffectOnce } from 'react-use';
 import {
   Link as RouterLink,
   LinkProps as RouterLinkProps,
@@ -22,11 +23,12 @@ import createShadows, {
 
 import { useColorMode } from './useColorMode';
 import { useThemeConfig } from './useThemeConfig';
+import { createPaletteConfig } from '../palette';
+import { green } from '../colors';
 
 // Current supported languages
 import { useTranslation } from 'react-i18next';
 import { ptBR } from '@mui/material/locale';
-import { useEffectOnce } from 'react-use';
 const locales = {
   'pt-BR': ptBR,
   // Add new locales here, using the i18next.language as the key
@@ -78,10 +80,14 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
   useEffectOnce(() => {
     if (config) {
       setThemeConfig(config);
+    } else {
+      setThemeConfig({
+        paletteConfig: createPaletteConfig(green),
+      });
     }
   });
 
-  const { fontConfig, paletteConfig, initialMode } = config || themeConfig;
+  const { fontConfig, paletteConfig, initialMode } = themeConfig || {};
 
   const { colorMode } = useColorMode(initialMode);
 

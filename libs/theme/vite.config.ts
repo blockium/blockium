@@ -74,6 +74,7 @@ export default defineConfig({
         '@mui/material',
         '@mui/material/styles',
         'i18next',
+        'react-color',
         'react-i18next',
         'react-use',
         'tinycolor2',

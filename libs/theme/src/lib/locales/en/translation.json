@@ -1,4 +1,5 @@
 {
   "dark-mode-switch.label.light": "Light",
-  "dark-mode-switch.label.dark": "Dark"
+  "dark-mode-switch.label.dark": "Dark",
+  "label.theme-color": "Theme Color"
 }
