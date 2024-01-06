@@ -29,10 +29,17 @@ export const ThemeColorSelector = () => {
   const open = Boolean(anchorEl);
 
   const handleThemeChange = (hexColor: string) => {
-    setThemeConfig({
+    // Replace the palette config for the current theme
+    const newThemeConfig = {
       ...themeConfig,
       paletteConfig: createPaletteConfig(hexColor),
-    });
+    };
+    // Saves theme config
+    localStorage.setItem('theme-config', JSON.stringify(newThemeConfig));
+    // Change theme
+    setThemeConfig(newThemeConfig);
+    // Close the color picker
+    handleClose();
   };
 
   return (

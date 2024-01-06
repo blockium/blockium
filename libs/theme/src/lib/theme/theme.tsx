@@ -78,9 +78,15 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
   const [themeConfig, setThemeConfig] = useThemeConfig();
 
   useEffectOnce(() => {
-    if (config) {
+    const localThemeConfig = localStorage.getItem('theme-config');
+    if (localThemeConfig) {
+      // Prefers saved theme config
+      setThemeConfig(JSON.parse(localThemeConfig) as ThemeConfig);
+    } else if (config) {
+      // Initial config
       setThemeConfig(config);
     } else {
+      // Default config
       setThemeConfig({
         paletteConfig: createPaletteConfig(green),
       });
