@@ -9,13 +9,7 @@ import { AdsClick as AdsClickIcon } from '@mui/icons-material';
 import { MenuBook as MenuBookIcon } from '@mui/icons-material';
 
 import { AppBase } from '@blockium/appbase';
-import { createPaletteConfig, golden } from '@blockium/theme';
-// import { slate, gray, zinc, neutral, stone } from '@blockium/theme';
-// import { red, orange, amber, yellow, lime } from '@blockium/theme';
-// import { green, emerald, teal, cyan } from '@blockium/theme';
-// import { sky, blue, indigo, violet, purple } from '@blockium/theme';
-// import { fuchsia, pink, rose } from '@blockium/theme';
-// import { belefit, criaty, fidelizai } from '@blockium/theme';
+import { createPaletteConfig } from '@blockium/theme';
 import { LayoutConfig } from '@blockium/layout';
 
 import { AppLogo } from './AppLogo';
@@ -78,33 +72,7 @@ export const App: React.FC = (props) => {
   // };
 
   // TODO: 2. Customize theme (new approach)
-  // const themeConfig = { paletteConfig: createPaletteConfig(slate) };
-  // const themeConfig = { paletteConfig: createPaletteConfig(gray) };
-  // const themeConfig = { paletteConfig: createPaletteConfig(zinc) };
-  // const themeConfig = { paletteConfig: createPaletteConfig(neutral) };
-  // const themeConfig = { paletteConfig: createPaletteConfig(stone) };
-  // const themeConfig = { paletteConfig: createPaletteConfig(red) };
-  // const themeConfig = { paletteConfig: createPaletteConfig(orange) };
-  // const themeConfig = { paletteConfig: createPaletteConfig(amber) };
-  // const themeConfig = { paletteConfig: createPaletteConfig(yellow) };
-  // const themeConfig = { paletteConfig: createPaletteConfig(lime) };
-  // const themeConfig = { paletteConfig: createPaletteConfig(green) };
-  // const themeConfig = { paletteConfig: createPaletteConfig(emerald) };
-  // const themeConfig = { paletteConfig: createPaletteConfig(teal) };
-  // const themeConfig = { paletteConfig: createPaletteConfig(cyan) };
-  // const themeConfig = { paletteConfig: createPaletteConfig(sky) };
-  // const themeConfig = { paletteConfig: createPaletteConfig(blue) };
-  // const themeConfig = { paletteConfig: createPaletteConfig(indigo) };
-  // const themeConfig = { paletteConfig: createPaletteConfig(violet) };
-  // const themeConfig = { paletteConfig: createPaletteConfig(purple) };
-  // const themeConfig = { paletteConfig: createPaletteConfig(fuchsia) };
-  // const themeConfig = { paletteConfig: createPaletteConfig(pink) };
-  // const themeConfig = { paletteConfig: createPaletteConfig(rose) };
-
-  const themeConfig = { paletteConfig: createPaletteConfig(golden) };
-  // const themeConfig = { paletteConfig: createPaletteConfig(belefit) };
-  // const themeConfig = { paletteConfig: createPaletteConfig(criaty) };
-  // const themeConfig = { paletteConfig: createPaletteConfig(fidelizai) };
+  const themeConfig = { paletteConfig: createPaletteConfig('#9B6F41') };
 
   // 3. Define the layout configuration
   const { t } = useTranslation();
@@ -112,6 +80,7 @@ export const App: React.FC = (props) => {
     navBar: {
       accountPopover: {
         accountMenu: [],
+        // showColorSelector: false,
       },
     },
     sideBar: {
@@ -196,12 +165,6 @@ export const App: React.FC = (props) => {
   //   i18next.changeLanguage('pt-BR');
   //   // i18next.changeLanguage('en');
   // }, 5000);
-
-  // Test theme config change
-  // const [, setThemeConfig] = useThemeConfig();
-  // setTimeout(() => {
-  //   setThemeConfig({ paletteConfig: createPaletteConfig(belefit) });
-  // }, 2000);
 
   return (
     <AppBase

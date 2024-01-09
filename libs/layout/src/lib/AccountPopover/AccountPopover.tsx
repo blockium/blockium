@@ -27,6 +27,7 @@ export interface AccountPopoverConfig {
   userPhotoUrl?: string;
   accountMenu?: MenuOption[];
   handleSignOut?: () => void;
+  showColorSelector?: boolean;
 }
 interface AccountPopoverProps {
   accountPopoverConfig?: AccountPopoverConfig;
@@ -35,8 +36,14 @@ interface AccountPopoverProps {
 export const AccountPopover: React.FC<AccountPopoverProps> = ({
   accountPopoverConfig,
 }) => {
-  const { userName, userContact, userPhotoUrl, accountMenu, handleSignOut } =
-    accountPopoverConfig || {};
+  const {
+    userName,
+    userContact,
+    userPhotoUrl,
+    accountMenu,
+    handleSignOut,
+    showColorSelector = true,
+  } = accountPopoverConfig || {};
   const { t } = useTranslation();
 
   const anchorRef = useRef(null);
@@ -124,7 +131,7 @@ export const AccountPopover: React.FC<AccountPopoverProps> = ({
           justifyContent="start"
         />
 
-        <ThemeColorSelector />
+        {showColorSelector && <ThemeColorSelector />}
 
         {handleSignOut && (
           <MenuItem component={Link} onClick={handleSignOut} sx={{ m: 1 }}>

@@ -23,6 +23,7 @@ import createShadows, {
 
 import { useColorMode } from './useColorMode';
 import { useThemeConfig } from './useThemeConfig';
+import { useInitialThemeConfig } from './useInitialThemeConfig';
 import { createPaletteConfig } from '../palette';
 import { green } from '../colors';
 
@@ -76,6 +77,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
   children,
 }) => {
   const [themeConfig, setThemeConfig] = useThemeConfig();
+  const [, setInitialConfig] = useInitialThemeConfig();
 
   useEffectOnce(() => {
     const localThemeConfig = localStorage.getItem('theme-config');
@@ -88,6 +90,16 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
     } else {
       // Default config
       setThemeConfig({
+        paletteConfig: createPaletteConfig(green),
+      });
+    }
+
+    if (config) {
+      // Initial config
+      setInitialConfig(config);
+    } else {
+      // Default config
+      setInitialConfig({
         paletteConfig: createPaletteConfig(green),
       });
     }

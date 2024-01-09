@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { CirclePicker } from 'react-color';
 
-import { useThemeConfig } from '../../theme';
+import { useInitialThemeConfig, useThemeConfig } from '../../theme';
 import { createPaletteConfig } from '../../palette';
 import {
   amber,
@@ -18,7 +18,6 @@ import {
   blue,
   criaty,
   fuchsia,
-  golden,
   lime,
   purple,
   red,
@@ -32,6 +31,10 @@ export const ThemeColorSelector = () => {
 
   const [themeConfig, setThemeConfig] = useThemeConfig();
   const currentColor = themeConfig.paletteConfig?.light?.primary?.main;
+
+  const [initialConfig] = useInitialThemeConfig();
+  const initialColor = initialConfig?.paletteConfig?.light?.primary
+    ?.main as string;
 
   const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -89,28 +92,18 @@ export const ThemeColorSelector = () => {
             <CirclePicker
               color={currentColor || '#fff'}
               colors={[
-                // golden,
-                // amber,
-                // lime,
-                // criaty,
-                // blue,
-                // violet,
-                // purple,
-                // fuchsia,
-                // belefit,
-                // red,
-                // slate,
-                // stone,
-                '#4B2507',
-                '#B28965',
-                '#9B6F41', // 1
-                '#BF9770',
-                '#70371F', // 2
-                '#B07649',
-                '#C7A182',
-                '#4B1616',
-                '#55522D',
-                '#8E844D',
+                initialColor,
+                amber,
+                lime,
+                criaty,
+                blue,
+                violet,
+                purple,
+                fuchsia,
+                belefit,
+                red,
+                slate,
+                stone,
               ]}
               onChangeComplete={(color: { hex: string }) =>
                 handleThemeChange(color.hex)
