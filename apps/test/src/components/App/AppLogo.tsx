@@ -1,5 +1,5 @@
-import { BaseSvgIcon, BaseSvgIconProps } from '@blockium/ui';
 import { useTheme } from '@mui/material';
+import { BaseSvgIcon, BaseSvgIconProps } from '@blockium/ui';
 
 interface AppLogoProps extends BaseSvgIconProps {
   full?: boolean;

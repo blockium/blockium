@@ -51,7 +51,7 @@ export const Table = <T extends object>(props: TableProps<T>) => {
   const [isMainOnTop, setIsMainOnTop] = useIsMainOnTop();
 
   // I18n
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const locale = locales[i18n.language as LocaleKey];
 
   return (
@@ -170,7 +170,7 @@ export const Table = <T extends object>(props: TableProps<T>) => {
             }}
           >
             {onEditClick && (
-              <Tooltip title="Editar">
+              <Tooltip title={t('button.edit')}>
                 <IconButton
                   size="large"
                   onClick={(e) => onEditClick(row.original, row.index)}
@@ -188,7 +188,7 @@ export const Table = <T extends object>(props: TableProps<T>) => {
               </Tooltip>
             )}
             {onDeleteClick && (
-              <Tooltip title="Excluir">
+              <Tooltip title={t('button.delete')}>
                 <IconButton
                   size="large"
                   onClick={(e) => onDeleteClick(row.original, row.index)}
