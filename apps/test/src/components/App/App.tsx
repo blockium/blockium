@@ -20,7 +20,7 @@ import { ServiceMaintenanceTable } from '../table/serviceMaintenance/ServiceMain
 import { BirthListTable } from '../table/birthList/BirthListTable';
 import { ServiceTable } from '../table/service/ServiceTable';
 
-import './styles.scss';
+import './App.module.scss';
 
 // 1. Dynamically import pages in order to optimize request time
 const Scheduler = loadable(() =>
