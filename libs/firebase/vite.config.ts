@@ -81,6 +81,7 @@ export default defineConfig({
         'firebase/firestore/lite',
         'axios',
         'i18next',
+        'notistack',
         'react-i18next',
         'react-use',
         '@blockium/i18n',

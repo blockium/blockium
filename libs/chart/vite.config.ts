@@ -73,6 +73,8 @@ export default defineConfig({
         '@mui/material',
         '@mui/material/styles',
         'apexcharts',
+        'apexcharts/dist/locales/en.json',
+        'apexcharts/dist/locales/pt-br.json',
         // Not external due to default export = Chart, that cause the bug:
         // Element type is invalid: expected a string (for built-in components)
         // or a class/function (for composite components) but got: object.
