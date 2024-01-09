@@ -14,8 +14,8 @@ export const PieChart: React.FC<IChart & { type?: 'pie' | 'donut' }> = ({
   chartLabels,
   chartColors,
   chartSeries,
-  height = 380,
-  width = 380,
+  height = 340,
+  width = 340,
   legend = 'bottom',
   customOptions,
 }) => {

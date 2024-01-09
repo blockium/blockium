@@ -10,7 +10,7 @@ export const FinanceEvolution: React.FC = () => {
       <EvolutionChart
         showCurrency
         // height={500}
-        width="100%"
+        // width="100%"
         legend="top"
         chartColors={[theme.palette.chart.green[0], theme.palette.chart.red[0]]}
         chartLabels={[

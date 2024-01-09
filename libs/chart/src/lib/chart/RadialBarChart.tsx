@@ -9,8 +9,8 @@ export const RadialBarChart: React.FC<IChart> = ({
   chartLabels,
   chartColors,
   chartSeries,
-  height = 380,
-  width = 380,
+  height = 340,
+  width = 340,
   legend = 'bottom',
   customOptions,
 }) => {

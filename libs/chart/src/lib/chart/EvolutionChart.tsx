@@ -4,14 +4,14 @@ import ReactApexChart from 'react-apexcharts';
 import { IChart } from './Chart';
 import { BaseChartOptions } from './BaseChartOptions';
 import { baseChartStyle } from './BaseChartStyle';
-import { currencySymbol, fCurrency } from '@blockium/utils';
+import { currencySymbol, fNumber } from '@blockium/utils';
 
 export const EvolutionChart: React.FC<IChart & { showCurrency?: boolean }> = ({
   chartLabels,
   chartColors,
   chartSeries,
-  height = 380,
-  width = 380,
+  height = 340,
+  width = '100%',
   legend = 'bottom',
   customOptions,
   showCurrency = false,
@@ -32,19 +32,23 @@ export const EvolutionChart: React.FC<IChart & { showCurrency?: boolean }> = ({
           // format: 'd/M',
         },
       },
-      yaxis: [
-        {
-          title: {
-            text: `${showCurrency ? currencySymbol() : ''}`,
+      yaxis: {
+        title: {
+          text: `${showCurrency ? currencySymbol() : ''}`,
+        },
+        labels: {
+          formatter: (value: number) => {
+            return value;
           },
         },
-      ],
+      },
       tooltip: {
         shared: true,
         intersect: false,
         y: {
           formatter: (y: number) => {
-            return y && showCurrency ? `${fCurrency(y)}` : y;
+            // return y && showCurrency ? `${fCurrency(y)}` : y;
+            return y ? `${fNumber(y)}` : y;
           },
         },
       },
