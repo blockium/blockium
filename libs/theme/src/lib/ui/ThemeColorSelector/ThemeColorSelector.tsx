@@ -89,18 +89,28 @@ export const ThemeColorSelector = () => {
             <CirclePicker
               color={currentColor || '#fff'}
               colors={[
-                golden,
-                amber,
-                lime,
-                criaty,
-                blue,
-                violet,
-                purple,
-                fuchsia,
-                belefit,
-                red,
-                slate,
-                stone,
+                // golden,
+                // amber,
+                // lime,
+                // criaty,
+                // blue,
+                // violet,
+                // purple,
+                // fuchsia,
+                // belefit,
+                // red,
+                // slate,
+                // stone,
+                '#4B2507',
+                '#B28965',
+                '#9B6F41', // 1
+                '#BF9770',
+                '#70371F', // 2
+                '#B07649',
+                '#C7A182',
+                '#4B1616',
+                '#55522D',
+                '#8E844D',
               ]}
               onChangeComplete={(color: { hex: string }) =>
                 handleThemeChange(color.hex)
