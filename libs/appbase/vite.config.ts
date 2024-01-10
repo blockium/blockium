@@ -68,6 +68,7 @@ export default defineConfig({
         'react/jsx-runtime',
         'react-router-dom',
         '@mui/material',
+        'react-error-boundary',
         '@blockium/firebase',
         '@blockium/theme',
         '@blockium/ui',
