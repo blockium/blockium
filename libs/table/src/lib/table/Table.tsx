@@ -170,7 +170,7 @@ export const Table = <T extends object>(props: TableProps<T>) => {
             }}
           >
             {onEditClick && (
-              <Tooltip title={t('button.edit')}>
+              <Tooltip title={t('table:button.edit')}>
                 <IconButton
                   size="large"
                   onClick={(e) => onEditClick(row.original, row.index)}
@@ -188,7 +188,7 @@ export const Table = <T extends object>(props: TableProps<T>) => {
               </Tooltip>
             )}
             {onDeleteClick && (
-              <Tooltip title={t('button.delete')}>
+              <Tooltip title={t('table:button.delete')}>
                 <IconButton
                   size="large"
                   onClick={(e) => onDeleteClick(row.original, row.index)}
