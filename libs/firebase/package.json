@@ -1,6 +1,6 @@
 {
   "name": "@blockium/firebase",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "type": "module",
   "sideEffects": false,
   "scripts": {},
