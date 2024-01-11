@@ -2,7 +2,7 @@
 import { MaterialReactTable, MRT_ColumnDef } from 'material-react-table';
 // @mui
 import { Card, IconButton, Tooltip, useTheme } from '@mui/material';
-import { Edit as EditIcon } from '@mui/icons-material';
+// import { Edit as EditIcon } from '@mui/icons-material';
 import { Delete as DeleteIcon } from '@mui/icons-material';
 // @blockium
 import { useIsMainOnTop } from '@blockium/layout';
@@ -149,7 +149,8 @@ export const Table = <T extends object>(props: TableProps<T>) => {
         // muiTableBodyCellProps={{
         // }}
         // Add edit and/or delete row actions:
-        enableRowActions={Boolean(onEditClick) || Boolean(onDeleteClick)}
+        // enableRowActions={Boolean(onEditClick) || Boolean(onDeleteClick)}
+        enableRowActions={Boolean(onDeleteClick)}
         positionActionsColumn="last"
         displayColumnDefOptions={{
           'mrt-row-actions': {
@@ -169,7 +170,7 @@ export const Table = <T extends object>(props: TableProps<T>) => {
               gap: '0.5rem',
             }}
           >
-            {onEditClick && (
+            {/* {onEditClick && (
               <Tooltip title={t('table:button.edit')}>
                 <IconButton
                   size="large"
@@ -186,12 +187,15 @@ export const Table = <T extends object>(props: TableProps<T>) => {
                   />
                 </IconButton>
               </Tooltip>
-            )}
+            )} */}
             {onDeleteClick && (
               <Tooltip title={t('table:button.delete')}>
                 <IconButton
                   size="large"
-                  onClick={(e) => onDeleteClick(row.original, row.index)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onDeleteClick(row.original, row.index);
+                  }}
                 >
                   <DeleteIcon
                     sx={{

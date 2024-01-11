@@ -30,7 +30,9 @@ export const ServiceTable = () => {
   };
 
   // TODO: Implement onDeleteClick
-  const onDeleteClick = (row: IService, rowIndex: number) => void 0;
+  const onDeleteClick = (row: IService, rowIndex: number) => {
+    console.log('onDeleteClick');
+  };
 
   return (
     <>
