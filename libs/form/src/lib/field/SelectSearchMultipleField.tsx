@@ -48,7 +48,7 @@ const SelectSearchMultipleInner = <T extends object>(
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const getValues = (key: any) => {
-    const keyArray: string[] = key?.split(',') || [];
+    const keyArray: string[] = key ? key.split(',') : [];
     const values = options.filter((option) =>
       keyArray.includes(option[field.options.key]),
     );
