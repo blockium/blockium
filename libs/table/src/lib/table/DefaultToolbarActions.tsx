@@ -29,14 +29,14 @@ export const DefaultToolbarActions = <T extends MRT_RowData>(
     <Stack direction="row" gap={1} ml={2}>
       {globalActions?.map((action) => action)}
       {onAddClick && (
-        <Tooltip title={t('table:button-new')}>
+        <Tooltip title={t('table:button.new')}>
           <IconButton onClick={onAddClick}>
             <AddIcon />
           </IconButton>
         </Tooltip>
       )}
       {/* add custom button to print table  */}
-      {/* <Tooltip title={t('table:button-print')}>
+      {/* <Tooltip title={t('table:button.print')}>
         <IconButton
           onClick={() => {
             window.print();
