@@ -14,7 +14,8 @@ export interface ISelectOptions<U> {
 // A select form data field
 export interface ISelectField<T> extends IBaseDataField<T> {
   formType: 'select' | 'select-search' | 'select-search-multiple';
-  options: ISelectOptions<unknown>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  options: ISelectOptions<any>;
   validation?: AnySchema;
 }
 

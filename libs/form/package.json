@@ -1,6 +1,6 @@
 {
   "name": "@blockium/form",
-  "version": "0.0.10",
+  "version": "0.0.15",
   "type": "module",
   "sideEffects": false,
   "scripts": {},

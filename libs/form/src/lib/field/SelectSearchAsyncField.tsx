@@ -23,7 +23,8 @@ export interface ISelectOptionsAsync<U> {
 // A select form data field
 export interface ISelectSearchAsyncField<T> extends IBaseDataField<T> {
   formType: 'select-search-async';
-  options: ISelectOptionsAsync<unknown>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  options: ISelectOptionsAsync<any>;
   getFieldLabel: (optionKey: string) => string;
 }
 

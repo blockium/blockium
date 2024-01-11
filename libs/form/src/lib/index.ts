@@ -1,3 +1,3 @@
 export * from './dialog/FormDialog';
-export * from './field/FormField';
+export * from './field';
 export * from './validation';
