@@ -48,7 +48,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = (
           color={confirmColor || 'primary'}
           onClick={onConfirm}
         >
-          {t('ui:button.confirm')}Confirmar
+          {t('ui:button.confirm')}
         </Button>
       </DialogActions>
     </Dialog>
