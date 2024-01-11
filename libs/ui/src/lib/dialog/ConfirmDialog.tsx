@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import {
   Button,
   Dialog,
@@ -20,6 +21,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = (
   props: ConfirmDialogProps,
 ) => {
   const { open, title, message, onConfirm, onClose, confirmColor } = props;
+  const { t } = useTranslation();
 
   return (
     <Dialog
@@ -38,15 +40,15 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = (
         </DialogContent>
       )}
       <DialogActions>
-        <Button variant="outlined" onClick={onClose}>
-          Cancelar
+        <Button variant="outlined" color="secondary" onClick={onClose}>
+          {t('ui:button.cancel')}
         </Button>
         <Button
           variant="contained"
           color={confirmColor || 'primary'}
           onClick={onConfirm}
         >
-          Confirmar
+          {t('ui:button.confirm')}Confirmar
         </Button>
       </DialogActions>
     </Dialog>

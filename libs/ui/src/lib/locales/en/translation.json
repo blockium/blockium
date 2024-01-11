@@ -3,5 +3,7 @@
   "chat.msg.button.send": "Send",
   "stepper.next": "Next",
   "stepper.previous": "Previous",
-  "chart.total": "Total"
+  "chart.total": "Total",
+  "button.cancel": "Cancel",
+  "button.confirm": "Confirm"
 }
