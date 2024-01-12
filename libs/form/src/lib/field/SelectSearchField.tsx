@@ -1,4 +1,5 @@
 import { forwardRef, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import {
   Autocomplete,
@@ -22,6 +23,7 @@ const SelectSearchInner = <T extends object>(
   props: SelectSearchProps<T>,
   ref: React.ForwardedRef<HTMLInputElement>,
 ) => {
+  const { t } = useTranslation();
   const { data, field } = props;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [options, setOptions] = useState<any[]>([]);
@@ -81,15 +83,19 @@ const SelectSearchInner = <T extends object>(
           const filteredOptions = filter(options, optionsState);
 
           // inputValue = typed string value in the visual field
-          const { inputValue } = optionsState;
+          const { inputValue: inputText } = optionsState;
           // Suggest the creation of a new value
           const isExisting = options.some(
-            (option) => inputValue === option[field.options.label],
+            (option) => inputText === option[field.options.label],
           );
-          if (inputValue !== '' && !isExisting) {
-            setInputValue(inputValue);
+          if (inputText !== '' && !isExisting) {
+            // timeout adds to event queue
+            // evicting parallel state update error on father comp
+            setTimeout(() => setInputValue(inputText), 0);
           } else {
-            setInputValue('');
+            // timeout adds to event queue
+            // evicting parallel state update error on father comp
+            setTimeout(() => setInputValue(''), 0);
           }
 
           return filteredOptions;
@@ -113,7 +119,7 @@ const SelectSearchInner = <T extends object>(
               ),
               endAdornment: (
                 <>
-                  {inputValue && !data[field.key] && (
+                  {inputValue && !data[field.key] && field.onAddClick && (
                     <InputAdornment position="end">
                       <Button
                         variant="contained"
@@ -122,7 +128,7 @@ const SelectSearchInner = <T extends object>(
                           field.onAddClick?.(inputValue);
                         }}
                       >
-                        Novo
+                        {t('form:button.new')}
                       </Button>
                     </InputAdornment>
                   )}

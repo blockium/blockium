@@ -1,4 +1,5 @@
 import { forwardRef, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import {
   Autocomplete,
@@ -6,6 +7,8 @@ import {
   Checkbox,
   Grid,
   TextField,
+  InputAdornment,
+  Button,
 } from '@mui/material';
 
 import { CheckBoxOutlineBlank as CheckBoxOutlineBlankIcon } from '@mui/icons-material';
@@ -27,10 +30,11 @@ const SelectSearchMultipleInner = <T extends object>(
   props: SelectSearchProps<T>,
   ref: React.ForwardedRef<HTMLInputElement>,
 ) => {
+  const { t } = useTranslation();
   const { data, field } = props;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [options, setOptions] = useState<any[]>([]);
-  const [, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState('');
 
   useEffect(() => {
     const result = field.options.getData();
@@ -88,20 +92,23 @@ const SelectSearchMultipleInner = <T extends object>(
             );
           }
         }}
-        // TODO: filterOptions could be removed if new button not used - see endAdornment issue below
         filterOptions={(options, optionsState) => {
           const filteredOptions = filter(options, optionsState);
 
           // inputValue = typed string value in the visual field
-          const { inputValue } = optionsState;
+          const { inputValue: inputText } = optionsState;
           // Suggest the creation of a new value
           const isExisting = options.some(
-            (option) => inputValue === option[field.options.label],
+            (option) => inputText === option[field.options.label],
           );
-          if (inputValue !== '' && !isExisting) {
-            setInputValue(inputValue);
+          if (inputText !== '' && !isExisting) {
+            // timeout adds to event queue
+            // evicting parallel state update error on father comp
+            setTimeout(() => setInputValue(inputText), 0);
           } else {
-            setInputValue('');
+            // timeout adds to event queue
+            // evicting parallel state update error on father comp
+            setTimeout(() => setInputValue(''), 0);
           }
 
           return filteredOptions;
@@ -115,30 +122,29 @@ const SelectSearchMultipleInner = <T extends object>(
             InputProps={{
               ...params.InputProps,
               readOnly: !field.onChange,
-              // TODO: endAdornment doesn't fit good on layout
-              // endAdornment: (
-              //   <>
-              //     {inputValue && (
-              //       <InputAdornment position="end">
-              //         <Button
-              //           variant="contained"
-              //           size="small"
-              //           onClick={(e) => {
-              //             field.onAddClick?.(inputValue);
-              //           }}
-              //         >
-              //           Novo
-              //         </Button>
-              //       </InputAdornment>
-              //     )}
-              //     {params.InputProps.endAdornment}
-              //     {field.suffix && (
-              //       <InputAdornment position="end">
-              //         {field.suffix}
-              //       </InputAdornment>
-              //     )}
-              //   </>
-              // ),
+              endAdornment: (
+                <>
+                  {inputValue && field.onAddClick && (
+                    <InputAdornment position="end">
+                      <Button
+                        variant="contained"
+                        size="small"
+                        onClick={(e) => {
+                          field.onAddClick?.(inputValue);
+                        }}
+                      >
+                        {t('form:button.new')}
+                      </Button>
+                    </InputAdornment>
+                  )}
+                  {params.InputProps.endAdornment}
+                  {field.suffix && (
+                    <InputAdornment position="end">
+                      {field.suffix}
+                    </InputAdornment>
+                  )}
+                </>
+              ),
             }}
             {...field.uiProps}
           />

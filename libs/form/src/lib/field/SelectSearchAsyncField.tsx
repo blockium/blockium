@@ -1,4 +1,6 @@
 import { forwardRef, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import {
   Autocomplete,
   Button,
@@ -50,6 +52,7 @@ const SelectSearchAsyncInner = <T extends object>(
   props: SelectSearchAsyncProps<T>,
   ref: React.ForwardedRef<HTMLInputElement>,
 ) => {
+  const { t } = useTranslation();
   const { data, field } = props;
   const [inputValue, setInputValue] = useState('');
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -178,7 +181,7 @@ const SelectSearchAsyncInner = <T extends object>(
                   {loading ? (
                     <CircularProgress color="inherit" size={20} />
                   ) : null}
-                  {inputValue && !data[field.key] && (
+                  {inputValue && !data[field.key] && field.onAddClick && (
                     <InputAdornment position="end">
                       <Button
                         variant="contained"
@@ -187,7 +190,7 @@ const SelectSearchAsyncInner = <T extends object>(
                           field.onAddClick?.(inputValue);
                         }}
                       >
-                        Novo
+                        {t('form:button.new')}
                       </Button>
                     </InputAdornment>
                   )}
