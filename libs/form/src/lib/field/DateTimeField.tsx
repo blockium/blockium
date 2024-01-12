@@ -36,7 +36,12 @@ const DateTimeInner = <T extends object>(
             : null
         }
         onChange={(date: Date | null) =>
-          field.onChange?.(date?.toISOString() || null)
+          field.onChange?.(
+            // avoids incomplete dates
+            date instanceof Date && !isNaN(date.getTime())
+              ? date.toISOString()
+              : null,
+          )
         }
         slotProps={{
           textField: {
