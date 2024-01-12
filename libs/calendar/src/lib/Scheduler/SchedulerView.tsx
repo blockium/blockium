@@ -30,6 +30,7 @@ type SchedulerViewProps = {
   events: EventInput[];
   onDateClick?: (date: Date) => void;
   onEventClick?: (id: string) => void;
+  onAddClick?: () => void;
   height?: number | string | object;
 };
 
@@ -37,6 +38,7 @@ export const SchedulerView: React.FC<SchedulerViewProps> = ({
   events,
   onDateClick,
   onEventClick,
+  onAddClick,
   height = '100%',
 }) => {
   const {
@@ -76,6 +78,7 @@ export const SchedulerView: React.FC<SchedulerViewProps> = ({
           onWeekClick={onWeekClick}
           onDayClick={onDayClick}
           onListClick={onListClick}
+          onAddClick={onAddClick}
         />
         {/* <Box sx={{ minHeight: "720px", height: "80vh" }}> */}
         <Box sx={{ height: { xs: '90vh', sm: '70vh' } }}>

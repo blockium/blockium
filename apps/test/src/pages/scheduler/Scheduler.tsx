@@ -82,6 +82,11 @@ export const Scheduler: React.FC<IScheduleProps> = (props) => {
     enqueueSnackbar('Edit an event onEventClick: ' + id);
   };
 
+  // TODO: Add a new event
+  const onAddClick = () => {
+    enqueueSnackbar('Add a new event');
+  };
+
   return (
     <Container
       maxWidth="xl"
@@ -93,6 +98,7 @@ export const Scheduler: React.FC<IScheduleProps> = (props) => {
           events={events}
           onDateClick={onDateClick}
           onEventClick={onEventClick}
+          onAddClick={onAddClick}
         />
       </Card>
     </Container>

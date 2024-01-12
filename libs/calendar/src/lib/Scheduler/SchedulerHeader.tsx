@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next';
 // mui
 import {
-  Button,
   Grid,
   IconButton,
   Stack,
@@ -17,10 +16,12 @@ import { ViewWeek as ViewWeekIcon } from '@mui/icons-material';
 import { ViewDay as ViewDayIcon } from '@mui/icons-material';
 import { ViewAgenda as ViewAgendaIcon } from '@mui/icons-material';
 
+import { CTAButton } from '@blockium/ui';
+
 // utils
 import { fDateCalendar, fDateCalendarShort } from '@blockium/utils';
 import { TooltipToggleButton } from './TooltipToggleButton';
-import { useIsMobile } from '../hooks';
+import { useIsSmall } from '../hooks';
 
 import { SchedulerType } from './Scheduler';
 
@@ -35,6 +36,7 @@ type SchedulerHeaderProps = {
   onWeekClick: () => void;
   onDayClick: () => void;
   onListClick?: () => void;
+  onAddClick?: () => void;
 };
 
 export const SchedulerHeader: React.FC<SchedulerHeaderProps> = ({
@@ -48,9 +50,10 @@ export const SchedulerHeader: React.FC<SchedulerHeaderProps> = ({
   onWeekClick,
   onDayClick,
   onListClick,
+  onAddClick,
 }) => {
   const theme = useTheme();
-  const isMobile = useIsMobile();
+  const isSmall = useIsSmall();
   const { t } = useTranslation();
 
   const onViewChange = (
@@ -62,43 +65,51 @@ export const SchedulerHeader: React.FC<SchedulerHeaderProps> = ({
 
   return (
     <Grid container spacing={2} p={2}>
-      <Grid item container xs={3} sm={4}>
-        <Stack direction="row" spacing={0}>
-          <Tooltip title={t('calendar:previous')}>
-            <IconButton
-              aria-label={t('calendar:previous')}
-              onClick={onPrevClick}
-              sx={{ color: theme.palette.text.secondary }}
+      <Grid item container alignItems="center" xs={3} md={4}>
+        <Grid item>
+          <Stack direction="row" gap={1}>
+            <Tooltip title={t('calendar:previous')}>
+              <IconButton
+                aria-label={t('calendar:previous')}
+                onClick={onPrevClick}
+                sx={{ color: theme.palette.text.secondary }}
+              >
+                <NavigateBeforeIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title={t('calendar:next')}>
+              <IconButton
+                aria-label={t('calendar:next')}
+                onClick={onNextClick}
+                sx={{ color: theme.palette.text.secondary }}
+              >
+                <NavigateNextIcon />
+              </IconButton>
+            </Tooltip>
+          </Stack>
+        </Grid>
+        {!isSmall && onAddClick && (
+          <Grid item>
+            <CTAButton
+              variant="contained"
+              color="primary"
+              onClick={onAddClick}
+              sx={{
+                px: theme.spacing(2),
+                ml: theme.spacing(3),
+                mr: theme.spacing(1),
+              }}
             >
-              <NavigateBeforeIcon />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title={t('calendar:next')}>
-            <IconButton
-              aria-label={t('calendar:next')}
-              onClick={onNextClick}
-              sx={{ color: theme.palette.text.secondary }}
-            >
-              <NavigateNextIcon />
-            </IconButton>
-          </Tooltip>
-        </Stack>
-        {!isMobile && (
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={onTodayClick}
-            sx={{ ml: 1 }}
-          >
-            {t('calendar:button.today')}
-          </Button>
+              {t('calendar:button.new')}
+            </CTAButton>
+          </Grid>
         )}
       </Grid>
       <Grid
         item
         container
         xs={6}
-        sm={4}
+        md={4}
         justifyContent="center"
         alignItems="center"
         px="1rem"
@@ -115,81 +126,89 @@ export const SchedulerHeader: React.FC<SchedulerHeaderProps> = ({
               : fDateCalendar(currentDate))}
         </Typography>
       </Grid>
-      {isMobile && (
-        <Grid
-          item
-          container
-          xs={3}
-          justifyContent={{ xs: 'flex-end' }}
-          alignItems="center"
-          sx={{ display: { xs: 'flex', sm: 'none' } }}
-        >
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={onTodayClick}
-            sx={{ ml: 1 }}
-          >
-            {t('calendar:button.today')}
-          </Button>
+      {isSmall && onAddClick && (
+        <Grid item container justifyContent="flex-end" xs={3}>
+          <Grid item>
+            <CTAButton
+              variant="contained"
+              color="primary"
+              onClick={onAddClick}
+              sx={{ px: theme.spacing(2) }}
+            >
+              {t('calendar:button.new')}
+            </CTAButton>
+          </Grid>
         </Grid>
       )}
       <Grid
         item
         container
         xs={12}
-        sm={4}
-        justifyContent={{ xs: 'center', sm: 'flex-end' }}
+        md={4}
+        justifyContent={{ xs: 'center', md: 'flex-end' }}
+        alignItems="center"
       >
-        <ToggleButtonGroup
-          value={view}
-          exclusive
-          onChange={onViewChange}
-          aria-label="view"
-        >
-          <TooltipToggleButton
-            TooltipProps={{ title: t('calendar:month') }}
-            value="month"
-            aria-label={t('calendar:month')}
-            size="medium"
-            onClick={onMonthClick}
-            sx={{ color: theme.palette.text.secondary }}
+        <Grid item>
+          <CTAButton
+            variant="contained"
+            color="primary"
+            onClick={onTodayClick}
+            sx={{ px: theme.spacing(2), mr: theme.spacing(3) }}
           >
-            <ViewModuleIcon width={24} height={24} />
-          </TooltipToggleButton>
-          <TooltipToggleButton
-            TooltipProps={{ title: t('calendar:week') }}
-            value="week"
-            aria-label={t('calendar:week')}
-            size="medium"
-            onClick={onWeekClick}
-            sx={{ color: theme.palette.text.secondary }}
+            {t('calendar:button.today')}
+          </CTAButton>
+        </Grid>
+        <Grid item>
+          <ToggleButtonGroup
+            value={view}
+            exclusive
+            onChange={onViewChange}
+            aria-label="view"
           >
-            <ViewWeekIcon width={24} height={24} />
-          </TooltipToggleButton>
-          <TooltipToggleButton
-            TooltipProps={{ title: t('calendar:day') }}
-            value="day"
-            aria-label={t('calendar:day')}
-            size="medium"
-            onClick={onDayClick}
-            sx={{ color: theme.palette.text.secondary }}
-          >
-            <ViewDayIcon width={24} height={24} />
-          </TooltipToggleButton>
-          {onListClick && (
             <TooltipToggleButton
-              TooltipProps={{ title: t('calendar:list') }}
-              value="list"
-              aria-label={t('calendar:list')}
+              TooltipProps={{ title: t('calendar:month') }}
+              value="month"
+              aria-label={t('calendar:month')}
               size="medium"
-              onClick={onListClick}
+              onClick={onMonthClick}
               sx={{ color: theme.palette.text.secondary }}
             >
-              <ViewAgendaIcon width={24} height={24} />
+              <ViewModuleIcon width={24} height={24} />
             </TooltipToggleButton>
-          )}
-        </ToggleButtonGroup>
+            <TooltipToggleButton
+              TooltipProps={{ title: t('calendar:week') }}
+              value="week"
+              aria-label={t('calendar:week')}
+              size="medium"
+              onClick={onWeekClick}
+              sx={{ color: theme.palette.text.secondary }}
+            >
+              <ViewWeekIcon width={24} height={24} />
+            </TooltipToggleButton>
+            <TooltipToggleButton
+              TooltipProps={{ title: t('calendar:day') }}
+              value="day"
+              aria-label={t('calendar:day')}
+              size="medium"
+              onClick={onDayClick}
+              sx={{ color: theme.palette.text.secondary }}
+            >
+              <ViewDayIcon width={24} height={24} />
+            </TooltipToggleButton>
+            {onListClick && (
+              <TooltipToggleButton
+                TooltipProps={{ title: t('calendar:list') }}
+                value="list"
+                aria-label={t('calendar:list')}
+                size="medium"
+                onClick={onListClick}
+                sx={{ color: theme.palette.text.secondary }}
+              >
+                <ViewAgendaIcon width={24} height={24} />
+              </TooltipToggleButton>
+            )}
+          </ToggleButtonGroup>
+        </Grid>
       </Grid>
     </Grid>
   );
