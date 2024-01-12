@@ -34,7 +34,7 @@ export const SchedulerViewRoot = styled('div')(({ theme }) => ({
 
   '& .fc .fc-daygrid-day-number': {
     // padding: '8px 8px 0px',
-    fontSize: '10px',
+    fontSize: '14px',
   },
 
   '& .fc .fc-daygrid-more-link': {
@@ -73,8 +73,13 @@ export const SchedulerViewRoot = styled('div')(({ theme }) => ({
 
   // Reduce the header font size on mobile
   [theme.breakpoints.down('sm')]: {
+    '& .fc .fc-daygrid-day-number': {
+      // padding: '8px 8px 0px',
+      fontSize: '13px',
+    },
+
     '& .fc .fc-daygrid-more-link': {
-      fontSize: '12px',
+      fontSize: '13px',
     },
 
     '& .fc .fc-col-header': {
