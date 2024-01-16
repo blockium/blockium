@@ -26,7 +26,7 @@ const manualChunks = (id: string) => {
 };
 
 export default defineConfig({
-  cacheDir: '../../node_modules/.vite/test',
+  cacheDir: '../../node_modules/.vite/blii',
 
   server: {
     port: 4200,

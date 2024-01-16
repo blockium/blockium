@@ -32,8 +32,8 @@
       ]
     },
     {
-      "target": "test",
-      "public": "dist/apps/test",
+      "target": "blii",
+      "public": "dist/apps/blii",
       "cleanUrls": true,
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [

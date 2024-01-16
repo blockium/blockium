@@ -1,7 +1,7 @@
 {
-  "name": "test",
+  "name": "blii",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/test/src",
+  "sourceRoot": "apps/blii/src",
   "projectType": "application",
   "targets": {
     "build": {
@@ -9,7 +9,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/apps/test"
+        "outputPath": "dist/apps/blii"
       },
       "configurations": {
         "development": {
@@ -24,15 +24,15 @@
       "executor": "@nx/vite:dev-server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "test:build"
+        "buildTarget": "blii:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "test:build:development",
+          "buildTarget": "blii:build:development",
           "hmr": true
         },
         "production": {
-          "buildTarget": "test:build:production",
+          "buildTarget": "blii:build:production",
           "hmr": false
         }
       }
@@ -41,14 +41,14 @@
       "executor": "@nx/vite:preview-server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "test:build"
+        "buildTarget": "blii:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "test:build:development"
+          "buildTarget": "blii:build:development"
         },
         "production": {
-          "buildTarget": "test:build:production"
+          "buildTarget": "blii:build:production"
         }
       }
     },
@@ -57,14 +57,14 @@
       "outputs": ["{options.reportsDirectory}"],
       "options": {
         "passWithNoTests": true,
-        "reportsDirectory": "../../coverage/apps/test"
+        "reportsDirectory": "../../coverage/apps/blii"
       }
     },
     "lint": {
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/test/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["apps/blii/**/*.{ts,tsx,js,jsx}"]
       }
     }
   },

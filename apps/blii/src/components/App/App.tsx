@@ -178,8 +178,8 @@ export const App: React.FC = (props) => {
         <AppLogo full={false} sx={{ mt: '50%', ml: '-8%', width: '140%' }} />
       }
       loginMethods={['google']}
-      loginLeftImageSrc={`/images/login_768_1064.webp`}
-      loginTopImageSrc={`/images/login_1064_768.webp`}
+      loginLeftImageSrc={'/images/photo0.webp'}
+      // loginTopImageSrc={`/images/photo0.webp`}
     />
   );
 };
