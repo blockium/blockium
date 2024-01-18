@@ -45,9 +45,6 @@ Thumbs.db
 # typescript
 *.tsbuildinfo
 
-# whatsapp-web.js
-.wwebjs*
-
 
 # Nx-Firebase
 .runtimeconfig.json

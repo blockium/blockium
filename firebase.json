@@ -1,12 +1,12 @@
 {
   "firestore": {
-    "rules": "apps/firebase/criaty/firestore.rules",
-    "indexes": "apps/firebase/criaty/firestore.indexes.json"
+    "rules": "apps/firebase/blockium/firestore.rules",
+    "indexes": "apps/firebase/blockium/firestore.indexes.json"
   },
   "hosting": [
     {
       "target": "app",
-      "public": "dist/apps/app",
+      "public": "dist/apps/criaty",
       "cleanUrls": true,
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [
@@ -60,12 +60,12 @@
     }
   ],
   "storage": {
-    "rules": "apps/firebase/criaty/storage.rules"
+    "rules": "apps/firebase/blockium/storage.rules"
   },
   "functions": [
     {
-      "codebase": "firebase-criaty-functions",
-      "source": "dist/apps/firebase/criaty-functions",
+      "codebase": "firebase-blockium-functions",
+      "source": "dist/apps/firebase/blockium-functions",
       "runtime": "nodejs16",
       "ignore": ["*.local"]
     }
