@@ -132,11 +132,6 @@ export const App: React.FC = (props) => {
       loginMethods={['google']}
       loginLeftImageSrc="/images/login_768_1064.webp"
       loginTopImageSrc="/images/login_1064_768.webp"
-      // newWhatsAppSessionApi={import.meta.env.VITE_NEW_SESSION_URL}
-      // loginWhatsAppPhone={import.meta.env.VITE_CRIATY_PHONE}
-      // afterWhatsAppLoginApi={import.meta.env.VITE_AFTER_LOGIN_WHATSAPP_URL}
-      afterEmailLoginApi={import.meta.env.VITE_AFTER_LOGIN_EMAIL_URL}
-      // afterPhoneLoginApi={import.meta.env.VITE_AFTER_LOGIN_PHONE_URL}
     />
   );
 };
