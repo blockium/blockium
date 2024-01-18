@@ -1,18 +1,19 @@
 /// <reference types="vitest" />
 import { defineConfig } from 'vite';
-
+import react from '@vitejs/plugin-react';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import dts from 'vite-plugin-dts';
 import { join } from 'path';
 // import { externalizeDeps } from 'vite-plugin-externalize-deps';
-import getSrcInputs from '../vite.config.utils';
+import getSrcInputs from '../../libs/vite.config.utils';
 // @ts-expect-error: untyped.
 import postprocess from '@stadtlandnetz/rollup-plugin-postprocess';
 
 export default defineConfig({
-  cacheDir: '../../node_modules/.vite/model',
+  cacheDir: '../../node_modules/.vite/criaty-ui',
 
   plugins: [
+    react(),
     nxViteTsPaths(),
     dts({
       entryRoot: 'src',
@@ -50,10 +51,10 @@ export default defineConfig({
     lib: {
       // Could also be a dictionary or array of multiple entry points.
       entry: 'src/index.ts',
-      name: 'model',
+      name: 'criaty-ui',
       fileName: 'index',
       // Change this to the formats you want to support.
-      // Don't forgot to update your package.json as well.
+      // Don't forget to update your package.json as well.
       formats: ['es'],
     },
     rollupOptions: {
@@ -65,17 +66,7 @@ export default defineConfig({
         entryFileNames: '[name].js',
       },
       // External packages that should not be bundled into your library.
-      external: [
-        'react',
-        'react-dom',
-        'react/jsx-runtime',
-        'react-router-dom',
-        'firebase/firestore/lite',
-        'date-fns',
-        'react-use',
-        '@blockium/firebase',
-        '@criaty/model-types',
-      ],
+      external: ['react', 'react-dom', 'react/jsx-runtime', '@blockium/ui'],
     },
   },
 

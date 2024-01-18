@@ -8,7 +8,7 @@ import { AddCircleOutline as AddCircleOutlineIcon } from '@mui/icons-material';
 import { Post, PostParams } from '@criaty/model-types';
 import { fDateCalendar } from '@blockium/utils';
 import { LoadingIndicator } from '@blockium/ui';
-import { CriatyLogo } from '@criaty/ui-custom';
+import { CriatyLogo } from '@criaty/ui';
 import { useCalendarCache } from '@blockium/calendar';
 
 import { NewPostPopover, PostCard } from '../../../components';

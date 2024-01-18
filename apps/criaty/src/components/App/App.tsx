@@ -7,7 +7,7 @@ import { CalendarMonth as CalendarMonthIcon } from '@mui/icons-material';
 
 import { AppBase } from '@blockium/appbase';
 import { createPaletteConfig, criaty } from '@blockium/theme';
-import { CriatyLogo } from '@criaty/ui-custom';
+import { CriatyLogo } from '@criaty/ui';
 import { LayoutConfig } from '@blockium/layout';
 
 // 1. Dynamically import pages in order to optimize request time

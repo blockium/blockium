@@ -33,9 +33,9 @@
       "@blockium/theme": ["libs/theme/src/index.ts"],
       "@blockium/ui": ["libs/ui/src/index.ts"],
       "@blockium/utils": ["libs/utils/src/index.ts"],
-      "@criaty/model": ["libs/model/src/index.ts"],
-      "@criaty/model-types": ["libs/model-types/src/index.ts"],
-      "@criaty/ui-custom": ["libs/ui-custom/src/index.ts"]
+      "@criaty/model": ["libsapp/criaty-model/src/index.ts"],
+      "@criaty/model-types": ["libsapp/criaty-model-types/src/index.ts"],
+      "@criaty/ui": ["libsapp/criaty-ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

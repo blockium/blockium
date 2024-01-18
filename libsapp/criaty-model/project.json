@@ -1,29 +1,29 @@
 {
-  "name": "model-types",
+  "name": "criaty-model",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/model-types/src",
+  "sourceRoot": "libsapp/criaty-model/src",
   "projectType": "library",
   "targets": {
     "build": {
       "executor": "@nx/vite:build",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/libs/model-types"
+        "outputPath": "dist/libsapp/criaty-model"
       }
     },
     "test": {
       "executor": "@nx/vite:test",
-      "outputs": ["{workspaceRoot}/coverage/libs/model-types"],
+      "outputs": ["{workspaceRoot}/coverage/libsapp/criaty-model"],
       "options": {
         "passWithNoTests": true,
-        "reportsDirectory": "../../coverage/libs/model-types"
+        "reportsDirectory": "../../coverage/libsapp/criaty-model"
       }
     },
     "lint": {
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/model-types/**/*.ts"]
+        "lintFilePatterns": ["libsapp/criaty-model/**/*.ts"]
       }
     }
   },

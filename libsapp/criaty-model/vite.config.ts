@@ -10,7 +10,7 @@ import getSrcInputs from '../vite.config.utils';
 import postprocess from '@stadtlandnetz/rollup-plugin-postprocess';
 
 export default defineConfig({
-  cacheDir: '../../node_modules/.vite/model-types',
+  cacheDir: '../../node_modules/.vite/criaty-model',
 
   plugins: [
     nxViteTsPaths(),
@@ -50,11 +50,11 @@ export default defineConfig({
     lib: {
       // Could also be a dictionary or array of multiple entry points.
       entry: 'src/index.ts',
-      name: 'model-types',
+      name: 'criaty-model',
       fileName: 'index',
       // Change this to the formats you want to support.
-      // Don't forget to update your package.json as well.
-      formats: ['es', 'cjs'],
+      // Don't forgot to update your package.json as well.
+      formats: ['es'],
     },
     rollupOptions: {
       // This will split code into different files, for tree shaking.
@@ -65,7 +65,17 @@ export default defineConfig({
         entryFileNames: '[name].js',
       },
       // External packages that should not be bundled into your library.
-      external: [],
+      external: [
+        'react',
+        'react-dom',
+        'react/jsx-runtime',
+        'react-router-dom',
+        'firebase/firestore/lite',
+        'date-fns',
+        'react-use',
+        '@blockium/firebase',
+        '@criaty/model-types',
+      ],
     },
   },
 
@@ -74,7 +84,7 @@ export default defineConfig({
     cache: {
       dir: '../../node_modules/.vitest',
     },
-    environment: 'node',
+    environment: 'jsdom',
     include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     setupFiles: './vitest.config.ts',
   },

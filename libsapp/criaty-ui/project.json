@@ -1,7 +1,7 @@
 {
-  "name": "ui-custom",
+  "name": "criaty-ui",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/ui-custom/src",
+  "sourceRoot": "libsapp/criaty-ui/src",
   "projectType": "library",
   "tags": [],
   "targets": {
@@ -9,7 +9,7 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/ui-custom/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["libsapp/criaty-ui/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "build": {
@@ -17,7 +17,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/libs/ui-custom"
+        "outputPath": "dist/libsapp/criaty-ui"
       },
       "configurations": {
         "development": {
@@ -30,10 +30,10 @@
     },
     "test": {
       "executor": "@nx/vite:test",
-      "outputs": ["{workspaceRoot}/coverage/libs/ui-custom"],
+      "outputs": ["{workspaceRoot}/coverage/libsapp/criaty-ui"],
       "options": {
         "passWithNoTests": true,
-        "reportsDirectory": "../../coverage/libs/ui-custom"
+        "reportsDirectory": "../../coverage/libsapp/criaty-ui"
       }
     }
   }
