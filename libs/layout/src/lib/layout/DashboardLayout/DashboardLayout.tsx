@@ -1,11 +1,11 @@
-import { useState, PropsWithChildren, ReactElement } from 'react';
+import { useState, PropsWithChildren } from 'react';
 // material
 import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 //
 import { DashboardNavbar, NavBarConfig } from '../DashboardNavbar';
 import { DashboardSidebar, SideBarConfig } from '../DashboardSidebar';
-import { useIsMainOnTop } from '../hooks';
+import { useIsMainOnTop } from '../../hooks';
 
 // ----------------------------------------------------------------------
 
@@ -34,14 +34,6 @@ const MainStyle = styled(Box)(({ theme }) => ({
 }));
 
 // ----------------------------------------------------------------------
-
-export interface MenuOption {
-  label: string;
-  href: string;
-  icon?: ReactElement;
-  info?: string;
-  children?: MenuOption[];
-}
 
 export interface LayoutConfig {
   navBar?: NavBarConfig;

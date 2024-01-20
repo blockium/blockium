@@ -27,7 +27,7 @@ import { AccessTime as AccessTimeIcon } from '@mui/icons-material';
 import { fToNow } from '@blockium/utils';
 // components
 import { MenuPopover } from '../MenuPopover';
-import { Scrollbar } from '../Scrollbar';
+import { Scrollbar } from '../../Scrollbar';
 
 // ----------------------------------------------------------------------
 

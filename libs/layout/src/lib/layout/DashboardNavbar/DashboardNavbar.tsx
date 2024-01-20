@@ -6,7 +6,10 @@ import { Box, Stack, AppBar, Toolbar, IconButton } from '@mui/material';
 import { Menu as MenuIcon } from '@mui/icons-material';
 //
 // import { Searchbar } from '../Searchbar';
-import { AccountPopover, AccountPopoverConfig } from '../AccountPopover';
+import {
+  AccountPopover,
+  AccountPopoverConfig,
+} from '../../popover/AccountPopover';
 // import { LanguagePopover } from '../LanguagePopover';
 // import { NotificationsPopover } from '../NotificationsPopover';
 

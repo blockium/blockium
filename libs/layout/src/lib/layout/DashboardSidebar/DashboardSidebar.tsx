@@ -17,9 +17,8 @@ import {
 
 import { useTranslation } from 'react-i18next';
 
-import { Scrollbar } from '../Scrollbar';
-import { NavSection } from '../NavSection';
-import { MenuOption } from '../DashboardLayout';
+import { Scrollbar } from '../../Scrollbar';
+import { MenuOption, NavSection } from '../NavSection';
 
 // ----------------------------------------------------------------------
 

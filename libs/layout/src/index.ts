@@ -7,7 +7,7 @@ addResourceBundles([
   { lng: 'pt-BR', ns: 'layout', resources: pt_BR },
 ]);
 
-export * from './lib/DashboardLayout';
-export * from './lib/DashboardNavbar';
-export * from './lib/MenuPopover';
+export * from './lib/layout/DashboardLayout';
+export * from './lib/layout/DashboardNavbar';
+export * from './lib/popover/MenuPopover';
 export * from './lib/hooks';

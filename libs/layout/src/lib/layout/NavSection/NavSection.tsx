@@ -1,4 +1,4 @@
-import { PropsWithChildren, useState } from 'react';
+import { PropsWithChildren, ReactElement, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 // material
 import { alpha, styled } from '@mui/material/styles';
@@ -14,9 +14,6 @@ import {
 } from '@mui/material';
 import { KeyboardArrowDown as KeyboardArrowDownIcon } from '@mui/icons-material';
 import { ChevronRight as ChevronRightIcon } from '@mui/icons-material';
-
-import { MenuOption } from '../DashboardLayout';
-//
 
 // ----------------------------------------------------------------------
 
@@ -45,6 +42,14 @@ const ListItemIconStyle = styled(ListItemIcon)({
 });
 
 // ----------------------------------------------------------------------
+
+export interface MenuOption {
+  label: string;
+  href: string;
+  icon?: ReactElement;
+  info?: string;
+  children?: MenuOption[];
+}
 
 export type NavMenuItem = MenuOption & {
   info?: string;

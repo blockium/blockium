@@ -19,7 +19,7 @@ import { useTranslation } from 'react-i18next';
 
 // components
 import { MenuPopover } from '../MenuPopover';
-import { MenuOption } from '../DashboardLayout';
+import { MenuOption } from '../../layout/NavSection';
 
 export interface AccountPopoverConfig {
   userName?: string;
