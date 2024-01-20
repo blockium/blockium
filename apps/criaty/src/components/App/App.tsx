@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { WhatsApp as WhatsAppIcon } from '@mui/icons-material';
 import { CalendarMonth as CalendarMonthIcon } from '@mui/icons-material';
 
-import { AppBase, IAuthConfig } from '@blockium/appbase';
+import { AppBase, AuthConfig } from '@blockium/appbase';
 import { createPaletteConfig, criaty } from '@blockium/theme';
 import { LayoutConfig } from '@blockium/layout';
 
@@ -13,7 +13,7 @@ import { CalendarPage, WeeklyPostsPage } from '../../pages';
 
 export const App: React.FC = (props) => {
   // 1. Configure Authentication
-  const authConfig: IAuthConfig = {
+  const authConfig: AuthConfig = {
     loginMethods: ['google'],
     leftImage: '/images/login_768_1064.webp',
     topImage: '/images/login_1064_768.webp',

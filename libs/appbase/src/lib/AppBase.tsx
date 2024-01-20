@@ -32,7 +32,7 @@ type RouteElement = {
 
 type LoginMethod = 'phone' | 'whatsapp' | 'email' | 'google';
 
-export interface IAuthConfig {
+export interface AuthConfig {
   config?: FirebaseConfig;
   loginMethods?: LoginMethod[];
   leftImage?: string;
@@ -45,22 +45,11 @@ export interface IAuthConfig {
   onAfterLogin?: () => Promise<void>;
 }
 
-interface AppBaseProps {
-  authConfig?: IAuthConfig;
-  themeConfig?: ThemeConfig;
-  layoutConfig: LayoutConfig;
-  routeElements: RouteElement[];
-  openRouteElements?: RouteElement[];
-  loadingLogo: ReactElement;
-  appLogo: ReactElement;
-  appLogoDark?: ReactElement;
-}
-
-interface AppLayoutProps {
+type AppLayoutProps = {
   layoutConfig: LayoutConfig;
   appLogo: ReactElement;
   appLogoDark?: ReactElement;
-}
+};
 
 // It's necessary to wrap the useLayoutConfig hook in a component
 // Because it requires the ThemeProvider context
@@ -83,6 +72,17 @@ const AppLayout: React.FC<AppLayoutProps> = ({
       </Container>
     </DashboardLayout>
   );
+};
+
+type AppBaseProps = {
+  authConfig?: AuthConfig;
+  themeConfig?: ThemeConfig;
+  layoutConfig: LayoutConfig;
+  routeElements: RouteElement[];
+  openRouteElements?: RouteElement[];
+  loadingLogo: ReactElement;
+  appLogo: ReactElement;
+  appLogoDark?: ReactElement;
 };
 
 // AppBase is the base component of the app. It is responsible for:

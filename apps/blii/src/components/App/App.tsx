@@ -7,7 +7,7 @@ import { Payment as PaymentIcon } from '@mui/icons-material';
 import { AdsClick as AdsClickIcon } from '@mui/icons-material';
 import { MenuBook as MenuBookIcon } from '@mui/icons-material';
 
-import { AppBase, IAuthConfig } from '@blockium/appbase';
+import { AppBase, AuthConfig } from '@blockium/appbase';
 import { createPaletteConfig } from '@blockium/theme';
 import { LayoutConfig } from '@blockium/layout';
 
@@ -26,7 +26,7 @@ import './App.module.scss';
 
 export const App: React.FC = (props) => {
   // 1. Configure Authentication
-  const authConfig: IAuthConfig = {
+  const authConfig: AuthConfig = {
     loginMethods: ['google'],
     leftImage: '/images/photo0.webp',
   };
@@ -128,8 +128,8 @@ export const App: React.FC = (props) => {
 
   return (
     <AppBase
-      authConfig={authConfig}
-      themeConfig={themeConfig}
+      // authConfig={authConfig}
+      // themeConfig={themeConfig}
       layoutConfig={layoutConfig}
       routeElements={routeElements}
       appLogo={<AppLogo />}
