@@ -5,7 +5,7 @@
   },
   "hosting": [
     {
-      "target": "app",
+      "target": "criaty",
       "public": "dist/apps/criaty",
       "cleanUrls": true,
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],

@@ -1,16 +1,16 @@
 {
   "projects": {
-    "production": "post-gpt",
-    "default": "post-gpt"
+    "production": "blockiumjs",
+    "default": "blockiumjs"
   },
   "targets": {
-    "post-gpt": {
+    "blockiumjs": {
       "hosting": {
-        "app": [
-          "app-criaty"
+        "criaty": [
+          "criaty-blockium"
         ],
         "blii": [
-          "test-criaty"
+          "blii-blockium"
         ]
       }
     }
