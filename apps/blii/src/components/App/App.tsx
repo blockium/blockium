@@ -97,10 +97,6 @@ export const App: React.FC = (props) => {
               label: 'Serviços',
               href: '/catalog/service',
             },
-            {
-              label: 'Produtos',
-              href: '/catalog/product',
-            },
           ],
         },
       ],
