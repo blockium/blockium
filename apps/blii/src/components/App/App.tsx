@@ -1,7 +1,6 @@
 import * as React from 'react';
 // import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
-import loadable from '@loadable/component';
 
 import { CalendarMonth as CalendarMonthIcon } from '@mui/icons-material';
 import { Payment as PaymentIcon } from '@mui/icons-material';
@@ -14,24 +13,16 @@ import { LayoutConfig } from '@blockium/layout';
 
 import { AppLogo } from './AppLogo';
 
-import { RevenueTable } from '../table/revenue/RevenueTable';
-import { CostTable } from '../table/cost/CostTable';
-import { ServiceMaintenanceTable } from '../table/serviceMaintenance/ServiceMaintenanceTable';
-import { BirthListTable } from '../table/birthList/BirthListTable';
-import { ServiceTable } from '../table/service/ServiceTable';
+import { FinanceDashboard, MarketingDashboard, Scheduler } from '../../pages';
+import {
+  BirthListTable,
+  CostTable,
+  RevenueTable,
+  ServiceMaintenanceTable,
+  ServiceTable,
+} from '../table';
 
 import './App.module.scss';
-
-// 1. Dynamically import pages in order to optimize request time
-const Scheduler = loadable(() =>
-  import('../../pages').then(({ Scheduler }) => Scheduler),
-);
-const FinanceDashboard = loadable(() =>
-  import('../../pages').then(({ FinanceDashboard }) => FinanceDashboard),
-);
-const MarketingDashboard = loadable(() =>
-  import('../../pages').then(({ MarketingDashboard }) => MarketingDashboard),
-);
 
 export const App: React.FC = (props) => {
   // 1. Configure Firebase
@@ -47,29 +38,6 @@ export const App: React.FC = (props) => {
     appId: import.meta.env['VITE_FIREBASE_APP_ID'],
     measurementId: import.meta.env['VITE_FIREBASE_MEASUREMENT_ID'],
   };
-
-  // TODO: 2. Customize theme
-  // const themeConfig: ThemeConfig = {
-  //   // fontConfig: {
-  //   //   primary: ['Public Sans', 'sans-serif'],
-  //   // },
-  //   paletteConfig: {
-  //     light: {
-  //       // primary: { main: '#f5247f' }, // Old pink
-  //       // secondary: { main: '#dd2072' }, // Old pink
-  //       // primary: { main: '#C78904' }, // lighter option
-  //       primary: { main: '#B38014' },
-  //       secondary: { main: '#293C5E' },
-  //     },
-  //     dark: {
-  //       // primary: { main: '#cc005f' }, // Old pink
-  //       // secondary: { main: '#fdd3e5' }, // Old lighter pink
-  //       // primary: { main: '#C78904' }, // lighter option
-  //       primary: { main: '#B38014' },
-  //       secondary: { main: '#F3D491' },
-  //     },
-  //   },
-  // };
 
   // TODO: 2. Customize theme (new approach)
   const themeConfig = { paletteConfig: createPaletteConfig('#9B6F41') };

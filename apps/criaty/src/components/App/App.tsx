@@ -1,22 +1,15 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import loadable from '@loadable/component';
 
 import { WhatsApp as WhatsAppIcon } from '@mui/icons-material';
 import { CalendarMonth as CalendarMonthIcon } from '@mui/icons-material';
 
 import { AppBase } from '@blockium/appbase';
 import { createPaletteConfig, criaty } from '@blockium/theme';
-import { CriatyLogo } from '@criaty/ui';
 import { LayoutConfig } from '@blockium/layout';
 
-// 1. Dynamically import pages in order to optimize request time
-const CalendarPage = loadable(() =>
-  import('../../pages').then(({ CalendarPage }) => CalendarPage),
-);
-const WeeklyPostsPage = loadable(() =>
-  import('../../pages').then(({ WeeklyPostsPage }) => WeeklyPostsPage),
-);
+import { CriatyLogo } from '@criaty/ui';
+import { CalendarPage, WeeklyPostsPage } from '../../pages';
 
 export const App: React.FC = (props) => {
   // 1. Configure Firebase
