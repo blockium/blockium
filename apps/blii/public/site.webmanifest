@@ -1,0 +1,21 @@
+{
+  "name": "Belefit",
+  "short_name": "Belefit",
+  "description": "Gestão e Agenda para Clínicas de Beleza & Bem-estar. Conheça mais suas clientes e alcance suas metas com a Belefit: a sua clínica de beleza ou bem-estar merece uma experiência única!",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#fde3ed",
+  "background_color": "#fde3ed",
+  "start_url": "https://app.belefit.com",
+  "display": "standalone"
+}
