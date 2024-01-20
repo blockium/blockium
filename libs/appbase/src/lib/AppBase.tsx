@@ -20,7 +20,7 @@ import {
 import { ThemeConfig, ThemeProvider } from '@blockium/theme';
 import { LoadingPage, NotistackProvider } from '@blockium/ui';
 import { LocalizationProvider } from '@blockium/calendar';
-import { DashboardLayout, LayoutConfig } from '@blockium/layout';
+import { MainLayout, LayoutConfig } from '@blockium/layout';
 
 import { i18nInit } from '@blockium/i18n';
 i18nInit();
@@ -65,12 +65,12 @@ const AppLayout: React.FC<AppLayoutProps> = ({
   });
 
   return (
-    <DashboardLayout layoutConfig={layoutConfigExtended}>
+    <MainLayout layoutConfig={layoutConfigExtended}>
       <Container maxWidth={false} sx={{ margin: '0 auto' }}>
         {/* 6. Add the react-router-dom Outlet */}
         <Outlet />
       </Container>
-    </DashboardLayout>
+    </MainLayout>
   );
 };
 
@@ -90,7 +90,7 @@ type AppBaseProps = {
 // 2. Customizing the theme
 // 3. Defining the main route using PrivateRoute wrapping the App
 // 4. Wrapping the App with the LocalizationProvider
-// 5. Wrapping the App with the DashboardLayout passing the layout config
+// 5. Wrapping the App with the MainLayout passing the layout config
 // 6. Adding the react-router-dom Outlet
 // 7. Creating the sub-routes whose components will be within App
 // 8. Creating the login route
@@ -170,7 +170,7 @@ export const AppBase: React.FC<AppBaseProps> = ({
                     >
                       {/* 4. Wrap the App with the LocalizationProvider */}
                       <LocalizationProvider>
-                        {/* 5. In AppLayout, wrap the App with the DashboardLayout passing the layout config */}
+                        {/* 5. In AppLayout, wrap the App with the MainLayout passing the layout config */}
                         {/* 6. In AppLayout, add the react-router-dom Outlet */}
                         <AppLayout
                           layoutConfig={layoutConfig}

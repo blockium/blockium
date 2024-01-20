@@ -3,8 +3,8 @@ import { useState, PropsWithChildren } from 'react';
 import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 //
-import { DashboardNavbar, NavBarConfig } from '../DashboardNavbar';
-import { DashboardSidebar, SideBarConfig } from '../DashboardSidebar';
+import { MainNavbar, NavBarConfig } from '../MainNavbar';
+import { MainSidebar, SideBarConfig } from '../MainSidebar';
 import { useIsMainOnTop } from '../../hooks';
 
 // ----------------------------------------------------------------------
@@ -40,11 +40,11 @@ export interface LayoutConfig {
   sideBar?: SideBarConfig;
 }
 
-interface DashboardLayoutProps extends PropsWithChildren {
+interface MainLayoutProps extends PropsWithChildren {
   layoutConfig?: LayoutConfig;
 }
 
-export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
+export const MainLayout: React.FC<MainLayoutProps> = ({
   layoutConfig,
   children,
 }) => {
@@ -53,11 +53,11 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
 
   return (
     <RootStyle>
-      <DashboardNavbar
+      <MainNavbar
         onOpenSidebar={() => setOpen(true)}
         navBarConfig={layoutConfig?.navBar}
       />
-      <DashboardSidebar
+      <MainSidebar
         isOpenSidebar={open}
         onCloseSidebar={() => setOpen(false)}
         sideBarConfig={layoutConfig?.sideBar}
@@ -67,4 +67,4 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   );
 };
 
-export default DashboardLayout;
+export default MainLayout;

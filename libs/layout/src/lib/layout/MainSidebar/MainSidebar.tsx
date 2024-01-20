@@ -51,13 +51,13 @@ export interface SideBarConfig {
   sideMenu?: MenuOption[];
 }
 
-type DashboardSidebarProps = {
+type MainSidebarProps = {
   sideBarConfig?: SideBarConfig;
   isOpenSidebar: boolean;
   onCloseSidebar: () => void;
 };
 
-export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
+export const MainSidebar: React.FC<MainSidebarProps> = ({
   sideBarConfig,
   isOpenSidebar,
   onCloseSidebar,
@@ -179,4 +179,4 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
   );
 };
 
-export default DashboardSidebar;
+export default MainSidebar;

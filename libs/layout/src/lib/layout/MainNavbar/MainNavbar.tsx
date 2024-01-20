@@ -44,7 +44,7 @@ export interface NavBarConfig {
   accountPopover?: AccountPopoverConfig;
 }
 
-interface DashboardNavbarProps {
+interface MainNavbarProps {
   navBarConfig?: NavBarConfig;
   onOpenSidebar: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
@@ -52,7 +52,7 @@ interface DashboardNavbarProps {
 export const useToolbarExtra = createGlobalState<ReactElement>(<div></div>);
 export const useNavbarExtraLine = createGlobalState<ReactElement>(<div></div>);
 
-export const DashboardNavbar: React.FC<DashboardNavbarProps> = ({
+export const MainNavbar: React.FC<MainNavbarProps> = ({
   navBarConfig,
   onOpenSidebar,
 }) => {
@@ -113,4 +113,4 @@ export const DashboardNavbar: React.FC<DashboardNavbarProps> = ({
   );
 };
 
-export default DashboardNavbar;
+export default MainNavbar;
