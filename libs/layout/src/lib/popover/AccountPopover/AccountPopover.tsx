@@ -105,23 +105,27 @@ export const AccountPopover: React.FC<AccountPopoverProps> = ({
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        <Stack sx={{ p: 1 }}>
-          {accountMenu?.map((option) => (
-            <MenuItem
-              key={option.label}
-              href={option.href}
-              component={Link}
-              onClick={handleClose}
-            >
-              <Stack direction="row">
-                {option.icon && <ListItemIcon>{option.icon}</ListItemIcon>}
-                {option.label}
-              </Stack>
-            </MenuItem>
-          ))}
-        </Stack>
+        {accountMenu && (
+          <>
+            <Stack sx={{ p: 1 }}>
+              {accountMenu.map((option) => (
+                <MenuItem
+                  key={option.label}
+                  href={option.href}
+                  component={Link}
+                  onClick={handleClose}
+                >
+                  <Stack direction="row">
+                    {option.icon && <ListItemIcon>{option.icon}</ListItemIcon>}
+                    {option.label}
+                  </Stack>
+                </MenuItem>
+              ))}
+            </Stack>
 
-        <Divider sx={{ borderStyle: 'dashed' }} />
+            <Divider sx={{ borderStyle: 'dashed' }} />
+          </>
+        )}
 
         <DarkModeSwitch
           showLabel

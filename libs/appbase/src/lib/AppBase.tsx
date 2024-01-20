@@ -9,7 +9,7 @@ import { Fallback } from './Fallback';
 import {
   FirebaseConfig,
   initFirebase,
-  useLayoutConfig,
+  useAuthLayoutConfig,
 } from '@blockium/firebase';
 import {
   PrivateRoute,
@@ -46,23 +46,13 @@ export interface AuthConfig {
 }
 
 type AppLayoutProps = {
-  layoutConfig: LayoutConfig;
-  appLogo: ReactElement;
-  appLogoDark?: ReactElement;
+  layoutConfig?: LayoutConfig;
 };
 
-// It's necessary to wrap the useLayoutConfig hook in a component
+// It's necessary to wrap the useAuthLayoutConfig hook in a component
 // Because it requires the ThemeProvider context
-const AppLayout: React.FC<AppLayoutProps> = ({
-  layoutConfig,
-  appLogo,
-  appLogoDark,
-}) => {
-  const layoutConfigExtended = useLayoutConfig({
-    layoutConfig,
-    AppLogo: appLogo,
-    AppLogoDark: appLogoDark,
-  });
+const AppLayout: React.FC<AppLayoutProps> = ({ layoutConfig }) => {
+  const layoutConfigExtended = useAuthLayoutConfig({ layoutConfig });
 
   return (
     <MainLayout layoutConfig={layoutConfigExtended}>
@@ -77,12 +67,9 @@ const AppLayout: React.FC<AppLayoutProps> = ({
 type AppBaseProps = {
   authConfig?: AuthConfig;
   themeConfig?: ThemeConfig;
-  layoutConfig: LayoutConfig;
+  layoutConfig?: LayoutConfig;
   routeElements: RouteElement[];
   openRouteElements?: RouteElement[];
-  loadingLogo: ReactElement;
-  appLogo: ReactElement;
-  appLogoDark?: ReactElement;
 };
 
 // AppBase is the base component of the app. It is responsible for:
@@ -117,9 +104,6 @@ export const AppBase: React.FC<AppBaseProps> = ({
   layoutConfig,
   routeElements,
   openRouteElements,
-  loadingLogo,
-  appLogo,
-  appLogoDark,
 }) => {
   // 1. Initialize Firebase
   if (authConfig?.config) {
@@ -166,17 +150,15 @@ export const AppBase: React.FC<AppBaseProps> = ({
                   element={
                     <PrivateRoute
                       loginPath="/login"
-                      waitingAuth={<LoadingPage logo={loadingLogo} />} // Loading while waiting for auth
+                      waitingAuth={
+                        <LoadingPage logo={layoutConfig?.logo?.loading} />
+                      } // Loading while waiting for auth
                     >
                       {/* 4. Wrap the App with the LocalizationProvider */}
                       <LocalizationProvider>
                         {/* 5. In AppLayout, wrap the App with the MainLayout passing the layout config */}
                         {/* 6. In AppLayout, add the react-router-dom Outlet */}
-                        <AppLayout
-                          layoutConfig={layoutConfig}
-                          appLogo={appLogo}
-                          appLogoDark={appLogoDark}
-                        />
+                        <AppLayout layoutConfig={layoutConfig} />
                       </LocalizationProvider>
                     </PrivateRoute>
                   }

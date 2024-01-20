@@ -1,4 +1,4 @@
-import { useState, PropsWithChildren } from 'react';
+import { useState, PropsWithChildren, ReactElement } from 'react';
 // material
 import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
@@ -36,6 +36,11 @@ const MainStyle = styled(Box)(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export interface LayoutConfig {
+  logo?: {
+    light?: ReactElement;
+    dark?: ReactElement;
+    loading?: ReactElement;
+  };
   topBar?: TopBarConfig;
   sideBar?: SideBarConfig;
 }
@@ -56,6 +61,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
       <MainTopbar
         onOpenSidebar={() => setOpen(true)}
         topBarConfig={layoutConfig?.topBar}
+        showMenuIcon={!!layoutConfig?.sideBar?.sideMenu}
       />
       <MainSidebar
         isOpenSidebar={open}

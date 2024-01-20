@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import { LoadingIndicator } from '../LoadingIndicator';
 
 interface LoadingPageProps {
-  logo: React.ReactElement;
+  logo?: React.ReactElement;
 }
 
 export const LoadingPage: React.FC<LoadingPageProps> = ({ logo }) => {

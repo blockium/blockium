@@ -1,1 +1,1 @@
-export * from './useLayoutConfig';
+export * from './useAuthLayoutConfig';

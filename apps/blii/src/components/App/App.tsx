@@ -37,14 +37,13 @@ export const App: React.FC = (props) => {
   // 3. Define the layout configuration
   const { t } = useTranslation();
   const layoutConfig: LayoutConfig = {
-    topBar: {
-      accountPopover: {
-        accountMenu: [],
-        // showColorSelector: false,
-      },
+    logo: {
+      light: <AppLogo />,
+      loading: (
+        <AppLogo full={false} sx={{ mt: '50%', ml: '-8%', width: '140%' }} />
+      ),
     },
     sideBar: {
-      // tenantName: sessionStorage.getItem('name') || '',
       sideMenu: [
         {
           label: t('side-menu.scheduler'),
@@ -128,15 +127,10 @@ export const App: React.FC = (props) => {
 
   return (
     <AppBase
-      // authConfig={authConfig}
-      // themeConfig={themeConfig}
+      authConfig={authConfig}
+      themeConfig={themeConfig}
       layoutConfig={layoutConfig}
       routeElements={routeElements}
-      appLogo={<AppLogo />}
-      // appLogoDark={<AppLogo />}
-      loadingLogo={
-        <AppLogo full={false} sx={{ mt: '50%', ml: '-8%', width: '140%' }} />
-      }
     />
   );
 };

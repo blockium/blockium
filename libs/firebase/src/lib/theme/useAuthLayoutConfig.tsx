@@ -15,12 +15,10 @@ import { useAuth, useSignOut } from '../firebase';
 // >;
 
 type UseLayoutConfigProps = {
-  layoutConfig: LayoutConfig;
-  AppLogo: React.ReactElement;
-  AppLogoDark?: React.ReactElement;
+  layoutConfig?: LayoutConfig;
 };
 
-export const useLayoutConfig = (props: UseLayoutConfigProps) => {
+export const useAuthLayoutConfig = (props: UseLayoutConfigProps) => {
   const [user] = useAuth();
   const signOut = useSignOut();
 
@@ -29,29 +27,39 @@ export const useLayoutConfig = (props: UseLayoutConfigProps) => {
     await signOut();
   };
 
-  const { layoutConfig, AppLogo, AppLogoDark } = props;
+  const layoutConfig = props.layoutConfig || {};
+  const AppLogo = layoutConfig?.logo?.light;
+  const AppLogoDark = layoutConfig?.logo?.dark;
 
   const theme = useTheme();
-  if (layoutConfig?.sideBar) {
+  if (layoutConfig.sideBar) {
     layoutConfig.sideBar.logo =
       theme.palette.mode === 'light' ? AppLogo : AppLogoDark || AppLogo;
   }
 
-  if (layoutConfig?.navBar?.accountPopover) {
-    layoutConfig.navBar.accountPopover.userName =
+  // Adds an empty accountPopover if necessary
+  if (layoutConfig.topBar && !layoutConfig.topBar.accountPopover) {
+    layoutConfig.topBar.accountPopover = {};
+  } else {
+    layoutConfig.topBar = {
+      accountPopover: {},
+    };
+  }
+  if (layoutConfig.topBar.accountPopover) {
+    layoutConfig.topBar.accountPopover.userName =
       sessionStorage.getItem('displayName') ??
       sessionStorage.getItem('name') ??
       '';
-    layoutConfig.navBar.accountPopover.userContact =
+    layoutConfig.topBar.accountPopover.userContact =
       user?.phoneNumber ||
       user?.email ||
       formatPhoneNumber(sessionStorage.getItem('phone') ?? '');
-    layoutConfig.navBar.accountPopover.userPhotoUrl =
+    layoutConfig.topBar.accountPopover.userPhotoUrl =
       user?.photoURL || undefined;
-    layoutConfig.navBar.accountPopover.handleSignOut = handleSignOut;
+    layoutConfig.topBar.accountPopover.handleSignOut = handleSignOut;
   }
 
-  // if (layoutConfig?.sideBar) {
+  // if (layoutConfig.sideBar) {
   //   layoutConfig.sideBar.tenantContext =
   //     user?.phoneNumber || user?.email || undefined;
   //   layoutConfig.sideBar.tenantPhotoUrl = user?.photoURL || undefined;

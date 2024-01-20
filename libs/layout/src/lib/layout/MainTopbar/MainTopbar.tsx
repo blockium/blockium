@@ -47,6 +47,7 @@ export interface TopBarConfig {
 interface MainTopbarProps {
   topBarConfig?: TopBarConfig;
   onOpenSidebar: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  showMenuIcon: boolean;
 }
 
 export const useTopbar = createGlobalState<ReactElement>(<div></div>);
@@ -55,6 +56,7 @@ export const useTopbarExtra = createGlobalState<ReactElement>(<div></div>);
 export const MainTopbar: React.FC<MainTopbarProps> = ({
   topBarConfig,
   onOpenSidebar,
+  showMenuIcon,
 }) => {
   const [topbar] = useTopbar();
   const [topbarExtra] = useTopbarExtra();
@@ -64,19 +66,21 @@ export const MainTopbar: React.FC<MainTopbarProps> = ({
       <ToolbarStyle>
         <Stack width="100%" sx={{ padding: (theme) => theme.spacing(1.5, 0) }}>
           <Stack direction="row">
-            <IconButton
-              onClick={onOpenSidebar}
-              sx={{
-                mr: 1,
-                color: (theme) =>
-                  theme.palette.grey[
-                    theme.palette.mode === 'light' ? 600 : 500
-                  ],
-                display: { lg: 'none' },
-              }}
-            >
-              <MenuIcon />
-            </IconButton>
+            {showMenuIcon && (
+              <IconButton
+                onClick={onOpenSidebar}
+                sx={{
+                  mr: 1,
+                  color: (theme) =>
+                    theme.palette.grey[
+                      theme.palette.mode === 'light' ? 600 : 500
+                    ],
+                  display: { lg: 'none' },
+                }}
+              >
+                <MenuIcon />
+              </IconButton>
+            )}
 
             {/* <Searchbar /> */}
 
