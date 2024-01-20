@@ -36,7 +36,7 @@ const MainStyle = styled(Box)(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export interface LayoutConfig {
-  navBar?: TopBarConfig;
+  topBar?: TopBarConfig;
   sideBar?: SideBarConfig;
 }
 
@@ -55,7 +55,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
     <RootStyle>
       <MainTopbar
         onOpenSidebar={() => setOpen(true)}
-        topBarConfig={layoutConfig?.navBar}
+        topBarConfig={layoutConfig?.topBar}
       />
       <MainSidebar
         isOpenSidebar={open}

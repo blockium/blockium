@@ -49,15 +49,15 @@ interface MainTopbarProps {
   onOpenSidebar: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-export const useToolbarExtra = createGlobalState<ReactElement>(<div></div>);
-export const useNavbarExtraLine = createGlobalState<ReactElement>(<div></div>);
+export const useTopbar = createGlobalState<ReactElement>(<div></div>);
+export const useTopbarExtra = createGlobalState<ReactElement>(<div></div>);
 
 export const MainTopbar: React.FC<MainTopbarProps> = ({
   topBarConfig,
   onOpenSidebar,
 }) => {
-  const [toolbarExtra] = useToolbarExtra();
-  const [navbarExtraLine] = useNavbarExtraLine();
+  const [topbar] = useTopbar();
+  const [topbarExtra] = useTopbarExtra();
 
   return (
     <RootStyle>
@@ -90,7 +90,7 @@ export const MainTopbar: React.FC<MainTopbarProps> = ({
                 marginRight: (theme) => theme.spacing(0),
               }}
             >
-              {toolbarExtra}
+              {topbar}
             </Box>
 
             <Stack
@@ -106,7 +106,7 @@ export const MainTopbar: React.FC<MainTopbarProps> = ({
               />
             </Stack>
           </Stack>
-          {navbarExtraLine}
+          {topbarExtra}
         </Stack>
       </ToolbarStyle>
     </RootStyle>

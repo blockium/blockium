@@ -2,14 +2,15 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Box, Typography } from '@mui/material';
 
-import { DRAWER_WIDTH, useNavbarExtraLine } from '@blockium/layout';
+import { DRAWER_WIDTH, useTopbarExtra } from '@blockium/layout';
 
-export const useExtendNavbar = () => {
+// Similar to useTopbarWeekDays in @blockium/calendar, to add the week days to the navbar. When user clicks on a day, scroll to that day in the page (using the browser scroll behavior to an #id in every DayPostView)
+export const useExtendTopbar = () => {
   const { t } = useTranslation();
-  const [, setNavbarExtraLine] = useNavbarExtraLine();
+  const [, setTopbarExtra] = useTopbarExtra();
 
   useEffect(() => {
-    const navbarExtraLine = (
+    const topbarExtra = (
       <Box
         sx={{
           paddingTop: (theme) => theme.spacing(2),
@@ -62,13 +63,13 @@ export const useExtendNavbar = () => {
         ))}
       </Box>
     );
-    setNavbarExtraLine(navbarExtraLine);
+    setTopbarExtra(topbarExtra);
 
     return () => {
-      setNavbarExtraLine(<div></div>);
+      setTopbarExtra(<div></div>);
     };
     //
-  }, [setNavbarExtraLine, t]);
+  }, [setTopbarExtra, t]);
 };
 
-export default useExtendNavbar;
+export default useExtendTopbar;

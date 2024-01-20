@@ -37,7 +37,7 @@ export const App: React.FC = (props) => {
   // 3. Define the layout configuration
   const { t } = useTranslation();
   const layoutConfig: LayoutConfig = {
-    navBar: {
+    topBar: {
       accountPopover: {
         accountMenu: [],
         // showColorSelector: false,

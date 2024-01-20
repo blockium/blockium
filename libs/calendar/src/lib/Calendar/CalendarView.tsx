@@ -11,8 +11,11 @@ import { addMonths, startOfMonth } from 'date-fns';
 import { Box } from '@mui/material';
 
 import CalendarMonth from './CalendarMonth'; // Import the MonthView component
-import { useCurrentDate } from '../hooks';
-import { useExtendNavbar } from './useExtendNavbar';
+import {
+  useCurrentDate,
+  useTopbarDatePicker,
+  useTopbarWeekDays,
+} from '../hooks';
 import { useCalendarCache, CalendarCache } from './useCalendarCache';
 
 const MONTHS_TO_ADD = 12;
@@ -31,7 +34,8 @@ export const CalendarView: React.FC<ICalendarViewProps> = ({
   fetchMonthData,
   renderDay,
 }) => {
-  useExtendNavbar();
+  useTopbarDatePicker();
+  useTopbarWeekDays();
 
   const [currentDate] = useCurrentDate();
 

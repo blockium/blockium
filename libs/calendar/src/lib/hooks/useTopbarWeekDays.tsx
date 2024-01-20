@@ -1,45 +1,18 @@
 import { useEffect } from 'react';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
-import {
-  DRAWER_WIDTH,
-  useNavbarExtraLine,
-  useToolbarExtra,
-} from '@blockium/layout';
+import { DRAWER_WIDTH, useTopbarExtra } from '@blockium/layout';
 import { useTranslation } from 'react-i18next';
 
-import { MonthYearPicker } from '../MonthYearPicker';
-import { useCurrentDate } from '../hooks/useCurrentDate';
+import { useCurrentDate } from './useCurrentDate';
 
-export const useExtendNavbar = () => {
+export const useTopbarWeekDays = () => {
   const [, setCurrentDate] = useCurrentDate();
-  const [, setToolbarExtra] = useToolbarExtra();
-  const [, setNavbarExtraLine] = useNavbarExtraLine();
+  const [, setTopbarExtra] = useTopbarExtra();
   const { t } = useTranslation();
 
   useEffect(() => {
-    const toolbarExtra = (
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '2rem',
-          marginRight: (theme) => theme.spacing(2),
-        }}
-      >
-        <MonthYearPicker label={t('calendar:filter.date')} />
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => setCurrentDate(new Date())}
-        >
-          {t('calendar:button.today')}
-        </Button>
-      </Box>
-    );
-    setToolbarExtra(toolbarExtra);
-
-    const navbarExtraLine = (
+    const topbarExtra = (
       <Box
         sx={{
           paddingTop: (theme) => theme.spacing(2),
@@ -84,14 +57,13 @@ export const useExtendNavbar = () => {
         ))}
       </Box>
     );
-    setNavbarExtraLine(navbarExtraLine);
+    setTopbarExtra(topbarExtra);
 
     return () => {
-      setToolbarExtra(<div></div>);
-      setNavbarExtraLine(<div></div>);
+      setTopbarExtra(<div></div>);
     };
     //
-  }, [setCurrentDate, setNavbarExtraLine, setToolbarExtra, t]);
+  }, [setCurrentDate, setTopbarExtra, t]);
 };
 
-export default useExtendNavbar;
+export default useTopbarWeekDays;
