@@ -1,6 +1,6 @@
-import axios from 'axios';
 import { Post, PostFormat, PostGoal, PostType } from '@criaty/model-types';
 import { t } from '@blockium/i18n';
+import { fakeAnswer } from '../fakeAnswer';
 
 export const newPostFamily2 = async (
   goal: PostGoal,
@@ -10,25 +10,18 @@ export const newPostFamily2 = async (
   format: PostFormat,
   tone?: string,
 ) => {
-  const params = {
-    goal,
-    topic,
-    type,
-    slidesCount,
-    format,
-    tone,
-  };
+  // const params = {
+  //   goal,
+  //   topic,
+  //   type,
+  //   slidesCount,
+  //   format,
+  //   tone,
+  // };
 
   // Sent a POST request to new post endpoint
   try {
-    const answer = await axios({
-      method: 'post',
-      url: import.meta.env.VITE_NEW_POST_FAMILY2_URL,
-      data: params,
-      validateStatus: (status: number) => {
-        return status < 600;
-      },
-    });
+    const answer = fakeAnswer();
 
     let post: Post;
     if (typeof answer.data === 'string') {
@@ -44,7 +37,7 @@ export const newPostFamily2 = async (
 
       post = { ...JSON.parse(data), status: 'initial' };
     } else {
-      post = { ...answer.data, status: 'initial' };
+      post = { ...answer.data, status: 'initial' } as Post;
     }
 
     return post;
