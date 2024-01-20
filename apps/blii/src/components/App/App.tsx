@@ -7,7 +7,7 @@ import { Payment as PaymentIcon } from '@mui/icons-material';
 import { AdsClick as AdsClickIcon } from '@mui/icons-material';
 import { MenuBook as MenuBookIcon } from '@mui/icons-material';
 
-import { AppBase } from '@blockium/appbase';
+import { AppBase, IAuthConfig } from '@blockium/appbase';
 import { createPaletteConfig } from '@blockium/theme';
 import { LayoutConfig } from '@blockium/layout';
 
@@ -25,18 +25,10 @@ import {
 import './App.module.scss';
 
 export const App: React.FC = (props) => {
-  // 1. Configure Firebase
-  const firebaseConfig = {
-    apiKey:
-      document.location.hostname === 'localhost'
-        ? import.meta.env['VITE_FIREBASE_API_KEY_DEV']
-        : import.meta.env['VITE_FIREBASE_API_KEY'],
-    authDomain: import.meta.env['VITE_FIREBASE_AUTH_DOMAIN'],
-    projectId: import.meta.env['VITE_FIREBASE_PROJECT_ID'],
-    storageBucket: import.meta.env['VITE_FIREBASE_STORAGE_BUCKET'],
-    messagingSenderId: import.meta.env['VITE_FIREBASE_MESSAGING_SENDER_ID'],
-    appId: import.meta.env['VITE_FIREBASE_APP_ID'],
-    measurementId: import.meta.env['VITE_FIREBASE_MEASUREMENT_ID'],
+  // 1. Configure Authentication
+  const authConfig: IAuthConfig = {
+    loginMethods: ['google'],
+    leftImage: '/images/photo0.webp',
   };
 
   // TODO: 2. Customize theme (new approach)
@@ -136,7 +128,7 @@ export const App: React.FC = (props) => {
 
   return (
     <AppBase
-      firebaseConfig={firebaseConfig}
+      authConfig={authConfig}
       themeConfig={themeConfig}
       layoutConfig={layoutConfig}
       routeElements={routeElements}
@@ -145,9 +137,6 @@ export const App: React.FC = (props) => {
       loadingLogo={
         <AppLogo full={false} sx={{ mt: '50%', ml: '-8%', width: '140%' }} />
       }
-      loginMethods={['google']}
-      loginLeftImageSrc={'/images/photo0.webp'}
-      // loginTopImageSrc={`/images/photo0.webp`}
     />
   );
 };

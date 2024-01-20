@@ -1,18 +1,18 @@
 import axios from 'axios';
 import { t } from 'i18next';
 
-export const afterLoginEmail = async (
+export const afterEmailLogin = async (
   authId: string,
-  afterLoginApi?: string,
+  afterEmailLoginApi?: string,
 ) => {
-  if (!afterLoginApi) {
-    console.log(t('firebase:log.afterLoginEmail.undefined'));
+  if (!afterEmailLoginApi) {
+    console.log(t('firebase:log.afterEmailLogin.undefined'));
     return { status: 204, data: { userId: authId } };
   }
 
   return await axios({
     method: 'post',
-    url: afterLoginApi,
+    url: afterEmailLoginApi,
     data: {
       authId,
     },
@@ -22,4 +22,4 @@ export const afterLoginEmail = async (
   });
 };
 
-export default afterLoginEmail;
+export default afterEmailLogin;

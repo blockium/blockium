@@ -11,16 +11,17 @@ import { User as AuthUser } from 'firebase/auth';
 
 import { GoogleIcon, WhatsAppIcon, CTAButton, LoginHero } from '@blockium/ui';
 
-import { afterLoginEmail, newSession } from '../apiRequests';
+import { afterEmailLogin, newWhatsAppSession } from '../apiRequests';
 import { signIn } from '../loginUtils';
 
 type LoginProps = {
   loginMethods: ('phone' | 'whatsapp' | 'email' | 'google')[];
-  leftImageSrc: string;
-  topImageSrc?: string;
-  newWhatsAppSessionApi?: string;
-  loginWhatsAppPhone?: string;
+  leftImage?: string;
+  topImage?: string;
+  zapNewSessionApi?: string;
+  zapLoginPhone?: string;
   afterEmailLoginApi?: string;
+  onAfterLogin?: () => Promise<void>;
 };
 
 // No priority:
@@ -28,11 +29,12 @@ type LoginProps = {
 // TODO: After a signIn with Google, if there is no user phone, shows the msg "Você ainda não tem um telefone associado. O mesmo é necessário para podermos recuperar seu acesso se você necessitar, e também associar sua conta aos seus dados de pagamento. Isso é necessário apenas uma vez. Clique no botão abaixo para cadastrar o telefone"
 export const Login: React.FC<LoginProps> = ({
   loginMethods,
-  leftImageSrc,
-  topImageSrc,
-  newWhatsAppSessionApi,
-  loginWhatsAppPhone,
+  leftImage,
+  topImage,
+  zapNewSessionApi,
+  zapLoginPhone,
   afterEmailLoginApi,
+  onAfterLogin,
 }) => {
   const [loadingWhatsApp, setLoadingWhatsApp] = useState(false);
   const [loadingGoogle, setLoadingGoogle] = useState(false);
@@ -43,7 +45,7 @@ export const Login: React.FC<LoginProps> = ({
     setLoadingWhatsApp(true);
 
     try {
-      const answer = await newSession(newWhatsAppSessionApi);
+      const answer = await newWhatsAppSession(zapNewSessionApi);
 
       if (answer.status === 201) {
         // Save the session id in the session storage
@@ -51,7 +53,7 @@ export const Login: React.FC<LoginProps> = ({
         sessionStorage.setItem('sessionId', sessionId);
 
         // Open WhatsApp with the session id
-        const phone = loginWhatsAppPhone;
+        const phone = zapLoginPhone;
         const message = `LOGIN:${sessionId}`;
         const url = `https://wa.me/${phone}?text=${encodeURIComponent(
           message,
@@ -66,7 +68,9 @@ export const Login: React.FC<LoginProps> = ({
       //
     } catch (error) {
       console.error(error);
-      enqueueSnackbar(t('firebase:error.newSession'), { variant: 'error' });
+      enqueueSnackbar(t('firebase:error.newWhatsAppSession'), {
+        variant: 'error',
+      });
       //
     } finally {
       setLoadingWhatsApp(false);
@@ -93,10 +97,10 @@ export const Login: React.FC<LoginProps> = ({
   const finishLoginWithEmail = async (authUser: AuthUser) => {
     let answer;
     try {
-      answer = await afterLoginEmail(authUser.uid, afterEmailLoginApi);
+      answer = await afterEmailLogin(authUser.uid, afterEmailLoginApi);
     } catch (error: any) {
       console.log(error.message);
-      enqueueSnackbar(t('firebase:error.auth.afterLoginEmail'), {
+      enqueueSnackbar(t('firebase:error.auth.afterEmailLogin'), {
         variant: 'error',
       });
       return;
@@ -112,6 +116,7 @@ export const Login: React.FC<LoginProps> = ({
       sessionStorage.setItem('name', name);
       sessionStorage.setItem('displayName', displayName);
 
+      await onAfterLogin?.();
       navigate('/');
       //
     } else if (answer.status === 204) {
@@ -133,6 +138,7 @@ export const Login: React.FC<LoginProps> = ({
         displayName || t('firebase:label.no-name'),
       );
 
+      await onAfterLogin?.();
       navigate('/');
       //
     } else {
@@ -141,7 +147,7 @@ export const Login: React.FC<LoginProps> = ({
   };
 
   return (
-    <LoginHero leftImageSrc={leftImageSrc} topImageSrc={topImageSrc}>
+    <LoginHero leftImage={leftImage} topImage={topImage}>
       <Stack alignItems="center" width="300px" margin="2rem 0.5rem">
         {loginMethods.map((loginMethod, index) => {
           return loginMethod === 'whatsapp' ? (

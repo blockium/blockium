@@ -1,22 +1,22 @@
 import axios from 'axios';
 import { t } from 'i18next';
 
-export const afterLoginWhatsApp = async (
+export const afterWhatsAppLogin = async (
   sessionId: string,
   authId: string,
-  afterLoginApi?: string,
+  afterWhatsAppLoginApi?: string,
 ) => {
-  if (!afterLoginApi) {
-    console.log(t('firebase:log.afterLoginWhatsApp.undefined'));
+  if (!afterWhatsAppLoginApi) {
+    console.log(t('firebase:log.afterWhatsAppLogin.undefined'));
     return {
       status: 400,
-      data: t('firebase:log.afterLoginWhatsApp.undefined'),
+      data: t('firebase:log.afterWhatsAppLogin.undefined'),
     };
   }
 
   return await axios({
     method: 'post',
-    url: afterLoginApi,
+    url: afterWhatsAppLoginApi,
     data: {
       sessionId,
       authId,
@@ -27,4 +27,4 @@ export const afterLoginWhatsApp = async (
   });
 };
 
-export default afterLoginWhatsApp;
+export default afterWhatsAppLogin;

@@ -32,8 +32,21 @@ type RouteElement = {
 
 type LoginMethod = 'phone' | 'whatsapp' | 'email' | 'google';
 
+export interface IAuthConfig {
+  config?: FirebaseConfig;
+  loginMethods?: LoginMethod[];
+  leftImage?: string;
+  topImage?: string;
+  zapNewSessionApi?: string;
+  zapLoginPhone?: string;
+  afterEmailLoginApi?: string;
+  afterPhoneLoginApi?: string;
+  afterWhatsAppLoginApi?: string;
+  onAfterLogin?: () => Promise<void>;
+}
+
 interface AppBaseProps {
-  firebaseConfig: FirebaseConfig;
+  authConfig?: IAuthConfig;
   themeConfig?: ThemeConfig;
   layoutConfig: LayoutConfig;
   routeElements: RouteElement[];
@@ -41,14 +54,6 @@ interface AppBaseProps {
   loadingLogo: ReactElement;
   appLogo: ReactElement;
   appLogoDark?: ReactElement;
-  loginMethods: LoginMethod[];
-  loginLeftImageSrc: string;
-  loginTopImageSrc?: string;
-  newWhatsAppSessionApi?: string;
-  loginWhatsAppPhone?: string;
-  afterWhatsAppLoginApi?: string;
-  afterEmailLoginApi?: string;
-  afterPhoneLoginApi?: string;
 }
 
 interface AppLayoutProps {
@@ -107,7 +112,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({
 // - Simplified Rich Forms (soon)
 //
 export const AppBase: React.FC<AppBaseProps> = ({
-  firebaseConfig,
+  authConfig,
   themeConfig,
   layoutConfig,
   routeElements,
@@ -115,17 +120,37 @@ export const AppBase: React.FC<AppBaseProps> = ({
   loadingLogo,
   appLogo,
   appLogoDark,
-  loginMethods,
-  loginLeftImageSrc,
-  loginTopImageSrc,
-  newWhatsAppSessionApi,
-  loginWhatsAppPhone,
-  afterWhatsAppLoginApi,
-  afterEmailLoginApi,
-  afterPhoneLoginApi,
 }) => {
   // 1. Initialize Firebase
-  initFirebase(firebaseConfig);
+  if (authConfig?.config) {
+    initFirebase(authConfig.config);
+  } else {
+    const defaultFirebaseConfig = {
+      apiKey:
+        document.location.hostname === 'localhost'
+          ? import.meta.env['VITE_FIREBASE_API_KEY_DEV']
+          : import.meta.env['VITE_FIREBASE_API_KEY'],
+      authDomain: import.meta.env['VITE_FIREBASE_AUTH_DOMAIN'],
+      projectId: import.meta.env['VITE_FIREBASE_PROJECT_ID'],
+      storageBucket: import.meta.env['VITE_FIREBASE_STORAGE_BUCKET'],
+      messagingSenderId: import.meta.env['VITE_FIREBASE_MESSAGING_SENDER_ID'],
+      appId: import.meta.env['VITE_FIREBASE_APP_ID'],
+      measurementId: import.meta.env['VITE_FIREBASE_MEASUREMENT_ID'],
+    };
+    initFirebase(defaultFirebaseConfig);
+  }
+
+  const {
+    loginMethods,
+    leftImage,
+    topImage,
+    zapNewSessionApi,
+    zapLoginPhone,
+    afterEmailLoginApi,
+    afterPhoneLoginApi,
+    afterWhatsAppLoginApi,
+    onAfterLogin,
+  } = authConfig || {};
 
   return (
     <Suspense>
@@ -173,12 +198,13 @@ export const AppBase: React.FC<AppBaseProps> = ({
                   element={
                     // 9. In the login component, define the login methods
                     <Login
-                      loginMethods={loginMethods}
-                      leftImageSrc={loginLeftImageSrc}
-                      topImageSrc={loginTopImageSrc || loginLeftImageSrc}
-                      newWhatsAppSessionApi={newWhatsAppSessionApi}
-                      loginWhatsAppPhone={loginWhatsAppPhone}
+                      loginMethods={loginMethods || ['google']}
+                      leftImage={leftImage}
+                      topImage={topImage || leftImage}
+                      zapNewSessionApi={zapNewSessionApi}
+                      zapLoginPhone={zapLoginPhone}
                       afterEmailLoginApi={afterEmailLoginApi}
+                      onAfterLogin={onAfterLogin}
                     />
                   }
                 />
@@ -187,9 +213,10 @@ export const AppBase: React.FC<AppBaseProps> = ({
                   path="/login-phone"
                   element={
                     <LoginPhone
-                      leftImageSrc={loginLeftImageSrc}
-                      topImageSrc={loginTopImageSrc || loginLeftImageSrc}
-                      afterLoginApi={afterPhoneLoginApi}
+                      leftImage={leftImage}
+                      topImage={topImage || leftImage}
+                      afterPhoneLoginApi={afterPhoneLoginApi}
+                      onAfterLogin={onAfterLogin}
                     />
                   }
                 />
@@ -197,10 +224,11 @@ export const AppBase: React.FC<AppBaseProps> = ({
                   path="/login-whatsapp"
                   element={
                     <LoginWhatsApp
-                      leftImageSrc={loginLeftImageSrc}
-                      topImageSrc={loginTopImageSrc || loginLeftImageSrc}
-                      afterLoginApi={afterWhatsAppLoginApi}
-                      loginWhatsAppPhone={loginWhatsAppPhone}
+                      leftImage={leftImage}
+                      topImage={topImage || leftImage}
+                      afterWhatsAppLoginApi={afterWhatsAppLoginApi}
+                      zapLoginPhone={zapLoginPhone}
+                      onAfterLogin={onAfterLogin}
                     />
                   }
                 />

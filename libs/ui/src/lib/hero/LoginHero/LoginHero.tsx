@@ -1,14 +1,16 @@
 import { Box, Container, Grid } from '@mui/material';
 
+import { LoginSVG } from './LoginSVG';
+
 interface LoginHeroProps {
-  leftImageSrc: string;
-  topImageSrc?: string;
+  leftImage?: string;
+  topImage?: string;
   children: React.ReactNode;
 }
 
 export const LoginHero: React.FC<LoginHeroProps> = ({
-  leftImageSrc,
-  topImageSrc,
+  leftImage,
+  topImage,
   children,
 }) => {
   return (
@@ -21,22 +23,28 @@ export const LoginHero: React.FC<LoginHeroProps> = ({
     >
       <Grid container direction="row" sx={{ height: '100%' }}>
         <Grid item xs={12} sm={7} xl={5} height={{ xs: '35%', sm: '100%' }}>
-          <Box
-            component="img"
-            sx={{
-              // display: { xs: 'none', sm: 'block' },
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              objectPosition: 'top',
-              content: {
-                xs: `url(${topImageSrc ?? leftImageSrc})`,
-                sm: `url(${leftImageSrc})`,
-              },
-            }}
-            src={leftImageSrc}
-            alt="Login Image"
-          ></Box>
+          {leftImage ? (
+            <Box
+              component="img"
+              sx={{
+                // display: { xs: 'none', sm: 'block' },
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                objectPosition: 'top',
+                content: {
+                  xs: `url(${topImage ?? leftImage})`,
+                  sm: `url(${leftImage})`,
+                },
+              }}
+              src={leftImage}
+              alt="Login Image"
+            ></Box>
+          ) : (
+            <Box width="100%" height="100%" marginTop="2rem">
+              <LoginSVG />
+            </Box>
+          )}
         </Grid>
         <Grid
           item
