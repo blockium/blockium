@@ -40,20 +40,20 @@ const ToolbarStyle = styled(Toolbar)(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export interface NavBarConfig {
+export interface TopBarConfig {
   accountPopover?: AccountPopoverConfig;
 }
 
-interface MainNavbarProps {
-  navBarConfig?: NavBarConfig;
+interface MainTopbarProps {
+  topBarConfig?: TopBarConfig;
   onOpenSidebar: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export const useToolbarExtra = createGlobalState<ReactElement>(<div></div>);
 export const useNavbarExtraLine = createGlobalState<ReactElement>(<div></div>);
 
-export const MainNavbar: React.FC<MainNavbarProps> = ({
-  navBarConfig,
+export const MainTopbar: React.FC<MainTopbarProps> = ({
+  topBarConfig,
   onOpenSidebar,
 }) => {
   const [toolbarExtra] = useToolbarExtra();
@@ -102,7 +102,7 @@ export const MainNavbar: React.FC<MainNavbarProps> = ({
               {/* <NotificationsPopover /> */}
               <Box sx={{ marginLeft: (theme) => theme.spacing(1) }} />
               <AccountPopover
-                accountPopoverConfig={navBarConfig?.accountPopover}
+                accountPopoverConfig={topBarConfig?.accountPopover}
               />
             </Stack>
           </Stack>
@@ -113,4 +113,4 @@ export const MainNavbar: React.FC<MainNavbarProps> = ({
   );
 };
 
-export default MainNavbar;
+export default MainTopbar;

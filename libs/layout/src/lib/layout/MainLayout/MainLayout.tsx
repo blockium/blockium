@@ -3,7 +3,7 @@ import { useState, PropsWithChildren } from 'react';
 import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 //
-import { MainNavbar, NavBarConfig } from '../MainNavbar';
+import { MainTopbar, TopBarConfig } from '../MainTopbar';
 import { MainSidebar, SideBarConfig } from '../MainSidebar';
 import { useIsMainOnTop } from '../../hooks';
 
@@ -36,7 +36,7 @@ const MainStyle = styled(Box)(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export interface LayoutConfig {
-  navBar?: NavBarConfig;
+  navBar?: TopBarConfig;
   sideBar?: SideBarConfig;
 }
 
@@ -53,9 +53,9 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
 
   return (
     <RootStyle>
-      <MainNavbar
+      <MainTopbar
         onOpenSidebar={() => setOpen(true)}
-        navBarConfig={layoutConfig?.navBar}
+        topBarConfig={layoutConfig?.navBar}
       />
       <MainSidebar
         isOpenSidebar={open}

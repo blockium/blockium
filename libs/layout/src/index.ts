@@ -8,6 +8,6 @@ addResourceBundles([
 ]);
 
 export * from './lib/layout/MainLayout';
-export * from './lib/layout/MainNavbar';
+export * from './lib/layout/MainTopbar';
 export * from './lib/popover/MenuPopover';
 export * from './lib/hooks';
