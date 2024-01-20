@@ -11,20 +11,8 @@ import { CriatyLogo } from '@criaty/ui';
 import { LayoutConfig } from '@blockium/layout';
 
 // 1. Dynamically import pages in order to optimize request time
-const BusinessPage = loadable(() =>
-  import('../../pages').then(({ BusinessPage }) => BusinessPage),
-);
 const CalendarPage = loadable(() =>
   import('../../pages').then(({ CalendarPage }) => CalendarPage),
-);
-const NoBusinessPage = loadable(() =>
-  import('../../pages').then(({ NoBusinessPage }) => NoBusinessPage),
-);
-const PartnersPage = loadable(() =>
-  import('../../pages').then(({ PartnersPage }) => PartnersPage),
-);
-const SettingsPage = loadable(() =>
-  import('../../pages').then(({ SettingsPage }) => SettingsPage),
 );
 const WeeklyPostsPage = loadable(() =>
   import('../../pages').then(({ WeeklyPostsPage }) => WeeklyPostsPage),
@@ -107,10 +95,6 @@ export const App: React.FC = (props) => {
   // 4. Define the routes
   const routeElements = [
     { path: '/', element: () => <CalendarPage /> },
-    { path: '/business', element: () => <BusinessPage /> },
-    { path: '/nobusiness', element: () => <NoBusinessPage /> },
-    { path: '/partners', element: () => <PartnersPage /> },
-    { path: '/settings', element: () => <SettingsPage /> },
     { path: '/posts/weekly/:isoStartDate', element: () => <WeeklyPostsPage /> },
   ];
 
