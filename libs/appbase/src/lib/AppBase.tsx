@@ -25,11 +25,6 @@ import { MainLayout, LayoutConfig } from '@blockium/layout';
 import { i18nInit } from '@blockium/i18n';
 i18nInit();
 
-type RouteElement = {
-  path: string;
-  element: ReactElement | (() => ReactElement);
-};
-
 type LoginMethod = 'phone' | 'whatsapp' | 'email' | 'google';
 
 export interface AuthConfig {
@@ -64,6 +59,11 @@ const AppLayout: React.FC<AppLayoutProps> = ({ layoutConfig }) => {
   );
 };
 
+export type RouteElement = {
+  path: string;
+  element: ReactElement | (() => ReactElement);
+};
+
 type AppBaseProps = {
   authConfig?: AuthConfig;
   themeConfig?: ThemeConfig;
@@ -75,28 +75,38 @@ type AppBaseProps = {
 // AppBase is the base component of the app. It is responsible for:
 // 1. Initializing Firebase
 // 2. Customizing the theme
-// 3. Defining the main route using PrivateRoute wrapping the App
-// 4. Wrapping the App with the LocalizationProvider
-// 5. Wrapping the App with the MainLayout passing the layout config
-// 6. Adding the react-router-dom Outlet
-// 7. Creating the sub-routes whose components will be within App
-// 8. Creating the login route
-// 9. In the login component, defining the login methods
-// 10. Creating routes for each login method
-// 11. Create open routes
+// 3. Wrapping the App with a NotistackProvider
+// 4. Wrapping the App with an ErrorBoundary
+// 5. Defining the main route using PrivateRoute
+// 6. Wrapping the App with the LocalizationProvider
+// 7. Wrapping the App with the MainLayout passing the layout config
+// 8. Adding the react-router-dom Outlet
+// 9. Creating the sub-routes whose components will be within App
+// 10. Creating the login route
+// 11. In the login component, defining the login methods
+// 12. Creating routes for each login method
+// 13. Create open routes
 //
 // Functionalities:
+// - Automatic Firebase Configuration (reading config from .env files)
 // - Customizable Login Methods: phone, whatsapp, google and email (soon).
 // - Customizable Routes
 // - User Authorization Control for private routes
 // - Internationalization
 // - Customizable Theme
+// - Theme color change, with many color options
+// - Helper method to create palette config
 // - Customizable Layout
+// - Configurable Top Bar
+// - Configurable Side Bar
+// - Configurable User Popover
+// - Customizable Logo
 // - Customizable Loading Page
 // - Light and Dark Mode
-// - High Level New UI Components (Heros, Dialogs, Forms, Tables, Charts, etc.)
+// - High Level New UI Components (Heros, Dialogs, Forms, Tables, Charts, Chat, Carousel, etc.)
 // - Low Level New UI Components (Buttons, Inputs, etc.)
-// - Simplified Rich Forms (soon)
+// - Simplified Rich Forms
+// - Easy Notification (Alert) Messages
 //
 export const AppBase: React.FC<AppBaseProps> = ({
   authConfig,
@@ -140,30 +150,33 @@ export const AppBase: React.FC<AppBaseProps> = ({
     <Suspense>
       {/* // 2. Customize theme */}
       <ThemeProvider config={themeConfig}>
+        {/* // 3. Wrap the App with a NotistackProvider */}
         <NotistackProvider>
+          {/* // 4. Wrap the App with an ErrorBoundary */}
           <ErrorBoundary fallbackRender={Fallback}>
             <BrowserRouter>
               <Routes>
-                {/* 3. Define the main route using PrivateRoute wrapping the App  */}
+                {/* 5. Define the main route using PrivateRoute */}
                 <Route
                   path="/"
                   element={
                     <PrivateRoute
                       loginPath="/login"
                       waitingAuth={
+                        // Loading while waiting for auth
                         <LoadingPage logo={layoutConfig?.logo?.loading} />
-                      } // Loading while waiting for auth
+                      }
                     >
-                      {/* 4. Wrap the App with the LocalizationProvider */}
+                      {/* 6. Wrap the App with the LocalizationProvider */}
                       <LocalizationProvider>
-                        {/* 5. In AppLayout, wrap the App with the MainLayout passing the layout config */}
-                        {/* 6. In AppLayout, add the react-router-dom Outlet */}
+                        {/* 7. In AppLayout, wrap the App with the MainLayout passing the layout config */}
+                        {/* 8. In AppLayout, add the react-router-dom Outlet */}
                         <AppLayout layoutConfig={layoutConfig} />
                       </LocalizationProvider>
                     </PrivateRoute>
                   }
                 >
-                  {/* 7. Create private routes whose components will be within App */}
+                  {/* 9. Create private routes whose components will be within App */}
                   {routeElements.map(({ path, element }, index) => (
                     <Route
                       path={path}
@@ -174,11 +187,11 @@ export const AppBase: React.FC<AppBaseProps> = ({
                     />
                   ))}
                 </Route>
-                {/* 8. Create the login route */}
+                {/* 10. Create the login route */}
                 <Route
                   path="/login"
                   element={
-                    // 9. In the login component, define the login methods
+                    // 11. In the login component, define the login methods
                     <Login
                       loginMethods={loginMethods || ['google']}
                       leftImage={leftImage}
@@ -190,7 +203,7 @@ export const AppBase: React.FC<AppBaseProps> = ({
                     />
                   }
                 />
-                {/* 10. Create routes for each login method */}
+                {/* 12. Create routes for each login method */}
                 <Route
                   path="/login-phone"
                   element={
@@ -214,7 +227,7 @@ export const AppBase: React.FC<AppBaseProps> = ({
                     />
                   }
                 />
-                {/* 11. Create open routes without layouts */}
+                {/* 13. Create open routes without layouts */}
                 {openRouteElements?.map(({ path, element }, index) => (
                   <Route
                     path={path}

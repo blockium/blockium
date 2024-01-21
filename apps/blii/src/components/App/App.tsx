@@ -7,7 +7,7 @@ import { Payment as PaymentIcon } from '@mui/icons-material';
 import { AdsClick as AdsClickIcon } from '@mui/icons-material';
 import { MenuBook as MenuBookIcon } from '@mui/icons-material';
 
-import { AppBase, AuthConfig } from '@blockium/appbase';
+import { AppBase, AuthConfig, RouteElement } from '@blockium/appbase';
 import { createPaletteConfig } from '@blockium/theme';
 import { LayoutConfig } from '@blockium/layout';
 
@@ -31,7 +31,7 @@ export const App: React.FC = (props) => {
     leftImage: '/images/photo0.webp',
   };
 
-  // TODO: 2. Customize theme (new approach)
+  // 2. Customize theme
   const themeConfig = { paletteConfig: createPaletteConfig('#9B6F41') };
 
   // 3. Define the layout configuration
@@ -104,7 +104,7 @@ export const App: React.FC = (props) => {
   };
 
   // 4. Define the routes
-  const routeElements = [
+  const routeElements: RouteElement[] = [
     { path: '/', element: <Scheduler /> },
     { path: '/finance/panel', element: <FinanceDashboard /> },
     { path: '/finance/revenue', element: <RevenueTable /> },

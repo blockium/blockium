@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { CalendarMonth as CalendarMonthIcon } from '@mui/icons-material';
 
-import { AppBase, AuthConfig } from '@blockium/appbase';
+import { AppBase, AuthConfig, RouteElement } from '@blockium/appbase';
 import { createPaletteConfig } from '@blockium/theme';
 import { LayoutConfig } from '@blockium/layout';
 
@@ -47,7 +47,7 @@ export const App: React.FC = (props) => {
   };
 
   // 4. Define the routes
-  const routeElements = [
+  const routeElements: RouteElement[] = [
     { path: '/', element: () => <CalendarPage /> },
     { path: '/posts/weekly/:isoStartDate', element: () => <WeeklyPostsPage /> },
   ];
