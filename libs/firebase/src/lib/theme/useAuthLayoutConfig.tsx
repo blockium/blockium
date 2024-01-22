@@ -38,8 +38,10 @@ export const useAuthLayoutConfig = (props: UseLayoutConfigProps) => {
   }
 
   // Adds an empty accountPopover if necessary
-  if (layoutConfig.topBar && !layoutConfig.topBar.accountPopover) {
-    layoutConfig.topBar.accountPopover = {};
+  if (layoutConfig.topBar) {
+    if (!layoutConfig.topBar.accountPopover) {
+      layoutConfig.topBar.accountPopover = {};
+    }
   } else {
     layoutConfig.topBar = {
       accountPopover: {},
