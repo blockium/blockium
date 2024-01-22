@@ -28,7 +28,7 @@ i18nInit();
 type LoginMethod = 'phone' | 'whatsapp' | 'email' | 'google';
 
 export interface AuthConfig {
-  config?: FirebaseConfig;
+  config: FirebaseConfig;
   loginMethods?: LoginMethod[];
   leftImage?: string;
   topImage?: string;
@@ -65,7 +65,7 @@ export type RouteElement = {
 };
 
 type AppBaseProps = {
-  authConfig?: AuthConfig;
+  authConfig: AuthConfig;
   themeConfig?: ThemeConfig;
   layoutConfig?: LayoutConfig;
   routeElements: RouteElement[];
@@ -116,23 +116,7 @@ export const AppBase: React.FC<AppBaseProps> = ({
   openRouteElements,
 }) => {
   // 1. Initialize Firebase
-  if (authConfig?.config) {
-    initFirebase(authConfig.config);
-  } else {
-    const defaultFirebaseConfig = {
-      apiKey:
-        document.location.hostname === 'localhost'
-          ? import.meta.env['VITE_FIREBASE_API_KEY_DEV']
-          : import.meta.env['VITE_FIREBASE_API_KEY'],
-      authDomain: import.meta.env['VITE_FIREBASE_AUTH_DOMAIN'],
-      projectId: import.meta.env['VITE_FIREBASE_PROJECT_ID'],
-      storageBucket: import.meta.env['VITE_FIREBASE_STORAGE_BUCKET'],
-      messagingSenderId: import.meta.env['VITE_FIREBASE_MESSAGING_SENDER_ID'],
-      appId: import.meta.env['VITE_FIREBASE_APP_ID'],
-      measurementId: import.meta.env['VITE_FIREBASE_MEASUREMENT_ID'],
-    };
-    initFirebase(defaultFirebaseConfig);
-  }
+  initFirebase(authConfig.config);
 
   const {
     loginMethods,
@@ -144,7 +128,7 @@ export const AppBase: React.FC<AppBaseProps> = ({
     afterPhoneLoginApi,
     afterWhatsAppLoginApi,
     onAfterLogin,
-  } = authConfig || {};
+  } = authConfig;
 
   return (
     <Suspense>

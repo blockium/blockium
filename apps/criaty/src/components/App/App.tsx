@@ -12,7 +12,20 @@ import { CalendarPage, WeeklyPostsPage } from '../../pages';
 
 export const App: React.FC = (props) => {
   // 1. Configure Authentication
+  const firebaseConfig = {
+    apiKey:
+      document.location.hostname === 'localhost'
+        ? import.meta.env['VITE_FIREBASE_API_KEY_DEV']
+        : import.meta.env['VITE_FIREBASE_API_KEY'],
+    authDomain: import.meta.env['VITE_FIREBASE_AUTH_DOMAIN'],
+    projectId: import.meta.env['VITE_FIREBASE_PROJECT_ID'],
+    storageBucket: import.meta.env['VITE_FIREBASE_STORAGE_BUCKET'],
+    messagingSenderId: import.meta.env['VITE_FIREBASE_MESSAGING_SENDER_ID'],
+    appId: import.meta.env['VITE_FIREBASE_APP_ID'],
+    measurementId: import.meta.env['VITE_FIREBASE_MEASUREMENT_ID'],
+  };
   const authConfig: AuthConfig = {
+    config: firebaseConfig,
     loginMethods: ['google'],
     leftImage: '/images/login_768_1064.webp',
     topImage: '/images/login_1064_768.webp',
