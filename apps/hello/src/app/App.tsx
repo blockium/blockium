@@ -1,17 +1,18 @@
 import { AppBase, AuthConfig, RouteElement } from '@blockium/appbase';
-import { useAuth } from '@blockium/firebase';
+import { FirebaseConfig, useAuth } from '@blockium/firebase';
 import { useTranslation } from 'react-i18next';
-import './App.styles.css';
+import './App.styles.scss';
 
 export function App() {
   // 1. Configure Authentication
-  const firebaseConfig = {
+  const firebaseConfig: FirebaseConfig = {
     apiKey: 'AIzaSyC-uQwpo2NV99ATkKuKfyTEsRUDGgp-0Kk',
     authDomain: 'blockiumjs.firebaseapp.com',
     projectId: 'blockiumjs',
     storageBucket: 'blockiumjs.appspot.com',
     messagingSenderId: '61328530945',
     appId: '1:61328530945:web:c5c5592a3a3f019d222a00',
+    // localEmulator: false,
   };
   const authConfig: AuthConfig = {
     config: firebaseConfig,
