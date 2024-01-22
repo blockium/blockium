@@ -9,7 +9,7 @@ export type FirebaseConfig = {
   storageBucket: string;
   messagingSenderId: string;
   appId: string;
-  measurementId: string;
+  measurementId?: string;
 };
 
 // Initialize Firebase
