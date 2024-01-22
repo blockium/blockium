@@ -25,7 +25,7 @@ import { useColorMode } from './useColorMode';
 import { useThemeConfig } from './useThemeConfig';
 import { useInitialThemeConfig } from './useInitialThemeConfig';
 import { createPaletteConfig } from '../palette';
-import { green } from '../colors';
+import { emerald } from '../colors';
 
 // Current supported languages
 import { useTranslation } from 'react-i18next';
@@ -90,7 +90,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
     } else {
       // Default config
       setThemeConfig({
-        paletteConfig: createPaletteConfig(green),
+        paletteConfig: createPaletteConfig(emerald),
       });
     }
 
@@ -100,7 +100,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
     } else {
       // Default config
       setInitialConfig({
-        paletteConfig: createPaletteConfig(green),
+        paletteConfig: createPaletteConfig(emerald),
       });
     }
   });

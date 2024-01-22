@@ -93,15 +93,15 @@ export const ThemeColorSelector = () => {
               color={currentColor || '#fff'}
               colors={[
                 initialColor,
-                amber,
-                lime,
                 green,
+                lime,
                 blue,
                 violet,
                 purple,
                 fuchsia,
                 rose,
                 red,
+                amber,
                 slate,
                 stone,
               ]}
