@@ -11,11 +11,18 @@ export const getAuth = () => {
     auth.useDeviceLanguage();
     fbServices.auth = auth;
 
+    // Check if local emulator is used
+    if (!fbServices.localEmulator) {
+      return auth;
+    }
+
+    // If local emulator, check it is a localhost
     const isDevLocal =
       typeof document !== 'undefined' &&
       document.location.hostname === 'localhost';
 
     if (isDevLocal) {
+      // Connects local emulator for auth
       connectAuthEmulator(fbServices.auth, 'http://localhost:9099');
     }
   }

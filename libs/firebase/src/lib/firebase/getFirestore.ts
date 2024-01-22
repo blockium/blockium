@@ -13,11 +13,18 @@ export const getFirestore = () => {
     firestore = fbGetFirestore(fbServices.app);
     fbServices.firestore = firestore;
 
+    // Check if local emulator is used
+    if (!fbServices.localEmulator) {
+      return firestore;
+    }
+
+    // If local emulator, check it is a localhost
     const isDevLocal =
       typeof document !== 'undefined' &&
       document.location.hostname === 'localhost';
 
     if (isDevLocal) {
+      // Connects local emulator for firestore
       connectFirestoreEmulator(fbServices.firestore, 'localhost', 8080);
     }
   }

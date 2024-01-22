@@ -10,6 +10,7 @@ type FirebaseServices = {
   analytics?: Analytics;
   functions?: Functions;
   firestore?: Firestore;
+  localEmulator?: boolean;
 };
 
 const fbServices: FirebaseServices = {};
