@@ -11,6 +11,9 @@
         ],
         "blii": [
           "blii-blockium"
+        ],
+        "hello": [
+          "hello-blockium"
         ]
       }
     }
