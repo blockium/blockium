@@ -5,6 +5,7 @@
   "scripts": {
     "start-criaty": "npm run start-firebase & nx serve criaty",
     "start-blii": "npm run start-firebase & nx serve blii",
+    "start-hello": "npm run start-firebase & nx serve hello",
     "start-firebase": "nx serve firebase-blockium",
     "build": "npm run build-criaty & npm run build-blii & npm run build-firebase & npm run build-firebase-functions",
     "build-criaty": "nx build criaty --configuration production",

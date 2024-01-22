@@ -27,10 +27,6 @@ import './App.module.scss';
 export const App: React.FC = (props) => {
   // 1. Configure Authentication
   const firebaseConfig = {
-    // apiKey:
-    //   document.location.hostname === 'localhost'
-    //     ? import.meta.env['VITE_FIREBASE_API_KEY_DEV']
-    //     : import.meta.env['VITE_FIREBASE_API_KEY'],
     apiKey: import.meta.env['VITE_FIREBASE_API_KEY'],
     authDomain: import.meta.env['VITE_FIREBASE_AUTH_DOMAIN'],
     projectId: import.meta.env['VITE_FIREBASE_PROJECT_ID'],

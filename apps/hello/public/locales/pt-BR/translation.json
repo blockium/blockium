@@ -1,0 +1,4 @@
+{
+  "hello": "Olá {{name}}",
+  "welcome": "Bem-vindo à Blockium!"
+}
