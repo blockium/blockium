@@ -16,26 +16,10 @@
         "name": "next"
       }
     ],
-    "types": [
-      "jest",
-      "node"
-    ],
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ]
+    "types": ["jest", "node"],
+    "lib": ["dom", "dom.iterable", "esnext"]
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.js",
-    "**/*.jsx",
-    "../../apps/docs/.next/types/**/*.ts",
-    "../../dist/apps/docs/.next/types/**/*.ts",
-    "next-env.d.ts",
-    ".next/types/**/*.ts"
-  ],
+  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "next-env.d.ts"],
   "exclude": [
     "node_modules",
     "jest.config.ts",
