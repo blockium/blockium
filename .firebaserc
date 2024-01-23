@@ -14,6 +14,9 @@
         ],
         "hello": [
           "hello-blockium"
+        ],
+        "docs": [
+          "docs-blockium"
         ]
       }
     }
