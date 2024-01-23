@@ -53,6 +53,12 @@
         "linter": "eslint",
         "unitTestRunner": "vitest"
       }
+    },
+    "@nx/next": {
+      "application": {
+        "style": "scss",
+        "linter": "eslint"
+      }
     }
   }
 }
