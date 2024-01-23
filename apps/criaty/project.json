@@ -66,12 +66,6 @@
       "options": {
         "lintFilePatterns": ["apps/criaty/**/*.{ts,tsx,js,jsx}"]
       }
-    },
-    "serve-static": {
-      "executor": "@nrwl/web:file-server",
-      "options": {
-        "buildTarget": "criaty:build"
-      }
     }
   },
   "tags": []

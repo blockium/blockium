@@ -2,8 +2,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
-import { VitePWA } from 'vite-plugin-pwa';
-// import { splitVendorChunkPlugin } from 'vite';
 
 const manualChunks = (id: string) => {
   // console.log(id);
@@ -40,12 +38,7 @@ export default defineConfig({
     host: 'localhost',
   },
 
-  plugins: [
-    react(),
-    nxViteTsPaths(),
-    VitePWA({ manifest: false, registerType: 'autoUpdate' }),
-    // splitVendorChunkPlugin(),
-  ],
+  plugins: [react(), nxViteTsPaths()],
 
   // Uncomment this if you are using workers.
   // worker: {

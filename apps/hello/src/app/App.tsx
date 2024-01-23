@@ -7,7 +7,7 @@ export function App() {
   // 1. Configure Authentication
   const firebaseConfig: FirebaseConfig = {
     apiKey: 'AIzaSyC-uQwpo2NV99ATkKuKfyTEsRUDGgp-0Kk',
-    authDomain: 'blockiumjs.firebaseapp.com',
+    authDomain: 'hello.blockium.dev',
     projectId: 'blockiumjs',
     storageBucket: 'blockiumjs.appspot.com',
     messagingSenderId: '61328530945',
