@@ -31,6 +31,7 @@
       "@blockium/form": ["libs/form/src/index.ts"],
       "@blockium/i18n": ["libs/i18n/src/index.ts"],
       "@blockium/layout": ["libs/layout/src/index.ts"],
+      "@blockium/payment": ["libs/payment/src/index.ts"],
       "@blockium/table": ["libs/table/src/index.ts"],
       "@blockium/theme": ["libs/theme/src/index.ts"],
       "@blockium/ui": ["libs/ui/src/index.ts"],
