@@ -17,6 +17,9 @@ const nextConfig = {
     // See: https://github.com/gregberge/svgr
     svgr: false,
   },
+  images: {
+    unoptimized: true,
+  },
 };
 
 const plugins = [

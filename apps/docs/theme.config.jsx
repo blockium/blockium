@@ -3,6 +3,8 @@ const themeConfig = {
   project: {
     link: 'https://github.com/blockium/blockium',
   },
+  docsRepositoryBase:
+    'https://github.com/blockium/blockium/tree/main/apps/docs',
   // ... other theme options
 };
 
