@@ -63,6 +63,7 @@ export default defineConfig({
         'react/jsx-runtime',
         '@mui/material',
         '@mui/material/styles',
+        '@mui/icons-material',
         'react-i18next',
         '@blockium/i18n',
         '@blockium/theme',
