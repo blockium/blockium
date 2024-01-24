@@ -24,6 +24,7 @@
     "paths": {
       "@blockium/appbase": ["libs/appbase/src/index.ts"],
       "@blockium/calendar": ["libs/calendar/src/index.ts"],
+      "@blockium/carousel": ["libs/carousel/src/index.ts"],
       "@blockium/chart": ["libs/chart/src/index.ts"],
       "@blockium/chat": ["libs/chat/src/index.ts"],
       "@blockium/firebase": ["libs/firebase/src/index.ts"],
