@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Box, Container, Typography } from '@mui/material';
 
 // table
@@ -12,6 +13,7 @@ import ServiceDialog from '../../dialog/service/ServiceDialog';
 import { IService } from '../../../types';
 
 export const ServiceTable = () => {
+  const { t } = useTranslation();
   const tableConfig = useServiceTable();
 
   const [current, setCurrent] = useState<IService>();
@@ -39,7 +41,7 @@ export const ServiceTable = () => {
       <Container disableGutters maxWidth="xl">
         <Box>
           <Typography variant="h3" gutterBottom>
-            Serviços
+            {t('table-services-title')}
           </Typography>
         </Box>
         <DefaultTable

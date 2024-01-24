@@ -67,15 +67,15 @@ export const App: React.FC = (props) => {
           icon: <PaymentIcon />,
           children: [
             {
-              label: 'Painel',
+              label: t('side-menu.panel'),
               href: '/finance/panel',
             },
             {
-              label: 'Receitas',
+              label: t('side-menu.revenue'),
               href: '/finance/revenue',
             },
             {
-              label: 'Despesas',
+              label: t('side-menu.costs'),
               href: '/finance/cost',
             },
           ],
@@ -86,15 +86,15 @@ export const App: React.FC = (props) => {
           icon: <AdsClickIcon />,
           children: [
             {
-              label: 'Painel',
+              label: t('side-menu.panel'),
               href: '/marketing/panel',
             },
             {
-              label: 'Manutenção',
+              label: t('side-menu.maintenance'),
               href: '/marketing/maintenance',
             },
             {
-              label: 'Aniversariantes',
+              label: t('side-menu.birth-list'),
               href: '/marketing/birthlist',
             },
           ],
@@ -105,7 +105,7 @@ export const App: React.FC = (props) => {
           icon: <MenuBookIcon />,
           children: [
             {
-              label: 'Serviços',
+              label: t('side-menu.services'),
               href: '/catalog/service',
             },
           ],

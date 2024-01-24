@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import { Box, Grid, Stack, Typography } from '@mui/material';
 import { MRT_ColumnDef } from 'material-react-table';
 
@@ -7,6 +9,7 @@ import { ICustomerService } from '../../../types';
 import { useCustomerServices } from '../../../data/useCustomerServices';
 
 export const useRevenueTable = () => {
+  const { t } = useTranslation();
   const { data, setSearchValue } = useCustomerServices();
 
   let servicePriceSum = 0;
@@ -26,7 +29,7 @@ export const useRevenueTable = () => {
   const columns: MRT_ColumnDef<ICustomerService>[] = [
     {
       accessorKey: 'payTypeName',
-      header: 'Pagamento',
+      header: t('table-revenue-pay-type-name'),
       Cell: ({ cell, row }) => {
         const { payTypeName, servicePrice } = row.original;
         return (
@@ -45,7 +48,7 @@ export const useRevenueTable = () => {
         <Grid container>
           <Grid item xs={6}>
             <Typography variant="caption" textTransform="uppercase">
-              Recebido:
+              {t('table-revenue-label-received')}
             </Typography>
           </Grid>
           <Grid item xs={6} textAlign="right">
@@ -58,7 +61,7 @@ export const useRevenueTable = () => {
           </Grid>
           <Grid item xs={6}>
             <Typography variant="caption" textTransform="uppercase">
-              Agendado:
+              {t('table-revenue-label-booked')}
             </Typography>
           </Grid>
           <Grid item xs={6} textAlign="right">
@@ -74,15 +77,15 @@ export const useRevenueTable = () => {
     },
     {
       accessorKey: 'serviceName',
-      header: 'Serviço',
+      header: t('table-revenue-service-name'),
     },
     {
       accessorKey: 'customerName',
-      header: 'Cliente',
+      header: t('table-revenue-customer-name'),
     },
     {
       accessorKey: 'serviceDate',
-      header: 'Data',
+      header: t('table-revenue-service-date'),
       Cell: ({ cell }) => <span>{fDateTime(cell.getValue<string>())}</span>,
       muiTableBodyCellProps: { align: 'right' },
       muiTableHeadCellProps: { align: 'right' },

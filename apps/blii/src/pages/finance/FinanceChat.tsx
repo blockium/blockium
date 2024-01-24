@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { ChatFab, IChatMessage } from '@blockium/chat';
 
@@ -16,6 +17,7 @@ Essa ação pode ajudar a atrair mais clientes rapidamente, aumentando sua recei
 
 export const FinanceChat: React.FC = () => {
   const [hasNewMessage, setHasNewMessage] = useState(true);
+  const { t } = useTranslation();
 
   // const avatar = 'avatar/face2.webp';
   const avatar = '';
@@ -68,7 +70,7 @@ export const FinanceChat: React.FC = () => {
     // />
     <ChatFab
       avatar="avatar/face2.webp"
-      tooltip="Assistente Virtual"
+      tooltip={t('tooltip-individual-intelligence')}
       messages={chatMessages}
       onSendMessage={onSendMessage}
       hasNewMessage={hasNewMessage}

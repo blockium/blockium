@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import { Box, Grid, Typography } from '@mui/material';
 import { MRT_ColumnDef } from 'material-react-table';
 
@@ -7,6 +9,7 @@ import { ICost } from '../../../types';
 import { useCosts } from '../../../data/useCosts';
 
 export const useCostTable = () => {
+  const { t } = useTranslation();
   const { data, setSearchValue } = useCosts();
 
   let costSum = 0;
@@ -18,16 +21,15 @@ export const useCostTable = () => {
     setSearchValue(searchValue || '');
   };
 
-  // TODO: i18n
   const columns: MRT_ColumnDef<ICost>[] = [
     {
       accessorKey: 'name',
-      header: 'Custo',
+      header: t('table-costs-name'),
       maxSize: 150,
     },
     {
       accessorKey: 'value',
-      header: 'Valor',
+      header: t('table-costs-value'),
       maxSize: 150,
       Cell: ({ cell }) => (
         <Box sx={{ textAlign: 'right', width: '100%' }}>
@@ -38,7 +40,7 @@ export const useCostTable = () => {
         <Grid container>
           <Grid item xs={6}>
             <Typography variant="caption" textTransform="uppercase">
-              Total:
+              {t('table-costs-label-total')}
             </Typography>
           </Grid>
           <Grid item xs={6} textAlign="right">

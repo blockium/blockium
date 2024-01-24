@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Box } from '@mui/material';
 import { MRT_ColumnDef } from 'material-react-table';
 
@@ -7,22 +8,22 @@ import { IService } from '../../../types';
 import { useServices } from '../../../data';
 
 export const useServiceTable = () => {
+  const { t } = useTranslation();
   const { data, setSearchValue } = useServices();
 
   const onGlobalFilterChange = (searchValue: string) => {
     setSearchValue(searchValue || '');
   };
 
-  // TODO: i18n
   const columns: MRT_ColumnDef<IService>[] = [
     {
       accessorKey: 'name',
-      header: 'Serviço',
+      header: t('table-services-name'),
       maxSize: 150,
     },
     {
       accessorKey: 'price',
-      header: 'Valor',
+      header: t('table-services-price'),
       maxSize: 100,
       Cell: ({ cell }) => (
         <Box sx={{ textAlign: 'right', width: '100%' }}>
@@ -33,7 +34,7 @@ export const useServiceTable = () => {
     },
     {
       accessorKey: 'dayInterval',
-      header: 'Manutenção (dias)',
+      header: t('table-services-day-interval'),
       maxSize: 100,
       Cell: ({ cell }) => (
         <Box sx={{ textAlign: 'right', width: '100%' }}>

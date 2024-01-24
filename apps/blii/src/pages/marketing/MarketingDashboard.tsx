@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import { Container, Grid, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { Favorite as FavoriteIcon } from '@mui/icons-material';
@@ -10,6 +12,7 @@ import MarketingHero from './MarketingHero';
 
 export const MarketingDashboard = () => {
   const theme = useTheme();
+  const { t } = useTranslation();
   // const [authUser] = useAuth();
 
   const customerServiceCount = 12;
@@ -22,7 +25,7 @@ export const MarketingDashboard = () => {
       sx={{ paddingBottom: theme.spacing(10) }}
     >
       <Typography variant="h3" sx={{ mb: 5 }}>
-        Painel de Marketing
+        {t('page-marketing-title')}
       </Typography>
 
       <Grid container spacing={3}>
@@ -34,7 +37,7 @@ export const MarketingDashboard = () => {
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6} md={12}>
               <SummaryWidget
-                title="Atendimentos no Mês"
+                title={t('label-monthly-services')}
                 total={customerServiceCount}
                 color="info"
                 icon={<FavoriteIcon />}
@@ -42,7 +45,7 @@ export const MarketingDashboard = () => {
             </Grid>
             <Grid item xs={12} sm={6} md={12}>
               <SummaryWidget
-                title="Clientes"
+                title={t('label-customers')}
                 total={customerCount}
                 color="primary"
                 icon={<PeopleIcon />}
@@ -50,22 +53,6 @@ export const MarketingDashboard = () => {
             </Grid>
           </Grid>
         </Grid>
-
-        {/* {customerServicesCount.length > 0 && (
-          <Grid item xs={12} md={6} lg={4}>
-            <PieChart
-              title="Tipos de Atendimentos"
-              chartData={customerServicesCount}
-              chartColors={[
-                theme.palette.primary.main,
-                theme.palette.chart.blue[0],
-                theme.palette.chart.violet[0],
-                theme.palette.chart.yellow[0],
-                theme.palette.chart.green[0],
-              ]}
-            />
-          </Grid>
-        )} */}
       </Grid>
     </Container>
   );

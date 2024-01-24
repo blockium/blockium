@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { date, number, string } from 'yup';
 import { useSnackbar } from 'notistack';
 
@@ -18,6 +19,7 @@ type ServiceDialogProps = {
 
 const ServiceDialog: React.FC<ServiceDialogProps> = (props) => {
   const { open, service, onClose, onAddCallback } = props;
+  const { t } = useTranslation();
 
   const [currentService, setCurrentService] =
     useState<IService>(DEFAULT_SERVICE);
@@ -42,7 +44,7 @@ const ServiceDialog: React.FC<ServiceDialogProps> = (props) => {
       onAddCallback?.(result);
       setCurrentService(DEFAULT_SERVICE); // clear current data
       onClose();
-      enqueueSnackbar('Serviço adicionado com sucesso.');
+      enqueueSnackbar(t('service-added'));
     } else {
       console.log(result);
       enqueueSnackbar(result, { variant: 'error' });
@@ -55,7 +57,7 @@ const ServiceDialog: React.FC<ServiceDialogProps> = (props) => {
     if (typeof result !== 'string') {
       setCurrentService(DEFAULT_SERVICE); // clear current data
       onClose();
-      enqueueSnackbar('Serviço adicionado com sucesso.');
+      enqueueSnackbar(t('service-changed'));
     } else {
       console.log(result);
       enqueueSnackbar(result, { variant: 'error' });
@@ -73,7 +75,7 @@ const ServiceDialog: React.FC<ServiceDialogProps> = (props) => {
   const fields: FormField<IService>[] = [
     {
       key: 'name',
-      formLabel: 'Serviço *',
+      formLabel: t('form-service-name'),
       formType: 'text',
       textType: 'text',
       validation: string().required(),
@@ -82,9 +84,9 @@ const ServiceDialog: React.FC<ServiceDialogProps> = (props) => {
     },
     {
       key: 'price',
-      formLabel: 'Preço *',
+      formLabel: t('form-service-price'),
       formType: 'number',
-      prefix: 'R$',
+      prefix: t('form-service-price-prefix'),
       validation: number().required().positive(),
       onChange: (value: string | null) => handleChange('price', Number(value)),
       gridProps: { xs: 12, sm: 6 },
@@ -92,7 +94,7 @@ const ServiceDialog: React.FC<ServiceDialogProps> = (props) => {
     },
     {
       key: 'quantity',
-      formLabel: 'Meta Mensal *',
+      formLabel: t('form-service-quantity'),
       formType: 'number',
       validation: number().required().integer().positive(),
       onChange: (value: string | null) =>
@@ -102,7 +104,7 @@ const ServiceDialog: React.FC<ServiceDialogProps> = (props) => {
     },
     {
       key: 'duration',
-      formLabel: 'Duração',
+      formLabel: t('form-service-duration'),
       formType: 'time',
       validation: date().nullable(),
       onChange: (value: string | null) => handleChange('duration', value),
@@ -111,9 +113,9 @@ const ServiceDialog: React.FC<ServiceDialogProps> = (props) => {
     },
     {
       key: 'dayInterval',
-      formLabel: 'Intervalo para Retorno',
+      formLabel: t('form-service-day-interval'),
       formType: 'number',
-      suffix: 'dias',
+      suffix: t('form-service-day-interval-suffix'),
       validation: number().integer().positive(),
       onChange: (value: string | null) =>
         handleChange('dayInterval', Number(value)),
@@ -122,7 +124,7 @@ const ServiceDialog: React.FC<ServiceDialogProps> = (props) => {
     },
     {
       key: 'group',
-      formLabel: 'Grupo',
+      formLabel: t('form-service-group'),
       formType: 'text',
       textType: 'text',
       validation: string(),
@@ -134,7 +136,9 @@ const ServiceDialog: React.FC<ServiceDialogProps> = (props) => {
   return (
     <FormDialog
       open={open}
-      title={isNew ? 'Novo Serviço' : 'Alterar Serviço'}
+      title={
+        isNew ? t('form-title-new-service') : t('form-title-change-service')
+      }
       data={currentService}
       fields={fields}
       onClose={onClose}

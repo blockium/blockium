@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import { Container, Grid, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { Paid as PaidIcon } from '@mui/icons-material';
@@ -15,6 +17,7 @@ import { FinanceProgress } from './FinanceProgress';
 
 export const FinanceDashboard = () => {
   const theme = useTheme();
+  const { t } = useTranslation();
   // const [authUser] = useAuth();
 
   const customerServiceSum = 1562.5;
@@ -32,7 +35,7 @@ export const FinanceDashboard = () => {
         Olá, {authUser?.displayName}!
       </Typography> */}
       <Typography variant="h3" sx={{ mb: 5 }}>
-        Painel Financeiro
+        {t('page-finance-title')}
       </Typography>
 
       <Grid container spacing={3}>
@@ -48,7 +51,7 @@ export const FinanceDashboard = () => {
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
           <SummaryWidget
-            title="Receita no Mês"
+            title={t('label-monthly-revenue')}
             total={customerServiceSum}
             color="success"
             icon={<PaidIcon />}
@@ -56,27 +59,12 @@ export const FinanceDashboard = () => {
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
           <SummaryWidget
-            title="Resultado no Mês"
+            title={t('label-monthly-result')}
             total={monthBalance}
             color={monthBalance < 0 ? 'error' : 'success'}
             icon={monthBalance < 0 ? <ThumbDownIcon /> : <ThumbUpIcon />}
           />
         </Grid>
-        {/* {customerServicesCount.length > 0 && (
-          <Grid item xs={12} md={6} lg={4}>
-            <PieChart
-              title="Tipos de Atendimentos"
-              chartData={customerServicesCount}
-              chartColors={[
-                theme.palette.primary.main,
-                theme.palette.chart.blue[0],
-                theme.palette.chart.violet[0],
-                theme.palette.chart.yellow[0],
-                theme.palette.chart.green[0],
-              ]}
-            />
-          </Grid>
-        )} */}
       </Grid>
     </Container>
   );
