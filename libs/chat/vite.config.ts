@@ -65,6 +65,7 @@ export default defineConfig({
         '@mui/material/styles',
         'react-i18next',
         '@blockium/i18n',
+        '@blockium/theme',
       ],
     },
   },
