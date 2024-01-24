@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { ChatWidget, IChatMessage } from '@blockium/ui';
+import { ChatWidget, IChatMessage } from '@blockium/chat';
 
 export const MarketingChat: React.FC = () => {
   const avatar = 'avatar/face2.webp';

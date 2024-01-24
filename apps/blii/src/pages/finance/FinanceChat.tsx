@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { ChatFab, IChatMessage } from '@blockium/ui';
+import { ChatFab, IChatMessage } from '@blockium/chat';
 
 const answer = `
 Uma ação possível para aumentar sua receita de forma imediata é a seguinte:
