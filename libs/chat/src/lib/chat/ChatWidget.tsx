@@ -80,7 +80,7 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
         mr={3}
       >
         <TextField
-          label={t('ui:chat.msg.label')}
+          label={t('chat:msg.label')}
           type="text"
           variant="filled"
           fullWidth
@@ -96,9 +96,9 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
             },
           }}
         />
-        <Tooltip title={t('ui:chat.msg.button.send')}>
+        <Tooltip title={t('chat:msg.button.send')}>
           <IconButton
-            aria-label={t('ui:chat.msg.button.send')}
+            aria-label={t('chat:msg.button.send')}
             color="primary"
             edge="end"
             sx={{ mb: '-1rem' }}
