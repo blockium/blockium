@@ -11,7 +11,7 @@ export interface IBaseDataField<T> {
   prefix?: ReactNode; // e.g: $
   suffix?: ReactNode; // e.g: Kg
   onAddClick?: (value?: string) => void; // Function to add a new related entity
-  onChange?: (value: string | null) => void;
+  onChange?: (value: string | null, data?: T) => void;
 }
 
 export type getData<U> = (searchText?: string) => U[];

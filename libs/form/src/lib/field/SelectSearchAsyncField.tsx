@@ -27,7 +27,7 @@ export interface ISelectSearchAsyncField<T> extends IBaseDataField<T> {
   formType: 'select-search-async';
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   options: ISelectOptionsAsync<any>;
-  getFieldLabel: (optionKey: string) => string;
+  isSelected?: (data: T, inputValue: string) => boolean;
 }
 
 // Props for a select component that allows async searching
@@ -41,10 +41,7 @@ const isDataChange = <T extends object>(
   field: ISelectSearchAsyncField<T>,
   inputValue: string,
 ) => {
-  return (
-    !data[field.key] ||
-    inputValue !== field.getFieldLabel(String(data[field.key]))
-  );
+  return !data[field.key] || !field.isSelected?.(data, inputValue);
 };
 
 // A select component that allows async searching
@@ -76,7 +73,7 @@ const SelectSearchAsyncInner = <T extends object>(
           callback(optionsData);
           setLoading(false);
         });
-      }, 200),
+      }, 500),
     [],
   );
 
@@ -128,15 +125,13 @@ const SelectSearchAsyncInner = <T extends object>(
           data[field.key]
             ? {
                 [field.options.key]: data[field.key],
-                [field.options.label]:
-                  getLabel(data[field.key]) ||
-                  field.getFieldLabel(String(data[field.key])),
+                [field.options.label]: getLabel(data[field.key]),
               }
             : null
         }
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         onChange={(event: any, option: any, reason: string) => {
-          field.onChange?.(option?.[field.options.key]);
+          field.onChange?.(option ? option[field.options.key] : null, option);
         }}
         onInputChange={(event, newInputValue) => {
           if (isDataChange(data, field, newInputValue)) {
@@ -147,7 +142,7 @@ const SelectSearchAsyncInner = <T extends object>(
         }}
         options={options}
         isOptionEqualToValue={(option, value) =>
-          option[field.options.key] === value[field.options.key]
+          option && option[field.options.key] === value[field.options.key]
         }
         getOptionLabel={(option) => {
           // When an Enter is pressed it can handle a new relationship add

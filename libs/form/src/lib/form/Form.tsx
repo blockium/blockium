@@ -94,10 +94,10 @@ export const Form = <T extends object>(props: FormProps<T>) => {
         const { onChange, validation } = field;
         if (onChange && validation) {
           // Validate before onChange
-          field.onChange = (value: string | null) => {
+          field.onChange = (value: string | null, data?: T) => {
             validateValue(value, index, validation);
             setErrors(newErrors);
-            onChange(value);
+            onChange(value, data);
           };
 
           if (errors[index]) {
