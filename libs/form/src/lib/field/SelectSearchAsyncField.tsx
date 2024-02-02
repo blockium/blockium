@@ -28,6 +28,7 @@ export interface ISelectSearchAsyncField<T> extends IBaseDataField<T> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   options: ISelectOptionsAsync<any>;
   isSelected?: (data: T, inputValue: string) => boolean;
+  initialLabel?: (key: T[keyof T]) => string;
 }
 
 // Props for a select component that allows async searching
@@ -104,10 +105,9 @@ const SelectSearchAsyncInner = <T extends object>(
     };
   }, [data, fetch, field, field.options.getData, inputValue]);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const getLabel = (key: any) => {
+  const getLabel = (key: T[keyof T]) => {
     const option = options.find((option) => option[field.options.key] === key);
-    return option?.[field.options.label];
+    return option ? option[field.options.label] : field.initialLabel?.(key);
   };
   return (
     <Grid item xs={12} {...field.gridProps}>
