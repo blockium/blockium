@@ -79,6 +79,7 @@ export default defineConfig({
         'firebase/auth',
         'firebase/functions',
         'firebase/firestore/lite',
+        'firebase/storage',
         'axios',
         'i18next',
         'notistack',

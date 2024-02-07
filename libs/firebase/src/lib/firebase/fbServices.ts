@@ -3,6 +3,7 @@ import { Analytics } from 'firebase/analytics';
 import { Auth } from 'firebase/auth';
 import { Functions } from 'firebase/functions';
 import { Firestore } from 'firebase/firestore/lite';
+import { FirebaseStorage } from 'firebase/storage';
 
 type FirebaseServices = {
   app?: FirebaseApp;
@@ -10,6 +11,7 @@ type FirebaseServices = {
   analytics?: Analytics;
   functions?: Functions;
   firestore?: Firestore;
+  storage?: FirebaseStorage;
   localEmulator?: boolean;
 };
 
