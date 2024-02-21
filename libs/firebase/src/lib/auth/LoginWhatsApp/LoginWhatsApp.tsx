@@ -10,13 +10,14 @@ import { getAuth } from '../../firebase';
 
 import { CTAButton, LoginHero } from '@blockium/ui';
 import { afterWhatsAppLogin } from '../apiRequests';
+import { IUser } from '../Login';
 
 type LoginProps = {
   leftImage?: string;
   topImage?: string;
   zapLoginPhone?: string;
   afterWhatsAppLoginApi?: string;
-  onAfterLogin?: () => Promise<void>;
+  onAfterLogin?: (user: IUser) => Promise<void>;
 };
 
 // TODO: !!! After login, if there is no user email, shows the t "Você ainda não tem um email associado. O mesmo é necessário para podermos recuperar seu acesso se você necessitar, e também associar sua conta aos seus dados de pagamento. Isso é necessário apenas uma vez. Clique no botão abaixo para cadastrar o email"
@@ -56,7 +57,15 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
         sessionStorage.setItem('name', name);
         sessionStorage.setItem('displayName', displayName);
 
-        await onAfterLogin?.();
+        const user: IUser = {
+          authId: credential.user.uid,
+          id: userId,
+          name,
+          displayName,
+          phone,
+        };
+
+        await onAfterLogin?.(user);
         navigate('/');
         //
       } else {

@@ -14,6 +14,15 @@ import { GoogleIcon, WhatsAppIcon, CTAButton, LoginHero } from '@blockium/ui';
 import { afterEmailLogin, newWhatsAppSession } from '../apiRequests';
 import { signIn } from '../loginUtils';
 
+export interface IUser {
+  id: string;
+  name: string;
+  displayName: string;
+  phone?: string;
+  email?: string;
+  authId?: string;
+}
+
 type LoginProps = {
   loginMethods: ('phone' | 'whatsapp' | 'email' | 'google')[];
   leftImage?: string;
@@ -21,7 +30,7 @@ type LoginProps = {
   zapNewSessionApi?: string;
   zapLoginPhone?: string;
   afterEmailLoginApi?: string;
-  onAfterLogin?: () => Promise<void>;
+  onAfterLogin?: (user: IUser) => Promise<void>;
 };
 
 // No priority:
@@ -116,7 +125,16 @@ export const Login: React.FC<LoginProps> = ({
       sessionStorage.setItem('name', name);
       sessionStorage.setItem('displayName', displayName);
 
-      await onAfterLogin?.();
+      const user: IUser = {
+        authId: authUser.uid,
+        id: userId,
+        name,
+        displayName,
+        email,
+        phone,
+      };
+
+      await onAfterLogin?.(user);
       navigate('/');
       //
     } else if (answer.status === 204) {
@@ -138,7 +156,16 @@ export const Login: React.FC<LoginProps> = ({
         displayName || t('firebase:label.no-name'),
       );
 
-      await onAfterLogin?.();
+      const user: IUser = {
+        authId: authUser.uid,
+        id: userId,
+        name: name || t('firebase:label.no-name'),
+        displayName: displayName || t('firebase:label.no-name'),
+        email: email || t('firebase:label.no-email'),
+        phone: phone || t('firebase:label.no-phone'),
+      };
+
+      await onAfterLogin?.(user);
       navigate('/');
       //
     } else {

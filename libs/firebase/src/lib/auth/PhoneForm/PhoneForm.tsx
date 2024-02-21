@@ -17,10 +17,11 @@ import { getAuth } from '../../firebase';
 import { PhoneInput, CTAButton } from '@blockium/ui';
 
 import { afterPhoneLogin } from '../apiRequests';
+import { IUser } from '../Login';
 
 type PhoneFormProps = {
   afterPhoneLoginApi?: string;
-  onAfterLogin?: () => Promise<void>;
+  onAfterLogin?: (user: IUser) => Promise<void>;
 };
 
 export const PhoneForm: React.FC<PhoneFormProps> = ({
@@ -144,7 +145,16 @@ export const PhoneForm: React.FC<PhoneFormProps> = ({
       sessionStorage.setItem('name', name);
       sessionStorage.setItem('displayName', displayName);
 
-      await onAfterLogin?.();
+      const user: IUser = {
+        authId: auth.currentUser.uid,
+        id: userId,
+        name,
+        displayName,
+        email,
+        phone,
+      };
+
+      await onAfterLogin?.(user);
       navigate('/');
       //
     } else if (answer.status === 204) {
@@ -166,7 +176,16 @@ export const PhoneForm: React.FC<PhoneFormProps> = ({
         displayName || t('firebase:label.no-name'),
       );
 
-      await onAfterLogin?.();
+      const user: IUser = {
+        authId: auth.currentUser.uid,
+        id: userId,
+        name: name || t('firebase:label.no-name'),
+        displayName: displayName || t('firebase:label.no-name'),
+        email: email || t('firebase:label.no-email'),
+        phone: phone || t('firebase:label.no-phone'),
+      };
+
+      await onAfterLogin?.(user);
       navigate('/');
       //
     } else {

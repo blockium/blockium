@@ -8,6 +8,7 @@ import { Fallback } from './Fallback';
 
 import {
   FirebaseConfig,
+  IUser,
   initFirebase,
   useAuthLayoutConfig,
 } from '@blockium/firebase';
@@ -37,7 +38,7 @@ export interface AuthConfig {
   afterEmailLoginApi?: string;
   afterPhoneLoginApi?: string;
   afterWhatsAppLoginApi?: string;
-  onAfterLogin?: () => Promise<void>;
+  onAfterLogin?: (user: IUser) => Promise<void>;
 }
 
 type AppLayoutProps = {
@@ -150,6 +151,7 @@ export const AppBase: React.FC<AppBaseProps> = ({
                         // Loading while waiting for auth
                         <LoadingPage logo={layoutConfig?.logo?.loading} />
                       }
+                      onAfterLogin={onAfterLogin}
                     >
                       {/* 6. Wrap the App with the LocalizationProvider */}
                       <LocalizationProvider>

@@ -2,12 +2,13 @@ import { Stack } from '@mui/material';
 
 import { LoginHero } from '@blockium/ui';
 import { PhoneForm } from '../PhoneForm';
+import { IUser } from '../Login';
 
 type LoginProps = {
   leftImage?: string;
   topImage?: string;
   afterPhoneLoginApi?: string;
-  onAfterLogin?: () => Promise<void>;
+  onAfterLogin?: (user: IUser) => Promise<void>;
 };
 
 export const LoginPhone: React.FC<LoginProps> = ({
