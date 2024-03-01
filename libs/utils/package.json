@@ -1,6 +1,6 @@
 {
   "name": "@blockium/utils",
-  "version": "0.0.22",
+  "version": "0.0.24",
   "type": "module",
   "sideEffects": false,
   "scripts": {},
