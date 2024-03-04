@@ -53,7 +53,7 @@ export const Login: React.FC<LoginProps> = ({
       if (answer.status === 201) {
         // Save the session id in the session storage
         const { sessionId } = answer.data;
-        sessionStorage.setItem('sessionId', sessionId);
+        localStorage.setItem('sessionId', sessionId);
 
         // Open WhatsApp with the session id
         const phone = zapLoginPhone;
@@ -122,7 +122,7 @@ export const Login: React.FC<LoginProps> = ({
         phone,
       };
       // Saves the userId in order to reobtain it on PrivateRoute
-      sessionStorage.setItem('userId', userId);
+      localStorage.setItem('userId', userId);
       setUser(user);
 
       await onAfterLogin?.(user);
@@ -139,7 +139,7 @@ export const Login: React.FC<LoginProps> = ({
         phone: firebaseUser.phoneNumber || t('firebase:label.no-phone'),
       };
       // Saves the userId in order to reobtain it on PrivateRoute
-      sessionStorage.setItem('userId', firebaseUser.uid);
+      localStorage.setItem('userId', firebaseUser.uid);
       setUser(user);
 
       await onAfterLogin?.(user);

@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { onAuthStateChanged } from 'firebase/auth';
-import { getAuth, useFirebaseUser } from '../../firebase';
+import { getAuth, useFirebaseUser, useSignOut } from '../../firebase';
 import { IUser } from '../../auth/User';
 import { useUser } from '../../auth';
 
@@ -24,17 +24,23 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({
   const [isWaitingAuth, setIsWaitingAuth] = useState(true);
   const [firebaseUser, setFirebaseUser] = useFirebaseUser();
   const [, setUser] = useUser();
+  const signOut = useSignOut();
 
   useEffect(() => {
     return onAuthStateChanged(getAuth(), async (firebaseUser) => {
       console.log('firebaseUser', firebaseUser);
+
+      if (firebaseUser && !localStorage.getItem('userId')) {
+        await signOut();
+        return;
+      }
 
       setFirebaseUser(firebaseUser);
 
       if (firebaseUser) {
         const user: IUser = {
           authId: firebaseUser.uid,
-          id: sessionStorage.getItem('userId') || '',
+          id: localStorage.getItem('userId') || '',
           name: firebaseUser.displayName || t('firebase:label.no-name'),
           displayName: firebaseUser.displayName || t('firebase:label.no-name'),
           email: firebaseUser.email || t('firebase:label.no-email'),
@@ -48,7 +54,7 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({
 
       setIsWaitingAuth(false);
     });
-  }, [onAfterLogin, setFirebaseUser, setUser, t]);
+  }, [onAfterLogin, setFirebaseUser, setUser, signOut, t]);
 
   if (isWaitingAuth) {
     return waitingAuth;

@@ -36,7 +36,7 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
   const { t } = useTranslation();
   const [, setUser] = useUser();
 
-  const sessionId = sessionStorage.getItem('sessionId') || '';
+  const sessionId = localStorage.getItem('sessionId') || '';
 
   const finishLogin = async () => {
     setLoadingWhatsApp(true);
@@ -62,7 +62,7 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
           phone,
         };
         // Saves the userId in order to reobtain it on PrivateRoute
-        sessionStorage.setItem('userId', userId);
+        localStorage.setItem('userId', userId);
         setUser(user);
 
         await onAfterLogin?.(user);

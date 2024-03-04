@@ -150,7 +150,7 @@ export const PhoneForm: React.FC<PhoneFormProps> = ({
         phone,
       };
       // Saves the userId in order to reobtain it on PrivateRoute
-      sessionStorage.setItem('userId', userId);
+      localStorage.setItem('userId', userId);
       setUser(user);
 
       await onAfterLogin?.(user);
@@ -168,7 +168,7 @@ export const PhoneForm: React.FC<PhoneFormProps> = ({
         phone: auth.currentUser.phoneNumber || t('firebase:label.no-phone'),
       };
       // Saves the userId in order to reobtain it on PrivateRoute
-      sessionStorage.setItem('userId', auth.currentUser.uid);
+      localStorage.setItem('userId', auth.currentUser.uid);
       setUser(user);
 
       await onAfterLogin?.(user);
