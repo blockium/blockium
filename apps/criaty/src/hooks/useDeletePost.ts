@@ -1,12 +1,13 @@
 import { startOfMonth } from 'date-fns';
 
-import { savePost, useUser } from '@criaty/model';
+import { savePost } from '@criaty/model';
 import { Post } from '@criaty/model-types';
 import { useCalendarCache } from '@blockium/calendar';
+import { useUser } from '@blockium/firebase';
 
 export const useDeletePost = () => {
   const [calendarCache, setCalendarCache] = useCalendarCache();
-  const user = useUser();
+  const [user] = useUser();
 
   return async (post: Post) => {
     if (!user?.id) return false;

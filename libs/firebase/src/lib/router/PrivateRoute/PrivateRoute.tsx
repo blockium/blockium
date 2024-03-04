@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import { onAuthStateChanged } from 'firebase/auth';
-import { getAuth, useAuth, useSignIn } from '../../firebase';
-import { IUser } from '../../auth/Login';
+import { getAuth, useFirebaseUser } from '../../firebase';
+import { IUser } from '../../auth/User';
+import { useUser } from '../../auth';
 
 interface PrivateRouteProps {
   loginPath: string;
@@ -18,37 +20,41 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({
   children,
   onAfterLogin,
 }) => {
+  const { t } = useTranslation();
   const [isWaitingAuth, setIsWaitingAuth] = useState(true);
-  const signIn = useSignIn();
-  const [authUser] = useAuth();
+  const [firebaseUser, setFirebaseUser] = useFirebaseUser();
+  const [, setUser] = useUser();
 
   useEffect(() => {
-    return onAuthStateChanged(getAuth(), (authUser) => {
-      signIn(authUser);
+    return onAuthStateChanged(getAuth(), async (firebaseUser) => {
+      console.log('firebaseUser', firebaseUser);
+
+      setFirebaseUser(firebaseUser);
+
+      if (firebaseUser) {
+        const user: IUser = {
+          authId: firebaseUser.uid,
+          id: sessionStorage.getItem('userId') || '',
+          name: firebaseUser.displayName || t('firebase:label.no-name'),
+          displayName: firebaseUser.displayName || t('firebase:label.no-name'),
+          email: firebaseUser.email || t('firebase:label.no-email'),
+          phone: firebaseUser.phoneNumber || t('firebase:label.no-phone'),
+        };
+        setUser(user);
+        await onAfterLogin?.(user);
+
+        console.log('user', user);
+      }
+
       setIsWaitingAuth(false);
     });
-  }, [signIn]);
-
-  useEffect(() => {
-    if (!authUser || !onAfterLogin) return;
-
-    const user: IUser = {
-      authId: authUser.uid,
-      id: sessionStorage.getItem('userId') || '',
-      name: sessionStorage.getItem('name') || '',
-      displayName: sessionStorage.getItem('displayName') || '',
-      email: sessionStorage.getItem('email') || undefined,
-      phone: sessionStorage.getItem('phone') || undefined,
-    };
-    onAfterLogin(user);
-    //
-  }, [authUser, onAfterLogin]);
+  }, [onAfterLogin, setFirebaseUser, setUser, t]);
 
   if (isWaitingAuth) {
     return waitingAuth;
   }
 
-  if (authUser) {
+  if (firebaseUser) {
     return children;
   } else {
     return <Navigate to={loginPath} />;

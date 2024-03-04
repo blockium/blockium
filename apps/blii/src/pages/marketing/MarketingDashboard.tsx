@@ -5,7 +5,7 @@ import { useTheme } from '@mui/material/styles';
 import { Favorite as FavoriteIcon } from '@mui/icons-material';
 import { People as PeopleIcon } from '@mui/icons-material';
 
-// import { useAuth } from '@blockium/firebase';
+// import { useFirebaseUser } from '@blockium/firebase';
 import { SummaryWidget } from '@blockium/ui';
 
 import MarketingHero from './MarketingHero';
@@ -13,7 +13,7 @@ import MarketingHero from './MarketingHero';
 export const MarketingDashboard = () => {
   const theme = useTheme();
   const { t } = useTranslation();
-  // const [authUser] = useAuth();
+  // const [firebaseUser] = useFirebaseUser();
 
   const customerServiceCount = 12;
   const customerCount = 45;

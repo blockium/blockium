@@ -2,15 +2,16 @@ import { useState } from 'react';
 import { useEffectOnce } from 'react-use';
 
 import { getUser } from '../actions/users';
+import { useUser } from '@blockium/firebase';
 
 export const useHasBusinessInfo = () => {
+  const [user] = useUser();
   const [hasBusinessInfo, setHasBusinessInfo] = useState<boolean>();
 
   // Check if the business info is filled
   useEffectOnce(() => {
-    const userId = sessionStorage.getItem('userId');
-    if (userId) {
-      getUser(userId).then((user) => {
+    if (user?.id) {
+      getUser(user.id).then((user) => {
         if (user?.business) {
           const { name, description, services } = user.business;
           setHasBusinessInfo(

@@ -7,21 +7,14 @@ import { Phone as PhoneIcon } from '@mui/icons-material';
 
 import { useTranslation } from 'react-i18next';
 
-import { User as AuthUser } from 'firebase/auth';
+import { User as FirebaseUser } from 'firebase/auth';
 
 import { GoogleIcon, WhatsAppIcon, CTAButton, LoginHero } from '@blockium/ui';
 
 import { afterEmailLogin, newWhatsAppSession } from '../apiRequests';
 import { signIn } from '../loginUtils';
-
-export interface IUser {
-  id: string;
-  name: string;
-  displayName: string;
-  phone?: string;
-  email?: string;
-  authId?: string;
-}
+import { IUser } from '../User';
+import useUser from '../useUser';
 
 type LoginProps = {
   loginMethods: ('phone' | 'whatsapp' | 'email' | 'google')[];
@@ -49,6 +42,7 @@ export const Login: React.FC<LoginProps> = ({
   const [loadingGoogle, setLoadingGoogle] = useState(false);
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const [, setUser] = useUser();
 
   const loginWithWhatsApp = async () => {
     setLoadingWhatsApp(true);
@@ -94,8 +88,8 @@ export const Login: React.FC<LoginProps> = ({
     setLoadingGoogle(true);
 
     try {
-      const authUser = await signIn('google');
-      await finishLoginWithEmail(authUser);
+      const firebaseUser = await signIn('google');
+      await finishLoginWithEmail(firebaseUser);
     } catch (error: any) {
       enqueueSnackbar(error.message, { variant: 'error' });
     } finally {
@@ -103,10 +97,10 @@ export const Login: React.FC<LoginProps> = ({
     }
   };
 
-  const finishLoginWithEmail = async (authUser: AuthUser) => {
+  const finishLoginWithEmail = async (firebaseUser: FirebaseUser) => {
     let answer;
     try {
-      answer = await afterEmailLogin(authUser.uid, afterEmailLoginApi);
+      answer = await afterEmailLogin(firebaseUser.uid, afterEmailLoginApi);
     } catch (error: any) {
       console.log(error.message);
       enqueueSnackbar(t('firebase:error.auth.afterEmailLogin'), {
@@ -119,51 +113,34 @@ export const Login: React.FC<LoginProps> = ({
       // Save the user data in the session storage
       // Uses the info returned by the API
       const { userId, name, displayName, phone, email } = answer.data;
-      sessionStorage.setItem('userId', userId);
-      sessionStorage.setItem('phone', phone);
-      sessionStorage.setItem('email', email);
-      sessionStorage.setItem('name', name);
-      sessionStorage.setItem('displayName', displayName);
-
       const user: IUser = {
-        authId: authUser.uid,
-        id: userId,
+        authId: firebaseUser.uid,
+        id: userId, // userId is probably different than authId
         name,
         displayName,
         email,
         phone,
       };
+      // Saves the userId in order to reobtain it on PrivateRoute
+      sessionStorage.setItem('userId', userId);
+      setUser(user);
 
       await onAfterLogin?.(user);
       navigate('/');
       //
     } else if (answer.status === 204) {
-      // Save the user data in the session storage
       // Uses the info from the authenticated user
-      const {
-        uid: userId,
-        phoneNumber: phone,
-        email,
-        displayName: name,
-        displayName,
-      } = authUser;
-      sessionStorage.setItem('userId', userId);
-      sessionStorage.setItem('phone', phone || t('firebase:label.no-phone'));
-      sessionStorage.setItem('email', email || t('firebase:label.no-email'));
-      sessionStorage.setItem('name', name || t('firebase:label.no-name'));
-      sessionStorage.setItem(
-        'displayName',
-        displayName || t('firebase:label.no-name'),
-      );
-
       const user: IUser = {
-        authId: authUser.uid,
-        id: userId,
-        name: name || t('firebase:label.no-name'),
-        displayName: displayName || t('firebase:label.no-name'),
-        email: email || t('firebase:label.no-email'),
-        phone: phone || t('firebase:label.no-phone'),
+        authId: firebaseUser.uid,
+        id: firebaseUser.uid, // userId is same as authId
+        name: firebaseUser.displayName || t('firebase:label.no-name'),
+        displayName: firebaseUser.displayName || t('firebase:label.no-name'),
+        email: firebaseUser.email || t('firebase:label.no-email'),
+        phone: firebaseUser.phoneNumber || t('firebase:label.no-phone'),
       };
+      // Saves the userId in order to reobtain it on PrivateRoute
+      sessionStorage.setItem('userId', firebaseUser.uid);
+      setUser(user);
 
       await onAfterLogin?.(user);
       navigate('/');

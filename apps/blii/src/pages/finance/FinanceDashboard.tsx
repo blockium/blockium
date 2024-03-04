@@ -6,7 +6,7 @@ import { Paid as PaidIcon } from '@mui/icons-material';
 import { ThumbUp as ThumbUpIcon } from '@mui/icons-material';
 import { ThumbDown as ThumbDownIcon } from '@mui/icons-material';
 
-// import { useAuth } from '@blockium/firebase';
+// import { useFirebaseUser } from '@blockium/firebase';
 import { SummaryWidget } from '@blockium/ui';
 
 import { FinanceChat } from './FinanceChat';
@@ -18,7 +18,7 @@ import { FinanceProgress } from './FinanceProgress';
 export const FinanceDashboard = () => {
   const theme = useTheme();
   const { t } = useTranslation();
-  // const [authUser] = useAuth();
+  // const [firebaseUser] = useFirebaseUser();
 
   const customerServiceSum = 1562.5;
   const monthBalance = -5437.5;
@@ -32,7 +32,7 @@ export const FinanceDashboard = () => {
       <FinanceChat />
 
       {/* <Typography variant="h4" sx={{ mb: 5 }}>
-        Olá, {authUser?.displayName}!
+        Olá, {firebaseUser?.displayName}!
       </Typography> */}
       <Typography variant="h3" sx={{ mb: 5 }}>
         {t('page-finance-title')}

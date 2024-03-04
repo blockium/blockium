@@ -1,9 +1,9 @@
+import { useTranslation } from 'react-i18next';
 import { useTheme } from '@mui/material';
 
 import { LayoutConfig } from '@blockium/layout';
-import { formatPhoneNumber } from '@blockium/utils';
 
-import { useAuth, useSignOut } from '../firebase';
+import { useFirebaseUser, useSignOut } from '../firebase';
 
 // type AppLogo = React.FC<
 //   SvgIconProps & {
@@ -19,11 +19,11 @@ type UseLayoutConfigProps = {
 };
 
 export const useAuthLayoutConfig = (props: UseLayoutConfigProps) => {
-  const [user] = useAuth();
+  const { t } = useTranslation();
+  const [firebaseUser] = useFirebaseUser();
   const signOut = useSignOut();
 
   const handleSignOut = async () => {
-    sessionStorage.clear();
     await signOut();
   };
 
@@ -49,22 +49,20 @@ export const useAuthLayoutConfig = (props: UseLayoutConfigProps) => {
   }
   if (layoutConfig.topBar.accountPopover) {
     layoutConfig.topBar.accountPopover.userName =
-      sessionStorage.getItem('displayName') ??
-      sessionStorage.getItem('name') ??
-      '';
+      firebaseUser?.displayName || t('firebase:label.no-name');
     layoutConfig.topBar.accountPopover.userContact =
-      user?.phoneNumber ||
-      user?.email ||
-      formatPhoneNumber(sessionStorage.getItem('phone') ?? '');
+      firebaseUser?.phoneNumber ||
+      firebaseUser?.email ||
+      t('firebase:label.no-email');
     layoutConfig.topBar.accountPopover.userPhotoUrl =
-      user?.photoURL || undefined;
+      firebaseUser?.photoURL || undefined;
     layoutConfig.topBar.accountPopover.handleSignOut = handleSignOut;
   }
 
   // if (layoutConfig.sideBar) {
   //   layoutConfig.sideBar.tenantContext =
-  //     user?.phoneNumber || user?.email || undefined;
-  //   layoutConfig.sideBar.tenantPhotoUrl = user?.photoURL || undefined;
+  //     firebaseUser?.phoneNumber || firebaseUser?.email || undefined;
+  //   layoutConfig.sideBar.tenantPhotoUrl = firebaseUser?.photoURL || undefined;
   // }
 
   return layoutConfig;

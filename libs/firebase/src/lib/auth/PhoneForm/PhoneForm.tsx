@@ -17,7 +17,8 @@ import { getAuth } from '../../firebase';
 import { PhoneInput, CTAButton } from '@blockium/ui';
 
 import { afterPhoneLogin } from '../apiRequests';
-import { IUser } from '../Login';
+import { IUser } from '../User';
+import useUser from '../useUser';
 
 type PhoneFormProps = {
   afterPhoneLoginApi?: string;
@@ -36,6 +37,8 @@ export const PhoneForm: React.FC<PhoneFormProps> = ({
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const [, setUser] = useUser();
+
   const [requestDisplayName, setRequestDisplayName] = useState(false);
   const [displayName, setDisplayName] = useState('');
 
@@ -136,15 +139,8 @@ export const PhoneForm: React.FC<PhoneFormProps> = ({
     }
 
     if (answer.status === 200) {
-      // Save the user data in the session storage
       // Uses the info returned by the API
       const { userId, name, displayName, phone, email } = answer.data;
-      sessionStorage.setItem('userId', userId);
-      sessionStorage.setItem('phone', phone);
-      sessionStorage.setItem('email', email);
-      sessionStorage.setItem('name', name);
-      sessionStorage.setItem('displayName', displayName);
-
       const user: IUser = {
         authId: auth.currentUser.uid,
         id: userId,
@@ -153,37 +149,27 @@ export const PhoneForm: React.FC<PhoneFormProps> = ({
         email,
         phone,
       };
+      // Saves the userId in order to reobtain it on PrivateRoute
+      sessionStorage.setItem('userId', userId);
+      setUser(user);
 
       await onAfterLogin?.(user);
       navigate('/');
       //
     } else if (answer.status === 204) {
-      // Save the user data in the session storage
       // Uses the info from the authenticated user
-      const {
-        uid: userId,
-        phoneNumber: phone,
-        email,
-        displayName: name,
-        displayName,
-      } = auth.currentUser;
-      sessionStorage.setItem('userId', userId);
-      sessionStorage.setItem('phone', phone || t('firebase:label.no-phone'));
-      sessionStorage.setItem('email', email || t('firebase:label.no-email'));
-      sessionStorage.setItem('name', name || t('firebase:label.no-name'));
-      sessionStorage.setItem(
-        'displayName',
-        displayName || t('firebase:label.no-name'),
-      );
-
       const user: IUser = {
         authId: auth.currentUser.uid,
-        id: userId,
-        name: name || t('firebase:label.no-name'),
-        displayName: displayName || t('firebase:label.no-name'),
-        email: email || t('firebase:label.no-email'),
-        phone: phone || t('firebase:label.no-phone'),
+        id: auth.currentUser.uid,
+        name: auth.currentUser.displayName || t('firebase:label.no-name'),
+        displayName:
+          auth.currentUser.displayName || t('firebase:label.no-name'),
+        email: auth.currentUser.email || t('firebase:label.no-email'),
+        phone: auth.currentUser.phoneNumber || t('firebase:label.no-phone'),
       };
+      // Saves the userId in order to reobtain it on PrivateRoute
+      sessionStorage.setItem('userId', auth.currentUser.uid);
+      setUser(user);
 
       await onAfterLogin?.(user);
       navigate('/');

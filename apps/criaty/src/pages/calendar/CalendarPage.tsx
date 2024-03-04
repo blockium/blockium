@@ -6,9 +6,11 @@ import { BorderLinearProgress } from '@blockium/ui';
 import { CalendarView } from '@blockium/calendar';
 import { getPosts } from '@criaty/model';
 import { Post, PostStatus } from '@criaty/model-types';
+import { useUser } from '@blockium/firebase';
 
 export const CalendarPage: React.FC = (props) => {
   const navigate = useNavigate();
+  const [user] = useUser();
 
   const fetchMonthPosts = async (monthStartDate: Date) => {
     // console.log(
@@ -18,7 +20,7 @@ export const CalendarPage: React.FC = (props) => {
 
     // Gets posts only with "deletedAt" == null in between startDate and endDate
     return await getPosts(
-      sessionStorage.getItem('userId') ?? '',
+      user?.id ?? '',
       monthStartDate,
       endOfMonth(monthStartDate),
     );

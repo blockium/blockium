@@ -1,5 +1,5 @@
 import { AppBase, AuthConfig, RouteElement } from '@blockium/appbase';
-import { FirebaseConfig, useAuth } from '@blockium/firebase';
+import { FirebaseConfig, useFirebaseUser } from '@blockium/firebase';
 import { useTranslation } from 'react-i18next';
 import './App.styles.scss';
 
@@ -21,14 +21,14 @@ export function App() {
   // 2. Create the home page component
   const HomePage = () => {
     // You get access to user data:
-    const [user] = useAuth();
+    const [firebaseUser] = useFirebaseUser();
     // You get access to i18n too:
     const { t } = useTranslation();
     //
     return (
       <div className="content">
         <span style={{ fontWeight: 700 }}>
-          {t('hello', { name: user?.displayName })}
+          {t('hello', { name: firebaseUser?.displayName })}
           <br />
           {t('welcome')}
         </span>

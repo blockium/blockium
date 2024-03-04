@@ -5,6 +5,5 @@ export * from './getFirestore';
 export * from './getFunctions';
 export * from './getStorage';
 export * from './dataPoint';
-export * from './useAuth';
-export * from './useSignIn';
+export * from './useFirebaseUser';
 export * from './useSignOut';

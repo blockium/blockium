@@ -10,7 +10,8 @@ import { getAuth } from '../../firebase';
 
 import { CTAButton, LoginHero } from '@blockium/ui';
 import { afterWhatsAppLogin } from '../apiRequests';
-import { IUser } from '../Login';
+import { IUser } from '../User';
+import useUser from '../useUser';
 
 type LoginProps = {
   leftImage?: string;
@@ -33,6 +34,7 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
   const [loadingWhatsApp, setLoadingWhatsApp] = useState(false);
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const [, setUser] = useUser();
 
   const sessionId = sessionStorage.getItem('sessionId') || '';
 
@@ -52,11 +54,6 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
       if (answer.status === 200) {
         // Save the user data in the session storage
         const { userId, phone, name, displayName } = answer.data;
-        sessionStorage.setItem('userId', userId);
-        sessionStorage.setItem('phone', phone);
-        sessionStorage.setItem('name', name);
-        sessionStorage.setItem('displayName', displayName);
-
         const user: IUser = {
           authId: credential.user.uid,
           id: userId,
@@ -64,6 +61,9 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
           displayName,
           phone,
         };
+        // Saves the userId in order to reobtain it on PrivateRoute
+        sessionStorage.setItem('userId', userId);
+        setUser(user);
 
         await onAfterLogin?.(user);
         navigate('/');

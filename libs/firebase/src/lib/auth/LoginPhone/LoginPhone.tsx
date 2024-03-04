@@ -2,7 +2,7 @@ import { Stack } from '@mui/material';
 
 import { LoginHero } from '@blockium/ui';
 import { PhoneForm } from '../PhoneForm';
-import { IUser } from '../Login';
+import { IUser } from '../User';
 
 type LoginProps = {
   leftImage?: string;

@@ -1,9 +1,9 @@
-// import { useAuth } from "@blockium/firebase";
+// import { useFirebaseUser } from "@blockium/firebase";
 
 import { IService } from '../../types';
 
 export const useUpdateService = () => {
-  // const [user] = useAuth();
+  // const [user] = useFirebaseUser();
 
   const updateService = (service: IService) => {
     // TODO

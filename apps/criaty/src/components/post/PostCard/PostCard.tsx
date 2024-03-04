@@ -17,8 +17,9 @@ import {
 import { MoreVert as MoreVertIcon } from '@mui/icons-material';
 
 import { Post, PostStatus } from '@criaty/model-types';
-import { savePost, useUser } from '@criaty/model';
+import { savePost } from '@criaty/model';
 import { ConfirmDialog } from '@blockium/ui';
+import { useUser } from '@blockium/firebase';
 
 import { PostCardPopover } from './PostCardPopover';
 import { useAddPost, useDeletePost } from '../../../hooks';
@@ -38,7 +39,7 @@ interface IPostStepperProps {
 
 const PostStepper: React.FC<IPostStepperProps> = ({ post }) => {
   const [activeStep, setActiveStep] = useState(0);
-  const user = useUser();
+  const [user] = useUser();
   const { t } = useTranslation();
 
   const stepLabels = [

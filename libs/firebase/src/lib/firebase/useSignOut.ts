@@ -1,15 +1,19 @@
 import { signOut } from 'firebase/auth';
-import useAuth from './useAuth';
+import useFirebaseUser from './useFirebaseUser';
 import getAuth from './getAuth';
+import { useUser } from '../auth';
 
 export const useSignOut = () => {
-  const [, setAuthUser] = useAuth();
+  const [, setFirebaseUser] = useFirebaseUser();
+  const [, setUser] = useUser();
   return async () => {
     const auth = getAuth();
     if (auth.currentUser) {
       await signOut(auth);
     }
-    setAuthUser(null);
+    setFirebaseUser(null);
+    setUser(null);
+    sessionStorage.clear();
   };
 };
 
