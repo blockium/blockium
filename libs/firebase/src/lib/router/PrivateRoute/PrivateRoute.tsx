@@ -28,8 +28,8 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({
 
   useEffect(() => {
     return onAuthStateChanged(getAuth(), async (firebaseUser) => {
-      console.log('firebaseUser', firebaseUser);
-
+      // When user logs in, it should have saved user id on local storage
+      // user id may be the user auth id, or some other id (e.g. on Firestore)
       if (firebaseUser && !localStorage.getItem('userId')) {
         await signOut();
         return;
@@ -38,6 +38,7 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({
       setFirebaseUser(firebaseUser);
 
       if (firebaseUser) {
+        // If user logs in, save it on global
         const user: IUser = {
           authId: firebaseUser.uid,
           id: localStorage.getItem('userId') || '',
@@ -47,14 +48,16 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({
           phone: firebaseUser.phoneNumber || t('firebase:label.no-phone'),
         };
         setUser(user);
-        await onAfterLogin?.(user);
 
-        console.log('user', user);
+        // Run onAfterLogin if any
+        await onAfterLogin?.(user);
       }
 
       setIsWaitingAuth(false);
     });
-  }, [onAfterLogin, setFirebaseUser, setUser, signOut, t]);
+    // As onAfterLogin is created every time it was removed from deps below
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [setFirebaseUser, setUser, signOut, t]);
 
   if (isWaitingAuth) {
     return waitingAuth;
