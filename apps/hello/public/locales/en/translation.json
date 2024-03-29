@@ -1,4 +1,7 @@
 {
+  "side-menu.home": "Home",
+  "side-menu.async": "Assync Load",
   "hello": "Hello {{name}}",
-  "welcome": "Welcome to Blockium!"
+  "welcome": "Welcome to Blockium!",
+  "data-loaded": "Data was loaded"
 }

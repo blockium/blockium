@@ -1,6 +1,12 @@
+import { useTranslation } from 'react-i18next';
+import { Home as HomeIcon } from '@mui/icons-material';
+import { Speed as AsyncIcon } from '@mui/icons-material';
+
 import { AppBase, AuthConfig, RouteElement } from '@blockium/appbase';
 import { FirebaseConfig, useFirebaseUser } from '@blockium/firebase';
-import { useTranslation } from 'react-i18next';
+import { LayoutConfig } from '@blockium/layout';
+
+import { AsyncPage } from '../pages';
 import './App.styles.scss';
 
 export function App() {
@@ -18,28 +24,58 @@ export function App() {
     config: firebaseConfig,
   };
 
-  // 2. Create the home page component
+  // You get access to i18n too:
+  const { t } = useTranslation();
+
+  // 2. Define the layout
+  const layoutConfig: LayoutConfig = {
+    sideBar: {
+      sideMenu: [
+        {
+          label: t('side-menu.home'),
+          href: '/',
+          icon: <HomeIcon />,
+        },
+        {
+          label: t('side-menu.async'),
+          href: '/async',
+          icon: <AsyncIcon />,
+        },
+      ],
+    },
+  };
+
+  // 3. Create the home page component
   const HomePage = () => {
     // You get access to user data:
     const [firebaseUser] = useFirebaseUser();
-    // You get access to i18n too:
-    const { t } = useTranslation();
     //
     return (
       <div className="content">
-        <span style={{ fontWeight: 700 }}>
-          {t('hello', { name: firebaseUser?.displayName })}
-          <br />
-          {t('welcome')}
-        </span>
+        <div>
+          <span style={{ fontWeight: 700 }}>
+            {t('hello', { name: firebaseUser?.displayName })}
+            <br />
+            {t('welcome')}
+          </span>
+        </div>
       </div>
     );
   };
 
-  // 3. Define the routes - in this case we have only the <HomePage />
-  const routeElements: RouteElement[] = [{ path: '/', element: <HomePage /> }];
+  // 4. Define the routes - in this case we have only the <HomePage />
+  const routeElements: RouteElement[] = [
+    { path: '/', element: <HomePage /> },
+    { path: '/async', element: <AsyncPage /> },
+  ];
 
-  return <AppBase authConfig={authConfig} routeElements={routeElements} />;
+  return (
+    <AppBase
+      authConfig={authConfig}
+      layoutConfig={layoutConfig}
+      routeElements={routeElements}
+    />
+  );
 }
 
 export default App;
