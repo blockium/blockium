@@ -1,6 +1,6 @@
 {
   "name": "@blockium/calendar",
-  "version": "0.0.15",
+  "version": "0.0.18",
   "type": "module",
   "sideEffects": false,
   "scripts": {},
