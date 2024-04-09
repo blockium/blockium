@@ -23,6 +23,7 @@ export const LoadingPage: React.FC<LoadingPageProps> = ({ logo }) => {
       display="flex"
       justifyContent="center"
       alignItems="center"
+      zIndex={100}
     >
       <LoadingIndicator>{logo}</LoadingIndicator>
     </Box>
