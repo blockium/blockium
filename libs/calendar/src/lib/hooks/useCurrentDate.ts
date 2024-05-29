@@ -8,7 +8,7 @@ const useCurrentDateInt = createGlobalState<Date>(() => {
   return currentDateStr ? new Date(currentDateStr) : new Date();
 });
 
-export const useCurrentDate = () => {
+export const useCurrentDate: () => [Date, (date: Date) => void] = () => {
   const [currentDate, setCurrentDateInt] = useCurrentDateInt();
 
   // Before setting the current date, saves it in the local storage.
