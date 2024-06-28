@@ -44,7 +44,8 @@ export interface AuthConfig {
   afterEmailLoginApi?: string;
   afterPhoneLoginApi?: string;
   afterWhatsAppLoginApi?: string;
-  onAfterLogin?: (user: IUser) => Promise<void>;
+  onAfterLogin?: (user: IUser, loginParams?: string) => Promise<boolean>;
+  onAfterAuthStateChanged?: (user: IUser) => Promise<boolean>;
 }
 
 type AppLayoutProps = {
@@ -137,6 +138,7 @@ export const AppBase: React.FC<AppBaseProps> = ({
     afterPhoneLoginApi,
     afterWhatsAppLoginApi,
     onAfterLogin,
+    onAfterAuthStateChanged,
   } = authConfig;
 
   return (
@@ -160,7 +162,7 @@ export const AppBase: React.FC<AppBaseProps> = ({
                           // Loading while waiting for auth
                           <LoadingPage logo={layoutConfig?.logo?.loading} />
                         }
-                        onAfterLogin={onAfterLogin}
+                        onAfterAuthStateChanged={onAfterAuthStateChanged}
                       >
                         {/* 6. Wrap the App with the LocalizationProvider */}
                         <LocalizationProvider>
@@ -183,21 +185,38 @@ export const AppBase: React.FC<AppBaseProps> = ({
                     ))}
                   </Route>
                   {/* 10. Create the login route */}
-                  <Route
-                    path="/login"
-                    element={
-                      // 11. In the login component, define the login methods
-                      <Login
-                        loginMethods={loginMethods || ['google']}
-                        leftImage={leftImage}
-                        topImage={topImage || leftImage}
-                        zapNewSessionApi={zapNewSessionApi}
-                        zapLoginPhone={zapLoginPhone}
-                        afterEmailLoginApi={afterEmailLoginApi}
-                        onAfterLogin={onAfterLogin}
-                      />
-                    }
-                  />
+                  <Route path="/login">
+                    <Route
+                      path=""
+                      element={
+                        // 11. In the login component, define the login methods
+                        <Login
+                          loginMethods={loginMethods || ['google']}
+                          leftImage={leftImage}
+                          topImage={topImage || leftImage}
+                          zapNewSessionApi={zapNewSessionApi}
+                          zapLoginPhone={zapLoginPhone}
+                          afterEmailLoginApi={afterEmailLoginApi}
+                          onAfterLogin={onAfterLogin}
+                        />
+                      }
+                    />{' '}
+                    <Route
+                      path="/login/:loginParams"
+                      element={
+                        // 11. In the login component, define the login methods
+                        <Login
+                          loginMethods={loginMethods || ['google']}
+                          leftImage={leftImage}
+                          topImage={topImage || leftImage}
+                          zapNewSessionApi={zapNewSessionApi}
+                          zapLoginPhone={zapLoginPhone}
+                          afterEmailLoginApi={afterEmailLoginApi}
+                          onAfterLogin={onAfterLogin}
+                        />
+                      }
+                    />
+                  </Route>
                   {/* 12. Create routes for each login method */}
                   <Route
                     path="/login-phone"

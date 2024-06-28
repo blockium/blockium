@@ -27,8 +27,9 @@ export const App: React.FC = (props) => {
     loginMethods: ['google'],
     leftImage: '/images/login_768_1064.webp',
     topImage: '/images/login_1064_768.webp',
-    onAfterLogin: async (user) => {
+    onAfterLogin: async (user, loginParams?: string) => {
       // console.log('user', user);
+      return true;
     },
   };
 

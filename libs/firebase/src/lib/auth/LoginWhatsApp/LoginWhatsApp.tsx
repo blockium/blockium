@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { enqueueSnackbar } from 'notistack';
 import { Link, Stack, Typography } from '@mui/material';
 
@@ -18,7 +18,7 @@ type LoginProps = {
   topImage?: string;
   zapLoginPhone?: string;
   afterWhatsAppLoginApi?: string;
-  onAfterLogin?: (user: IUser) => Promise<void>;
+  onAfterLogin?: (user: IUser, loginParams?: string) => Promise<boolean>;
 };
 
 // TODO: !!! After login, if there is no user email, shows the t "Você ainda não tem um email associado. O mesmo é necessário para podermos recuperar seu acesso se você necessitar, e também associar sua conta aos seus dados de pagamento. Isso é necessário apenas uma vez. Clique no botão abaixo para cadastrar o email"
@@ -33,6 +33,7 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
 }) => {
   const [loadingWhatsApp, setLoadingWhatsApp] = useState(false);
   const navigate = useNavigate();
+  const { loginParams } = useParams();
   const { t } = useTranslation();
   const [, setUser] = useUser();
 
@@ -65,8 +66,11 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
         localStorage.setItem('userId', userId);
         setUser(user);
 
-        await onAfterLogin?.(user);
-        navigate('/');
+        if (onAfterLogin) {
+          (await onAfterLogin?.(user, loginParams)) && navigate('/');
+        } else {
+          navigate('/');
+        }
         //
       } else {
         enqueueSnackbar(answer.data, { variant: 'error' });

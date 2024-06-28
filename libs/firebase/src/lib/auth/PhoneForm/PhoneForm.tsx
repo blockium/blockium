@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { TextField, Stack, Typography } from '@mui/material';
 import { Phone as PhoneIcon } from '@mui/icons-material';
 
@@ -22,7 +22,7 @@ import useUser from '../useUser';
 
 type PhoneFormProps = {
   afterPhoneLoginApi?: string;
-  onAfterLogin?: (user: IUser) => Promise<void>;
+  onAfterLogin?: (user: IUser, loginParams?: string) => Promise<boolean>;
 };
 
 export const PhoneForm: React.FC<PhoneFormProps> = ({
@@ -36,6 +36,7 @@ export const PhoneForm: React.FC<PhoneFormProps> = ({
   const [verificationCode, setVerificationCode] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
+  const { loginParams } = useParams();
   const { t } = useTranslation();
   const [, setUser] = useUser();
 
@@ -138,10 +139,11 @@ export const PhoneForm: React.FC<PhoneFormProps> = ({
       return;
     }
 
+    let user: IUser;
     if (answer.status === 200) {
       // Uses the info returned by the API
       const { userId, name, displayName, phone, email } = answer.data;
-      const user: IUser = {
+      user = {
         authId: auth.currentUser.uid,
         id: userId,
         name,
@@ -149,16 +151,10 @@ export const PhoneForm: React.FC<PhoneFormProps> = ({
         email,
         phone,
       };
-      // Saves the userId in order to reobtain it on PrivateRoute
-      localStorage.setItem('userId', userId);
-      setUser(user);
-
-      await onAfterLogin?.(user);
-      navigate('/');
       //
     } else if (answer.status === 204) {
       // Uses the info from the authenticated user
-      const user: IUser = {
+      user = {
         authId: auth.currentUser.uid,
         id: auth.currentUser.uid,
         name: auth.currentUser.displayName || t('firebase:label.no-name'),
@@ -167,15 +163,20 @@ export const PhoneForm: React.FC<PhoneFormProps> = ({
         email: auth.currentUser.email || t('firebase:label.no-email'),
         phone: auth.currentUser.phoneNumber || t('firebase:label.no-phone'),
       };
-      // Saves the userId in order to reobtain it on PrivateRoute
-      localStorage.setItem('userId', auth.currentUser.uid);
-      setUser(user);
-
-      await onAfterLogin?.(user);
-      navigate('/');
       //
     } else {
       setErrorMessage(answer.data);
+      return;
+    }
+
+    // Saves the userId in order to reobtain it on PrivateRoute
+    localStorage.setItem('userId', user.id);
+    setUser(user);
+
+    if (onAfterLogin) {
+      (await onAfterLogin?.(user, loginParams)) && navigate('/');
+    } else {
+      navigate('/');
     }
   };
 

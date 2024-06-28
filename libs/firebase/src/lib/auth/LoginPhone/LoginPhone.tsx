@@ -8,7 +8,7 @@ type LoginProps = {
   leftImage?: string;
   topImage?: string;
   afterPhoneLoginApi?: string;
-  onAfterLogin?: (user: IUser) => Promise<void>;
+  onAfterLogin?: (user: IUser, loginParams?: string) => Promise<boolean>;
 };
 
 export const LoginPhone: React.FC<LoginProps> = ({

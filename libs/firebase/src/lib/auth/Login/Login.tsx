@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { enqueueSnackbar } from 'notistack';
 import { Box, Stack } from '@mui/material';
 import { Phone as PhoneIcon } from '@mui/icons-material';
@@ -23,7 +23,7 @@ type LoginProps = {
   zapNewSessionApi?: string;
   zapLoginPhone?: string;
   afterEmailLoginApi?: string;
-  onAfterLogin?: (user: IUser) => Promise<void>;
+  onAfterLogin?: (user: IUser, loginParams?: string) => Promise<boolean>;
 };
 
 // No priority:
@@ -38,10 +38,12 @@ export const Login: React.FC<LoginProps> = ({
   afterEmailLoginApi,
   onAfterLogin,
 }) => {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { loginParams } = useParams();
+
   const [loadingWhatsApp, setLoadingWhatsApp] = useState(false);
   const [loadingGoogle, setLoadingGoogle] = useState(false);
-  const navigate = useNavigate();
-  const { t } = useTranslation();
   const [, setUser] = useUser();
 
   const loginWithWhatsApp = async () => {
@@ -109,11 +111,12 @@ export const Login: React.FC<LoginProps> = ({
       return;
     }
 
+    let user: IUser;
     if (answer.status === 200) {
       // Save the user data in the session storage
       // Uses the info returned by the API
       const { userId, name, displayName, phone, email } = answer.data;
-      const user: IUser = {
+      user = {
         authId: firebaseUser.uid,
         id: userId, // userId is probably different than authId
         name,
@@ -121,16 +124,10 @@ export const Login: React.FC<LoginProps> = ({
         email,
         phone,
       };
-      // Saves the userId in order to reobtain it on PrivateRoute
-      localStorage.setItem('userId', userId);
-      setUser(user);
-
-      await onAfterLogin?.(user);
-      navigate('/');
       //
     } else if (answer.status === 204) {
       // Uses the info from the authenticated user
-      const user: IUser = {
+      user = {
         authId: firebaseUser.uid,
         id: firebaseUser.uid, // userId is same as authId
         name: firebaseUser.displayName || t('firebase:label.no-name'),
@@ -138,15 +135,20 @@ export const Login: React.FC<LoginProps> = ({
         email: firebaseUser.email || t('firebase:label.no-email'),
         phone: firebaseUser.phoneNumber || t('firebase:label.no-phone'),
       };
-      // Saves the userId in order to reobtain it on PrivateRoute
-      localStorage.setItem('userId', firebaseUser.uid);
-      setUser(user);
-
-      await onAfterLogin?.(user);
-      navigate('/');
       //
     } else {
       enqueueSnackbar(answer.data, { variant: 'error' });
+      return;
+    }
+
+    // Saves the userId in order to reobtain it on PrivateRoute
+    localStorage.setItem('userId', user.id);
+    setUser(user);
+
+    if (onAfterLogin) {
+      (await onAfterLogin?.(user, loginParams)) && navigate('/');
+    } else {
+      navigate('/');
     }
   };
 

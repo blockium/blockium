@@ -10,7 +10,7 @@ import { useUser } from '../../auth';
 interface PrivateRouteProps {
   loginPath: string;
   waitingAuth: React.ReactElement;
-  onAfterLogin?: (user: IUser) => Promise<void>;
+  onAfterAuthStateChanged?: (user: IUser) => Promise<boolean>;
   children: React.ReactElement;
 }
 
@@ -18,7 +18,7 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({
   loginPath,
   waitingAuth,
   children,
-  onAfterLogin,
+  onAfterAuthStateChanged,
 }) => {
   const { t } = useTranslation();
   const [isWaitingAuth, setIsWaitingAuth] = useState(true);
@@ -49,13 +49,13 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({
         };
         setUser(user);
 
-        // Run onAfterLogin if any
-        await onAfterLogin?.(user);
+        // Run onAfterAuthStateChanged if any
+        await onAfterAuthStateChanged?.(user);
       }
 
       setIsWaitingAuth(false);
     });
-    // As onAfterLogin is created every time it was removed from deps below
+    // As onAfterAuthStateChanged is recreated it was removed from deps below
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setFirebaseUser, setUser, signOut, t]);
 
