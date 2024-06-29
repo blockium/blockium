@@ -74,6 +74,7 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
         //
       } else {
         enqueueSnackbar(answer.data, { variant: 'error' });
+        setLoadingWhatsApp(false);
       }
       //
     } catch (error) {
@@ -81,9 +82,8 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
       enqueueSnackbar(t('firebase:error.afterWhatsAppLogin'), {
         variant: 'error',
       });
-      //
-    } finally {
       setLoadingWhatsApp(false);
+      //
     }
   };
 

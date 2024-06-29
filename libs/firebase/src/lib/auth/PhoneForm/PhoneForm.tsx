@@ -111,11 +111,12 @@ export const PhoneForm: React.FC<PhoneFormProps> = ({
       await updateProfile(auth.currentUser, {
         displayName,
       });
-      await finishLogin();
+      if (!(await finishLogin())) setLoading(false);
       //
     } catch (error: any) {
       console.log(error.message);
       setErrorMessage(t('firebase:error.auth.phone-sign-in'));
+      setLoading(false);
     }
   };
 
@@ -127,7 +128,7 @@ export const PhoneForm: React.FC<PhoneFormProps> = ({
     const auth = getAuth();
     if (!auth.currentUser) {
       setErrorMessage(t('firebase:error.not-authenticated'));
-      return;
+      return false;
     }
 
     let answer;
@@ -136,7 +137,7 @@ export const PhoneForm: React.FC<PhoneFormProps> = ({
     } catch (error: any) {
       console.log(error.message);
       setErrorMessage(t('firebase:error.auth.afterPhoneLogin'));
-      return;
+      return false;
     }
 
     let user: IUser;
@@ -166,7 +167,7 @@ export const PhoneForm: React.FC<PhoneFormProps> = ({
       //
     } else {
       setErrorMessage(answer.data);
-      return;
+      return false;
     }
 
     // Saves the userId in order to reobtain it on PrivateRoute
@@ -178,6 +179,7 @@ export const PhoneForm: React.FC<PhoneFormProps> = ({
     } else {
       navigate('/');
     }
+    return true;
   };
 
   return (

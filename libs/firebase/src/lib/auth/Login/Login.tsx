@@ -94,7 +94,6 @@ export const Login: React.FC<LoginProps> = ({
       await finishLoginWithEmail(firebaseUser);
     } catch (error: any) {
       enqueueSnackbar(error.message, { variant: 'error' });
-    } finally {
       setLoadingGoogle(false);
     }
   };
