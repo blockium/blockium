@@ -113,7 +113,10 @@ export const AccountPopover: React.FC<AccountPopoverProps> = ({
                   key={option.label}
                   href={option.href}
                   component={Link}
-                  onClick={handleClose}
+                  onClick={() => {
+                    option.onClick?.();
+                    handleClose();
+                  }}
                 >
                   <Stack direction="row">
                     {option.icon && <ListItemIcon>{option.icon}</ListItemIcon>}

@@ -49,6 +49,7 @@ export interface MenuOption {
   icon?: ReactElement;
   info?: string;
   children?: MenuOption[];
+  onClick?: VoidFunction;
 }
 
 export type NavMenuItem = MenuOption & {
@@ -119,7 +120,7 @@ function NavMenu({ item, active }: NavMenuProps) {
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             {children.map((item: MenuOption) => {
-              const { label, href, icon } = item;
+              const { label, href, icon, onClick } = item;
               const isActiveSub = active(href);
 
               return (
@@ -130,6 +131,7 @@ function NavMenu({ item, active }: NavMenuProps) {
                   sx={{
                     ...(isActiveSub && activeSubStyle),
                   }}
+                  onClick={onClick}
                 >
                   <ListItemIconStyle sx={{ ml: 2.5 }}>
                     <Box
