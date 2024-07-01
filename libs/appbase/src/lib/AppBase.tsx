@@ -1,4 +1,4 @@
-import { ReactElement, Suspense } from 'react';
+import { PropsWithChildren, ReactElement, Suspense } from 'react';
 import {
   Route,
   Outlet,
@@ -74,7 +74,7 @@ export type RouteElement = {
   element: ReactElement | (() => ReactElement);
 };
 
-type AppBaseProps = {
+type AppBaseProps = PropsWithChildren & {
   authConfig: AuthConfig;
   themeConfig?: ThemeConfig;
   layoutConfig?: LayoutConfig;
@@ -124,6 +124,7 @@ export const AppBase: React.FC<AppBaseProps> = ({
   layoutConfig,
   routeElements,
   openRouteElements,
+  children,
 }) => {
   // 1. Initialize Firebase
   initFirebase(authConfig.config);
@@ -200,7 +201,7 @@ export const AppBase: React.FC<AppBaseProps> = ({
                           onAfterLogin={onAfterLogin}
                         />
                       }
-                    />{' '}
+                    />
                     <Route
                       path="/login/:loginParams"
                       element={
@@ -255,6 +256,7 @@ export const AppBase: React.FC<AppBaseProps> = ({
               ),
             )}
           />
+          {children}
         </ErrorBoundary>
       </NotistackProvider>
     </ThemeProvider>
