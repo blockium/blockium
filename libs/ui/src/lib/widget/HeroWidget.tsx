@@ -12,17 +12,18 @@ import {
 } from '@mui/material';
 
 import { CTAButton } from '../button';
+import { PropsWithChildren } from 'react';
 
 type HeroAction = {
   label: string;
   onClick: () => void;
 };
 
-type HeroWidgetProps = {
+type HeroWidgetProps = PropsWithChildren & {
   title: string;
   subheader?: string;
   message: string;
-  imageSrc: string;
+  imageSrc?: string;
   imageFullHeight?: boolean;
   xsImageHeight?: number;
   actions?: HeroAction[];
@@ -38,6 +39,7 @@ export const HeroWidget: React.FC<HeroWidgetProps> = ({
   xsImageHeight,
   actions,
   height,
+  children,
 }) => {
   const theme = useTheme();
 
@@ -84,14 +86,18 @@ export const HeroWidget: React.FC<HeroWidgetProps> = ({
           justifyContent="center"
           height={{ xs: xsImageHeight || '100%', sm: '100%' }}
         >
-          <CardMedia
-            image={imageSrc}
-            sx={{
-              height: xsImageHeight || '100%',
-              minHeight: imageFullHeight ? '100%' : undefined,
-              width: '100%',
-            }}
-          />
+          {children
+            ? children
+            : imageSrc && (
+                <CardMedia
+                  image={imageSrc}
+                  sx={{
+                    height: xsImageHeight || '100%',
+                    minHeight: imageFullHeight ? '100%' : undefined,
+                    width: '100%',
+                  }}
+                />
+              )}
         </Grid>
       </Grid>
     </Card>
