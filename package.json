@@ -8,7 +8,7 @@
     "start-hello": "npm run start-firebase & nx serve hello",
     "start-firebase": "nx serve firebase-blockium",
     "start-docs": "nx serve docs",
-    "build": "npm run build-criaty & npm run build-blii & npm run build-firebase & npm run build-firebase-functions",
+    "build": "npm run build-criaty && npm run build-blii && npm run build-firebase && npm run build-firebase-functions",
     "build-criaty": "nx build criaty --configuration production",
     "build-criaty-serve": "nx reset && npm run build-criaty && npx serve dist/apps/criaty",
     "build-criaty-analyzer": "cd apps/criaty && npx vite-bundle-visualizer && cd ../..",
