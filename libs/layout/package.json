@@ -1,27 +1,27 @@
 {
   "name": "@blockium/layout",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "type": "module",
   "sideEffects": false,
   "scripts": {},
   "dependencies": {
-    "@faker-js/faker": "^8.2.0",
-    "change-case": "^5.1.2",
-    "date-fns": "^2.30.0",
-    "react-i18next": "^13.3.1",
-    "react-use": "^17.4.0",
-    "simplebar-react": "^3.2.4",
+    "@faker-js/faker": "8.4.1",
+    "change-case": "5.4.4",
+    "date-fns": "3.6.0",
+    "react-i18next": "14.1.2",
+    "react-use": "17.5.0",
+    "simplebar-react": "3.2.6",
     "@blockium/i18n": "latest",
     "@blockium/theme": "latest",
     "@blockium/utils": "latest"
   },
   "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.22.3",
-    "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0",
-    "@mui/material": "^5.14.17",
-    "@mui/icons-material": "^5.14.16"
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-router-dom": "6.24.1",
+    "@emotion/react": "11.11.4",
+    "@emotion/styled": "11.11.5",
+    "@mui/material": "5.16.0",
+    "@mui/icons-material": "5.16.0"
   }
 }

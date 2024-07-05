@@ -1,23 +1,23 @@
 {
   "name": "@blockium/chart",
-  "version": "0.0.31",
+  "version": "0.0.32",
   "type": "module",
   "sideEffects": false,
   "scripts": {},
   "dependencies": {
-    "apexcharts": "^3.44.2",
-    "lodash-es": "^4.17.21",
-    "prop-types": "^15.8.1",
-    "react-i18next": "^13.3.1",
+    "apexcharts": "3.50.0",
+    "lodash-es": "4.17.21",
+    "prop-types": "15.8.1",
+    "react-i18next": "14.1.2",
     "@blockium/i18n": "latest",
     "@blockium/theme": "latest",
     "@blockium/utils": "latest"
   },
   "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0",
-    "@mui/material": "^5.14.17"
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "@emotion/react": "11.11.4",
+    "@emotion/styled": "11.11.5",
+    "@mui/material": "5.16.0"
   }
 }

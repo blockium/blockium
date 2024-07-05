@@ -1,13 +1,13 @@
 {
   "name": "@blockium/utils",
-  "version": "0.0.28",
+  "version": "0.0.29",
   "type": "module",
   "sideEffects": false,
   "scripts": {},
   "dependencies": {
-    "date-fns": "^2.30.0",
-    "i18next": "^23.6.0",
-    "numeral": "^2.0.6",
+    "date-fns": "3.6.0",
+    "i18next": "23.11.5",
+    "numeral": "2.0.6",
     "@blockium/i18n": "latest"
   },
   "peerDependencies": {}

@@ -1,26 +1,26 @@
 {
   "name": "@blockium/theme",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "type": "module",
   "sideEffects": false,
   "scripts": {},
   "dependencies": {
-    "i18next": "^23.6.0",
-    "react-color": "^2.19.3",
-    "react-i18next": "^13.3.1",
-    "react-use": "^17.4.0",
-    "tinycolor2": "^1.6.0",
+    "i18next": "23.11.5",
+    "react-color": "2.19.3",
+    "react-i18next": "14.1.2",
+    "react-use": "17.5.0",
+    "tinycolor2": "1.6.0",
     "@blockium/i18n": "latest"
   },
   "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.22.3",
-    "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0",
-    "@mui/material": "^5.14.17"
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-router-dom": "6.24.1",
+    "@emotion/react": "11.11.4",
+    "@emotion/styled": "11.11.5",
+    "@mui/material": "5.16.0"
   },
   "devDependencies": {
-    "@types/tinycolor2": "^1.4.6"
+    "@types/tinycolor2": "1.4.6"
   }
 }

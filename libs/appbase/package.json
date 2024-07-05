@@ -1,6 +1,6 @@
 {
   "name": "@blockium/appbase",
-  "version": "0.0.41",
+  "version": "0.0.42",
   "type": "module",
   "sideEffects": false,
   "scripts": {},
@@ -19,6 +19,6 @@
     "react-router-dom": "6.24.1",
     "@emotion/react": "11.11.4",
     "@emotion/styled": "11.11.5",
-    "@mui/material": "5.15.21"
+    "@mui/material": "5.16.0"
   }
 }

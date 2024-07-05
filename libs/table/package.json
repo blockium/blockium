@@ -1,22 +1,22 @@
 {
   "name": "@blockium/table",
-  "version": "0.0.25",
+  "version": "0.0.26",
   "type": "module",
   "sideEffects": false,
   "scripts": {},
   "dependencies": {
-    "material-react-table": "^2.0.5",
-    "react-i18next": "^13.3.1",
-    "react-use": "^17.4.0",
+    "material-react-table": "2.13.0",
+    "react-i18next": "14.1.2",
+    "react-use": "17.5.0",
     "@blockium/i18n": "latest",
     "@blockium/layout": "latest"
   },
   "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0",
-    "@mui/material": "^5.14.17",
-    "@mui/icons-material": "^5.14.16"
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "@emotion/react": "11.11.4",
+    "@emotion/styled": "11.11.5",
+    "@mui/material": "5.16.0",
+    "@mui/icons-material": "5.16.0"
   }
 }
