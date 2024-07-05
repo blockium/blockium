@@ -11,7 +11,7 @@ interface CalendarMonthProps {
   ref?: Ref<HTMLBaseElement>;
 }
 
-export const CalendarMonth: React.FC<CalendarMonthProps> = forwardRef(
+export const CalendarMonth = forwardRef<HTMLBaseElement, CalendarMonthProps>(
   ({ date, onWeekClick, renderDay }, ref) => {
     const month = date.getMonth();
     const year = date.getFullYear();

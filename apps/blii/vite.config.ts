@@ -26,6 +26,7 @@ const manualChunks = (id: string) => {
 };
 
 export default defineConfig({
+  root: __dirname,
   cacheDir: '../../node_modules/.vite/blii',
 
   server: {
@@ -50,6 +51,9 @@ export default defineConfig({
   },
 
   build: {
+    outDir: '../../dist/apps/blii',
+    reportCompressedSize: true,
+    commonjsOptions: { transformMixedEsModules: true },
     target: 'es2017',
     rollupOptions: {
       output: {
@@ -59,6 +63,11 @@ export default defineConfig({
   },
 
   test: {
+    reporters: ['default'],
+    coverage: {
+      reportsDirectory: '../../coverage/apps/blii',
+      provider: 'v8',
+    },
     globals: true,
     cache: { dir: '../../node_modules/.vitest' },
     environment: 'jsdom',

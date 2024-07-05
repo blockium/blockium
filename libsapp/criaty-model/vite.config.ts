@@ -10,6 +10,7 @@ import getSrcInputs from '../vite.config.utils';
 import postprocess from '@stadtlandnetz/rollup-plugin-postprocess';
 
 export default defineConfig({
+  root: __dirname,
   cacheDir: '../../node_modules/.vite/criaty-model',
 
   plugins: [
@@ -46,6 +47,9 @@ export default defineConfig({
   // Configuration for building your library.
   // See: https://vitejs.dev/guide/build.html#library-mode
   build: {
+    outDir: '../../dist/libsapp/criaty-model',
+    reportCompressedSize: true,
+    commonjsOptions: { transformMixedEsModules: true },
     target: 'es2017',
     lib: {
       // Could also be a dictionary or array of multiple entry points.
@@ -80,6 +84,11 @@ export default defineConfig({
   },
 
   test: {
+    reporters: ['default'],
+    coverage: {
+      reportsDirectory: '../../coverage/libsapp/criaty-model',
+      provider: 'v8',
+    },
     globals: true,
     cache: {
       dir: '../../node_modules/.vitest',

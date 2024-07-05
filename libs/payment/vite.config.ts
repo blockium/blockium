@@ -9,6 +9,7 @@ import postprocess from '@stadtlandnetz/rollup-plugin-postprocess';
 import getSrcInputs from '../vite.config.utils';
 
 export default defineConfig({
+  root: __dirname,
   cacheDir: '../../node_modules/.vite/payment',
 
   plugins: [
@@ -39,6 +40,9 @@ export default defineConfig({
   // Configuration for building your library.
   // See: https://vitejs.dev/guide/build.html#library-mode
   build: {
+    outDir: '../../dist/libs/payment',
+    reportCompressedSize: true,
+    commonjsOptions: { transformMixedEsModules: true },
     lib: {
       // Could also be a dictionary or array of multiple entry points.
       entry: 'src/index.ts',
@@ -72,6 +76,11 @@ export default defineConfig({
   },
 
   test: {
+    reporters: ['default'],
+    coverage: {
+      reportsDirectory: '../../coverage/libs/payment',
+      provider: 'v8',
+    },
     globals: true,
     cache: {
       dir: '../../node_modules/.vitest',

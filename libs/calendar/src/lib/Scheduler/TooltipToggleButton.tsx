@@ -11,14 +11,15 @@ type TooltipToggleButtonProps = ToggleButtonProps & {
 };
 
 // Catch props and forward to ToggleButton
-// eslint-disable-next-line react/display-name
-export const TooltipToggleButton: React.FC<TooltipToggleButtonProps> =
-  forwardRef(({ TooltipProps, ...props }, ref) => {
-    return (
-      <Tooltip {...TooltipProps}>
-        <ToggleButton ref={ref} {...props} />
-      </Tooltip>
-    );
-  });
+export const TooltipToggleButton = forwardRef<
+  HTMLButtonElement,
+  TooltipToggleButtonProps
+>(({ TooltipProps, ...props }, ref) => {
+  return (
+    <Tooltip {...TooltipProps}>
+      <ToggleButton ref={ref} {...props} />
+    </Tooltip>
+  );
+});
 
 export default TooltipToggleButton;

@@ -32,7 +32,7 @@ const DateTimeInner = <T extends object>(
         label={field.formLabel}
         value={
           data[field.key] !== null && data[field.key] !== undefined
-            ? new Date(data[field.key] as string)
+            ? (new Date(data[field.key] as string) as never)
             : null
         }
         onChange={(date: Date | null) =>
