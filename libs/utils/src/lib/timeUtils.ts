@@ -1,4 +1,5 @@
 import {
+  FormatRelativeToken,
   Locale,
   differenceInCalendarYears,
   format,
@@ -24,18 +25,18 @@ let language: string;
 const locale = () => {
   if (language === i18next.language && localeCache) return localeCache;
 
-  const formatRelativeLocale: object = {
-    lastWeek: t('utils:date-format.last-week'),
-    yesterday: t('utils:date-format.yesterday'),
-    today: t('utils:date-format.today'),
-    tomorrow: t('utils:date-format.tomorrow'),
-    nextWeek: t('utils:date-format.next-week'),
-    other: t('utils:date-format.other'),
+  const formatRelativeLocale: { [key in FormatRelativeToken]: string } = {
+    "lastWeek": t('utils:date-format.last-week'),
+    "yesterday": t('utils:date-format.yesterday'),
+    "today": t('utils:date-format.today'),
+    "tomorrow": t('utils:date-format.tomorrow'),
+    "nextWeek": t('utils:date-format.next-week'),
+    "other": t('utils:date-format.other'),
   };
 
   localeCache = {
     ...locales[i18next.language as LocaleKey],
-    formatRelative: (token: keyof typeof formatRelativeLocale) =>
+    formatRelative: (token: FormatRelativeToken) =>
       formatRelativeLocale[token],
   };
 

@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 
 // Date configurarion for MUI Date Picker
 import { LocalizationProvider as MuiLocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { enUS as enUSMui, ptBR as ptBRMui } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
+import { enUS as enUSMui, ptBR as ptBRMui } from '@mui/x-date-pickers/locales';
 
 import { Locale } from 'date-fns';
 import { enUS, ptBR } from 'date-fns/locale';

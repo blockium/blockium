@@ -1,4 +1,5 @@
 import {
+  DocumentData,
   QueryDocumentSnapshot,
   WithFieldValue,
   collection,
@@ -10,7 +11,7 @@ const converter = <T>() => ({
   fromFirestore: (snap: QueryDocumentSnapshot) => snap.data() as T,
 });
 
-export const dataPoint = <T>(collectionPath: string) => {
+export const dataPoint = <T extends DocumentData>(collectionPath: string) => {
   const firestore = getFirestore();
   return collection(firestore, collectionPath).withConverter(converter<T>());
 };
