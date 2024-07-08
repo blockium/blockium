@@ -1,10 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
+import { ElementType, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
+  Box,
   Card,
   CardContent,
+  CardTypeMap,
   IconButton,
+  InputBaseComponentProps,
+  InputLabelProps,
   Stack,
+  SxProps,
   TextField,
   Tooltip,
   useTheme,
@@ -13,17 +18,30 @@ import { Send as SendIcon } from '@mui/icons-material';
 
 import ChatMessage, { IChatMessage } from './ChatMessage';
 import { ChatTyping } from './ChatTyping';
+import { OverridableComponent } from '@mui/material/OverridableComponent';
 
 type ChatWidgetProps = {
   messages: IChatMessage[];
   onSendMessage: (message: string) => Promise<void>;
-  height?: number | string | object;
+  component?: OverridableComponent<CardTypeMap<object, 'div'>> &
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (ElementType<any> | undefined);
+  sx?: SxProps;
+  inputLabel?: string;
+  inputProps?: InputBaseComponentProps;
+  InputLabelProps?: Partial<InputLabelProps>;
+  sendButtonMessage?: string;
 };
 
 export const ChatWidget: React.FC<ChatWidgetProps> = ({
   messages,
   onSendMessage,
-  height = '100%',
+  component = Card,
+  sx,
+  inputLabel,
+  inputProps,
+  InputLabelProps,
+  sendButtonMessage,
 }) => {
   const theme = useTheme();
   const [message, setMessage] = useState('');
@@ -50,12 +68,15 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
   };
 
   return (
-    <Card
-      sx={{
-        bgcolor: theme.palette.primary.lighter,
-        height,
-        pt: '2px',
-      }}
+    <Box
+      component={component}
+      sx={
+        sx || {
+          bgcolor: theme.palette.primary.lighter,
+          height: '100%',
+          pt: '2px',
+        }
+      }
     >
       {/* Messages */}
       <CardContent
@@ -73,14 +94,15 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
       {/* New message input */}
       <Stack
         direction="row"
-        gap={2}
+        gap={1}
         alignItems="flex-end"
         height="80px"
-        ml={3}
-        mr={3}
+        ml={2}
+        mr={2}
       >
         <TextField
-          label={t('chat:msg.label')}
+          autoFocus
+          label={inputLabel}
           type="text"
           variant="filled"
           fullWidth
@@ -89,19 +111,23 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           disabled={isMessaging}
-          inputProps={{ style: { color: theme.palette.primary.dark } }}
-          InputLabelProps={{
-            style: {
-              color: theme.palette.primary.main,
-            },
-          }}
+          inputProps={
+            inputProps || { style: { color: theme.palette.primary.dark } }
+          }
+          InputLabelProps={
+            InputLabelProps || {
+              style: {
+                color: theme.palette.primary.main,
+              },
+            }
+          }
         />
-        <Tooltip title={t('chat:msg.button.send')}>
+        <Tooltip title={sendButtonMessage || t('chat:msg.button.send')}>
           <IconButton
-            aria-label={t('chat:msg.button.send')}
+            aria-label={sendButtonMessage || t('chat:msg.button.send')}
             color="primary"
             edge="end"
-            sx={{ mb: '-1rem' }}
+            // sx={{ mb: '-1rem' }}
             onClick={sendMessage}
             disabled={isMessaging}
           >
@@ -109,7 +135,7 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
           </IconButton>
         </Tooltip>
       </Stack>
-    </Card>
+    </Box>
   );
 };
 

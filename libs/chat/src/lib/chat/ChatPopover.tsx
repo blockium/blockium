@@ -61,11 +61,7 @@ export const ChatPopover: React.FC<ChatPopoverProps> = ({
         },
       }}
     >
-      <ChatWidget
-        messages={messages}
-        height={height}
-        onSendMessage={onSendMessage}
-      />
+      <ChatWidget messages={messages} onSendMessage={onSendMessage} />
       <ArrowStyle className="arrow" />
     </Popover>
   );
