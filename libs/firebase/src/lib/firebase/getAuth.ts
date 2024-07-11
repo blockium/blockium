@@ -23,7 +23,9 @@ export const getAuth = () => {
 
     if (isDevLocal) {
       // Connects local emulator for auth
-      connectAuthEmulator(fbServices.auth, 'http://localhost:9099');
+      connectAuthEmulator(fbServices.auth, 'http://localhost:9099', {
+        disableWarnings: true,
+      });
     }
   }
   return auth;
