@@ -22,6 +22,8 @@ import { OverridableComponent } from '@mui/material/OverridableComponent';
 
 type ChatWidgetProps = {
   messages: IChatMessage[];
+  isTyping?: boolean;
+  disabled?: boolean;
   onSendMessage: (message: string) => Promise<void>;
   component?: OverridableComponent<CardTypeMap<object, 'div'>> &
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -35,6 +37,8 @@ type ChatWidgetProps = {
 
 export const ChatWidget: React.FC<ChatWidgetProps> = ({
   messages,
+  isTyping,
+  disabled,
   onSendMessage,
   component = Card,
   sx,
@@ -43,11 +47,12 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
   InputLabelProps,
   sendButtonMessage,
 }) => {
+  const { t } = useTranslation();
   const theme = useTheme();
   const [message, setMessage] = useState('');
   const [isMessaging, setIsMessaging] = useState(false);
   const messageEnd = useRef<HTMLDivElement>(null);
-  const { t } = useTranslation();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (messageEnd.current) {
@@ -58,13 +63,28 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
     }
   }, [messages]);
 
+  // Focus on input after sometime due to components updates
+  const focusInput = () => {
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 100);
+  };
+
   const sendMessage = async () => {
+    focusInput(); // Focus before sending message
+
     if (!message.trim()) return;
 
     setIsMessaging(true);
     setMessage('');
-    await onSendMessage(message);
-    setIsMessaging(false);
+    try {
+      await onSendMessage(message);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsMessaging(false);
+      focusInput(); // Focus after sending message
+    }
   };
 
   return (
@@ -89,7 +109,7 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
         {messages.map((chatMessage, i) => (
           <ChatMessage key={i} {...chatMessage} />
         ))}
-        {isMessaging && <ChatTyping />}
+        {(isMessaging || isTyping) && <ChatTyping />}
       </CardContent>
       {/* New message input */}
       <Stack
@@ -101,6 +121,7 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
         mr={2}
       >
         <TextField
+          inputRef={inputRef}
           autoFocus
           label={inputLabel}
           type="text"
@@ -110,7 +131,14 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
           maxRows={2}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          disabled={isMessaging}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+              e.preventDefault();
+              if (!isMessaging && !isTyping && !disabled) {
+                sendMessage();
+              }
+            }
+          }}
           inputProps={
             inputProps || { style: { color: theme.palette.primary.dark } }
           }
@@ -129,7 +157,7 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
             edge="end"
             // sx={{ mb: '-1rem' }}
             onClick={sendMessage}
-            disabled={isMessaging}
+            disabled={isMessaging || isTyping || disabled}
           >
             <SendIcon />
           </IconButton>
