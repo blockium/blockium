@@ -82,7 +82,7 @@ export default defineConfig({
         'firebase/analytics',
         'firebase/auth',
         'firebase/functions',
-        'firebase/firestore/lite',
+        'firebase/firestore',
         'firebase/storage',
         'axios',
         'i18next',

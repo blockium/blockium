@@ -37,13 +37,7 @@ Agora, por favor, me diga qual período específico você gostaria de destacar n
     setChatMessages([...newChatMessages]);
   };
 
-  return (
-    <ChatWidget
-      messages={chatMessages}
-      height={{ xs: 400, md: 520 }}
-      onSendMessage={onSendMessage}
-    />
-  );
+  return <ChatWidget messages={chatMessages} onSendMessage={onSendMessage} />;
 };
 
 export default MarketingChat;

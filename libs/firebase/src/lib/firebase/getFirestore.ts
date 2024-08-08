@@ -1,7 +1,7 @@
 import {
   connectFirestoreEmulator,
   getFirestore as fbGetFirestore,
-} from 'firebase/firestore/lite';
+} from 'firebase/firestore';
 import fbServices from './fbServices';
 
 export const getFirestore = () => {

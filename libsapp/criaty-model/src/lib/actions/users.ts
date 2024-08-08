@@ -1,4 +1,4 @@
-import { doc, getDoc, setDoc } from 'firebase/firestore/lite';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 import { User } from '@criaty/model-types';
 import { db } from '../db';

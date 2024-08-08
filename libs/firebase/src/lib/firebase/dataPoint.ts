@@ -3,7 +3,7 @@ import {
   QueryDocumentSnapshot,
   WithFieldValue,
   collection,
-} from 'firebase/firestore/lite';
+} from 'firebase/firestore';
 import getFirestore from './getFirestore';
 
 const converter = <T>() => ({

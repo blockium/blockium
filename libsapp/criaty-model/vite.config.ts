@@ -74,7 +74,7 @@ export default defineConfig({
         'react-dom',
         'react/jsx-runtime',
         'react-router-dom',
-        'firebase/firestore/lite',
+        'firebase/firestore',
         'date-fns',
         'react-use',
         '@blockium/firebase',
