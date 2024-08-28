@@ -8,9 +8,12 @@ import { useTranslation } from 'react-i18next';
 
 import {
   ConfirmationResult,
+  linkWithPhoneNumber,
   RecaptchaVerifier,
   signInWithPhoneNumber,
   updateProfile,
+  unlink,
+  PhoneAuthProvider,
 } from 'firebase/auth';
 import { getAuth } from '../../firebase';
 
@@ -51,11 +54,22 @@ export const PhoneForm: React.FC<PhoneFormProps> = ({
       const appVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
         size: 'invisible',
       });
-      const result = await signInWithPhoneNumber(
-        auth,
-        phoneNumber,
-        appVerifier,
-      );
+      let result;
+      // If the user is already logged in, links the phone number to the account
+      if (auth.currentUser) {
+        if (auth.currentUser.phoneNumber) {
+          // If the user already has a phone number, unlinks it
+          await unlink(auth.currentUser, PhoneAuthProvider.PROVIDER_ID);
+        }
+        result = await linkWithPhoneNumber(
+          auth.currentUser,
+          phoneNumber,
+          appVerifier,
+        );
+      } else {
+        // Otherwise, signs in with the phone number
+        result = await signInWithPhoneNumber(auth, phoneNumber, appVerifier);
+      }
       setConfirmationResult(result);
       //
     } catch (error: any) {
