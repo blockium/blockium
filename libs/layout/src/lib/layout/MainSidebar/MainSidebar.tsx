@@ -147,13 +147,13 @@ export const MainSidebar: React.FC<MainSidebarProps> = ({
   );
 
   return (
-    <RootStyle>
+    <RootStyle sx={{ width: sideBarConfig?.sideMenu ? DRAWER_WIDTH : 0 }}>
       {!isDesktop && (
         <Drawer
           open={isOpenSidebar}
           onClose={onCloseSidebar}
           PaperProps={{
-            sx: { width: DRAWER_WIDTH },
+            sx: { width: sideBarConfig?.sideMenu ? DRAWER_WIDTH : 0 },
           }}
         >
           {renderContent}
@@ -166,7 +166,7 @@ export const MainSidebar: React.FC<MainSidebarProps> = ({
           variant="persistent"
           PaperProps={{
             sx: {
-              width: DRAWER_WIDTH,
+              width: sideBarConfig?.sideMenu ? DRAWER_WIDTH : 0,
               bgcolor: 'background.default',
               borderRightStyle: 'dashed',
             },

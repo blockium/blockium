@@ -62,7 +62,7 @@ export const MainTopbar: React.FC<MainTopbarProps> = ({
   const [topbarExtra] = useTopbarExtra();
 
   return (
-    <RootStyle>
+    <RootStyle sx={{ ...(!showMenuIcon && { width: { lg: '100%' } }) }}>
       <ToolbarStyle>
         <Stack width="100%" sx={{ padding: (theme) => theme.spacing(1.5, 0) }}>
           <Stack direction="row">
