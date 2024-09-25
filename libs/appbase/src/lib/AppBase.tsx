@@ -37,6 +37,7 @@ type LoginMethod = 'phone' | 'whatsapp' | 'email' | 'google';
 export interface AuthConfig {
   config: FirebaseConfig;
   loginMethods?: LoginMethod[];
+  loginWithRedirect?: boolean;
   leftImage?: string;
   topImage?: string;
   zapNewSessionApi?: string;
@@ -131,6 +132,7 @@ export const AppBase: React.FC<AppBaseProps> = ({
 
   const {
     loginMethods,
+    loginWithRedirect,
     leftImage,
     topImage,
     zapNewSessionApi,
@@ -193,6 +195,7 @@ export const AppBase: React.FC<AppBaseProps> = ({
                         // 11. In the login component, define the login methods
                         <Login
                           loginMethods={loginMethods || ['google']}
+                          loginWithRedirect={loginWithRedirect}
                           leftImage={leftImage}
                           topImage={topImage || leftImage}
                           zapNewSessionApi={zapNewSessionApi}
@@ -208,6 +211,7 @@ export const AppBase: React.FC<AppBaseProps> = ({
                         // 11. In the login component, define the login methods
                         <Login
                           loginMethods={loginMethods || ['google']}
+                          loginWithRedirect={loginWithRedirect}
                           leftImage={leftImage}
                           topImage={topImage || leftImage}
                           zapNewSessionApi={zapNewSessionApi}

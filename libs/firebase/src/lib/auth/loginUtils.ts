@@ -5,6 +5,7 @@ import {
   UserCredential,
   signInWithEmailAndPassword,
   signInWithPopup,
+  signInWithRedirect,
 } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
 
@@ -12,6 +13,7 @@ import { getAuth } from '../firebase';
 
 export const signIn = async (
   provider: 'email' | 'google',
+  withRedirect = false,
   email?: string,
   password?: string,
 ) => {
@@ -27,7 +29,11 @@ export const signIn = async (
   } else if (provider === 'google') {
     try {
       const provider = new GoogleAuthProvider();
-      result = await signInWithPopup(auth, provider);
+      if (withRedirect) {
+        await signInWithRedirect(auth, provider);
+      } else {
+        result = await signInWithPopup(auth, provider);
+      }
     } catch (error) {
       throwAuthError(error);
     }

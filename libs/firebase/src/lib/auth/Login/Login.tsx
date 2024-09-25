@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { enqueueSnackbar } from 'notistack';
 import { Box, Stack } from '@mui/material';
@@ -7,7 +7,8 @@ import { Phone as PhoneIcon } from '@mui/icons-material';
 
 import { useTranslation } from 'react-i18next';
 
-import { User as FirebaseUser } from 'firebase/auth';
+import { User as FirebaseUser, getRedirectResult } from 'firebase/auth';
+import { getAuth } from '../../firebase';
 
 import { GoogleIcon, WhatsAppIcon, CTAButton, LoginHero } from '@blockium/ui';
 
@@ -18,6 +19,7 @@ import useUser from '../useUser';
 
 type LoginProps = {
   loginMethods: ('phone' | 'whatsapp' | 'email' | 'google')[];
+  loginWithRedirect?: boolean;
   leftImage?: string;
   topImage?: string;
   zapNewSessionApi?: string;
@@ -31,6 +33,7 @@ type LoginProps = {
 // TODO: After a signIn with Google, if there is no user phone, shows the msg "Você ainda não tem um telefone associado. O mesmo é necessário para podermos recuperar seu acesso se você necessitar, e também associar sua conta aos seus dados de pagamento. Isso é necessário apenas uma vez. Clique no botão abaixo para cadastrar o telefone"
 export const Login: React.FC<LoginProps> = ({
   loginMethods,
+  loginWithRedirect = false,
   leftImage,
   topImage,
   zapNewSessionApi,
@@ -90,7 +93,7 @@ export const Login: React.FC<LoginProps> = ({
     setLoadingGoogle(true);
 
     try {
-      const firebaseUser = await signIn('google');
+      const firebaseUser = await signIn('google', loginWithRedirect);
       await finishLoginWithEmail(firebaseUser);
     } catch (error: any) {
       enqueueSnackbar(error.message, { variant: 'error' });
@@ -98,58 +101,74 @@ export const Login: React.FC<LoginProps> = ({
     }
   };
 
-  const finishLoginWithEmail = async (firebaseUser: FirebaseUser) => {
-    let answer;
-    try {
-      answer = await afterEmailLogin(firebaseUser.uid, afterEmailLoginApi);
-    } catch (error: any) {
-      console.log(error.message);
-      enqueueSnackbar(t('firebase:error.auth.afterEmailLogin'), {
-        variant: 'error',
-      });
-      return;
-    }
+  const finishLoginWithEmail = useCallback(
+    async (firebaseUser: FirebaseUser) => {
+      let answer;
+      try {
+        answer = await afterEmailLogin(firebaseUser.uid, afterEmailLoginApi);
+      } catch (error: any) {
+        console.log(error.message);
+        enqueueSnackbar(t('firebase:error.auth.afterEmailLogin'), {
+          variant: 'error',
+        });
+        return;
+      }
 
-    let user: IUser;
-    if (answer.status === 200) {
-      // Save the user data in the session storage
-      // Uses the info returned by the API
-      const { userId, name, displayName, phone, email } = answer.data;
-      user = {
-        authId: firebaseUser.uid,
-        id: userId, // userId is probably different than authId
-        name,
-        displayName,
-        email,
-        phone,
-      };
-      //
-    } else if (answer.status === 204) {
-      // Uses the info from the authenticated user
-      user = {
-        authId: firebaseUser.uid,
-        id: firebaseUser.uid, // userId is same as authId
-        name: firebaseUser.displayName || t('firebase:label.no-name'),
-        displayName: firebaseUser.displayName || t('firebase:label.no-name'),
-        email: firebaseUser.email || t('firebase:label.no-email'),
-        phone: firebaseUser.phoneNumber || t('firebase:label.no-phone'),
-      };
-      //
-    } else {
-      enqueueSnackbar(answer.data, { variant: 'error' });
-      return;
-    }
+      let user: IUser;
+      if (answer.status === 200) {
+        // Save the user data in the session storage
+        // Uses the info returned by the API
+        const { userId, name, displayName, phone, email } = answer.data;
+        user = {
+          authId: firebaseUser.uid,
+          id: userId, // userId is probably different than authId
+          name,
+          displayName,
+          email,
+          phone,
+        };
+        //
+      } else if (answer.status === 204) {
+        // Uses the info from the authenticated user
+        user = {
+          authId: firebaseUser.uid,
+          id: firebaseUser.uid, // userId is same as authId
+          name: firebaseUser.displayName || t('firebase:label.no-name'),
+          displayName: firebaseUser.displayName || t('firebase:label.no-name'),
+          email: firebaseUser.email || t('firebase:label.no-email'),
+          phone: firebaseUser.phoneNumber || t('firebase:label.no-phone'),
+        };
+        //
+      } else {
+        enqueueSnackbar(answer.data, { variant: 'error' });
+        return;
+      }
 
-    // Saves the userId in order to reobtain it on PrivateRoute
-    localStorage.setItem('userId', user.id);
-    setUser(user);
+      // Saves the userId in order to reobtain it on PrivateRoute
+      localStorage.setItem('userId', user.id);
+      setUser(user);
 
-    if (onAfterLogin) {
-      (await onAfterLogin?.(user, loginParams)) && navigate('/');
-    } else {
-      navigate('/');
-    }
-  };
+      if (onAfterLogin) {
+        (await onAfterLogin?.(user, loginParams)) && navigate('/');
+      } else {
+        navigate('/');
+      }
+    },
+    [setUser, onAfterLogin, afterEmailLoginApi, loginParams, t, navigate],
+  );
+
+  // Check if the user was redirected from the login page
+  useEffect(() => {
+    const checkLoginWithRedirect = async () => {
+      const auth = getAuth();
+      const result = await getRedirectResult(auth);
+      if (result?.user) {
+        const firebaseUser = result.user;
+        await finishLoginWithEmail(firebaseUser);
+      }
+    };
+    loginWithRedirect && checkLoginWithRedirect();
+  }, [finishLoginWithEmail, loginWithRedirect]);
 
   return (
     <LoginHero leftImage={leftImage} topImage={topImage}>
