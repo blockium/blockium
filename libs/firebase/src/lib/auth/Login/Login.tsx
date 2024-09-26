@@ -163,8 +163,10 @@ export const Login: React.FC<LoginProps> = ({
       const auth = getAuth();
       const result = await getRedirectResult(auth);
       if (result?.user) {
+        setLoadingGoogle(true);
         const firebaseUser = result.user;
         await finishLoginWithEmail(firebaseUser);
+        setLoadingGoogle(false);
       }
     };
     loginWithRedirect && checkLoginWithRedirect();
