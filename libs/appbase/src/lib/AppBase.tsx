@@ -36,6 +36,7 @@ type LoginMethod = 'phone' | 'whatsapp' | 'email' | 'google';
 
 export interface AuthConfig {
   config: FirebaseConfig;
+  authRoute?: string;
   loginMethods?: LoginMethod[];
   loginWithRedirect?: boolean;
   leftImage?: string;
@@ -49,13 +50,13 @@ export interface AuthConfig {
   onAfterAuthStateChanged?: (user: IUser) => Promise<boolean>;
 }
 
-type AppLayoutProps = {
+type AuthAppLayoutProps = {
   layoutConfig?: LayoutConfig;
 };
 
 // It's necessary to wrap the useAuthLayoutConfig hook in a component
 // Because it requires the ThemeProvider context
-const AppLayout: React.FC<AppLayoutProps> = ({ layoutConfig }) => {
+const AuthAppLayout: React.FC<AuthAppLayoutProps> = ({ layoutConfig }) => {
   const layoutConfigExtended = useAuthLayoutConfig({ layoutConfig });
 
   return (
@@ -70,16 +71,34 @@ const AppLayout: React.FC<AppLayoutProps> = ({ layoutConfig }) => {
   );
 };
 
+type AppLayoutProps = PropsWithChildren & {
+  layoutConfig?: LayoutConfig;
+};
+
+// It's necessary to wrap the useAuthLayoutConfig hook in a component
+// Because it requires the ThemeProvider context
+const AppLayout: React.FC<AppLayoutProps> = ({ layoutConfig, children }) => {
+  return (
+    <MainLayout layoutConfig={layoutConfig}>
+      <Container maxWidth={false} sx={{ margin: '0 auto' }}>
+        <Suspense fallback={<LoadingPage logo={layoutConfig?.logo?.loading} />}>
+          {children}
+        </Suspense>
+      </Container>
+    </MainLayout>
+  );
+};
+
 export type RouteElement = {
   path: string;
   element: ReactElement | (() => ReactElement);
 };
 
 type AppBaseProps = PropsWithChildren & {
-  authConfig: AuthConfig;
+  authConfig?: AuthConfig;
   themeConfig?: ThemeConfig;
   layoutConfig?: LayoutConfig;
-  routeElements: RouteElement[];
+  routeElements?: RouteElement[];
   openRouteElements?: RouteElement[];
 };
 
@@ -88,8 +107,8 @@ type AppBaseProps = PropsWithChildren & {
 // 2. Customizing the theme
 // 3. Wrapping the App with a NotistackProvider
 // 4. Wrapping the App with an ErrorBoundary
-// 5. Defining the main route using PrivateRoute
-// 6. Wrapping the App with the LocalizationProvider
+// 5. Wrapping the App with the LocalizationProvider
+// 6. Defining the main route using PrivateRoute
 // 7. Wrapping the App with the MainLayout passing the layout config
 // 8. Adding the react-router-dom Outlet
 // 9. Creating the sub-routes whose components will be within App
@@ -127,10 +146,11 @@ export const AppBase: React.FC<AppBaseProps> = ({
   openRouteElements,
   children,
 }) => {
-  // 1. Initialize Firebase
-  initFirebase(authConfig.config);
+  // 1. Initialize Firebase if authConfig is provided
+  authConfig && initFirebase(authConfig.config);
 
   const {
+    authRoute,
     loginMethods,
     loginWithRedirect,
     leftImage,
@@ -142,7 +162,7 @@ export const AppBase: React.FC<AppBaseProps> = ({
     afterWhatsAppLoginApi,
     onAfterLogin,
     onAfterAuthStateChanged,
-  } = authConfig;
+  } = authConfig || {};
 
   return (
     // 2. Customize theme
@@ -151,116 +171,124 @@ export const AppBase: React.FC<AppBaseProps> = ({
       <NotistackProvider>
         {/* // 4. Wrap the App with an ErrorBoundary */}
         <ErrorBoundary fallbackRender={Fallback}>
-          <RouterProvider
-            router={createBrowserRouter(
-              createRoutesFromElements(
-                <>
-                  {/* 5. Define the main route using PrivateRoute */}
-                  <Route
-                    path="/"
-                    element={
-                      <PrivateRoute
-                        loginPath="/login"
-                        waitingAuth={
-                          // Loading while waiting for auth
-                          <LoadingPage logo={layoutConfig?.logo?.loading} />
+          {/* 5. Wrap the App with the LocalizationProvider */}
+          <LocalizationProvider>
+            <RouterProvider
+              router={createBrowserRouter(
+                createRoutesFromElements(
+                  <>
+                    {/* 6. Define the auth route using PrivateRoute */}
+                    {routeElements && (
+                      <Route
+                        path={authRoute || '/'}
+                        element={
+                          <PrivateRoute
+                            loginPath="/login"
+                            waitingAuth={
+                              // Loading while waiting for auth
+                              <LoadingPage logo={layoutConfig?.logo?.loading} />
+                            }
+                            onAfterAuthStateChanged={onAfterAuthStateChanged}
+                          >
+                            {/* 7. In AuthAppLayout, wrap the App with the MainLayout passing the layout config */}
+                            {/* 8. In AuthAppLayout, add the react-router-dom Outlet */}
+                            <AuthAppLayout layoutConfig={layoutConfig} />
+                          </PrivateRoute>
                         }
-                        onAfterAuthStateChanged={onAfterAuthStateChanged}
                       >
-                        {/* 6. Wrap the App with the LocalizationProvider */}
-                        <LocalizationProvider>
-                          {/* 7. In AppLayout, wrap the App with the MainLayout passing the layout config */}
-                          {/* 8. In AppLayout, add the react-router-dom Outlet */}
-                          <AppLayout layoutConfig={layoutConfig} />
-                        </LocalizationProvider>
-                      </PrivateRoute>
-                    }
-                  >
-                    {/* 9. Create private routes whose components will be within App */}
-                    {routeElements.map(({ path, element }, index) => (
+                        {/* 9. Create private routes whose components will be within App */}
+                        {routeElements.map(({ path, element }, index) => (
+                          <Route
+                            path={path}
+                            element={
+                              typeof element === 'function'
+                                ? element()
+                                : element
+                            }
+                            key={index}
+                          />
+                        ))}
+                      </Route>
+                    )}
+                    {/* 10. Create the login route */}
+                    <Route path="/login">
+                      <Route
+                        path=""
+                        element={
+                          // 11. In the login component, define the login methods
+                          <Login
+                            loginMethods={loginMethods || ['google']}
+                            loginWithRedirect={loginWithRedirect}
+                            leftImage={leftImage}
+                            topImage={topImage || leftImage}
+                            zapNewSessionApi={zapNewSessionApi}
+                            zapLoginPhone={zapLoginPhone}
+                            afterEmailLoginApi={afterEmailLoginApi}
+                            onAfterLogin={onAfterLogin}
+                          />
+                        }
+                      />
+                      <Route
+                        path="/login/:loginParams"
+                        element={
+                          // 11. In the login component, define the login methods
+                          <Login
+                            loginMethods={loginMethods || ['google']}
+                            loginWithRedirect={loginWithRedirect}
+                            leftImage={leftImage}
+                            topImage={topImage || leftImage}
+                            zapNewSessionApi={zapNewSessionApi}
+                            zapLoginPhone={zapLoginPhone}
+                            afterEmailLoginApi={afterEmailLoginApi}
+                            onAfterLogin={onAfterLogin}
+                          />
+                        }
+                      />
+                    </Route>
+                    {/* 12. Create routes for each login method */}
+                    <Route
+                      path="/login-phone"
+                      element={
+                        <LoginPhone
+                          leftImage={leftImage}
+                          topImage={topImage || leftImage}
+                          afterPhoneLoginApi={afterPhoneLoginApi}
+                          onAfterLogin={onAfterLogin}
+                        />
+                      }
+                    />
+                    <Route
+                      path="/login-whatsapp"
+                      element={
+                        <LoginWhatsApp
+                          leftImage={leftImage}
+                          topImage={topImage || leftImage}
+                          afterWhatsAppLoginApi={afterWhatsAppLoginApi}
+                          zapLoginPhone={zapLoginPhone}
+                          onAfterLogin={onAfterLogin}
+                        />
+                      }
+                    />
+                    {/* 13. Create open routes */}
+                    {openRouteElements?.map(({ path, element }, index) => (
                       <Route
                         path={path}
                         element={
-                          typeof element === 'function' ? element() : element
+                          <AppLayout layoutConfig={layoutConfig}>
+                            {typeof element === 'function'
+                              ? element()
+                              : element}
+                          </AppLayout>
                         }
                         key={index}
                       />
                     ))}
-                  </Route>
-                  {/* 10. Create the login route */}
-                  <Route path="/login">
-                    <Route
-                      path=""
-                      element={
-                        // 11. In the login component, define the login methods
-                        <Login
-                          loginMethods={loginMethods || ['google']}
-                          loginWithRedirect={loginWithRedirect}
-                          leftImage={leftImage}
-                          topImage={topImage || leftImage}
-                          zapNewSessionApi={zapNewSessionApi}
-                          zapLoginPhone={zapLoginPhone}
-                          afterEmailLoginApi={afterEmailLoginApi}
-                          onAfterLogin={onAfterLogin}
-                        />
-                      }
-                    />
-                    <Route
-                      path="/login/:loginParams"
-                      element={
-                        // 11. In the login component, define the login methods
-                        <Login
-                          loginMethods={loginMethods || ['google']}
-                          loginWithRedirect={loginWithRedirect}
-                          leftImage={leftImage}
-                          topImage={topImage || leftImage}
-                          zapNewSessionApi={zapNewSessionApi}
-                          zapLoginPhone={zapLoginPhone}
-                          afterEmailLoginApi={afterEmailLoginApi}
-                          onAfterLogin={onAfterLogin}
-                        />
-                      }
-                    />
-                  </Route>
-                  {/* 12. Create routes for each login method */}
-                  <Route
-                    path="/login-phone"
-                    element={
-                      <LoginPhone
-                        leftImage={leftImage}
-                        topImage={topImage || leftImage}
-                        afterPhoneLoginApi={afterPhoneLoginApi}
-                        onAfterLogin={onAfterLogin}
-                      />
-                    }
-                  />
-                  <Route
-                    path="/login-whatsapp"
-                    element={
-                      <LoginWhatsApp
-                        leftImage={leftImage}
-                        topImage={topImage || leftImage}
-                        afterWhatsAppLoginApi={afterWhatsAppLoginApi}
-                        zapLoginPhone={zapLoginPhone}
-                        onAfterLogin={onAfterLogin}
-                      />
-                    }
-                  />
-                  {/* 13. Create open routes without layouts */}
-                  {openRouteElements?.map(({ path, element }, index) => (
-                    <Route
-                      path={path}
-                      element={
-                        typeof element === 'function' ? element() : element
-                      }
-                      key={index}
-                    />
-                  ))}
-                </>,
-              ),
-            )}
-          />
-          {children}
+                  </>,
+                ),
+              )}
+            />
+            {children}
+          </LocalizationProvider>
         </ErrorBoundary>
       </NotistackProvider>
     </ThemeProvider>
