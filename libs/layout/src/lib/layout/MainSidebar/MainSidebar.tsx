@@ -69,7 +69,7 @@ export const MainSidebar: React.FC<MainSidebarProps> = ({
   const { pathname } = useLocation();
 
   const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
+  const isLgScreen = useMediaQuery(theme.breakpoints.up('lg'));
 
   useEffect(() => {
     if (isOpenSidebar) {
@@ -147,8 +147,12 @@ export const MainSidebar: React.FC<MainSidebarProps> = ({
   );
 
   return (
-    <RootStyle sx={{ width: sideBarConfig?.sideMenu ? DRAWER_WIDTH : 0 }}>
-      {!isDesktop && (
+    <RootStyle
+      sx={{
+        width: sideBarConfig?.sideMenu && isOpenSidebar ? DRAWER_WIDTH : 0,
+      }}
+    >
+      {!isLgScreen && (
         <Drawer
           open={isOpenSidebar}
           onClose={onCloseSidebar}
@@ -160,7 +164,7 @@ export const MainSidebar: React.FC<MainSidebarProps> = ({
         </Drawer>
       )}
 
-      {isDesktop && (
+      {isLgScreen && (
         <Drawer
           open
           variant="persistent"
