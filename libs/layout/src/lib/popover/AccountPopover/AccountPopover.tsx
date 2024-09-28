@@ -12,6 +12,7 @@ import {
   Link,
   ListItemIcon,
 } from '@mui/material';
+import { Menu as MenuIcon } from '@mui/icons-material';
 import { Logout as LogoutIcon } from '@mui/icons-material';
 
 import { DarkModeSwitch, ThemeColorSelector } from '@blockium/theme';
@@ -77,7 +78,9 @@ export const AccountPopover: React.FC<AccountPopoverProps> = ({
           }),
         }}
       >
-        <Avatar src={userPhotoUrl} alt={t('layout:alt.user-photo')} />
+        <Avatar src={userPhotoUrl} alt={t('layout:alt.user-photo')}>
+          {!(userName || userContact) && <MenuIcon />}
+        </Avatar>
       </IconButton>
 
       <MenuPopover
@@ -94,20 +97,28 @@ export const AccountPopover: React.FC<AccountPopoverProps> = ({
           },
         }}
       >
-        <Box sx={{ my: 1.5, px: 2.5 }}>
-          <Typography variant="subtitle2" noWrap>
-            {userName}
-          </Typography>
-          <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {userContact}
-          </Typography>
-        </Box>
+        {(userName || userContact) && (
+          <>
+            <Box sx={{ my: 1.5, px: 2.5 }}>
+              <Typography variant="subtitle2" noWrap>
+                {userName}
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{ color: 'text.secondary' }}
+                noWrap
+              >
+                {userContact}
+              </Typography>
+            </Box>
 
-        <Divider sx={{ borderStyle: 'dashed' }} />
+            <Divider sx={{ borderStyle: 'dashed' }} />
+          </>
+        )}
 
         {accountMenu && (
           <>
-            <Stack sx={{ p: 1 }}>
+            <Stack gap={1} sx={{ p: 1 }}>
               {accountMenu.map((option) => (
                 <MenuItem
                   key={option.label}
