@@ -26,10 +26,10 @@ const DRAWER_WIDTH = 280;
 
 const RootStyle = styled('div')(({ theme }) => ({
   zIndex: 1,
-  [theme.breakpoints.up('lg')]: {
-    flexShrink: 0,
-    width: DRAWER_WIDTH,
-  },
+  // [theme.breakpoints.up('lg')]: {
+  //   flexShrink: 0,
+  //   width: DRAWER_WIDTH,
+  // },
 }));
 
 const AccountStyle = styled('div')(({ theme }) => ({
@@ -149,7 +149,10 @@ export const MainSidebar: React.FC<MainSidebarProps> = ({
   return (
     <RootStyle
       sx={{
-        width: sideBarConfig?.sideMenu && isOpenSidebar ? DRAWER_WIDTH : 0,
+        width:
+          sideBarConfig?.sideMenu && (isOpenSidebar || isLgScreen)
+            ? DRAWER_WIDTH
+            : 0,
       }}
     >
       {!isLgScreen && (
