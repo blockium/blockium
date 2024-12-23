@@ -1,8 +1,18 @@
 import { PropsWithChildren, useState } from 'react';
-import { Avatar, Badge, Fab, Tooltip, styled } from '@mui/material';
+import {
+  Avatar,
+  Badge,
+  Dialog,
+  Fab,
+  IconButton,
+  Tooltip,
+  styled,
+} from '@mui/material';
+import { Clear as ClearIcon } from '@mui/icons-material';
 
 import { ChatPopover } from './ChatPopover';
 import { IChatMessage } from './ChatMessage';
+import ChatWidget from './ChatWidget';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -42,6 +52,9 @@ type ChatFabProps = PropsWithChildren & {
   onSendMessage?: (message: string) => Promise<void>;
   onOpen?: () => void;
   onClose?: () => void;
+  width?: number;
+  height?: number;
+  fullScreen?: boolean;
 };
 
 export const ChatFab: React.FC<ChatFabProps> = ({
@@ -54,6 +67,9 @@ export const ChatFab: React.FC<ChatFabProps> = ({
   onOpen,
   onClose,
   children,
+  width,
+  height,
+  fullScreen,
 }) => {
   const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
 
@@ -97,14 +113,45 @@ export const ChatFab: React.FC<ChatFabProps> = ({
           </StyledBadge>
         </Fab>
       </Tooltip>
-      <ChatPopover
-        anchorEl={openPopover}
-        messages={messages}
-        onSendMessage={onSendMessage}
-        onClose={handleClose}
-      >
-        {children}
-      </ChatPopover>
+      {fullScreen ? (
+        <Dialog
+          open={Boolean(openPopover)}
+          onClose={onClose}
+          fullScreen={fullScreen}
+        >
+          {children || (
+            <ChatWidget
+              messages={messages || []}
+              onSendMessage={
+                onSendMessage || (async (message: string) => void 0)
+              }
+            />
+          )}
+          <IconButton
+            size="large"
+            onClick={handleClose}
+            sx={{
+              position: 'absolute',
+              top: 4,
+              right: 4,
+            }}
+          >
+            <ClearIcon />
+          </IconButton>
+        </Dialog>
+      ) : (
+        <ChatPopover
+          anchorEl={openPopover}
+          messages={messages}
+          onSendMessage={onSendMessage}
+          onClose={handleClose}
+          position={position}
+          width={width}
+          height={height}
+        >
+          {children}
+        </ChatPopover>
+      )}
     </>
   );
 };

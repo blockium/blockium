@@ -2,7 +2,6 @@ import { ElementType, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Box,
-  Card,
   CardTypeMap,
   IconButton,
   InputBaseComponentProps,
@@ -39,7 +38,7 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
   isTyping,
   disabled,
   onSendMessage,
-  component = Card,
+  component = Box,
   sx,
   inputLabel,
   inputProps,
@@ -87,11 +86,16 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
   };
 
   return (
-    <Box component={component} sx={sx} m={2} mb={0.5}>
+    <Box
+      component={component}
+      sx={{ ...sx, height: 'calc(100% - 20px)' }}
+      m="16px"
+      mb="4px"
+    >
       {/* Messages */}
       <Stack
         direction="column"
-        gap={1}
+        gap="8px"
         ref={messagesRef}
         sx={{
           height: 'calc(100% - 88px)',

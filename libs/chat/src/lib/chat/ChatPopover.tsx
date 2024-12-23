@@ -1,23 +1,31 @@
-import { Popover, alpha, styled } from '@mui/material';
+import { Box, Popover, alpha, styled } from '@mui/material';
 
 import { IChatMessage } from './ChatMessage';
 import { ChatWidget } from './ChatWidget';
 import { PropsWithChildren } from 'react';
 
-const ArrowStyle = styled('span')(({ theme }) => ({
+const ArrowStyle = styled(Box)<{
+  arrowPos?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+}>(({ theme, arrowPos }) => ({
   [theme.breakpoints.up('xs')]: {
-    bottom: -7,
+    ...(arrowPos === 'top-left' || arrowPos === 'top-right'
+      ? { top: -7 }
+      : { bottom: -7 }),
     zIndex: 1,
     width: 12,
-    right: 20,
+    ...(arrowPos === 'top-left' || arrowPos === 'bottom-left'
+      ? { left: 20 }
+      : { right: 20 }),
     height: 12,
     content: "''",
     position: 'absolute',
     borderRadius: '0 0 4px 0',
-    transform: 'rotate(-315deg)',
-    background: theme.palette.primary.lighter,
-    borderRight: `solid 2px ${alpha(theme.palette.grey[500], 0.5)}`,
-    borderBottom: `solid 2px ${alpha(theme.palette.grey[500], 0.5)}`,
+    ...(arrowPos === 'top-left' || arrowPos === 'top-right'
+      ? { transform: 'rotate(-135deg)' }
+      : { transform: 'rotate(45deg)' }),
+    background: 'inherit',
+    borderRight: `solid 1px ${alpha(theme.palette.grey[500], 0.5)}`,
+    borderBottom: `solid 1px ${alpha(theme.palette.grey[500], 0.5)}`,
   },
 }));
 
@@ -26,6 +34,9 @@ type ChatPopoverProps = PropsWithChildren & {
   messages?: IChatMessage[];
   onSendMessage?: (message: string) => Promise<void>;
   onClose: () => void;
+  position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+  width?: number;
+  height?: number;
 };
 
 export const ChatPopover: React.FC<ChatPopoverProps> = ({
@@ -34,6 +45,9 @@ export const ChatPopover: React.FC<ChatPopoverProps> = ({
   onSendMessage,
   onClose,
   children,
+  position = 'bottom-right',
+  width,
+  height,
 }) => {
   const handleClose = () => {
     onClose();
@@ -44,19 +58,33 @@ export const ChatPopover: React.FC<ChatPopoverProps> = ({
       open={Boolean(anchorEl)}
       onClose={handleClose}
       anchorEl={anchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-      transformOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      anchorOrigin={{
+        vertical:
+          position === 'top-left' || position === 'top-right'
+            ? 'bottom'
+            : 'top',
+        horizontal: 'center',
+      }}
+      transformOrigin={{
+        vertical:
+          position === 'top-left' || position === 'top-right'
+            ? 'top'
+            : 'bottom',
+        horizontal: 'center',
+      }}
       slotProps={{
         paper: {
           sx: {
             overflow: 'inherit',
             borderRadius: 2,
-            width: { xs: '100%', sm: 600 },
+            width: width || { xs: '100%', sm: 600 },
+            height: height || 200,
+            minHeight: 200,
           },
         },
         root: {
           sx: {
-            mt: -1,
+            mt: position === 'top-left' || position === 'top-right' ? 1 : -1,
           },
         },
       }}
@@ -67,7 +95,7 @@ export const ChatPopover: React.FC<ChatPopoverProps> = ({
           onSendMessage={onSendMessage || (async (message: string) => void 0)}
         />
       )}
-      <ArrowStyle className="arrow" />
+      <ArrowStyle className="arrow" arrowPos={position} />
     </Popover>
   );
 };
