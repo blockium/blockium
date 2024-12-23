@@ -1,4 +1,4 @@
-import { Avatar, Box, Grid, Typography, useTheme } from '@mui/material';
+import { Avatar, Box, Stack, Typography, useTheme } from '@mui/material';
 
 import { createChatStyles } from './createChatStyles';
 
@@ -6,22 +6,16 @@ export interface IChatMessage {
   avatar?: string;
   messages?: string[];
   side?: 'left' | 'right';
-  GridContainerProps?: object;
-  AvatarGridProps?: object;
   AvatarProps?: object;
   TypographyProps?: object;
-  getTypographyProps?: () => object;
 }
 
 export const ChatMessage: React.FC<IChatMessage> = ({
   avatar = '',
   messages = [],
   side = 'left',
-  GridContainerProps,
-  AvatarGridProps,
   AvatarProps,
   TypographyProps,
-  getTypographyProps,
 }) => {
   const theme = useTheme();
   const styles = createChatStyles(theme);
@@ -37,38 +31,34 @@ export const ChatMessage: React.FC<IChatMessage> = ({
   };
 
   return (
-    <Grid
-      container
-      spacing={2}
+    <Stack
+      direction="row"
+      width="100%"
       justifyContent={side === 'right' ? 'flex-end' : 'flex-start'}
-      {...GridContainerProps}
+      gap={0.5}
     >
       {side === 'left' && avatar !== '' && (
-        <Grid item xs={2} {...AvatarGridProps}>
-          <Avatar src={avatar} {...AvatarProps} sx={{ ...styles.avatar }} />
-        </Grid>
+        <Avatar src={avatar} {...AvatarProps} sx={{ ...styles.avatar }} />
       )}
-      <Grid item xs={10}>
-        {messages.map((msg, i) => {
-          return (
-            <Box key={i} sx={{ ...styles[`${side}Row`] }}>
-              <Typography
-                align={'left'}
-                {...TypographyProps}
-                sx={{
-                  ...styles.msg,
-                  ...styles[side],
-                  ...msgStyle(i),
-                  whiteSpace: 'pre-line',
-                }}
-              >
-                {msg}
-              </Typography>
-            </Box>
-          );
-        })}
-      </Grid>
-    </Grid>
+      {messages.map((msg, i) => {
+        return (
+          <Box key={i} sx={{ ...styles[`${side}Row`], maxWidth: '80%' }}>
+            <Typography
+              align={'left'}
+              {...TypographyProps}
+              sx={{
+                ...styles.msg,
+                ...styles[side],
+                ...msgStyle(i),
+                whiteSpace: 'pre-line',
+              }}
+            >
+              {msg}
+            </Typography>
+          </Box>
+        );
+      })}
+    </Stack>
   );
 };
 

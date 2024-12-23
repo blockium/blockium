@@ -2,6 +2,7 @@ import { Popover, alpha, styled } from '@mui/material';
 
 import { IChatMessage } from './ChatMessage';
 import { ChatWidget } from './ChatWidget';
+import { PropsWithChildren } from 'react';
 
 const ArrowStyle = styled('span')(({ theme }) => ({
   [theme.breakpoints.up('xs')]: {
@@ -20,12 +21,11 @@ const ArrowStyle = styled('span')(({ theme }) => ({
   },
 }));
 
-type ChatPopoverProps = {
+type ChatPopoverProps = PropsWithChildren & {
   anchorEl: HTMLElement | null;
-  messages: IChatMessage[];
-  onSendMessage: (message: string) => Promise<void>;
+  messages?: IChatMessage[];
+  onSendMessage?: (message: string) => Promise<void>;
   onClose: () => void;
-  height?: number | string | object;
 };
 
 export const ChatPopover: React.FC<ChatPopoverProps> = ({
@@ -33,7 +33,7 @@ export const ChatPopover: React.FC<ChatPopoverProps> = ({
   messages,
   onSendMessage,
   onClose,
-  height = { xs: '82vh', md: '75vh' },
+  children,
 }) => {
   const handleClose = () => {
     onClose();
@@ -61,7 +61,12 @@ export const ChatPopover: React.FC<ChatPopoverProps> = ({
         },
       }}
     >
-      <ChatWidget messages={messages} onSendMessage={onSendMessage} />
+      {children || (
+        <ChatWidget
+          messages={messages || []}
+          onSendMessage={onSendMessage || (async (message: string) => void 0)}
+        />
+      )}
       <ArrowStyle className="arrow" />
     </Popover>
   );

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { PropsWithChildren, useState } from 'react';
 import { Avatar, Badge, Fab, Tooltip, styled } from '@mui/material';
 
 import { ChatPopover } from './ChatPopover';
@@ -33,14 +33,13 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-type ChatFabProps = {
+type ChatFabProps = PropsWithChildren & {
   avatar: string;
   tooltip?: string;
   position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
-  height?: number | string | object;
-  messages: IChatMessage[];
+  messages?: IChatMessage[];
   hasNewMessage?: boolean;
-  onSendMessage: (message: string) => Promise<void>;
+  onSendMessage?: (message: string) => Promise<void>;
   onOpen?: () => void;
   onClose?: () => void;
 };
@@ -49,12 +48,12 @@ export const ChatFab: React.FC<ChatFabProps> = ({
   avatar,
   tooltip,
   position = 'bottom-right',
-  height,
   messages,
   hasNewMessage = false,
   onSendMessage,
   onOpen,
   onClose,
+  children,
 }) => {
   const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
 
@@ -103,8 +102,9 @@ export const ChatFab: React.FC<ChatFabProps> = ({
         messages={messages}
         onSendMessage={onSendMessage}
         onClose={handleClose}
-        height={height}
-      />
+      >
+        {children}
+      </ChatPopover>
     </>
   );
 };

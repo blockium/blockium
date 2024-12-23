@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import {
   Box,
   Card,
-  CardContent,
   CardTypeMap,
   IconButton,
   InputBaseComponentProps,
@@ -51,12 +50,12 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
   const theme = useTheme();
   const [message, setMessage] = useState('');
   const [isMessaging, setIsMessaging] = useState(false);
-  const messageEnd = useRef<HTMLDivElement>(null);
+  const messagesRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (messageEnd.current) {
-      messageEnd.current.lastElementChild?.scrollIntoView({
+    if (messagesRef.current) {
+      messagesRef.current.lastElementChild?.scrollIntoView({
         behavior: 'instant',
         block: 'end',
       });
@@ -88,21 +87,14 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
   };
 
   return (
-    <Box
-      component={component}
-      sx={
-        sx || {
-          bgcolor: theme.palette.primary.lighter,
-          height: '100%',
-          pt: '2px',
-        }
-      }
-    >
+    <Box component={component} sx={sx} m={2} mb={0.5}>
       {/* Messages */}
-      <CardContent
-        ref={messageEnd}
+      <Stack
+        direction="column"
+        gap={1}
+        ref={messagesRef}
         sx={{
-          height: 'calc(100% - 100px)',
+          height: 'calc(100% - 88px)',
           overflowY: 'auto',
         }}
       >
@@ -110,16 +102,9 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
           <ChatMessage key={i} {...chatMessage} />
         ))}
         {(isMessaging || isTyping) && <ChatTyping />}
-      </CardContent>
+      </Stack>
       {/* New message input */}
-      <Stack
-        direction="row"
-        gap={1}
-        alignItems="flex-end"
-        height="80px"
-        ml={2}
-        mr={2}
-      >
+      <Stack direction="row" gap={1} alignItems="flex-end" height="80px">
         <TextField
           inputRef={inputRef}
           autoFocus
