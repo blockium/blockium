@@ -81,6 +81,7 @@ export const ChatFab: React.FC<ChatFabProps> = ({
   };
 
   const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.currentTarget.blur(); // Avoid blocked aria-hidden on an element
     setOpenPopover(event.currentTarget);
     onOpen?.();
   };
@@ -114,11 +115,7 @@ export const ChatFab: React.FC<ChatFabProps> = ({
         </Fab>
       </Tooltip>
       {fullScreen ? (
-        <Dialog
-          open={Boolean(openPopover)}
-          onClose={onClose}
-          fullScreen={fullScreen}
-        >
+        <Dialog open={Boolean(openPopover)} fullScreen={fullScreen}>
           {children || (
             <ChatWidget
               messages={messages || []}

@@ -4,7 +4,9 @@ import { IChatMessage } from './ChatMessage';
 import { ChatWidget } from './ChatWidget';
 import { PropsWithChildren } from 'react';
 
-const ArrowStyle = styled(Box)<{
+const ArrowStyle = styled(Box, {
+  shouldForwardProp: (prop) => prop !== 'arrowPos',
+})<{
   arrowPos?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 }>(({ theme, arrowPos }) => ({
   [theme.breakpoints.up('xs')]: {
