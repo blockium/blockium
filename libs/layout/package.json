@@ -1,6 +1,6 @@
 {
   "name": "@blockium/layout",
-  "version": "0.0.31",
+  "version": "0.0.32",
   "type": "module",
   "sideEffects": false,
   "scripts": {},

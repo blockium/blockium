@@ -26,6 +26,7 @@ const MainStyle = styled(Box)(({ theme }) => ({
   paddingTop: APP_BAR_MOBILE,
   paddingBottom: theme.spacing(10), // ORIGINAL FROM MINIMAL UI
   // paddingBottom: theme.spacing(0),
+  width: 'min-content',
   [theme.breakpoints.up('lg')]: {
     paddingTop: APP_BAR_DESKTOP,
     paddingLeft: theme.spacing(2),
