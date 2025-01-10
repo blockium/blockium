@@ -115,7 +115,12 @@ export const ChatFab: React.FC<ChatFabProps> = ({
         </Fab>
       </Tooltip>
       {fullScreen ? (
-        <Dialog open={Boolean(openPopover)} fullScreen={fullScreen}>
+        <Dialog
+          open={Boolean(openPopover)}
+          fullScreen={fullScreen}
+          // Fix Blocked aria-hidden on an element because... retained focus:
+          closeAfterTransition={false}
+        >
           {children || (
             <ChatWidget
               messages={messages || []}

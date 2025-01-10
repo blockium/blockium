@@ -90,6 +90,8 @@ export const ChatPopover: React.FC<ChatPopoverProps> = ({
           },
         },
       }}
+      // Fix Blocked aria-hidden on an element because... retained focus:
+      closeAfterTransition={false}
     >
       {children || (
         <ChatWidget
