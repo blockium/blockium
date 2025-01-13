@@ -1,10 +1,11 @@
 import { Avatar, Box, Stack, Typography, useTheme } from '@mui/material';
 
 import { createChatStyles } from './createChatStyles';
+import { ReactElement } from 'react';
 
 export interface IChatMessage {
   avatar?: string;
-  messages?: string[];
+  messages?: (string | ReactElement)[];
   side?: 'left' | 'right';
   AvatarProps?: object;
   TypographyProps?: object;
@@ -40,10 +41,11 @@ export const ChatMessage: React.FC<IChatMessage> = ({
       {side === 'left' && avatar !== '' && (
         <Avatar src={avatar} {...AvatarProps} sx={{ ...styles.avatar }} />
       )}
-      {messages.map((msg, i) => {
-        return (
-          <Box key={i} sx={{ ...styles[`${side}Row`], maxWidth: '80%' }}>
+      <Box sx={{ ...styles[`${side}Row`], maxWidth: '80%' }}>
+        {messages.map((msg, i) => {
+          return typeof msg === 'string' ? (
             <Typography
+              key={i}
               align={'left'}
               {...TypographyProps}
               sx={{
@@ -55,9 +57,11 @@ export const ChatMessage: React.FC<IChatMessage> = ({
             >
               {msg}
             </Typography>
-          </Box>
-        );
-      })}
+          ) : (
+            <Box key={i}>{msg}</Box>
+          );
+        })}
+      </Box>
     </Stack>
   );
 };
