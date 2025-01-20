@@ -3,6 +3,9 @@ import { useLocation } from 'react-router-dom';
 // material
 import { alpha, styled } from '@mui/material/styles';
 import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
   Box,
   List,
   Collapse,
@@ -11,6 +14,7 @@ import {
   ListItemIcon,
   ListItemButton,
   useTheme,
+  Typography,
 } from '@mui/material';
 import { KeyboardArrowDown as KeyboardArrowDownIcon } from '@mui/icons-material';
 import { ChevronRight as ChevronRightIcon } from '@mui/icons-material';
@@ -41,7 +45,43 @@ const ListItemIconStyle = styled(ListItemIcon)({
   justifyContent: 'center',
 });
 
+const StyledAccordion = styled(Accordion)(({ theme }) => ({
+  background: 'transparent',
+  boxShadow: 'none',
+  '&::before': {
+    display: 'none',
+  },
+  '& .MuiAccordionSummary-expandIconWrapper': {
+    display: 'none',
+  },
+  '& .MuiCollapse-root': {
+    '& .MuiCollapse-wrapper': {
+      '& .MuiCollapse-wrapperInner': {
+        marginTop: 0,
+      },
+    },
+  },
+  margin: '0 !important',
+}));
+
+const StyledAccordionSummary = styled(AccordionSummary)(({ theme }) => ({
+  padding: 0,
+  minHeight: 'auto',
+  height: 48,
+  '& .MuiAccordionSummary-content': {
+    margin: '0 !important',
+    paddingLeft: 16,
+    alignItems: 'center',
+    display: 'flex',
+  },
+}));
+
 // ----------------------------------------------------------------------
+
+export interface MenuGroup {
+  subheader: string | ReactElement;
+  items: MenuOption[];
+}
 
 export interface MenuOption {
   label: string;
@@ -184,7 +224,12 @@ function NavMenu({ item, active }: NavMenuProps) {
 }
 
 type NavSectionProps = {
-  sideMenu?: MenuOption[];
+  sideMenu?: (MenuGroup | MenuOption)[];
+};
+
+// Type guard function
+const isMenuGroup = (item: MenuGroup | MenuOption): item is MenuGroup => {
+  return 'subheader' in item && 'items' in item;
 };
 
 export const NavSection: React.FC<NavSectionProps> = ({
@@ -195,12 +240,39 @@ export const NavSection: React.FC<NavSectionProps> = ({
 
   const match = (path: string) => path === pathname;
 
+  const navMenu = (items: MenuOption[]) =>
+    items.map((item) => (
+      <NavMenu key={item.label} item={item} active={match} />
+    ));
+
   return (
     <Box {...other}>
       <List disablePadding sx={{ p: 1 }}>
-        {sideMenu?.map((item) => (
-          <NavMenu key={item.label} item={item} active={match} />
-        ))}
+        {sideMenu?.map((item, index) => {
+          if (isMenuGroup(item)) {
+            return (
+              <StyledAccordion key={index} defaultExpanded>
+                <StyledAccordionSummary>
+                  {typeof item.subheader === 'string' ? (
+                    <Typography
+                      variant="subtitle2"
+                      sx={{ textTransform: 'uppercase', fontSize: 14 }}
+                    >
+                      {item.subheader}
+                    </Typography>
+                  ) : (
+                    item.subheader
+                  )}
+                </StyledAccordionSummary>
+                <AccordionDetails sx={{ p: 0 }}>
+                  {navMenu(item.items)}
+                </AccordionDetails>
+              </StyledAccordion>
+            );
+          } else {
+            return navMenu([item]);
+          }
+        })}
       </List>
     </Box>
   );
