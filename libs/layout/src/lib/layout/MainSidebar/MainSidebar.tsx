@@ -14,6 +14,7 @@ import {
   // Stack,
   // Button,
 } from '@mui/material';
+import { UnfoldMore as UnfoldMoreIcon } from '@mui/icons-material';
 
 import { useTranslation } from 'react-i18next';
 
@@ -35,7 +36,7 @@ const RootStyle = styled('div')(({ theme }) => ({
 const AccountStyle = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-  padding: theme.spacing(2, 2.5),
+  padding: theme.spacing(2, 1.5),
   borderRadius: Number(theme.shape.borderRadius) * 1.5,
   backgroundColor: alpha('#919EAB', 0.12),
   // backgroundColor: theme.palette.grey["500_12"], // MINIMAL UI ORIGINAL
@@ -47,6 +48,7 @@ export interface SideBarConfig {
   tenantName?: string;
   tenantContext?: string;
   tenantPhotoUrl?: string;
+  onTenantClick?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
   logo?: ReactElement;
   sideMenu?: (MenuGroup | MenuOption)[];
 }
@@ -62,7 +64,7 @@ export const MainSidebar: React.FC<MainSidebarProps> = ({
   isOpenSidebar,
   onCloseSidebar,
 }) => {
-  const { tenantName, tenantContext, tenantPhotoUrl, logo } =
+  const { tenantName, tenantContext, tenantPhotoUrl, onTenantClick, logo } =
     sideBarConfig || {};
   const { t } = useTranslation();
 
@@ -93,9 +95,13 @@ export const MainSidebar: React.FC<MainSidebarProps> = ({
 
       {tenantName && (
         <Box sx={{ mb: 3, mx: 2.5 }}>
-          <Link underline="none" href="#">
+          <Link underline="none" href="#" onClick={onTenantClick}>
             <AccountStyle>
-              <Avatar src={tenantPhotoUrl} alt={t('layout:alt.user-photo')} />
+              <Avatar
+                src={tenantPhotoUrl}
+                alt={t('layout:alt.user-photo')}
+                sx={{ width: 24, height: 24 }}
+              />
               <Box sx={{ ml: 2 }}>
                 <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
                   {tenantName}
@@ -113,6 +119,11 @@ export const MainSidebar: React.FC<MainSidebarProps> = ({
                   {tenantContext}
                 </Typography>
               </Box>
+              {onTenantClick && (
+                <UnfoldMoreIcon
+                  sx={{ ml: 1, width: 16, height: 16, color: 'text.secondary' }}
+                />
+              )}
             </AccountStyle>
           </Link>
         </Box>
