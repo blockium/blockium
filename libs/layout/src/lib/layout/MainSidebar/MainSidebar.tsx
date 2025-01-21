@@ -92,7 +92,7 @@ export const MainSidebar: React.FC<MainSidebarProps> = ({
       <Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}>{logo}</Box>
 
       {tenantName && (
-        <Box sx={{ mb: 5, mx: 2.5 }}>
+        <Box sx={{ mb: 3, mx: 2.5 }}>
           <Link underline="none" href="#">
             <AccountStyle>
               <Avatar src={tenantPhotoUrl} alt={t('layout:alt.user-photo')} />

@@ -88,7 +88,7 @@ function MenuGroup({ group, active }: MenuGroupProps) {
   ));
 
   return (
-    <Stack sx={{ px: 2 }}>
+    <Stack sx={{ px: 2, mt: 1 }}>
       {subheader ? (
         <>
           <ListSubheader
@@ -269,7 +269,11 @@ export const NavSection: React.FC<NavSectionProps> = ({
           if (isMenuGroup(item)) {
             return <MenuGroup key={index} group={item} active={match} />;
           } else {
-            return <NavMenu key={item.label} item={item} active={match} />;
+            return (
+              <Box px={2}>
+                <NavMenu key={item.label} item={item} active={match} />
+              </Box>
+            );
           }
         })}
       </List>
