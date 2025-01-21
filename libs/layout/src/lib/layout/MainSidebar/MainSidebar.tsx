@@ -48,7 +48,7 @@ export interface SideBarConfig {
   tenantName?: string;
   tenantContext?: string;
   tenantPhotoUrl?: string;
-  onTenantClick?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
+  onTenantClick?: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   logo?: ReactElement;
   sideMenu?: (MenuGroup | MenuOption)[];
 }
@@ -94,8 +94,8 @@ export const MainSidebar: React.FC<MainSidebarProps> = ({
       <Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}>{logo}</Box>
 
       {tenantName && (
-        <Box sx={{ mb: 3, mx: 2.5 }}>
-          <Link underline="none" href="#" onClick={onTenantClick}>
+        <Box sx={{ mb: 3, mx: 2.5 }} onClick={onTenantClick}>
+          <Link underline="none" href="#">
             <AccountStyle>
               <Avatar
                 src={tenantPhotoUrl}
