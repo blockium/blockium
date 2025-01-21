@@ -121,7 +121,12 @@ export const MainSidebar: React.FC<MainSidebarProps> = ({
               </Box>
               {onTenantClick && (
                 <UnfoldMoreIcon
-                  sx={{ ml: 1, width: 16, height: 16, color: 'text.secondary' }}
+                  sx={{
+                    ml: 'auto',
+                    width: 16,
+                    height: 16,
+                    color: 'text.secondary',
+                  }}
                 />
               )}
             </AccountStyle>

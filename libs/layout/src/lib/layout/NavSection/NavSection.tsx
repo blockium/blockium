@@ -270,8 +270,8 @@ export const NavSection: React.FC<NavSectionProps> = ({
             return <MenuGroup key={index} group={item} active={match} />;
           } else {
             return (
-              <Box px={2}>
-                <NavMenu key={item.label} item={item} active={match} />
+              <Box px={2} key={item.label}>
+                <NavMenu item={item} active={match} />
               </Box>
             );
           }
