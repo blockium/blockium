@@ -100,7 +100,16 @@ export const MainSidebar: React.FC<MainSidebarProps> = ({
                 <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
                   {tenantName}
                 </Typography>
-                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: 'text.secondary',
+                    overflow: 'hidden',
+                    display: '-webkit-box',
+                    WebkitLineClamp: '3', // número de linhas antes de truncar
+                    WebkitBoxOrient: 'vertical',
+                  }}
+                >
                   {tenantContext}
                 </Typography>
               </Box>
