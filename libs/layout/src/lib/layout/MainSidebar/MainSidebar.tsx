@@ -18,7 +18,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 import { Scrollbar } from '../../Scrollbar';
-import { MenuOption, NavSection } from '../NavSection';
+import { MenuGroup, MenuOption, NavSection } from '../NavSection';
 
 // ----------------------------------------------------------------------
 
@@ -48,7 +48,7 @@ export interface SideBarConfig {
   tenantContext?: string;
   tenantPhotoUrl?: string;
   logo?: ReactElement;
-  sideMenu?: MenuOption[];
+  sideMenu?: (MenuGroup | MenuOption)[];
 }
 
 type MainSidebarProps = {
