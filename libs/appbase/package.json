@@ -1,6 +1,6 @@
 {
   "name": "@blockium/appbase",
-  "version": "0.0.48",
+  "version": "0.0.50",
   "type": "module",
   "sideEffects": false,
   "scripts": {},
