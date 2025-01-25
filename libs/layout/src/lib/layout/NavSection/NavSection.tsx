@@ -130,12 +130,13 @@ function NavMenu({ item, active }: NavMenuProps) {
   const isActiveRoot =
     active(item.href) || item.children?.some((child) => active(child.href));
 
-  const { label, href, icon, info, children } = item;
+  const { label, href, icon, info, children, onClick } = item;
 
   const [open, setOpen] = useState(isActiveRoot);
 
   const handleOpen = () => {
     setOpen((prev) => !prev);
+    onClick?.();
   };
 
   const activeRootStyle = {
@@ -237,6 +238,7 @@ function NavMenu({ item, active }: NavMenuProps) {
             theme.palette.mode === 'light' ? 'primary.main' : 'primary.light',
         }),
       }}
+      onClick={onClick}
     >
       <ListItemIconStyle>{icon && icon}</ListItemIconStyle>
       <ListItemText disableTypography primary={label} />
