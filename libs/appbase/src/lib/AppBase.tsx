@@ -1,10 +1,11 @@
-import { PropsWithChildren, ReactElement, Suspense } from 'react';
+import { PropsWithChildren, ReactElement, Suspense, useEffect } from 'react';
 import {
   Route,
   Outlet,
   createBrowserRouter,
   createRoutesFromElements,
   RouterProvider,
+  useNavigate,
 } from 'react-router-dom';
 import { Container } from '@mui/material';
 import './styles.scss';
@@ -28,6 +29,8 @@ import { ThemeConfig, ThemeProvider } from '@blockium/theme';
 import { LoadingPage, NotistackProvider } from '@blockium/ui';
 import { LocalizationProvider } from '@blockium/calendar';
 import { MainLayout, LayoutConfig } from '@blockium/layout';
+
+import { useExtNavigate } from './useExtNavigate';
 
 import { i18nInit } from '@blockium/i18n';
 i18nInit();
@@ -57,6 +60,14 @@ type AuthAppLayoutProps = {
 // It's necessary to wrap the useAuthLayoutConfig hook in a component
 // Because it requires the ThemeProvider context
 const AuthAppLayout: React.FC<AuthAppLayoutProps> = ({ layoutConfig }) => {
+  const [extNavigate] = useExtNavigate();
+  const navigate = useNavigate();
+
+  // Allow components external do route components to navigate
+  useEffect(() => {
+    extNavigate && navigate(extNavigate);
+  }, [extNavigate, navigate]);
+
   const layoutConfigExtended = useAuthLayoutConfig({ layoutConfig });
 
   return (
@@ -78,6 +89,14 @@ type AppLayoutProps = PropsWithChildren & {
 // It's necessary to wrap the useAuthLayoutConfig hook in a component
 // Because it requires the ThemeProvider context
 const AppLayout: React.FC<AppLayoutProps> = ({ layoutConfig, children }) => {
+  const [extNavigate] = useExtNavigate();
+  const navigate = useNavigate();
+
+  // Allow components external do route components to navigate
+  useEffect(() => {
+    extNavigate && navigate(extNavigate);
+  }, [extNavigate, navigate]);
+
   return (
     <MainLayout layoutConfig={layoutConfig}>
       <Container maxWidth={false} sx={{ margin: '0 auto' }}>
