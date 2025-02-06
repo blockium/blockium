@@ -5,6 +5,7 @@ import {
   Dialog,
   Fab,
   IconButton,
+  SxProps,
   Tooltip,
   styled,
 } from '@mui/material';
@@ -55,6 +56,7 @@ type ChatFabProps = PropsWithChildren & {
   width?: number;
   height?: number;
   fullScreen?: boolean;
+  sx?: SxProps;
 };
 
 export const ChatFab: React.FC<ChatFabProps> = ({
@@ -70,6 +72,7 @@ export const ChatFab: React.FC<ChatFabProps> = ({
   width,
   height,
   fullScreen,
+  sx,
 }) => {
   const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
 
@@ -97,7 +100,7 @@ export const ChatFab: React.FC<ChatFabProps> = ({
         <Fab
           color="primary"
           aria-label="add"
-          sx={{ position: 'fixed', ...sxPos[position] }}
+          sx={{ position: 'fixed', ...sxPos[position], ...sx }}
           onClick={handleOpen}
         >
           <StyledBadge
