@@ -1,6 +1,6 @@
 import { useState, PropsWithChildren, ReactElement } from 'react';
 // material
-import { Box } from '@mui/material';
+import { Box, useMediaQuery, useTheme } from '@mui/material';
 import { styled } from '@mui/material/styles';
 //
 import { MainTopbar, TopBarConfig } from '../MainTopbar';
@@ -55,21 +55,49 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
   children,
 }) => {
   const [open, setOpen] = useState(false);
+  const [isDesktopSidebarVisible, setIsDesktopSidebarVisible] = useState(true);
   const [isMainOnTop] = useIsMainOnTop();
+  
+  const theme = useTheme();
+  const isLgScreen = useMediaQuery(theme.breakpoints.up('lg'));
+
+  // Function to handle menu icon click
+  const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    if (isLgScreen) {
+      // On desktop, toggle sidebar visibility
+      setIsDesktopSidebarVisible(!isDesktopSidebarVisible);
+    } else {
+      // On mobile, open the sidebar
+      setOpen(true);
+    }
+  };
 
   return (
     <RootStyle>
       <MainTopbar
-        onOpenSidebar={() => setOpen(true)}
+        onOpenSidebar={handleMenuClick}
         topBarConfig={layoutConfig?.topBar}
         showMenuIcon={!!layoutConfig?.sideBar?.sideMenu}
+        isDesktopSidebarVisible={isDesktopSidebarVisible}
+        isLgScreen={isLgScreen}
       />
       <MainSidebar
         isOpenSidebar={open}
         onCloseSidebar={() => setOpen(false)}
         sideBarConfig={layoutConfig?.sideBar}
+        isDesktopSidebarVisible={isDesktopSidebarVisible}
+        isLgScreen={isLgScreen}
       />
-      <MainStyle sx={{ zIndex: isMainOnTop ? 1 : 0 }}>{children}</MainStyle>
+      <MainStyle 
+        sx={{ 
+          zIndex: isMainOnTop ? 1 : 0,
+          ...(isLgScreen && !isDesktopSidebarVisible && {
+            paddingLeft: theme.spacing(2),
+          })
+        }}
+      >
+        {children}
+      </MainStyle>
     </RootStyle>
   );
 };

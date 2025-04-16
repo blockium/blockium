@@ -3,7 +3,7 @@ import { createGlobalState } from 'react-use';
 // material
 import { alpha, styled } from '@mui/material/styles';
 import { Box, Stack, AppBar, Toolbar, IconButton } from '@mui/material';
-import { Menu as MenuIcon } from '@mui/icons-material';
+import { Menu as MenuIcon, MenuOpen as MenuOpenIcon } from '@mui/icons-material';
 //
 // import { Searchbar } from '../Searchbar';
 import {
@@ -19,14 +19,26 @@ export const DRAWER_WIDTH = 280;
 export const APPBAR_MOBILE = 64;
 export const APPBAR_DESKTOP = 92;
 
-const RootStyle = styled(AppBar)(({ theme }) => ({
+interface RootStyleProps {
+  isDesktopSidebarVisible?: boolean;
+}
+
+const RootStyle = styled(AppBar, {
+  shouldForwardProp: (prop) => prop !== 'isDesktopSidebarVisible',
+})<RootStyleProps>(({ theme, isDesktopSidebarVisible = true }) => ({
   zIndex: 1,
   boxShadow: 'none',
   backdropFilter: 'blur(6px)',
   WebkitBackdropFilter: 'blur(6px)', // Fix on Mobile
   backgroundColor: alpha(theme.palette.background.default, 0.72),
   [theme.breakpoints.up('lg')]: {
-    width: `calc(100% - ${DRAWER_WIDTH + 1}px)`,
+    width: isDesktopSidebarVisible
+      ? `calc(100% - ${DRAWER_WIDTH + 1}px)`
+      : '100%',
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
   },
 }));
 
@@ -48,6 +60,8 @@ interface MainTopbarProps {
   topBarConfig?: TopBarConfig;
   onOpenSidebar: (event: React.MouseEvent<HTMLButtonElement>) => void;
   showMenuIcon: boolean;
+  isDesktopSidebarVisible?: boolean;
+  isLgScreen?: boolean;
 }
 
 export const useTopbar = createGlobalState<ReactElement>(<div></div>);
@@ -57,12 +71,16 @@ export const MainTopbar: React.FC<MainTopbarProps> = ({
   topBarConfig,
   onOpenSidebar,
   showMenuIcon,
+  isDesktopSidebarVisible = true,
+  isLgScreen = false,
 }) => {
   const [topbar] = useTopbar();
   const [topbarExtra] = useTopbarExtra();
 
   return (
-    <RootStyle sx={{ ...(!showMenuIcon && { width: { lg: '100%' } }) }}>
+    <RootStyle 
+      isDesktopSidebarVisible={isDesktopSidebarVisible}
+      sx={{ ...(!showMenuIcon && { width: { lg: '100%' } }) }}>
       <ToolbarStyle>
         <Stack width="100%" sx={{ padding: (theme) => theme.spacing(1.5, 0) }}>
           <Stack direction="row">
@@ -75,10 +93,14 @@ export const MainTopbar: React.FC<MainTopbarProps> = ({
                     theme.palette.grey[
                       theme.palette.mode === 'light' ? 600 : 500
                     ],
-                  display: { lg: 'none' },
+                  // Display in all screen sizes
                 }}
               >
-                <MenuIcon />
+                {isLgScreen && isDesktopSidebarVisible ? (
+                  <MenuOpenIcon />
+                ) : (
+                  <MenuIcon />
+                )}
               </IconButton>
             )}
 

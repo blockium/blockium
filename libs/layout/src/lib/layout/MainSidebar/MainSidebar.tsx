@@ -9,8 +9,6 @@ import {
   Typography,
   Avatar,
   Link,
-  useTheme,
-  useMediaQuery,
   // Stack,
   // Button,
 } from '@mui/material';
@@ -57,12 +55,16 @@ type MainSidebarProps = {
   sideBarConfig?: SideBarConfig;
   isOpenSidebar: boolean;
   onCloseSidebar: () => void;
+  isDesktopSidebarVisible?: boolean;
+  isLgScreen?: boolean;
 };
 
 export const MainSidebar: React.FC<MainSidebarProps> = ({
   sideBarConfig,
   isOpenSidebar,
   onCloseSidebar,
+  isDesktopSidebarVisible = true,
+  isLgScreen = false,
 }) => {
   const { tenantName, tenantContext, tenantPhotoUrl, onTenantClick, logo } =
     sideBarConfig || {};
@@ -70,11 +72,8 @@ export const MainSidebar: React.FC<MainSidebarProps> = ({
 
   const { pathname } = useLocation();
 
-  const theme = useTheme();
-  const isLgScreen = useMediaQuery(theme.breakpoints.up('lg'));
-
   useEffect(() => {
-    if (isOpenSidebar) {
+    if (isOpenSidebar && !isLgScreen) {
       onCloseSidebar();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -175,9 +174,16 @@ export const MainSidebar: React.FC<MainSidebarProps> = ({
     <RootStyle
       sx={{
         width:
-          sideBarConfig?.sideMenu && (isOpenSidebar || isLgScreen)
+          sideBarConfig?.sideMenu &&
+          ((isLgScreen && isDesktopSidebarVisible) ||
+            (!isLgScreen && isOpenSidebar))
             ? DRAWER_WIDTH
             : 0,
+        transition: (t) =>
+          t.transitions.create('width', {
+            easing: t.transitions.easing.sharp,
+            duration: t.transitions.duration.enteringScreen,
+          }),
       }}
     >
       {!isLgScreen && (
@@ -192,13 +198,18 @@ export const MainSidebar: React.FC<MainSidebarProps> = ({
         </Drawer>
       )}
 
-      {isLgScreen && (
+      {isLgScreen && isDesktopSidebarVisible && (
         <Drawer
           open
           variant="persistent"
           PaperProps={{
             sx: {
               width: sideBarConfig?.sideMenu ? DRAWER_WIDTH : 0,
+              transition: (t) =>
+                t.transitions.create('width', {
+                  easing: t.transitions.easing.sharp,
+                  duration: t.transitions.duration.enteringScreen,
+                }),
               bgcolor: 'background.default',
               borderRightStyle: 'dashed',
             },
