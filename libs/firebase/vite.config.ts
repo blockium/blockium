@@ -5,6 +5,7 @@ import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import dts from 'vite-plugin-dts';
 import { join } from 'path';
 // import { externalizeDeps } from 'vite-plugin-externalize-deps';
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import getSrcInputs from '../vite.config.utils';
 // @ts-expect-error: untyped.
 import postprocess from '@stadtlandnetz/rollup-plugin-postprocess';
@@ -84,11 +85,13 @@ export default defineConfig({
         'firebase/functions',
         'firebase/firestore',
         'firebase/storage',
+        'firebase/messaging',
         'axios',
         'i18next',
         'notistack',
         'react-i18next',
         'react-use',
+        '@testing-library/react',
         '@blockium/i18n',
         '@blockium/ui',
         '@blockium/layout',
