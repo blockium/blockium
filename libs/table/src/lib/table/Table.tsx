@@ -167,7 +167,7 @@ export const Table = <T extends object>(props: TableProps<T>) => {
               display: 'flex',
               justifyContent: 'flex-end',
               flexWrap: 'nowrap',
-              gap: '0.5rem',
+              gap: '0.3rem',
             }}
           >
             {/* {onEditClick && (

@@ -24,7 +24,7 @@ export const createChatStyles = (theme: Theme) => {
       marginBottom: 0.5,
       display: 'inline-block',
       wordBreak: 'break-word',
-      fontSize: '1.4rem',
+      fontSize: '0.87rem',
     },
     left: {
       borderTopLeftRadius: 0,

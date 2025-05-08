@@ -18,7 +18,7 @@ export const useTopbarDatePicker = () => {
         sx={{
           display: 'flex',
           alignItems: 'center',
-          gap: '2rem',
+          gap: '1.25rem',
           marginRight: (theme) => theme.spacing(2),
         }}
       >

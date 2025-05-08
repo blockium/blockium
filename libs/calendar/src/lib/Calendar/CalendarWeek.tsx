@@ -47,13 +47,13 @@ const CalendarWeek: React.FC<ICalendarWeekProps> = ({
         justifyItems: 'center',
         gridTemplateColumns: 'repeat(7, 1fr)',
         gap: 2,
-        marginBottom: '4.4rem',
+        marginBottom: '2.75rem',
         cursor: 'pointer',
-        margin: '0.2rem 0',
-        padding: '1rem 0',
+        margin: '0.12rem 0',
+        padding: '0.62rem 0',
         '&:hover': (theme) => {
           return {
-            borderRadius: '0.5rem',
+            borderRadius: '0.3rem',
             outline: `2px dashed ${theme.palette.grey[500]}}`,
           };
         },

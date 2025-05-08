@@ -41,7 +41,7 @@ export const LoginHero: React.FC<LoginHeroProps> = ({
               alt="Login Image"
             ></Box>
           ) : (
-            <Box width="100%" height="100%" marginTop="2rem">
+            <Box width="100%" height="100%" marginTop="1.25rem">
               <LoginSVG />
             </Box>
           )}
@@ -54,7 +54,7 @@ export const LoginHero: React.FC<LoginHeroProps> = ({
           xs={12}
           sm={5}
           xl={7}
-          padding="0 4rem"
+          padding="0 2.5rem"
           height={{ xs: '65%', sm: '100%' }}
         >
           {children}

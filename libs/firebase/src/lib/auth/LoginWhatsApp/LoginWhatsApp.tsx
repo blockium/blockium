@@ -99,7 +99,7 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
 
   return (
     <LoginHero leftImage={leftImage} topImage={topImage}>
-      <Stack alignItems="center" width="300px" margin="2rem 0.5rem">
+      <Stack alignItems="center" width="300px" margin="1.25rem 0.3rem">
         <Typography variant="h6">
           1. {t('firebase:login.whatsapp.msg1')}
         </Typography>
@@ -107,18 +107,18 @@ export const LoginWhatsApp: React.FC<LoginProps> = ({
         <Link
           href={getWhatsAppLink()}
           target="_blank"
-          sx={{ marginTop: '2rem' }}
+          sx={{ marginTop: '1.25rem' }}
         >
           LOGIN:{sessionId}
         </Link>
-        <Typography variant="h6" sx={{ marginTop: '6rem' }}>
+        <Typography variant="h6" sx={{ marginTop: '3.75rem' }}>
           2. {t('firebase:login.whatsapp.msg2')}
         </Typography>
         <CTAButton
           onClick={finishLogin}
           // variant="outlined"
           loading={loadingWhatsApp}
-          sx={{ marginTop: '2rem' }}
+          sx={{ marginTop: '1.25rem' }}
         >
           {t('firebase:button.enter')}
         </CTAButton>

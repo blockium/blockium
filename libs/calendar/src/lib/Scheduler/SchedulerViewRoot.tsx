@@ -84,7 +84,7 @@ export const SchedulerViewRoot = styled('div')(({ theme }) => ({
 
     '& .fc .fc-col-header': {
       '.fc-col-header-cell-cushion': {
-        fontSize: '1rem',
+        fontSize: '0.62rem',
       },
     },
     '& .fc-h-event .fc-event-main': {

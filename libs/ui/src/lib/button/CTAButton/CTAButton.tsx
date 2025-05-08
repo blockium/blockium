@@ -24,7 +24,7 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
       color="primary"
       onClick={onClick}
       disabled={disabled || loading}
-      sx={{ padding: '1.2rem 2.4rem', borderRadius: '0.6em', ...sx }}
+      sx={{ padding: '0.75rem 1.5rem', borderRadius: '0.375rem', ...sx }}
       {...rest}
     >
       {loading ? (

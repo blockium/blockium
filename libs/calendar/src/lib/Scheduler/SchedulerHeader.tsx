@@ -112,7 +112,7 @@ export const SchedulerHeader: React.FC<SchedulerHeaderProps> = ({
         md={4}
         justifyContent="center"
         alignItems="center"
-        px="1rem"
+        px="0.62rem"
       >
         <Typography
           variant="h5"

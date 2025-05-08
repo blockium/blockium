@@ -77,10 +77,10 @@ export const ChatFab: React.FC<ChatFabProps> = ({
   const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
 
   const sxPos = {
-    'top-left': { top: '2rem', left: '2rem' },
-    'top-right': { top: '2rem', right: '2rem' },
-    'bottom-left': { bottom: '2rem', left: '2rem' },
-    'bottom-right': { bottom: '2rem', right: '2rem' },
+    'top-left': { top: '1.25rem', left: '1.25rem' },
+    'top-right': { top: '1.25rem', right: '1.25rem' },
+    'bottom-left': { bottom: '1.25rem', left: '1.25rem' },
+    'bottom-right': { bottom: '1.25rem', right: '1.25rem' },
   };
 
   const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {

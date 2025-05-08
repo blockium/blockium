@@ -17,8 +17,8 @@ export interface BaseSvgIconProps extends SvgIconProps {
 
 export const BaseSvgIcon: React.FC<BaseSvgIconProps> = ({
   children,
-  width = '3rem',
-  height = '3rem',
+  width = '1.87rem',
+  height = '1.87rem',
   ...rest
 }) => {
   return (

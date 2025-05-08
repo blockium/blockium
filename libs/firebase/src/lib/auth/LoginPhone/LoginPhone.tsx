@@ -19,7 +19,7 @@ export const LoginPhone: React.FC<LoginProps> = ({
 }) => {
   return (
     <LoginHero leftImage={leftImage} topImage={topImage}>
-      <Stack alignItems="center" width="300px" margin="2rem 0.5rem">
+      <Stack alignItems="center" width="300px" margin="1.25rem 0.3rem">
         <PhoneForm
           afterPhoneLoginApi={afterPhoneLoginApi}
           onAfterLogin={onAfterLogin}

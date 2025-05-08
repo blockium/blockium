@@ -174,54 +174,54 @@ export const Login: React.FC<LoginProps> = ({
 
   return (
     <LoginHero leftImage={leftImage} topImage={topImage}>
-      <Stack alignItems="center" width="300px" margin="2rem 0.5rem">
+      <Stack alignItems="center" width="300px" margin="1.25rem 0.3rem">
         {loginMethods.map((loginMethod, index) => {
           return loginMethod === 'whatsapp' ? (
             // Box used instead of Stack gap due to support for old browsers
-            <Box key={index} sx={{ pb: '2rem', width: '100%' }}>
+            <Box key={index} sx={{ pb: '1.25rem', width: '100%' }}>
               <CTAButton
                 onClick={loginWithWhatsApp}
-                startIcon={<WhatsAppIcon sx={{ marginRight: '0.5rem' }} />}
+                startIcon={<WhatsAppIcon sx={{ marginRight: '0.3rem' }} />}
                 fullWidth
                 loading={loadingWhatsApp}
                 disabled={loadingGoogle}
-                sx={{ height: '5.5rem' }}
+                sx={{ height: '3.5rem' }}
               >
                 {t('firebase:button.loginWithWhatsApp')}
               </CTAButton>
             </Box>
           ) : loginMethod === 'phone' ? (
-            <Box key={index} sx={{ pb: '2rem', width: '100%' }}>
+            <Box key={index} sx={{ pb: '1.25rem', width: '100%' }}>
               <CTAButton
                 onClick={loginWithPhone}
-                startIcon={<PhoneIcon sx={{ marginRight: '0.5rem' }} />}
+                startIcon={<PhoneIcon sx={{ marginRight: '0.3rem' }} />}
                 fullWidth
                 variant="outlined"
                 color="secondary"
                 disabled={loadingWhatsApp || loadingGoogle}
-                sx={{ height: '5.5rem' }}
+                sx={{ height: '3.5rem' }}
               >
                 {t('firebase:button.loginWithPhone')}
               </CTAButton>
             </Box>
           ) : loginMethod === 'google' ? (
-            <Box key={index} sx={{ pb: '2rem', width: '100%' }}>
+            <Box key={index} sx={{ pb: '1.25rem', width: '100%' }}>
               <CTAButton
                 onClick={loginWithGoogle}
-                startIcon={<GoogleIcon sx={{ marginRight: '0.5rem' }} />}
+                startIcon={<GoogleIcon sx={{ marginRight: '0.3rem' }} />}
                 fullWidth
                 variant="outlined"
                 color="secondary"
                 loading={loadingGoogle}
                 disabled={loadingWhatsApp}
-                sx={{ height: '5.5rem' }}
+                sx={{ height: '3.5rem' }}
               >
                 {t('firebase:button.loginWithGoogle')}
               </CTAButton>
             </Box>
           ) : (
-            <Box key={index} sx={{ pb: '2rem', width: '100%' }}>
-              <Box sx={{ height: '2rem' }}></Box>
+            <Box key={index} sx={{ pb: '1.25rem', width: '100%' }}>
+              <Box sx={{ height: '1.25rem' }}></Box>
             </Box>
           );
         })}

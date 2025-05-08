@@ -197,7 +197,7 @@ export const PhoneForm: React.FC<PhoneFormProps> = ({
   };
 
   return (
-    <Stack gap="1rem" width="100%">
+    <Stack gap="0.62rem" width="100%">
       {/* Phone Number Input and Sign In Button */}
       <TextField
         type="tel"
@@ -213,7 +213,7 @@ export const PhoneForm: React.FC<PhoneFormProps> = ({
       {!confirmationResult && (
         <CTAButton
           onClick={login}
-          startIcon={<PhoneIcon sx={{ marginRight: '1rem' }} />}
+          startIcon={<PhoneIcon sx={{ marginRight: '0.62rem' }} />}
           loading={loading}
           disabled={phoneNumber.length < 11}
         >

@@ -47,7 +47,7 @@ export const CalendarMonth = forwardRef<HTMLBaseElement, CalendarMonthProps>(
             theme.palette.mode === 'light' ? 'primary.dark' : 'primary.light'
           }
           variant="h6"
-          margin="2.5rem 0 0.5rem 0"
+          margin="1.6rem 0 0.3rem 0"
         >
           {capitalizeFirstLetter(
             date.toLocaleString('default', { month: 'long' }),
