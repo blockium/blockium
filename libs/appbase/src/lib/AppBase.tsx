@@ -44,6 +44,8 @@ export interface AuthConfig {
   loginWithRedirect?: boolean;
   leftImage?: string;
   topImage?: string;
+  termsUrl?: string;
+  privacyUrl?: string;
   zapNewSessionApi?: string;
   zapLoginPhone?: string;
   afterEmailLoginApi?: string;
@@ -174,6 +176,8 @@ export const AppBase: React.FC<AppBaseProps> = ({
     loginWithRedirect,
     leftImage,
     topImage,
+    termsUrl,
+    privacyUrl,
     zapNewSessionApi,
     zapLoginPhone,
     afterEmailLoginApi,
@@ -240,6 +244,8 @@ export const AppBase: React.FC<AppBaseProps> = ({
                             loginWithRedirect={loginWithRedirect}
                             leftImage={leftImage}
                             topImage={topImage || leftImage}
+                            termsUrl={termsUrl}
+                            privacyUrl={privacyUrl}
                             zapNewSessionApi={zapNewSessionApi}
                             zapLoginPhone={zapLoginPhone}
                             afterEmailLoginApi={afterEmailLoginApi}
@@ -256,6 +262,8 @@ export const AppBase: React.FC<AppBaseProps> = ({
                             loginWithRedirect={loginWithRedirect}
                             leftImage={leftImage}
                             topImage={topImage || leftImage}
+                            termsUrl={termsUrl}
+                            privacyUrl={privacyUrl}
                             zapNewSessionApi={zapNewSessionApi}
                             zapLoginPhone={zapLoginPhone}
                             afterEmailLoginApi={afterEmailLoginApi}

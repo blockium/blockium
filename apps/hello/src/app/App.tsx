@@ -22,6 +22,7 @@ export function App() {
   };
   const authConfig: AuthConfig = {
     config: firebaseConfig,
+    // loginMethods: ['google', 'phone', 'whatsapp'],
   };
 
   // You get access to i18n too:

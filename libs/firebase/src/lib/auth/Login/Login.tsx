@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { enqueueSnackbar } from 'notistack';
-import { Box, Stack } from '@mui/material';
+import { Box, Link, Stack, Typography } from '@mui/material';
 import { Phone as PhoneIcon } from '@mui/icons-material';
 
 import { useTranslation } from 'react-i18next';
@@ -22,6 +22,8 @@ type LoginProps = {
   loginWithRedirect?: boolean;
   leftImage?: string;
   topImage?: string;
+  termsUrl?: string;
+  privacyUrl?: string;
   zapNewSessionApi?: string;
   zapLoginPhone?: string;
   afterEmailLoginApi?: string;
@@ -36,6 +38,8 @@ export const Login: React.FC<LoginProps> = ({
   loginWithRedirect = false,
   leftImage,
   topImage,
+  termsUrl,
+  privacyUrl,
   zapNewSessionApi,
   zapLoginPhone,
   afterEmailLoginApi,
@@ -225,6 +229,30 @@ export const Login: React.FC<LoginProps> = ({
             </Box>
           );
         })}
+        <Typography variant="body2" align="center" mt={2}>
+          Ao entrar você concorda com nossos{' '}
+          <span style={{ fontWeight: 'bold' }}>
+            <Link
+              href={termsUrl}
+              underline="hover"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              termos de uso
+            </Link>
+          </span>{' '}
+          e{' '}
+          <span style={{ fontWeight: 'bold' }}>
+            <Link
+              href={privacyUrl}
+              underline="hover"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              privacidade
+            </Link>
+          </span>
+        </Typography>
       </Stack>
     </LoginHero>
   );
