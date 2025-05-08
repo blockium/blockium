@@ -8,6 +8,7 @@ import Tooltip from './Tooltip';
 // import Backdrop from './Backdrop';
 import Typography from './Typography';
 import CssBaseline from './CssBaseline';
+// import ScopedCssBaseline from './ScopedCssBaseline';
 import Autocomplete from './Autocomplete';
 import MobileStepper from './MobileStepper';
 import LocalizationProvider from './LocalizationProvider';
@@ -25,6 +26,7 @@ export default function ComponentsOverrides(theme: Theme) {
     // Backdrop(theme),
     Typography(theme),
     CssBaseline(theme),
+    // ScopedCssBaseline(theme),
     Autocomplete(theme),
     MobileStepper(theme),
     LocalizationProvider(theme),

@@ -9,6 +9,7 @@ import {
   createTheme,
   ThemeProvider as BaseThemeProvider,
   CssBaseline,
+  // ScopedCssBaseline,
   ThemeOptions,
   LinkProps,
 } from '@mui/material';
@@ -156,6 +157,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
   return (
     <BaseThemeProvider theme={theme}>
       <CssBaseline />
+      {/* <ScopedCssBaseline>{children}</ScopedCssBaseline> */}
       {children}
     </BaseThemeProvider>
   );

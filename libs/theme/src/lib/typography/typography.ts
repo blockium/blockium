@@ -38,7 +38,7 @@ export interface FontConfig {
   };
 }
 
-const htmlFontSize = 10;
+const htmlFontSize = 16;
 const fontSize = 14;
 const coef = fontSize / 14;
 
